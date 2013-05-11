@@ -10,6 +10,7 @@ gem 'devise'
 gem 'cancan'
 gem 'jquery-ui-rails'
 gem 'foreigner'
+gem 'devise-i18n-views'
 
 # Gems used only for assets and not required
 # in production environments by default.
