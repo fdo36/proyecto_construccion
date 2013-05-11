@@ -17,8 +17,9 @@ development:
   encoding: unicode
   database: proyecto_construccion_development
   pool: 5
-  username: proyecto_construccion
-  password:
+  username: stifler
+  password: stifler
+  host: localhost
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
