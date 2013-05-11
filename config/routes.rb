@@ -1,4 +1,7 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :companies
+
+
   devise_for :users
 
   # The priority is based upon order of creation:
