@@ -1,14 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ProyectoConstruccion</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+	<meta charset="utf-8">
+	<title>Centros de Acopio</title>
+
+  	<%= stylesheet_link_tag    "application", :media => "all" %>
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
+
+	<link rel="stylesheet" href="/css/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="/plugins/datatables/media/css/data_table.css" />
+	<link  rel="stylesheet" href="/css/styles.css" type="text/css"></style>
+	<link  rel="stylesheet" href="/css/default_buttons.css" type="text/css"></style>
+
+	<script src="/js/jquery-ui.js"></script>
+	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTablesES.js"></script>
+
+	<script>
+		$(function() {
+			$( ".date" ).datepicker();
+
+		    $('.datatable').dataTable({
+				"sPaginationType": "full_numbers",
+				"bJQueryUI": true,
+				"aoColumnDefs": [
+		      { "bSortable": false, "aTargets": [ -1 ] }
+		    ] } );
+
+		});
+		$(document).on("click", "#mostrar-dialog",function(event) 
+		{	
+			$( "#dialog-modal" ).dialog( "open" );
+		});
+  	</script>
 </head>
 <body>
 
-<%= yield %>
+	<div id="container">
+
+		<section id="content">
+			
+
+			<div class="contentPanel">
+				<%= yield %>
+			</div>
+
+			<section id="left">
+				<div id="leftCol">
+		
+					<ul id="action" >
+						<h2 class="headLeft"> Entradas/Salidas </h2>
+						<li> <p>Ingresos</p></li>
+						<li> <p>Temporadas</p></li>
+						<li> <p>Despachos</p></li>
+						<li> <p>Informes</p></li>
+					</ul>
+					
+					<ul id="maintainer" >
+						<h2 class="headLeft"> Recursos </h2>
+						<li> <p>Productores</p></li>
+						<li> <p>Envases</p></li>
+					</ul>
+					
+				</div>
+			</section>
+		</section>
+
+		<section id="top">
+			<div id="pageHead">
+				<div id="logo">
+					<img src="/images/des.png" width="40" height="40">
+					<h1 id="textLogo">Sistema Centros de Acopio</h1>
+				</div>
+				<div class="tools">
+					<div class="toolsCompressed">
+						<p> Usuario</p>
+					</div>
+					
+					<ul class="toolsMenu">
+
+						<li> <p>Cuentas</p> </li>
+						<li> <p>Permisos</p></li>
+						<li> <p>Cerrar Sesión</p> </li>
+					</ul>
+				</div>
+
+				<div class="tools first-tool">
+					<div class="toolsCompressed">
+						<p> Herramientas</p>
+					</div>
+					
+					<ul class="toolsMenu">
+						<li> <p>Configuración</p> </li>
+						<li> <p>Ayuda</p> </li>
+						<li> <p>Acerca de</p></li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+	</div>
 
 </body>
 </html>
+

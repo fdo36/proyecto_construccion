@@ -1,5 +1,6 @@
+<div class="box">
 <%= form_for(@company) do |f| %>
-  <% if @company.errors.any? %>
+   <% if @company.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
 
@@ -11,35 +12,67 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Nombre %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :name %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :rut %><br />
-    <%= f.number_field :rut %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :RUT %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :rut %>
+    </div>
+
+    <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Dirección %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :address %>
+    </div>
+
+    <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Ciudad %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :city %>
+    </div>
+
+    <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Giro_del_Negocio %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :line_of_business %>
+    </div>
+
+    <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Teléfono %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :phone %>
+    </div>
+
+    <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Email %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :email %>
+    </div>
+    
   </div>
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :city %><br />
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :line_of_business %><br />
-    <%= f.text_field :line_of_business %>
-  </div>
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.number_field :phone %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', companies_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
 <% end %>
