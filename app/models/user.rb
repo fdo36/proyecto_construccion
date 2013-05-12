@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  ROLES = %w[admin packing_user]
+  ROLES = %w[superadmin admin packing_user acopio_user]
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -17,5 +17,9 @@ class User < ActiveRecord::Base
     ROLES.reject do |r|
       ((roles_mask || 0) & 2**ROLES.index(r)).zero?
     end
+  end
+
+  def active?
+      active
   end
 end
