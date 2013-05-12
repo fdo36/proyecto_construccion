@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
-
+<div class="headContent">
+  <h1>Ver Compañia</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', companies_path , :class => "button blue alignright" %>
 <p>
   <b>Name:</b>
   <%= @company.name %>
@@ -36,5 +40,7 @@
 </p>
 
 
-<%= link_to 'Edit', edit_company_path(@company) %> |
-<%= link_to 'Back', companies_path %>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_company_path(@company) , :class => "button green alignright" %>
+</div>
