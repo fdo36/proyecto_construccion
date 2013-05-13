@@ -1,41 +1,47 @@
-<h1>Listing users</h1>
+<div class="headContent">
+  <h1>Lista de Usuarios</h1>
+</div>
+<div class="box">
+    <%= link_to 'Nuevo Usuario', new_user_path , :class => "button blue alignright" %>
 
-<table>
-  <tr>
-    <th>Email</th>
-    <th>Password</th>
-    <th>Password confirmation</th>
-    <th>Active</th>
-    <th>Phone</th>
-    <th>Name</th>
-    <th>Lastname</th>
-    <th>Gender</th>
-    <th>Secret question</th>
-    <th>Secret answer</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+    <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+        <thead>
+            <tr>
+                <th style="width:20% !important;">Email</th>
+                
+                <th>Active</th>
+                <th>Phone</th>
+                <th>Name</th>
+                <th>Lastname</th>
+                <th>Gender</th>
+                <th>Secret question</th>
+                <th>Secret answer</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead> 
+    <tbody>     
 
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.email %></td>
-    <td><%= user.password %></td>
-    <td><%= user.password_confirmation %></td>
-    <td><%= user.active %></td>
-    <td><%= user.phone %></td>
-    <td><%= user.name %></td>
-    <td><%= user.lastname %></td>
-    <td><%= user.gender %></td>
-    <td><%= user.secret_question %></td>
-    <td><%= user.secret_answer %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+    <% @users.each do |user| %>
+        <tr>
+            <td><%= user.email %></td>
+            
+            <td><%= user.active %></td>
+            <td><%= user.phone %></td>
+            <td><%= user.name %></td>
+            <td><%= user.lastname %></td>
+            <td><%= user.gender %></td>
+            <td><%= user.secret_question %></td>
+            <td><%= user.secret_answer %></td>
+            <td><%= link_to 'Ver', user %></td>
+            <td><%= link_to 'Editar', edit_user_path(user) %></td>
+            <td><%= link_to 'Eliminar', user, method: :delete, data: { confirm: '¿Esta seguro de eliminar este Usuario?' } %></td>
+        </tr>
+    <% end %>
+        </tbody>
+    </table>
+</div>
 
-<br />
 
-<%= link_to 'New User', new_user_path %>
+

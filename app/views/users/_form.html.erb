@@ -1,57 +1,111 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<div class="box">
+  <%= form_for(@user) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :email %><br />
+      </div>
+      <div class="forme-in">
+         <%= f.text_field :email %>
+      </div>
+    </div>     
+    
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :password %><br />
+      </div>  
+      <div class="forme-in">  
+        <%= f.text_field :password %>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.text_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.text_field :password_confirmation %>
-  </div>
-  <div class="field">
-    <%= f.label :active %><br />
-    <%= f.check_box :active %>
-  </div>
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.number_field :phone %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :lastname %><br />
-    <%= f.text_field :lastname %>
-  </div>
-  <div class="field">
-    <%= f.label :gender %><br />
-    <%= f.check_box :gender %>
-  </div>
-  <div class="field">
-    <%= f.label :secret_question %><br />
-    <%= f.text_field :secret_question %>
-  </div>
-  <div class="field">
-    <%= f.label :secret_answer %><br />
-    <%= f.text_field :secret_answer %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :password_confirmation %><br />
+      </div>    
+      <div class="forme-in">  
+        <%= f.text_field :password_confirmation %>
+      </div>
+    </div>  
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :active %><br />
+      </div>  
+      <div class="forme-in">
+        <%= f.check_box :active %>
+      </div>
+    </div>  
+
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :phone %><br />
+      </div>  
+      <div class="forme-in">
+        <%= f.number_field :phone %>
+      </div>
+    </div>    
+    
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :name %><br />
+      </div>    
+      <div class="forme-in">
+        <%= f.text_field :name %>
+      </div>  
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :lastname %><br />
+      </div>  
+      <div class="forme-in">
+        <%= f.text_field :lastname %>    
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :gender %><br />
+      </div>
+      <div class="forme-in">
+        <%= f.check_box :gender %>
+      </div>
+    </div>      
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :secret_question %><br />
+      </div>
+      <div class="forme-in">  
+        <%= f.text_field :secret_question %>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :secret_answer %><br />
+      </div>  
+      <div class="forme-in">
+      <%= f.text_field :secret_answer %>
+      </div>  
+    </div>
+</div>
+
+<div class="foot-box">
+  <%= link_to 'Cancelar', users_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+ <% end %>

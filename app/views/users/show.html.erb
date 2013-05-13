@@ -1,55 +1,59 @@
 <p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Usuario</h1>
+</div>
+<div class="box">
+  <%= link_to 'Volver', user_path , :class => "button blue alignright" %>
+  <p>
+    <b>Email:</b>
+    <%= @user.email %>
+  </p>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
+  <p>
+    <b>Password:</b>
+    <%= @user.password %>
+  </p>
 
-<p>
-  <b>Password:</b>
-  <%= @user.password %>
-</p>
+  <p>
+    <b>Password confirmation:</b>
+    <%= @user.password_confirmation %>
+  </p>
 
-<p>
-  <b>Password confirmation:</b>
-  <%= @user.password_confirmation %>
-</p>
+  <p>
+    <b>Active:</b>
+    <%= @user.active %>
+  </p>
 
-<p>
-  <b>Active:</b>
-  <%= @user.active %>
-</p>
+  <p>
+    <b>Phone:</b>
+    <%= @user.phone %>
+  </p>
 
-<p>
-  <b>Phone:</b>
-  <%= @user.phone %>
-</p>
+  <p>
+    <b>Name:</b>
+    <%= @user.name %>
+  </p>
 
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
+  <p>
+    <b>Lastname:</b>
+    <%= @user.lastname %>
+  </p>
 
-<p>
-  <b>Lastname:</b>
-  <%= @user.lastname %>
-</p>
+  <p>
+    <b>Gender:</b>
+    <%= @user.gender %>
+  </p>
 
-<p>
-  <b>Gender:</b>
-  <%= @user.gender %>
-</p>
+  <p>
+    <b>Secret question:</b>
+    <%= @user.secret_question %>
+  </p>
 
-<p>
-  <b>Secret question:</b>
-  <%= @user.secret_question %>
-</p>
-
-<p>
-  <b>Secret answer:</b>
-  <%= @user.secret_answer %>
-</p>
-
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+  <p>
+    <b>Secret answer:</b>
+    <%= @user.secret_answer %>
+  </p>
+</div>  
+<div class="foot-box">
+  <%= link_to 'Editar', edit_user_path(@user) , :class => "button green alignright" %>
+</div>
