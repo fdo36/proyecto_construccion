@@ -2,6 +2,16 @@
 
 <table>
   <tr>
+    <th>Email</th>
+    <th>Password</th>
+    <th>Password confirmation</th>
+    <th>Active</th>
+    <th>Phone</th>
+    <th>Name</th>
+    <th>Lastname</th>
+    <th>Gender</th>
+    <th>Secret question</th>
+    <th>Secret answer</th>
     <th></th>
     <th></th>
     <th></th>
@@ -9,6 +19,16 @@
 
 <% @users.each do |user| %>
   <tr>
+    <td><%= user.email %></td>
+    <td><%= user.password %></td>
+    <td><%= user.password_confirmation %></td>
+    <td><%= user.active %></td>
+    <td><%= user.phone %></td>
+    <td><%= user.name %></td>
+    <td><%= user.lastname %></td>
+    <td><%= user.gender %></td>
+    <td><%= user.secret_question %></td>
+    <td><%= user.secret_answer %></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>

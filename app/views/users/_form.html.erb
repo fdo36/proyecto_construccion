@@ -11,6 +11,46 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.text_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.text_field :password_confirmation %>
+  </div>
+  <div class="field">
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.number_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :lastname %><br />
+    <%= f.text_field :lastname %>
+  </div>
+  <div class="field">
+    <%= f.label :gender %><br />
+    <%= f.check_box :gender %>
+  </div>
+  <div class="field">
+    <%= f.label :secret_question %><br />
+    <%= f.text_field :secret_question %>
+  </div>
+  <div class="field">
+    <%= f.label :secret_answer %><br />
+    <%= f.text_field :secret_answer %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
