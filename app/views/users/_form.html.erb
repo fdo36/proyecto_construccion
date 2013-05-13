@@ -14,7 +14,7 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :email %><br />
+        <%= f.label :Correo_electrónico %><br />
       </div>
       <div class="forme-in">
          <%= f.text_field :email %>
@@ -23,25 +23,25 @@
     
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :password %><br />
+        <%= f.label :Contraseña %><br />
       </div>  
       <div class="forme-in">  
-        <%= f.text_field :password %>
+        <%= f.password_field :password %>
       </div>
     </div>
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :password_confirmation %><br />
+        <%= f.label :Confirma_tu_contraseña %><br />
       </div>    
       <div class="forme-in">  
-        <%= f.text_field :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
       </div>
     </div>  
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :active %><br />
+        <%= f.label :Activo %><br />
       </div>  
       <div class="forme-in">
         <%= f.check_box :active %>
@@ -51,7 +51,7 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :phone %><br />
+        <%= f.label :Teléfono %><br />
       </div>  
       <div class="forme-in">
         <%= f.number_field :phone %>
@@ -60,7 +60,7 @@
     
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :name %><br />
+        <%= f.label :Nombre %><br />
       </div>    
       <div class="forme-in">
         <%= f.text_field :name %>
@@ -69,7 +69,7 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :lastname %><br />
+        <%= f.label :Apellido %><br />
       </div>  
       <div class="forme-in">
         <%= f.text_field :lastname %>    
@@ -78,7 +78,7 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :gender %><br />
+        <%= f.label :Genero %><br />
       </div>
       <div class="forme-in">
         <%= f.check_box :gender %>
@@ -87,7 +87,7 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :secret_question %><br />
+        <%= f.label :Pregunta_secreta %><br />
       </div>
       <div class="forme-in">  
         <%= f.text_field :secret_question %>
@@ -96,7 +96,7 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :secret_answer %><br />
+        <%= f.label :Respuesta_Secreta %><br />
       </div>  
       <div class="forme-in">
       <%= f.text_field :secret_answer %>
