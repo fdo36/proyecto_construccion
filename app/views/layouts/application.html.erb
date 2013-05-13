@@ -82,7 +82,7 @@
 
 						<li> <p>Cuentas</p> </li>
 						<li> <p>Permisos</p></li>
-						<li> <p>Cerrar Sesión</p> </li>
+						<li><p><%= link_to('Cerrar sesión', destroy_user_session_path, :method => :delete) %></p> </li>
 					</ul>
 				</div>
 

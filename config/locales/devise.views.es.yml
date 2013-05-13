@@ -2,7 +2,8 @@ es:
   devise:
     failure:
       user:
-         not_found_in_database: Combinación de Correo electronico/Contraseña errónea 	
+         not_found_in_database: Combinación de Correo electronico/Contraseña errónea
+         unauthenticated: Debe identificarse antes de continuar
     confirmations:
       new:
         resend_confirmation_instructions: Reenviar instrucciones de confirmación
