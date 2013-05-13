@@ -30,7 +30,7 @@ class Ability
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
     user ||= User.new # guest user (not logged in)
     if user.roles.include?('superadmin')
-        can :manage, :users
+        can :manage, User
     end
   end
 end

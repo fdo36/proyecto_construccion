@@ -80,7 +80,7 @@
 					
 					<ul class="toolsMenu">
 
-						<li> <p>Cuentas</p> </li>
+						<li><p><%= link_to('Cuentas', users_path) %></p></li>
 						<li> <p>Permisos</p></li>
 						<li><p><%= link_to('Cerrar sesión', destroy_user_session_path, :method => :delete) %></p> </li>
 					</ul>
