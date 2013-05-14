@@ -1,4 +1,10 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :roles
+
+
+  resources :right_accesses
+
+
   resources :companies
 
   devise_for :users

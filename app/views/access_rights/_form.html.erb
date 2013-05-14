@@ -1,0 +1,25 @@
+<%= form_for(@access_right) do |f| %>
+  <% if @access_right.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@access_right.errors.count, "error") %> prohibited this access_right from being saved:</h2>
+
+      <ul>
+      <% @access_right.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :model %><br />
+    <%= f.text_field :model %>
+  </div>
+  <div class="field">
+    <%= f.label :right %><br />
+    <%= f.number_field :right %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130512212840) do
+ActiveRecord::Schema.define(:version => 20130514011131) do
+
+  create_table "access_rights", :force => true do |t|
+    t.string   "model_name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "role_id"
+    t.string   "action"
+  end
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -24,6 +32,21 @@ ActiveRecord::Schema.define(:version => 20130512212840) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+  end
+
+  add_index "roles_users", ["role_id", "user_id"], :name => "index_roles_users_on_role_id_and_user_id"
+  add_index "roles_users", ["user_id", "role_id"], :name => "index_roles_users_on_user_id_and_role_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -45,10 +68,13 @@ ActiveRecord::Schema.define(:version => 20130512212840) do
     t.boolean  "gender"
     t.string   "secret_question"
     t.string   "secret_answer"
-    t.integer  "roles_mask"
+    t.boolean  "super_admin"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  add_foreign_key "roles_users", "roles", :name => "roles_users_role_id_fk"
+  add_foreign_key "roles_users", "users", :name => "roles_users_user_id_fk"
 
 end
