@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Rut:</b>
+  <%= @destination.rut %>
+</p>
+
+<p>
+  <b>Company name:</b>
+  <%= @destination.company_name %>
+</p>
+
+<p>
+  <b>Commune:</b>
+  <%= @destination.commune_id %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @destination.address %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @destination.email %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @destination.phone %>
+</p>
+
+<p>
+  <b>Contact:</b>
+  <%= @destination.contact %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%= @destination.active %>
+</p>
+
+
+<%= link_to 'Edit', edit_destination_path(@destination) %> |
+<%= link_to 'Back', destinations_path %>

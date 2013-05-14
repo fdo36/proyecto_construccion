@@ -1,0 +1,23 @@
+<h1>Listing qualities</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @qualities.each do |quality| %>
+  <tr>
+    <td><%= quality.name %></td>
+    <td><%= link_to 'Show', quality %></td>
+    <td><%= link_to 'Edit', edit_quality_path(quality) %></td>
+    <td><%= link_to 'Destroy', quality, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Quality', new_quality_path %>

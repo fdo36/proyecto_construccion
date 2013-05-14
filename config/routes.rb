@@ -1,4 +1,22 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :destinations
+
+
+  resources :varieties
+
+
+  resources :kinds
+
+
+  resources :qualities
+
+
+  resources :groupings
+
+
+  resources :producers
+
+
   resources :roles
 
 

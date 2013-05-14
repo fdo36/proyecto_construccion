@@ -1,0 +1,41 @@
+<h1>Listing producers</h1>
+
+<table>
+  <tr>
+    <th>Rut</th>
+    <th>Company name</th>
+    <th>Line of business</th>
+    <th>Commune</th>
+    <th>Address</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>Contact</th>
+    <th>Sag code</th>
+    <th>Active</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @producers.each do |producer| %>
+  <tr>
+    <td><%= producer.rut %></td>
+    <td><%= producer.company_name %></td>
+    <td><%= producer.line_of_business %></td>
+    <td><%= producer.commune_id %></td>
+    <td><%= producer.address %></td>
+    <td><%= producer.email %></td>
+    <td><%= producer.phone %></td>
+    <td><%= producer.contact %></td>
+    <td><%= producer.sag_code %></td>
+    <td><%= producer.active %></td>
+    <td><%= link_to 'Show', producer %></td>
+    <td><%= link_to 'Edit', edit_producer_path(producer) %></td>
+    <td><%= link_to 'Destroy', producer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Producer', new_producer_path %>
