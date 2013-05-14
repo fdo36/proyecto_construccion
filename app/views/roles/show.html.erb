@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
-
+<div class="headContent">
+  <h1>Ver Rol</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', roles_path , :class => "button blue alignright" %>
 <p>
   <b>Name:</b>
   <%= @role.name %>
@@ -11,5 +15,7 @@
 </p>
 
 
-<%= link_to 'Edit', edit_role_path(@role) %> |
-<%= link_to 'Back', roles_path %>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_role_path(@role) , :class => "button green alignright" %>
+</div>
