@@ -41,6 +41,7 @@ class ContainersController < ApplicationController
   # POST /containers.json
   def create
     @container = Container.new(params[:container])
+    @container.update_attributes(:active => "1")
 
     respond_to do |format|
       if @container.save

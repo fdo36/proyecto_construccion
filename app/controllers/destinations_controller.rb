@@ -41,6 +41,7 @@ class DestinationsController < ApplicationController
   # POST /destinations.json
   def create
     @destination = Destination.new(params[:destination])
+    @destination.update_attributes(:active => "1", :is_deleted => "0")
 
     respond_to do |format|
       if @destination.save
@@ -75,6 +76,34 @@ class DestinationsController < ApplicationController
     @destination = Destination.find(params[:id])
     @destination.destroy
 
+    respond_to do |format|
+      format.html { redirect_to destinations_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def disable
+    @destination = Destination.find(params[:id])
+    @destination.update_attribute(:active, "0")
+
+    respond_to do |format|
+      format.html { redirect_to destinations_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def enable
+    @destination = Destination.find(params[:id])
+    @destination.update_attribute(:active, "1")
+    respond_to do |format|
+      format.html { redirect_to destinations_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def delete_destination
+    @destination = Destination.find(params[:id])
+    @destination.update_attribute(:is_delete, "1")
     respond_to do |format|
       format.html { redirect_to destinations_url }
       format.json { head :no_content }

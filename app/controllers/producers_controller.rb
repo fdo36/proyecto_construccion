@@ -41,6 +41,7 @@ class ProducersController < ApplicationController
   # POST /producers.json
   def create
     @producer = Producer.new(params[:producer])
+    @producer.update_attributes(:active => "1", :is_deleted => "0")
 
     respond_to do |format|
       if @producer.save
@@ -75,6 +76,34 @@ class ProducersController < ApplicationController
     @producer = Producer.find(params[:id])
     @producer.destroy
 
+    respond_to do |format|
+      format.html { redirect_to producers_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def disable
+    @producer = Producer.find(params[:id])
+    @producer.update_attribute(:active, "0")
+
+    respond_to do |format|
+      format.html { redirect_to producers_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def enable
+    @producer = Producer.find(params[:id])
+    @producer.update_attribute(:active, "1")
+    respond_to do |format|
+      format.html { redirect_to producers_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def delete_producer
+    @producer = Producer.find(params[:id])
+    @producer.update_attribute(:is_delete, "1")
     respond_to do |format|
       format.html { redirect_to producers_url }
       format.json { head :no_content }
