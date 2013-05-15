@@ -14,7 +14,7 @@ class RolesController < ApplicationController
   # GET /roles/1.json
   def show
     @role = Role.find(params[:id])
-
+    @supported_models = Astrotils::get_models_name.map { |name|  [name, name]}
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @role }

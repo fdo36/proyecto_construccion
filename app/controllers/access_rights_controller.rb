@@ -40,17 +40,9 @@ class AccessRightsController < ApplicationController
   # POST /access_rights
   # POST /access_rights.json
   def create
-    @access_right = AccessRight.new(params[:access_right])
-
-    respond_to do |format|
-      if @access_right.save
-        format.html { redirect_to @access_right, notice: 'Access right was successfully created.' }
-        format.json { render json: @access_right, status: :created, location: @access_right }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @access_right.errors, status: :unprocessable_entity }
-      end
-    end
+    @role = Role.find(params[:role_id])
+    @access_right = @role.access_rights.create(params[:access_right])
+    redirect_to role_path(@role)
   end
 
   # PUT /access_rights/1
@@ -72,12 +64,9 @@ class AccessRightsController < ApplicationController
   # DELETE /access_rights/1
   # DELETE /access_rights/1.json
   def destroy
-    @access_right = AccessRight.find(params[:id])
+    @role = Role.find(params[:role_id])
+    @access_right = @role.access_rights.find(params[:id])
     @access_right.destroy
-
-    respond_to do |format|
-      format.html { redirect_to access_rights_url }
-      format.json { head :no_content }
-    end
+    redirect_to role_path(@role)
   end
 end

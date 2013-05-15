@@ -23,10 +23,9 @@ ProyectoConstruccion::Application.routes.draw do
   resources :producers
 
 
-  resources :roles
-
-
-  resources :access_rights
+  resources :roles do
+    resources :access_rights
+  end
 
 
   resources :companies
