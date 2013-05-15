@@ -197,3 +197,17 @@ es:
   activerecord:
     errors:
       <<: *errors
+  activerecord:
+    attributes:
+      company:
+        name: "Nombre de la Compañia"
+        rut: "Rut"
+        email: "Correo electrónico"
+
+  activerecord:      
+    attributes:  
+      user:
+        email: "Correo electrónico"
+        password: "Contraseña"     
+
+
