@@ -3,7 +3,7 @@
   <h1>Ver Variedad</h1>
 </div>
 <div class="box">
-<%= link_to 'Volver', variety_path , :class => "button blue alignright" %>
+<%= link_to 'Volver', varieties_path , :class => "button blue alignright" %>
 <p>
   <b>Nombre:</b>
   <%= @variety.name %>
@@ -11,8 +11,7 @@
 
 <p>
   <b>Especie:</b>
-  <% kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
-  <%= f.select(:kind_id, kinds_array) %>
+  <%= Kind.find(@variety.kind_id).name %>
 </p>
 </div>
 <div class="foot-box">
