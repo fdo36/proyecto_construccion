@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Destino</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', destinations_path , :class => "button blue alignright" %>
+<p>
+  <b>Rut:</b>
+  <%= @destination.rut %>
+</p>
+
+<p>
+  <b>Company name:</b>
+  <%= @destination.company_name %>
+</p>
+
+<p>
+  <b>Commune:</b>
+  <%= @destination.commune_id %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @destination.address %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @destination.email %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @destination.phone %>
+</p>
+
+<p>
+  <b>Contact:</b>
+  <%= @destination.contact %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%= @destination.active %>
+</p>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_destination_path(@destination) , :class => "button green alignright" %>
+</div>

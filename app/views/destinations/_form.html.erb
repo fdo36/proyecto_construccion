@@ -1,0 +1,88 @@
+<div class="box">
+<%= form_for(@destination) do |f| %>
+  <% if @destination.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@destination.errors.count, "error") %> prohibited this destination from being saved:</h2>
+
+      <ul>
+      <% @destination.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Rut %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :rut %>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Nombre %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :company_name %>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Comuna %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :commune_id %>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Dirección %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :address %>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Email %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :email %>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Contacto %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :contact %>
+    </div>
+  </div>
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', destinations_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

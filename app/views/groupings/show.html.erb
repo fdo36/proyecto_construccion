@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Agrupación</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', groupings_path , :class => "button blue alignright" %>
+<p>
+  <b>Nombre:</b>
+  <%= @grouping.name %>
+</p>
+
+<p>
+  <b>Descripcion:</b>
+  <%= @grouping.description %>
+</p>
+</div>
+<div class="foot-box">
+	<%= link_to 'Editar', edit_grouping_path(@grouping) , :class => "button green alignright" %>
+</div>

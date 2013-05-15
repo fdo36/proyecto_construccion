@@ -1,0 +1,37 @@
+<div class="box">
+<%= form_for(@grouping) do |f| %>
+  <% if @grouping.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @grouping.errors.count < 1 ? "#{@grouping.errors.count} error." : "#{@grouping.errors.count} errores." %> No se puede guardar la agrupación:</h2>
+
+      <ul>
+      <% @grouping.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Nombre %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Descripción %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :description %>
+    </div>
+    
+  </div>
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', groupings_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+<% end %>

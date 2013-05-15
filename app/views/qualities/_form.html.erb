@@ -1,0 +1,28 @@
+<div class="box">
+<%= form_for(@quality) do |f| %>
+  <% if @quality.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@quality.errors.count, "error") %> prohibited this quality from being saved:</h2>
+
+      <ul>
+      <% @quality.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Nombre %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', qualities_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+<% end %>
