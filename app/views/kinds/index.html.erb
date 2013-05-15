@@ -1,23 +1,26 @@
-<h1>Listing kinds</h1>
+<div class="headContent">
+  <h1>Lista de Especies</h1>
+</div>
+<div class="box">
+  <%= link_to 'Nueva Especie', new_kind_path , :class => "button blue alignright" %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @kinds.each do |kind| %>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th style="width:20% !important;">Nombre</th>
+        <th colspan="3" style="width:20% !important;">Acciones</th>
+      </tr>
+    </thead>
+  <tbody>
+  <% @kinds.each do |kind| %>
   <tr>
     <td><%= kind.name %></td>
-    <td><%= link_to 'Show', kind %></td>
-    <td><%= link_to 'Edit', edit_kind_path(kind) %></td>
-    <td><%= link_to 'Destroy', kind, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Ver', kind %>
+    <%= link_to 'Editar', edit_kind_path(kind) %>
+    <%= link_to 'Eliminar', kind, method: :delete, data: { confirm: '¿Está seguro de eliminar esta especie?' } %></td>
   </tr>
-<% end %>
-</table>
+  <% end %>
+    </tbody>
+  </table>
 
-<br />
-
-<%= link_to 'New Kind', new_kind_path %>
+</div>

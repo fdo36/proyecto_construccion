@@ -1,25 +1,28 @@
-<h1>Listing varieties</h1>
+<div class="headContent">
+  <h1>Lista de Variedades</h1>
+</div>
+<div class="box">
+  <%= link_to 'Nueva Variedad', new_variety_path , :class => "button blue alignright" %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Kind</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @varieties.each do |variety| %>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th style="width:20% !important;">Nombre</th>
+        <th>Especie</th>
+        <th style="width:20% !important;">Acciones</th>
+      </tr>
+    </thead>
+  <tbody>
+  <% @varieties.each do |variety| %>
   <tr>
     <td><%= variety.name %></td>
     <td><%= variety.kind_id %></td>
-    <td><%= link_to 'Show', variety %></td>
-    <td><%= link_to 'Edit', edit_variety_path(variety) %></td>
-    <td><%= link_to 'Destroy', variety, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Ver', variety %></td>
+    <td><%= link_to 'Editar', edit_variety_path(variety) %></td>
+    <td><%= link_to 'Eliminar', variety, method: :delete, data: { confirm: '¿Está seguro de eliminar esta variedad?' } %></td>
   </tr>
 <% end %>
-</table>
+    </tbody>
+  </table>
 
-<br />
-
-<%= link_to 'New Variety', new_variety_path %>
+</div>

@@ -1,25 +1,30 @@
-<h1>Listing groupings</h1>
+<div class="headContent">
+  <h1>Lista de Agrupaciones</h1>
+</div>
+<div class="box">
+  <%= link_to 'Nueva Agrupación', new_grouping_path , :class => "button blue alignright" %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th style="width:20% !important;">Nombre</th>
+        <th>Descripción</th>
+        <th colspan="3" style="width:20% !important;">Acciones</th>
+      </tr>
+    </thead>
+  <tbody>
+  <% @groupings.each do |grouping| %>
+    
+      <tr>
+        <td><%= grouping.name %></td>
+        <td><%= grouping.description %></td>
+        <td><%= link_to 'Ver', grouping %>
+        <%= link_to 'Editar', edit_grouping_path(grouping) %>
+        <%= link_to 'Eliminar', grouping, method: :delete, data: { confirm: '¿Está seguro de eliminar esta agrupación?' } %></td>
+      </tr>
+    
+  <% end %>
+    </tbody>
+  </table>
 
-<% @groupings.each do |grouping| %>
-  <tr>
-    <td><%= grouping.name %></td>
-    <td><%= grouping.description %></td>
-    <td><%= link_to 'Show', grouping %></td>
-    <td><%= link_to 'Edit', edit_grouping_path(grouping) %></td>
-    <td><%= link_to 'Destroy', grouping, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Grouping', new_grouping_path %>
+</div>

@@ -1,23 +1,26 @@
-<h1>Listing qualities</h1>
+<div class="headContent">
+  <h1>Lista de Calidades</h1>
+</div>
+<div class="box">
+  <%= link_to 'Nueva Calidad', new_quality_path , :class => "button blue alignright" %>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @qualities.each do |quality| %>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th style="width:20% !important;">Nombre</th>
+        <th style="width:20% !important;">Acciones</th>
+      </tr>
+    </thead>
+  <tbody>
+  <% @qualities.each do |quality| %>
   <tr>
     <td><%= quality.name %></td>
-    <td><%= link_to 'Show', quality %></td>
-    <td><%= link_to 'Edit', edit_quality_path(quality) %></td>
-    <td><%= link_to 'Destroy', quality, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Ver', quality %>
+    <%= link_to 'Editar', edit_quality_path(quality) %>
+    <%= link_to 'Eliminar', quality, method: :delete, data: { confirm: '¿Está seguro de eliminar esta calidad?' } %></td>
   </tr>
 <% end %>
-</table>
+    </tbody>
+  </table>
 
-<br />
-
-<%= link_to 'New Quality', new_quality_path %>
+</div>

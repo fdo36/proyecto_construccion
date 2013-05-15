@@ -1,37 +1,34 @@
-<h1>Listing destinations</h1>
+<div class="headContent">
+  <h1>Lista de Destinos</h1>
+</div>
+<div class="box">
+  <%= link_to 'Nuevo Destino', new_destination_path , :class => "button blue alignright" %>
 
-<table>
-  <tr>
-    <th>Rut</th>
-    <th>Company name</th>
-    <th>Commune</th>
-    <th>Address</th>
-    <th>Email</th>
-    <th>Phone</th>
-    <th>Contact</th>
-    <th>Active</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th style="width:20% !important;">Nombre</th>
+        <th>Dirección</th>
+        <th>Comuna</th>
+        <th>Teléfono</th>
+        <th>Email</th>
+        <th colspan="3" style="width:20% !important;">Acciones</th>
+      </tr>
+    </thead>
+  <tbody>
 <% @destinations.each do |destination| %>
   <tr>
-    <td><%= destination.rut %></td>
     <td><%= destination.company_name %></td>
-    <td><%= destination.commune_id %></td>
     <td><%= destination.address %></td>
-    <td><%= destination.email %></td>
+    <td><%= destination.commune_id %></td>
     <td><%= destination.phone %></td>
-    <td><%= destination.contact %></td>
-    <td><%= destination.active %></td>
-    <td><%= link_to 'Show', destination %></td>
-    <td><%= link_to 'Edit', edit_destination_path(destination) %></td>
-    <td><%= link_to 'Destroy', destination, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= destination.email %></td>
+    <td><%= link_to 'ver', destination %>
+    <%= link_to 'Editar', edit_destination_path(destination) %>
+    <%= link_to 'Eliminar', destination, method: :delete, data: { confirm: '¿Está seguro de eliminar este destino?' } %></td>
   </tr>
 <% end %>
-</table>
+    </tbody>
+  </table>
 
-<br />
-
-<%= link_to 'New Destination', new_destination_path %>
+</div>

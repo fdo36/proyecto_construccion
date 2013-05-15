@@ -1,3 +1,4 @@
+<div class="box">
 <%= form_for(@destination) do |f| %>
   <% if @destination.errors.any? %>
     <div id="error_explanation">
@@ -11,39 +12,77 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :rut %><br />
-    <%= f.text_field :rut %>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Rut %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :rut %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :company_name %><br />
-    <%= f.text_field :company_name %>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Nombre %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :company_name %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :commune_id %><br />
-    <%= f.number_field :commune_id %>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Comuna %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :commune_id %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Dirección %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :address %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Email %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :email %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone %>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Contacto %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :contact %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :contact %><br />
-    <%= f.text_area :contact %>
-  </div>
-  <div class="field">
-    <%= f.label :active %><br />
-    <%= f.check_box :active %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', destinations_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
 <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

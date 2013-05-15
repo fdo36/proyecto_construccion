@@ -1,10 +1,14 @@
 <p id="notice"><%= notice %></p>
-
+<div class="headContent">
+  <h1>Ver Especies</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', kinds_path , :class => "button blue alignright" %>
 <p>
   <b>Name:</b>
   <%= @kind.name %>
 </p>
-
-
-<%= link_to 'Edit', edit_kind_path(@kind) %> |
-<%= link_to 'Back', kinds_path %>
+</div>
+<div class="foot-box">
+	<%= link_to 'Editar', edit_kind_path(@kind) , :class => "button green alignright" %>
+</div>

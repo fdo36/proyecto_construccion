@@ -1,3 +1,4 @@
+<div class="box">
 <%= form_for(@kind) do |f| %>
   <% if @kind.errors.any? %>
     <div id="error_explanation">
@@ -11,11 +12,17 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Nombre %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :name %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', kinds_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
 <% end %>

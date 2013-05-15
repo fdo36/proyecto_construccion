@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130514212700) do
+ActiveRecord::Schema.define(:version => 20130515034705) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -39,6 +39,21 @@ ActiveRecord::Schema.define(:version => 20130514212700) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
+
+  create_table "containers", :force => true do |t|
+    t.string   "name"
+    t.string   "tare"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "containers_producers", :id => false, :force => true do |t|
+    t.integer "container_id"
+    t.integer "producer_id"
+  end
+
+  add_index "containers_producers", ["container_id", "producer_id"], :name => "index_containers_producers_on_container_id_and_producer_id"
+  add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
 
   create_table "destinations", :force => true do |t|
     t.string   "rut"
@@ -158,6 +173,9 @@ ActiveRecord::Schema.define(:version => 20130514212700) do
   end
 
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
+
+  add_foreign_key "containers_producers", "containers", :name => "containers_producers_container_id_fk"
+  add_foreign_key "containers_producers", "producers", :name => "containers_producers_producer_id_fk"
 
   add_foreign_key "destinations", "communes", :name => "destinations_commune_id_fk"
 

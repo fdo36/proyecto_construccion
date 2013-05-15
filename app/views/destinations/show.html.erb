@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
-
+<div class="headContent">
+  <h1>Ver Destino</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', destinations_path , :class => "button blue alignright" %>
 <p>
   <b>Rut:</b>
   <%= @destination.rut %>
@@ -39,7 +43,7 @@
   <b>Active:</b>
   <%= @destination.active %>
 </p>
-
-
-<%= link_to 'Edit', edit_destination_path(@destination) %> |
-<%= link_to 'Back', destinations_path %>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_destination_path(@destination) , :class => "button green alignright" %>
+</div>
