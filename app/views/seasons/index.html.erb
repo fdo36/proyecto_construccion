@@ -45,7 +45,7 @@
                     <% @seasons.each do |season| %>
                         <% if ((season.is_active == 1) and (season.is_delete == 0)) %>
                         <tr>
-                            <td><%= season.init_date %></td>
+                            <td><%= season.init_date.strftime("%d/%m/%Y")  %></td>
                             <td><%= (Kind.all(:select => "name", :conditions => ["id = ?",season.kind_id]))[0].name%></td>
                             <td >
                                 <%= link_to 'Finalizar', seasons_disable_path(season) %>
@@ -78,8 +78,8 @@
                     <% @seasons.each do |season| %>
                         <% if ((season.is_active == 0) and (season.is_delete == 0)) %>
                         <tr>
-                            <td><%= season.init_date %></td>
-                            <td><%= season.end_date %></td>
+                            <td><%= season.init_date.strftime("%d/%m/%Y") %></td>
+                            <td><%= season.end_date.strftime("%d/%m/%Y") %></td>
                             <td><%= (Kind.all(:select => "name", :conditions => ["id = ?",season.kind_id]))[0].name%></td>
                             <td><%= link_to 'Habilitar', seasons_enable_path(season) %></td>
                         </tr>
