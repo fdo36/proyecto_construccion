@@ -2,7 +2,7 @@
 <%= form_for(@quality) do |f| %>
   <% if @quality.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@quality.errors.count, "error") %> prohibited this quality from being saved:</h2>
+      <h2><%= @quality.errors.count > 1 ? "#{@quality.errors.count} errores." : "#{@quality.errors.count} error." %> no se puede guardar la calidad:</h2>
 
       <ul>
       <% @quality.errors.full_messages.each do |msg| %>

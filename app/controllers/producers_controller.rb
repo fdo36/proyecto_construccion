@@ -1,3 +1,4 @@
+#encoding: utf-8
 class ProducersController < ApplicationController
   # GET /producers
   # GET /producers.json
@@ -52,7 +53,7 @@ class ProducersController < ApplicationController
 
     respond_to do |format|
       if @producer.save
-        format.html { redirect_to @producer, notice: 'Producer was successfully created.' }
+        format.html { redirect_to @producer, notice: 'El productor fue creado exitosamente.' }
         format.json { render json: @producer, status: :created, location: @producer }
       else
         format.html { render action: "new" }
@@ -73,7 +74,7 @@ class ProducersController < ApplicationController
 
     respond_to do |format|
       if @producer.update_attributes(params[:producer])
-        format.html { redirect_to @producer, notice: 'Producer was successfully updated.' }
+        format.html { redirect_to @producer, notice: 'El productor fue editado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

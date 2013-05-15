@@ -1,3 +1,4 @@
+#encoding: utf-8
 es:
   date:
     abbr_day_names:
@@ -210,6 +211,38 @@ es:
         email: "Correo electrónico"
       user:
         email: "Correo electrónico"
-        password: "Contraseña"     
+        password: "Contraseña"
+      container:
+        name: "Nombre"
+        tare: "Tara"
+      destination:
+        address: "Dirección"
+        commune_id: "Comuna"
+        company_name: "Nombre"
+        contact: "Contacto"
+        email: "Email"
+        phone: "Teléfono"
+        rut: "Rut"
+      grouping:
+        description: "Descripción"
+        name: "Nombre"
+      kind:
+        name: "Nombre"
+      producer:
+        address: "Dirección"
+        commune_id: "Comuna"
+        company_name: "Nombre"
+        contact: "Contacto"
+        email: "Email"
+        line_of_business: "Giro"
+        phone: "Teléfono"
+        rut: "Rut"
+        sag_code: "Código SAG"
+      quality:
+        name: "Nombre"
+      variety:
+        kind_id: "Especie"
+        name: "Nombre"
+
 
 

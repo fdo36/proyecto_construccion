@@ -44,7 +44,7 @@ class ContainersController < ApplicationController
 
     respond_to do |format|
       if @container.save
-        format.html { redirect_to @container, notice: 'Container was successfully created.' }
+        format.html { redirect_to @container, notice: 'El envase fue creado exitosamente.' }
         format.json { render json: @container, status: :created, location: @container }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class ContainersController < ApplicationController
 
     respond_to do |format|
       if @container.update_attributes(params[:container])
-        format.html { redirect_to @container, notice: 'Container was successfully updated.' }
+        format.html { redirect_to @container, notice: 'El envase fue editado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

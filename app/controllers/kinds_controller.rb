@@ -1,3 +1,4 @@
+#encoding: utf-8
 class KindsController < ApplicationController
   # GET /kinds
   # GET /kinds.json
@@ -44,7 +45,7 @@ class KindsController < ApplicationController
 
     respond_to do |format|
       if @kind.save
-        format.html { redirect_to @kind, notice: 'Kind was successfully created.' }
+        format.html { redirect_to @kind, notice: 'La especie fue creada exitosamente.' }
         format.json { render json: @kind, status: :created, location: @kind }
       else
         format.html { render action: "new" }
@@ -60,7 +61,7 @@ class KindsController < ApplicationController
 
     respond_to do |format|
       if @kind.update_attributes(params[:kind])
-        format.html { redirect_to @kind, notice: 'Kind was successfully updated.' }
+        format.html { redirect_to @kind, notice: 'La especie fue editada exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
