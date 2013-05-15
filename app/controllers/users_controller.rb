@@ -36,13 +36,16 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    @roles = Role.all
+    @user.role_ids = params[:role_ids] if params[:role_ids]
   end
 
   # POST /users
   # POST /users.json
   def create
     @user = User.new(params[:user])
-
+    @roles = Role.all
+    @user.role_ids = params[:role_ids] if params[:role_ids]
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'El usuario fue creado exitosamente.' }
@@ -58,6 +61,8 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+    @roles = Role.all
+    @user.role_ids = params[:role_ids] if params[:role_ids]
 
     respond_to do |format|
       if @user.update_attributes(params[:user])

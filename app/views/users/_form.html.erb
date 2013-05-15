@@ -102,6 +102,17 @@
       <%= f.text_field :secret_answer %>
       </div>  
     </div>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Roles %><br />
+      </div>
+      <div class="forme-in">
+      <% @roles.each do |role| %>
+        <%= check_box_tag 'role_ids[]', role.id, @user.roles.member?(role) -%>
+        <%= h role.name -%>
+      <% end %>
+      </div>
+    </div>
 </div>
 
 <div class="foot-box">
