@@ -1,0 +1,28 @@
+<div class="headContent">
+  <h1>Lista de Envases</h1>
+</div>
+<div class="box">
+  <%= link_to 'Nuevo Envase', new_container_path , :class => "button blue alignright" %>
+
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th style="width:20% !important;">Nombre</th>
+        <th>Tara</th>
+        <th style="width:20% !important;">Acciones</th>
+      </tr>
+    </thead>
+  <tbody>
+  <% @containers.each do |container| %>
+  <tr>
+    <td><%= container.name %></td>
+    <td><%= container.tare %></td>
+    <td><%= link_to 'Ver', container %></td>
+    <td><%= link_to 'Editar', edit_container_path(container) %></td>
+    <td><%= link_to 'Eliminar', container, method: :delete, data: { confirm: '¿Está seguro de eliminar este Envase?' } %></td>
+  </tr>
+<% end %>
+    </tbody>
+  </table>
+
+</div>
