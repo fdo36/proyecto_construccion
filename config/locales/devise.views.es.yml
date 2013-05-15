@@ -4,6 +4,7 @@ es:
       user:
          not_found_in_database: Combinación de Correo electronico/Contraseña errónea
          unauthenticated: Debe identificarse antes de continuar
+         translation_missing: Combinación de Correo electronico/Contraseña errónea
     confirmations:
       new:
         resend_confirmation_instructions: Reenviar instrucciones de confirmación
