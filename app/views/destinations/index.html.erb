@@ -27,7 +27,7 @@
                 <tr>
                   <td><%= destination.company_name %></td>
                   <td><%= destination.address %></td>
-                  <td><%= destination.commune_id %></td>
+                  <td><%= Commune.find(destination.commune_id).name %></td>
                   <td><%= destination.phone %></td>
                   <td><%= destination.email %></td>
                   <td><%= link_to 'Ver', destination %>

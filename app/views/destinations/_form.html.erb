@@ -33,7 +33,8 @@
       <%= f.label :Comuna %><br />
     </div>
     <div class="forme-in">
-      <%= f.text_field :commune_id %>
+      <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
+      <%= f.select(:commune_id, communes_array) %>
     </div>
   </div>
   <div class="line-forme">

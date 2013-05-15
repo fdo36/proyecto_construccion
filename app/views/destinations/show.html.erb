@@ -16,7 +16,7 @@
 
 <p>
   <b>Comuna:</b>
-  <%= @destination.commune_id %>
+  <%= Commune.find(@destination.commune_id).name %>
 </p>
 
 <p>
