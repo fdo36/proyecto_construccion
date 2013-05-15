@@ -27,7 +27,6 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @roles = Role.all
-    @user.role_ids = params[:role_ids] if params[:role_ids]
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -46,7 +45,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @roles = Role.all
-    @user.role_ids = params[:role_ids] if params[:role_ids]
+    role_ids = params[:role_ids] if params[:role_ids] 
+    role_ids ||= []
+    @user.role_ids = role_ids
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'El usuario fue creado exitosamente.' }
@@ -63,7 +64,9 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @roles = Role.all
-    @user.role_ids = params[:role_ids] if params[:role_ids]
+    role_ids = params[:role_ids] if params[:role_ids]
+    role_ids ||= []
+    @user.role_ids = role_ids
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
