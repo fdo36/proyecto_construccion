@@ -26,7 +26,7 @@ ProyectoConstruccion::Application.routes.draw do
   resources :roles
 
 
-  resources :right_accesses
+  resources :access_rights
 
 
   resources :companies

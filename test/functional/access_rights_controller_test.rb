@@ -18,7 +18,7 @@ class AccessRightsControllerTest < ActionController::TestCase
 
   test "should create access_right" do
     assert_difference('AccessRight.count') do
-      post :create, access_right: { model: @access_right.model, right: @access_right.right }
+      post :create, access_right: { action: @access_right.action, model_name: @access_right.model_name }
     end
 
     assert_redirected_to access_right_path(assigns(:access_right))
@@ -35,7 +35,7 @@ class AccessRightsControllerTest < ActionController::TestCase
   end
 
   test "should update access_right" do
-    put :update, id: @access_right, access_right: { model: @access_right.model, right: @access_right.right }
+    put :update, id: @access_right, access_right: { action: @access_right.action, model_name: @access_right.model_name }
     assert_redirected_to access_right_path(assigns(:access_right))
   end
 

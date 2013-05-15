@@ -9,6 +9,7 @@
       <tr>
         <th style="width:20% !important;">Nombre</th>
         <th>Descripción</th>
+        <th style="width:20% !important;">Acciones</th>
         
         
       </tr>
@@ -18,11 +19,11 @@
   <% @roles.each do |role| %>
     
       <tr>
-        <td><%= role.name %></td>
+        <td><%= role.name %>
         <td><%= role.description %></td>
-        <td><%= link_to 'Ver', role %></td>
-        <td><%= link_to 'Editar', edit_role_path(role) %></td>
-        <td><%= link_to 'Eliminar', role, method: :delete, data: { confirm: '¿Está seguro de eliminar este Rol?' } %></td>
+        <td><%= link_to 'Ver', role %>
+        <%= link_to 'Editar', edit_role_path(role) %>
+        <%= link_to 'Eliminar', role, method: :delete, data: { confirm: '¿Está seguro de eliminar este Rol?' } %></td>
       </tr>
     
   <% end %>
