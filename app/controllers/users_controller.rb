@@ -26,7 +26,8 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
-
+    @roles = Role.all
+    @user.role_ids = params[:role_ids] if params[:role_ids]
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
