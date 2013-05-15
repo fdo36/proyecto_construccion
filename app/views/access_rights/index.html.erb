@@ -1,25 +1,33 @@
-<h1>Listing access_rights</h1>
+<div class="headContent">
+  <h1>Lista de Permisos</h1>
+</div>
+<div class="box">
+  <%= link_to 'Nuevo Permiso',  new_access_right_path , :class => "button blue alignright" %>
 
-<table>
-  <tr>
-    <th>Model</th>
-    <th>Right</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th style="width:20% !important;">Característica</th>
+        <th>Accion</th>
+        
+        <th style="width:20% !important;">Acciones</th>
+        
+      </tr>
+    </thead>
+  <tbody>
 
-<% @access_rights.each do |access_right| %>
-  <tr>
-    <td><%= access_right.model %></td>
-    <td><%= access_right.right %></td>
-    <td><%= link_to 'Show', access_right %></td>
-    <td><%= link_to 'Edit', edit_access_right_path(access_right) %></td>
-    <td><%= link_to 'Destroy', access_right, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+  <% @access_rights.each do |access_right| %>
+    
+      <tr>
+        <td><%= access_right.model_name %></td>
+        <td><%= access_right.action %></td>
+        <td><%= link_to 'Ver', access_right %>
+        <%= link_to 'Editar', edit_access_right_path(access_right)%>
+        <%= link_to 'Eliminar', access_right, method: :delete, data: { confirm: '¿Está seguro de eliminar este Permiso?' } %></td>
+      </tr>
+    
+  <% end %>
+    </tbody>
+  </table>
 
-<br />
-
-<%= link_to 'New Access right', new_access_right_path %>
+</div>

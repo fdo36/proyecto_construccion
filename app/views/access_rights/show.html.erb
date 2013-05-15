@@ -1,15 +1,20 @@
 <p id="notice"><%= notice %></p>
-
+<div class="headContent">
+  <h1>Ver Permisos</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', access_rights_path , :class => "button blue alignright" %>
 <p>
-  <b>Model:</b>
-  <%= @access_right.model %>
+  <b>Característica:</b>
+  <%= @access_right.model_name %>
 </p>
 
 <p>
-  <b>Right:</b>
-  <%= @access_right.right %>
+  <b>Acción:</b>
+  <%= @access_right.action %>
 </p>
 
-
-<%= link_to 'Edit', edit_access_right_path(@access_right) %> |
-<%= link_to 'Back', access_rights_path %>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_access_right_path(@access_right) , :class => "button green alignright" %>
+</div>

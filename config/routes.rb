@@ -23,11 +23,11 @@ ProyectoConstruccion::Application.routes.draw do
   resources :producers
 
 
-  resources :roles
+  resources :roles do
+    resources :access_rights
+  end
 
-
-  resources :right_accesses
-
+  match "/admin/users/:id/edit_password" => "users#edit_password", :as => "edit_user_password"
 
   resources :companies
 
