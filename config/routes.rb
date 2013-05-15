@@ -27,6 +27,7 @@ ProyectoConstruccion::Application.routes.draw do
     resources :access_rights
   end
 
+  match "/admin/users/:id/edit_password" => "users#edit_password", :as => "edit_user_password"
 
   resources :companies
 
