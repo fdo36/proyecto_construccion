@@ -1,4 +1,7 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :seasons
+
+
   resources :containers
 
 
@@ -88,4 +91,9 @@ ProyectoConstruccion::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+
+  match 'seasons/:id/enable' => 'seasons#enable', :as => 'seasons_enable'
+  match 'seasons/:id/disable' => 'seasons#disable', :as => 'seasons_disable'
+  match 'seasons/:id/delete_season' => 'seasons#delete_season', :as => 'season_delete'
+  
 end

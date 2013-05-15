@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130515034705) do
+ActiveRecord::Schema.define(:version => 20130515044534) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -39,21 +39,6 @@ ActiveRecord::Schema.define(:version => 20130515034705) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
-
-  create_table "containers", :force => true do |t|
-    t.string   "name"
-    t.string   "tare"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "containers_producers", :id => false, :force => true do |t|
-    t.integer "container_id"
-    t.integer "producer_id"
-  end
-
-  add_index "containers_producers", ["container_id", "producer_id"], :name => "index_containers_producers_on_container_id_and_producer_id"
-  add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
 
   create_table "destinations", :force => true do |t|
     t.string   "rut"
@@ -139,6 +124,16 @@ ActiveRecord::Schema.define(:version => 20130515034705) do
   add_index "roles_users", ["role_id", "user_id"], :name => "index_roles_users_on_role_id_and_user_id"
   add_index "roles_users", ["user_id", "role_id"], :name => "index_roles_users_on_user_id_and_role_id"
 
+  create_table "seasons", :force => true do |t|
+    t.date     "init_date"
+    t.date     "end_date"
+    t.integer  "kind_id"
+    t.integer  "is_active"
+    t.integer  "is_delete"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -174,9 +169,6 @@ ActiveRecord::Schema.define(:version => 20130515034705) do
 
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
 
-  add_foreign_key "containers_producers", "containers", :name => "containers_producers_container_id_fk"
-  add_foreign_key "containers_producers", "producers", :name => "containers_producers_producer_id_fk"
-
   add_foreign_key "destinations", "communes", :name => "destinations_commune_id_fk"
 
   add_foreign_key "groupings_producers", "groupings", :name => "groupings_producers_grouping_id_fk"
@@ -189,6 +181,8 @@ ActiveRecord::Schema.define(:version => 20130515034705) do
 
   add_foreign_key "roles_users", "roles", :name => "roles_users_role_id_fk"
   add_foreign_key "roles_users", "users", :name => "roles_users_user_id_fk"
+
+  add_foreign_key "seasons", "kinds", :name => "seasons_kind_id_fk"
 
   add_foreign_key "varieties", "kinds", :name => "varieties_kind_id_fk"
 

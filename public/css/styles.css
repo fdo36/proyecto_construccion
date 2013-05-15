@@ -352,3 +352,11 @@ margin-right: -.3em;
 .backBar{
 	height: 30px;
 }
+
+.temporada-pan1{
+	height: 30px;
+}
+
+.temporada-pan1 .field{
+	float: left;
+}

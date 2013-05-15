@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Init date:</b>
+  <%= @season.init_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @season.end_date %>
+</p>
+
+<p>
+  <b>Kind:</b>
+  <%= @season.kind_id %>
+</p>
+
+<p>
+  <b>Is active:</b>
+  <%= @season.is_active %>
+</p>
+
+<p>
+  <b>Is delete:</b>
+  <%= @season.is_delete %>
+</p>
+
+
+<%= link_to 'Edit', edit_season_path(@season) %> |
+<%= link_to 'Back', seasons_path %>

@@ -1,0 +1,92 @@
+<div class="headContent">
+    <h1>Temporadas</h1>
+</div>
+<div class="box">
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Crear Temporada</h1>
+        </div>
+        <div class="box">
+            <div class="temporada-pan1">
+
+            <%= form_for(@season) do |f| %>
+                    <div class="field">
+                        <%= f.label :"Especie" %>
+                        <% kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+                        <%= f.select(:kind_id, kinds_array) %>
+                    </div>
+                  
+                    <div class="field">
+                        <%= f.label :init_date %>
+                        <%= f.date_select :init_date %>
+                    </div>
+                    <%= f.submit :"Nueva Temporada" , :class => "button green alignright" %>
+            <% end %>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Temporadas Activas</h1>
+        </div>
+        <div class="box">
+
+            <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="tab_tempo_ini">
+                <thead>
+                    <tr>
+                        <th style="width:20% !important;">Fecha Inicio</th>
+                        <th >Especie</th>
+                        <th style="width:15% !important;">Acciones</th>
+                     </tr>
+                </thead>
+                <tbody> 
+                    <% @seasons.each do |season| %>
+                        <% if ((season.is_active == 1) and (season.is_delete == 0)) %>
+                        <tr>
+                            <td><%= season.init_date %></td>
+                            <td><%= (Kind.all(:select => "name", :conditions => ["id = ?",season.kind_id]))[0].name%></td>
+                            <td >
+                                <%= link_to 'Finalizar', seasons_disable_path(season) %>
+                                <%= link_to 'Eliminar', season_delete_path(season), data: { confirm: '¿Está seguro de eliminar esta Temporada?' } %> </td>
+                        </tr>
+                        <%end%>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Temporadas Finalizadas</h1>
+        </div>
+        <div class="box">
+
+            <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="tab_tempo_fin">
+                <thead>
+                    <tr>
+                        <th style="width:20% !important;">Fecha Inicio</th>
+                        <th style="width:20% !important;">Fecha Termino</th>
+                        <th >Especie</th>
+                        <th style="width:15% !important;">Acciones</th>
+                     </tr>
+                </thead>
+                <tbody>
+
+                    <% @seasons.each do |season| %>
+                        <% if ((season.is_active == 0) and (season.is_delete == 0)) %>
+                        <tr>
+                            <td><%= season.init_date %></td>
+                            <td><%= season.end_date %></td>
+                            <td><%= (Kind.all(:select => "name", :conditions => ["id = ?",season.kind_id]))[0].name%></td>
+                            <td><%= link_to 'Habilitar', seasons_enable_path(season) %></td>
+                        </tr>
+                        <%end%>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
