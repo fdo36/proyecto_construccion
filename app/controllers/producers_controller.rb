@@ -25,6 +25,7 @@ class ProducersController < ApplicationController
   # GET /producers/new.json
   def new
     @producer = Producer.new
+    @groupings = Grouping.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,6 +36,7 @@ class ProducersController < ApplicationController
   # GET /producers/1/edit
   def edit
     @producer = Producer.find(params[:id])
+    @groupings = Grouping.all
   end
 
   # POST /producers
@@ -42,6 +44,11 @@ class ProducersController < ApplicationController
   def create
     @producer = Producer.new(params[:producer])
     @producer.update_attributes(:active => "1", :is_deleted => "0")
+
+    @groupings = Grouping.all
+    grouping_ids = params[:grouping_ids] if params[:grouping_ids] 
+    grouping_ids ||= []
+    @producer.grouping_ids = grouping_ids
 
     respond_to do |format|
       if @producer.save
@@ -58,6 +65,11 @@ class ProducersController < ApplicationController
   # PUT /producers/1.json
   def update
     @producer = Producer.find(params[:id])
+
+    @groupings = Grouping.all
+    grouping_ids = params[:grouping_ids] if params[:grouping_ids] 
+    grouping_ids ||= []
+    @producer.grouping_ids = grouping_ids
 
     respond_to do |format|
       if @producer.update_attributes(params[:producer])

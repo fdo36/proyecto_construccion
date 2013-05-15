@@ -27,7 +27,7 @@
                         <tr>
                           <td><%= producer.company_name %></td>
                           <td><%= producer.address %></td>
-                          <td><%= producer.commune_id %></td>
+                          <td><%= (Commune.all(:select => "name", :conditions => ["id = ?",producer.commune_id]))[0].name%></td>
                           <td><%= producer.phone %></td>
                           <td><%= producer.email %></td>
                           <td><%= link_to 'Ver', producer %>
@@ -64,7 +64,7 @@
                         <tr>
                           <td><%= producer.company_name %></td>
                           <td><%= producer.address %></td>
-                          <td><%= producer.commune_id %></td>
+                          <td><%= (Commune.all(:select => "name", :conditions => ["id = ?",producer.commune_id]))[0].name%></td>
                           <td><%= producer.phone %></td>
                           <td><%= producer.email %></td>
                           <td><%= link_to 'Ver', producer %>
