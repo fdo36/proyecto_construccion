@@ -44,7 +44,7 @@ class RightAccessesController < ApplicationController
 
     respond_to do |format|
       if @right_access.save
-        format.html { redirect_to @right_access, notice: 'Right access was successfully created.' }
+        format.html { redirect_to @right_access, notice: 'El permiso fue creado correctamente.' }
         format.json { render json: @right_access, status: :created, location: @right_access }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class RightAccessesController < ApplicationController
 
     respond_to do |format|
       if @right_access.update_attributes(params[:right_access])
-        format.html { redirect_to @right_access, notice: 'Right access was successfully updated.' }
+        format.html { redirect_to @right_access, notice: 'El permiso fue modificado correctamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
