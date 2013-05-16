@@ -81,7 +81,10 @@
         <%= f.label :Genero %><br />
       </div>
       <div class="forme-in">
-        <%= f.check_box :gender %>
+        <%= f.radio_button(:gender, "Masculino") %>
+        <%= label_tag(:label1, "Masculino") %>
+        <%= f.radio_button(:gender,"Femenino") %>
+        <%= label_tag(:label1, "Femenino") %>
       </div>
     </div>      
 
@@ -110,6 +113,17 @@
       <%= f.check_box :super_admin %>
       </div>  
     </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :"Compañia" %><br />
+      </div>  
+      <div class="forme-in">
+        <% companies_array = Company.all.map { |company| [company.name, company.id] } %>
+      <%= f.select(:company_id, companies_array) %>
+      </div>  
+    </div>
+    
     <div class="line-forme">
       <div class="forme-lab">
         <%= f.label :Roles %><br />

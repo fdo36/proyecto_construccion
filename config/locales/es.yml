@@ -210,6 +210,9 @@ es:
         email: "Correo electrónico"
       user:
         email: "Correo electrónico"
-        password: "Contraseña"     
+        password: "Contraseña"
+        secret_question: "Pregunta secreta"
+        secret_answer: "Respuesta secreta"
+
 
 
