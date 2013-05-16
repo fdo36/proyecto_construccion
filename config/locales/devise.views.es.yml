@@ -30,7 +30,7 @@ es:
     passwords:
       new:
         forgot_your_password: ¿Ha olvidado su contraseña?
-        send_me_reset_password_instructions: Envíeme las instrucciones para resetear mi contraseña
+        send_me_reset_password_instructions: Envieme las instrucciones para resetear mi contraseña
     registrations:
       edit:
         are_you_sure: ¿Está usted seguro?

@@ -29,21 +29,21 @@ ActiveRecord::Schema.define(:version => 20130516145114) do
   end
 
   create_table "companies", :force => true do |t|
-    t.string   "name"
-    t.integer  "rut"
+    t.string   "name",             :default => "", :null => false
+    t.integer  "rut",                              :null => false
     t.string   "address"
     t.string   "city"
     t.string   "line_of_business"
     t.integer  "phone"
-    t.string   "email"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.string   "email",            :default => "", :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "region"
   end
 
   create_table "containers", :force => true do |t|
     t.string   "name"
-    t.string   "tare"
+    t.float    "tare"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20130516145114) do
     t.boolean  "active"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.boolean  "is_deleted"
   end
 
   create_table "groupings", :force => true do |t|
@@ -111,6 +112,7 @@ ActiveRecord::Schema.define(:version => 20130516145114) do
     t.boolean  "active"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.boolean  "is_deleted"
   end
 
   create_table "qualities", :force => true do |t|
