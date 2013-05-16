@@ -360,3 +360,21 @@ margin-right: -.3em;
 .temporada-pan1 .field{
 	float: left;
 }
+#nameLogin{
+	position: absolute;
+	right: 242px;
+	top: 0;
+	padding: 0;
+	height: 45px;
+	width: 200px;
+	border-right: 1px solid #8dbb00;
+	border-left: 1px solid #8dbb00;
+	
+	font-weight: bold;
+}
+#nameLogin p
+{
+
+	padding-top: 0px;
+	padding-left: 45px;
+}
