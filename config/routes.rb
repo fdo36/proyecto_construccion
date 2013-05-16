@@ -95,6 +95,7 @@ ProyectoConstruccion::Application.routes.draw do
   
   match 'users/:id/enable' => 'users#enable', :as => 'users_enable'
   match 'users/:id/disable' => 'users#disable', :as => 'users_disable'
+  
   match 'seasons/:id/enable' => 'seasons#enable', :as => 'seasons_enable'
   match 'seasons/:id/disable' => 'seasons#disable', :as => 'seasons_disable'
   match 'seasons/:id/delete_season' => 'seasons#delete_season', :as => 'season_delete'

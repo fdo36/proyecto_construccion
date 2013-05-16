@@ -12,7 +12,6 @@
                     <tr>
                         <th style="width:20% !important;">Email</th>
                 
-<<<<<<< HEAD
                         <th>Activo</th>
                         <th>Teléfono</th>
                         <th>Nombre</th>
@@ -44,33 +43,6 @@
             </table>
         </div>
     </div>
-=======
-              
-            </tr>
-        </thead> 
-    <tbody>     
-
-    <% @users.each do |user| %>
-        <tr>
-            <td><%= user.email %></td>
-            
-            <td><%= user.active %></td>
-            <td><%= user.phone %></td>
-            <td><%= user.name %></td>
-            <td><%= user.lastname %></td>
-            <td><%= user.gender %></td>
-            <td><%= user.super_admin %></td>
-            <td><%= link_to 'Ver', user %>
-            <%= link_to 'Cambiar contraseña', edit_user_password_path(user) %>
-            <%= link_to 'Editar', edit_user_path(user) %>
-            <%= link_to 'Eliminar', user, method: :delete, data: { confirm: '¿Esta seguro de eliminar este Usuario?' } %></td>
-        </tr>
-    <% end %>
-        </tbody>
-    </table>
-</div>
-
->>>>>>> 5a61a1a5363f9365b7778766f8f78fb36b94e154
 
     <div class="contentSubPanel">
         <div class="headContent">
