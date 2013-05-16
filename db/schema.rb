@@ -40,6 +40,21 @@ ActiveRecord::Schema.define(:version => 20130515044534) do
     t.datetime "updated_at",       :null => false
   end
 
+  create_table "containers", :force => true do |t|
+    t.string   "name"
+    t.string   "tare"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "containers_producers", :id => false, :force => true do |t|
+    t.integer "container_id"
+    t.integer "producer_id"
+  end
+
+  add_index "containers_producers", ["container_id", "producer_id"], :name => "index_containers_producers_on_container_id_and_producer_id"
+  add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
+
   create_table "destinations", :force => true do |t|
     t.string   "rut"
     t.string   "company_name"
@@ -168,6 +183,9 @@ ActiveRecord::Schema.define(:version => 20130515044534) do
   end
 
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
+
+  add_foreign_key "containers_producers", "containers", :name => "containers_producers_container_id_fk"
+  add_foreign_key "containers_producers", "producers", :name => "containers_producers_producer_id_fk"
 
   add_foreign_key "destinations", "communes", :name => "destinations_commune_id_fk"
 
