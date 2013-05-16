@@ -2,7 +2,7 @@
 <%= form_for(@producer) do |f| %>
   <% if @producer.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@producer.errors.count, "error") %> prohibited this producer from being saved:</h2>
+      <h2><%= @producer.errors.count > 1 ? "#{@producer.errors.count} errores." : "#{@producer.errors.count} error." %> no se puede guardar el productor:</h2>
 
       <ul>
       <% @producer.errors.full_messages.each do |msg| %>
@@ -41,7 +41,8 @@
       <%= f.label :Comuna %><br />
     </div>
     <div class="forme-in">
-      <%= f.text_field :commune_id %>
+      <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
+      <%= f.select(:commune_id, communes_array) %>
     </div>
   </div>
   <div class="line-forme">
@@ -84,7 +85,20 @@
       <%= f.text_field :sag_code %>
     </div>
   </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :"Agrupaciones" %><br />
+    </div>
+    <div class="forme-in">
+        <% @groupings.each do |grouping| %>
+          <%= check_box_tag 'grouping_ids[]', grouping.id, @producer.groupings.member?(grouping) -%>
+          <%= h grouping.name -%>
+        <% end %>
+    </div>
+  </div>
 </div>
+
 <div class="foot-box">
   <%= link_to 'Cancelar', producers_path , :class => "button silver alignright" %>
   <%= f.submit :Guardar , :class => "button green alignright" %>

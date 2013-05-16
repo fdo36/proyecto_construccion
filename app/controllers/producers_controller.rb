@@ -1,3 +1,4 @@
+#encoding: utf-8
 class ProducersController < ApplicationController
   # GET /producers
   # GET /producers.json
@@ -25,6 +26,7 @@ class ProducersController < ApplicationController
   # GET /producers/new.json
   def new
     @producer = Producer.new
+    @groupings = Grouping.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,16 +37,23 @@ class ProducersController < ApplicationController
   # GET /producers/1/edit
   def edit
     @producer = Producer.find(params[:id])
+    @groupings = Grouping.all
   end
 
   # POST /producers
   # POST /producers.json
   def create
     @producer = Producer.new(params[:producer])
+    @producer.update_attributes(:active => "1", :is_deleted => "0")
+
+    @groupings = Grouping.all
+    grouping_ids = params[:grouping_ids] if params[:grouping_ids] 
+    grouping_ids ||= []
+    @producer.grouping_ids = grouping_ids
 
     respond_to do |format|
       if @producer.save
-        format.html { redirect_to @producer, notice: 'Producer was successfully created.' }
+        format.html { redirect_to @producer, notice: 'El productor fue creado exitosamente.' }
         format.json { render json: @producer, status: :created, location: @producer }
       else
         format.html { render action: "new" }
@@ -58,9 +67,14 @@ class ProducersController < ApplicationController
   def update
     @producer = Producer.find(params[:id])
 
+    @groupings = Grouping.all
+    grouping_ids = params[:grouping_ids] if params[:grouping_ids] 
+    grouping_ids ||= []
+    @producer.grouping_ids = grouping_ids
+
     respond_to do |format|
       if @producer.update_attributes(params[:producer])
-        format.html { redirect_to @producer, notice: 'Producer was successfully updated.' }
+        format.html { redirect_to @producer, notice: 'El productor fue editado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -75,6 +89,34 @@ class ProducersController < ApplicationController
     @producer = Producer.find(params[:id])
     @producer.destroy
 
+    respond_to do |format|
+      format.html { redirect_to producers_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def disable
+    @producer = Producer.find(params[:id])
+    @producer.update_attribute(:active, "0")
+
+    respond_to do |format|
+      format.html { redirect_to producers_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def enable
+    @producer = Producer.find(params[:id])
+    @producer.update_attribute(:active, "1")
+    respond_to do |format|
+      format.html { redirect_to producers_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def delete_producer
+    @producer = Producer.find(params[:id])
+    @producer.update_attribute(:is_delete, "1")
     respond_to do |format|
       format.html { redirect_to producers_url }
       format.json { head :no_content }

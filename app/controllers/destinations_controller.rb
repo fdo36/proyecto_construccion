@@ -1,3 +1,4 @@
+#encoding: utf-8
 class DestinationsController < ApplicationController
   # GET /destinations
   # GET /destinations.json
@@ -41,10 +42,11 @@ class DestinationsController < ApplicationController
   # POST /destinations.json
   def create
     @destination = Destination.new(params[:destination])
+    @destination.update_attributes(:active => "1", :is_deleted => "0")
 
     respond_to do |format|
       if @destination.save
-        format.html { redirect_to @destination, notice: 'Destination was successfully created.' }
+        format.html { redirect_to @destination, notice: 'El destino fue creado exitosamente.' }
         format.json { render json: @destination, status: :created, location: @destination }
       else
         format.html { render action: "new" }
@@ -60,7 +62,7 @@ class DestinationsController < ApplicationController
 
     respond_to do |format|
       if @destination.update_attributes(params[:destination])
-        format.html { redirect_to @destination, notice: 'Destination was successfully updated.' }
+        format.html { redirect_to @destination, notice: 'El destino fue editado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -75,6 +77,34 @@ class DestinationsController < ApplicationController
     @destination = Destination.find(params[:id])
     @destination.destroy
 
+    respond_to do |format|
+      format.html { redirect_to destinations_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def disable
+    @destination = Destination.find(params[:id])
+    @destination.update_attribute(:active, "0")
+
+    respond_to do |format|
+      format.html { redirect_to destinations_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def enable
+    @destination = Destination.find(params[:id])
+    @destination.update_attribute(:active, "1")
+    respond_to do |format|
+      format.html { redirect_to destinations_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def delete_destination
+    @destination = Destination.find(params[:id])
+    @destination.update_attribute(:is_delete, "1")
     respond_to do |format|
       format.html { redirect_to destinations_url }
       format.json { head :no_content }

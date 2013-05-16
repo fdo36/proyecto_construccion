@@ -2,7 +2,7 @@
 <%= form_for(@container) do |f| %>
   <% if @container.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@container.errors.count, "error") %> prohibited this container from being saved:</h2>
+      <h2><%= @container.errors.count > 1 ? "#{@container.errors.count} errores." : "#{@container.errors.count} error." %> no se puede guardar el envase</h2>
 
       <ul>
       <% @container.errors.full_messages.each do |msg| %>

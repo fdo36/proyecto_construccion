@@ -2,7 +2,7 @@
 <%= form_for(@destination) do |f| %>
   <% if @destination.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@destination.errors.count, "error") %> prohibited this destination from being saved:</h2>
+      <h2><%= @destination.errors.count > 1 ? "#{@destination.errors.count} errores." : "#{@destination.errors.count} error." %> no se puede guardar el destino:</h2>
 
       <ul>
       <% @destination.errors.full_messages.each do |msg| %>
@@ -33,7 +33,8 @@
       <%= f.label :Comuna %><br />
     </div>
     <div class="forme-in">
-      <%= f.text_field :commune_id %>
+      <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
+      <%= f.select(:commune_id, communes_array) %>
     </div>
   </div>
   <div class="line-forme">
@@ -58,6 +59,14 @@
     </div>
     <div class="forme-in">
       <%= f.text_field :contact %>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Teléfono %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :phone %>
     </div>
   </div>
 </div>

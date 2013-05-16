@@ -2,7 +2,7 @@
 <%= form_for(@kind) do |f| %>
   <% if @kind.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@kind.errors.count, "error") %> prohibited this kind from being saved:</h2>
+      <h2><%= @kind.errors.count > 1 ? "#{@kind.errors.count} errores." : "#{@kind.errors.count} error." %> no se puede guardar la especie:</h2>
 
       <ul>
       <% @kind.errors.full_messages.each do |msg| %>

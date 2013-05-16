@@ -2,8 +2,8 @@
 
 one:
   name: MyString
-  tare: MyString
+  tare: 1.5
 
 two:
   name: MyString
-  tare: MyString
+  tare: 1.5

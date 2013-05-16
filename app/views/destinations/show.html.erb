@@ -10,17 +10,17 @@
 </p>
 
 <p>
-  <b>Company name:</b>
+  <b>Nombre:</b>
   <%= @destination.company_name %>
 </p>
 
 <p>
-  <b>Commune:</b>
-  <%= @destination.commune_id %>
+  <b>Comuna:</b>
+  <%= Commune.find(@destination.commune_id).name %>
 </p>
 
 <p>
-  <b>Address:</b>
+  <b>Dirección:</b>
   <%= @destination.address %>
 </p>
 
@@ -30,19 +30,15 @@
 </p>
 
 <p>
-  <b>Phone:</b>
+  <b>Teléfono:</b>
   <%= @destination.phone %>
 </p>
 
 <p>
-  <b>Contact:</b>
+  <b>Contacto:</b>
   <%= @destination.contact %>
 </p>
 
-<p>
-  <b>Active:</b>
-  <%= @destination.active %>
-</p>
 </div>
 <div class="foot-box">
   <%= link_to 'Editar', edit_destination_path(@destination) , :class => "button green alignright" %>

@@ -1,15 +1,19 @@
 <p id="notice"><%= notice %></p>
-
+<div class="headContent">
+  <h1>Ver Variedad</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', varieties_path , :class => "button blue alignright" %>
 <p>
-  <b>Name:</b>
+  <b>Nombre:</b>
   <%= @variety.name %>
 </p>
 
 <p>
-  <b>Kind:</b>
-  <%= @variety.kind_id %>
+  <b>Especie:</b>
+  <%= Kind.find(@variety.kind_id).name %>
 </p>
-
-
-<%= link_to 'Edit', edit_variety_path(@variety) %> |
-<%= link_to 'Back', varieties_path %>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_variety_path(@variety) , :class => "button green alignright" %>
+</div>
