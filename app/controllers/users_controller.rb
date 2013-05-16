@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
-
+    @roles = Role.all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @user }
@@ -36,16 +36,21 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    @roles = Role.all
+    @user.role_ids = params[:role_ids] if params[:role_ids]
   end
 
   # POST /users
   # POST /users.json
   def create
     @user = User.new(params[:user])
-
+    @roles = Role.all
+    role_ids = params[:role_ids] if params[:role_ids] 
+    role_ids ||= []
+    @user.role_ids = role_ids
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: 'El usuario fue creado exitosamente.' }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -58,10 +63,14 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+    @roles = Role.all
+    role_ids = params[:role_ids] if params[:role_ids]
+    role_ids ||= []
+    @user.role_ids = role_ids
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, notice: 'El usuario fue editado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

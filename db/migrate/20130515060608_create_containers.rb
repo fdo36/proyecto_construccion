@@ -2,7 +2,7 @@ class CreateContainers < ActiveRecord::Migration
   def change
     create_table :containers do |t|
       t.string :name
-      t.string :tare
+      t.float :tare
 
       t.timestamps
     end

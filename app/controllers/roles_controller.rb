@@ -14,7 +14,7 @@ class RolesController < ApplicationController
   # GET /roles/1.json
   def show
     @role = Role.find(params[:id])
-
+    @supported_models = Astrotils::get_models_name.map { |name|  [name, name]}
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @role }
@@ -44,7 +44,7 @@ class RolesController < ApplicationController
 
     respond_to do |format|
       if @role.save
-        format.html { redirect_to @role, notice: 'Role was successfully created.' }
+        format.html { redirect_to @role, notice: 'El rol fue creado exitosamente.' }
         format.json { render json: @role, status: :created, location: @role }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class RolesController < ApplicationController
 
     respond_to do |format|
       if @role.update_attributes(params[:role])
-        format.html { redirect_to @role, notice: 'Role was successfully updated.' }
+        format.html { redirect_to @role, notice: 'El rol fue editado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

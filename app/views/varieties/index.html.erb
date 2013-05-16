@@ -16,7 +16,7 @@
   <% @varieties.each do |variety| %>
   <tr>
     <td><%= variety.name %></td>
-    <td><%= variety.kind_id %></td>
+    <td><%= Kind.find(variety.kind_id).name %></td>
     <td><%= link_to 'Ver', variety %></td>
     <td><%= link_to 'Editar', edit_variety_path(variety) %></td>
     <td><%= link_to 'Eliminar', variety, method: :delete, data: { confirm: '¿Está seguro de eliminar esta variedad?' } %></td>

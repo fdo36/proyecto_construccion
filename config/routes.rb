@@ -23,11 +23,11 @@ ProyectoConstruccion::Application.routes.draw do
   resources :producers
 
 
-  resources :roles
+  resources :roles do
+    resources :access_rights
+  end
 
-
-  resources :right_accesses
-
+  match "/admin/users/:id/edit_password" => "users#edit_password", :as => "edit_user_password"
 
   resources :companies
 
@@ -95,5 +95,13 @@ ProyectoConstruccion::Application.routes.draw do
   match 'seasons/:id/enable' => 'seasons#enable', :as => 'seasons_enable'
   match 'seasons/:id/disable' => 'seasons#disable', :as => 'seasons_disable'
   match 'seasons/:id/delete_season' => 'seasons#delete_season', :as => 'season_delete'
+
+  match 'destinations/:id/enable' => 'destinations#enable', :as => 'destinations_enable'
+  match 'destinations/:id/disable' => 'destinations#disable', :as => 'destinations_disable'
+  match 'destinations/:id/delete_destination' => 'destinations#delete_destination', :as => 'destination_delete'
+
+  match 'producers/:id/enable' => 'producers#enable', :as => 'producers_enable'
+  match 'producers/:id/disable' => 'producers#disable', :as => 'producers_disable'
+  match 'producers/:id/delete_producer' => 'producers#delete_producer', :as => 'producer_delete'
   
 end

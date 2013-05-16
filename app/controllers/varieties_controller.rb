@@ -1,3 +1,4 @@
+#encoding: utf-8
 class VarietiesController < ApplicationController
   # GET /varieties
   # GET /varieties.json
@@ -44,7 +45,7 @@ class VarietiesController < ApplicationController
 
     respond_to do |format|
       if @variety.save
-        format.html { redirect_to @variety, notice: 'Variety was successfully created.' }
+        format.html { redirect_to @variety, notice: 'La variedad fue creada exitosamente.' }
         format.json { render json: @variety, status: :created, location: @variety }
       else
         format.html { render action: "new" }
@@ -60,7 +61,7 @@ class VarietiesController < ApplicationController
 
     respond_to do |format|
       if @variety.update_attributes(params[:variety])
-        format.html { redirect_to @variety, notice: 'Variety was successfully updated.' }
+        format.html { redirect_to @variety, notice: 'La variedad fue editada exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

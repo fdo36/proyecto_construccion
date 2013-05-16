@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 <div class="headContent">
-  <h1>Ver Agrupación</h1>
+  <h1>Ver Calidad</h1>
 </div>
 <div class="box">
-<%= link_to 'Volver', agrupations_path , :class => "button blue alignright" %>
+<%= link_to 'Volver', qualities_path , :class => "button blue alignright" %>
 <p>
-  <b>Name:</b>
+  <b>Nombre:</b>
   <%= @quality.name %>
 </p>
 </div>
 <div class="foot-box">
-	<%= link_to 'Editar', edit_agrupation_path(@agrupation) , :class => "button green alignright" %>
+	<%= link_to 'Editar', edit_quality_path(@quality) , :class => "button green alignright" %>
 </div>

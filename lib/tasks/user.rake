@@ -8,3 +8,4 @@ namespace :user do
   end
 
 end
+

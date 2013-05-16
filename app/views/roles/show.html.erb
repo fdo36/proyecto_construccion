@@ -5,15 +5,51 @@
 <div class="box">
 <%= link_to 'Volver', roles_path , :class => "button blue alignright" %>
 <p>
-  <b>Name:</b>
+  <b>Nombre:</b>
   <%= @role.name %>
 </p>
 
 <p>
-  <b>Description:</b>
+  <b>Descripción:</b>
   <%= @role.description %>
 </p>
 
+<p>
+	<h2>Permisos</h2>
+	<ul>
+	<% @role.access_rights.each do |access_right| %>
+		<li>
+			<strong><%= access_right.model_name  %></strong>: <%= access_right.action %> <%= link_to 'Eliminar', [@role, access_right], :method => :delete %>
+		</li>
+	<% end %>
+    </ul>
+</p>
+
+  <div class="line-forme">
+    <h2>Agregar permiso</h2>
+  </div>
+  <%= form_for([@role, @role.access_rights.build]) do |f| %>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Caracteristica %><br />
+      </div>
+      <div class="forme-in">
+        <%= f.select :model_name, options_for_select(@supported_models) %>
+      </div>
+    </div>
+      <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Permiso_para %><br />
+      </div>
+      <div class="forme-in">
+        <%= f.select :action, options_for_select([["Crear", "create"], ["Leer", "read"], ["Actualizar", "update"], ["Eliminar","delete"], ["Todo", "manage"]]) %>
+      </div>
+    </div>
+
+      <%= f.submit :Agregar %>
+
+    
+  <% end %>
 
 </div>
 <div class="foot-box">
