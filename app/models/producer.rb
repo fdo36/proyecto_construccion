@@ -14,6 +14,7 @@ class Producer < ActiveRecord::Base
     :message => "debe ingresar un número válido" }
 
   belongs_to :commune
+  has_many :receipts
   has_and_belongs_to_many :groupings
   has_and_belongs_to_many :kinds
   has_and_belongs_to_many :containers
