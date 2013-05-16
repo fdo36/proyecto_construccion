@@ -38,14 +38,24 @@
       <%= f.text_field :address %>
     </div>
   </div>
+  <div class="line-forme">
+          <div class="forme-lab">
+            <%= f.label :"Región" %><br />
+          </div>  
+          <div class="forme-in">
+            <% regions_array = Region.all.map { |region| [region.name, region.id] } %>
+          <%= f.select(:region, regions_array) %>
+          </div>  
+        </div>
     <div class="line-forme">
-      <div class="forme-lab">
-        <%= f.label :Ciudad %><br />
-      </div>
-      <div class="forme-in">
-        <%= f.text_field :city %>
-      </div>
-  </div>
+          <div class="forme-lab">
+            <%= f.label :"Comuna" %><br />
+          </div>  
+          <div class="forme-in">
+            <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
+          <%= f.select(:city, communes_array) %>
+          </div>  
+        </div>
   <div class="line-forme">
     <div class="forme-lab">
       <%= f.label :Giro_del_Negocio %><br />

@@ -4,4 +4,5 @@ class Commune < ActiveRecord::Base
   belongs_to :region
   has_many :producers
   has_many :destinations
+  has_many :companies
 end

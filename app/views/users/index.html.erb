@@ -1,46 +1,88 @@
 <div class="headContent">
-  <h1>Lista de Usuarios</h1>
+    <h1>Lista de Usuarios</h1>
 </div>
-<div class="box">
     <%= link_to 'Nuevo Usuario', new_user_path , :class => "button blue alignright" %>
-
-    <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
-        <thead>
-            <tr>
-                <th style="width:20% !important;">Email</th>
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Usuarios Activos</h1>
+        </div>
+        <div class="box">
+            <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="tab_tempo_ini">
+                <thead>
+                    <tr>
+                        <th style="width:20% !important;">Email</th>
                 
-                <th>Activo</th>
-                <th>Teléfono</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Genero</th>
-                <th>Súper Usuario</th>
-                <th style="width:20% !important;">Acciones</th>
-                
-              
-            </tr>
-        </thead> 
-    <tbody>     
+                        <th>Activo</th>
+                        <th>Teléfono</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Genero</th>
+                        <th>Súper Usuario</th>
+                        <th style="width:20% !important;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    <% @users.each do |user| %>
+                        <% if (user.active == true)  %>
+                        <tr>
+                            <td><%= user.email %></td>
+                            <td><%= user.active %></td>
+                            <td><%= user.phone %></td>
+                            <td><%= user.name %></td>
+                            <td><%= user.lastname %></td>
+                            <td><%= user.gender %></td>
+                            <td><%= user.super_admin %></td>
+                            <td><%= link_to 'Ver', user %>
+                            <%= link_to 'Editar', edit_user_path(user) %>
+                            <%= link_to 'Deshabilitar', users_disable_path(user) %>
+                            <%= link_to 'Eliminar', user, method: :delete, data: { confirm: '¿Esta seguro de eliminar este Usuario?' } %></td>
+                        </tr>
+                        <%end%>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <% @users.each do |user| %>
-        <tr>
-            <td><%= user.email %></td>
-            
-            <td><%= user.active %></td>
-            <td><%= user.phone %></td>
-            <td><%= user.name %></td>
-            <td><%= user.lastname %></td>
-            <td><%= user.gender %></td>
-            <td><%= user.super_admin %></td>
-            <td><%= link_to 'Ver', user %>
-            <%= link_to 'Cambiar contraseña', edit_user_password_path(user) %>
-            <%= link_to 'Editar', edit_user_path(user) %>
-            <%= link_to 'Eliminar', user, method: :delete, data: { confirm: '¿Esta seguro de eliminar este Usuario?' } %></td>
-        </tr>
-    <% end %>
-        </tbody>
-    </table>
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Usuarios Desctivados</h1>
+        </div>
+        <div class="box">
+
+            <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="tab_tempo_fin">
+                <thead>
+                    <tr>
+                        <th style="width:20% !important;">Email</th>
+                        <th>Activo</th>
+                        <th>Teléfono</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Genero</th>
+                        <th>Súper Usuario</th>
+                        <th style="width:20% !important;">Acciones</th>
+                     </tr>
+                </thead>
+                <tbody>
+                    <% @users.each do |user| %>
+                        <% if (user.active == false)  %>
+                        <tr>
+                            <td><%= user.email %></td>
+                            <td><%= user.active %></td>
+                            <td><%= user.phone %></td>
+                            <td><%= user.name %></td>
+                            <td><%= user.lastname %></td>
+                            <td><%= user.gender %></td>
+                            <td><%= user.super_admin %></td>
+                            <td><%= link_to 'Ver', user %>
+                            <%= link_to 'Editar', edit_user_path(user) %>
+                            <%= link_to 'Habilitar', users_enable_path(user) %>
+                            <%= link_to 'Eliminar', user, method: :delete, data: { confirm: '¿Esta seguro de eliminar este Usuario?' } %></td>
+                        </tr>
+                        <%end%>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-
-
-

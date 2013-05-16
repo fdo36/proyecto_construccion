@@ -221,6 +221,8 @@ es:
       user:
         email: "Correo electrónico"
         password: "Contraseña"
+        secret_question: "Pregunta secreta"
+        secret_answer: "Respuesta secreta"
       container:
         name: "Nombre"
         tare: "Tara"
@@ -252,6 +254,7 @@ es:
       variety:
         kind_id: "Especie"
         name: "Nombre"
+
 
 
 
