@@ -17,8 +17,8 @@ development:
   encoding: unicode
   database: proyecto_construccion_development
   pool: 5
-  username: postgres
-  password: admin
+  username: stifler
+  password: stifler
   host: localhost
 
   # Connect on a TCP socket. Omitted by default since the client uses a
