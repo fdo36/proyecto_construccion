@@ -198,15 +198,24 @@ es:
   activerecord:
     errors:
       <<: *errors
-  #activerecord:      
-  #  attributes:  
-  #    user:
-  #      email: "Correo electrónico"
-  #      password: "Contraseña"   
-  activerecord:
+    models:
+      access_right: "Permiso"
+      commune: "Comuna"
+      company: "Compañía"
+      container: "Contenedor"
+      destination: "Destino"
+      grouping: "Agrupación"
+      kind: "Tipo"
+      producer: "Productor"
+      quality: "Calidad"
+      region: "Región"
+      role: "Rol"
+      season: "Temporada"
+      user: "Usuario"
+      variety: "Variedad"
     attributes:
       company:
-        name: "Nombre de la Compañia"
+        name: "Nombre de la Compañía"
         rut: "Rut"
         email: "Correo electrónico"
       user:
