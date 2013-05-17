@@ -13,5 +13,6 @@ class Destination < ActiveRecord::Base
   validates :rut, :format => { :with => /^(\d{2}\d{3}\d{3}-)([a-zA-Z]{1}$|\d{1}$)/,
     :message => "debe ingresar el formato válido. Ejemplo: 11111111-1" }
 
+  has_one :dispatch
   belongs_to :commune
 end
