@@ -42,7 +42,7 @@
     </div>
     <div class="forme-in">
       <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
-      <%= f.select(:commune_id, communes_array) %>
+      <%= f.select(:commune_id, communes_array, :selected => :prompt, :prompt => '- Seleccione comuna -') %>
     </div>
   </div>
   <div class="line-forme">
