@@ -1,4 +1,21 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :dispatch_containers
+
+
+  resources :dispatches
+
+
+  resources :receipt_containers
+
+
+  resources :pallets
+
+
+  resources :receipts do
+    resources :pallets
+  end
+
+
   resources :seasons
 
 
