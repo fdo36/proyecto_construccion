@@ -1,0 +1,53 @@
+<%= form_for(@pallet) do |f| %>
+  <% if @pallet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pallet.errors.count, "error") %> prohibited this pallet from being saved:</h2>
+
+      <ul>
+      <% @pallet.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :receipt_id %><br />
+    <%= f.number_field :receipt_id %>
+  </div>
+  <div class="field">
+    <%= f.label :container_id %><br />
+    <%= f.number_field :container_id %>
+  </div>
+  <div class="field">
+    <%= f.label :quality_id %><br />
+    <%= f.number_field :quality_id %>
+  </div>
+  <div class="field">
+    <%= f.label :variety_id %><br />
+    <%= f.number_field :variety_id %>
+  </div>
+  <div class="field">
+    <%= f.label :price_kg %><br />
+    <%= f.text_field :price_kg %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br />
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :gross_weight %><br />
+    <%= f.text_field :gross_weight %>
+  </div>
+  <div class="field">
+    <%= f.label :code %><br />
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :tare %><br />
+    <%= f.text_field :tare %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

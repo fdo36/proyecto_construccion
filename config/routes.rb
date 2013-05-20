@@ -10,14 +10,11 @@ ProyectoConstruccion::Application.routes.draw do
 
   resources :pallets
 
-
-<<<<<<< HEAD
   resources :receipts do
     resources :pallets
   end
-=======
+  
   resources :receipts
->>>>>>> b5c1b175b49fa6283c60f249e7686a9b38de6b5b
 
 
   resources :seasons

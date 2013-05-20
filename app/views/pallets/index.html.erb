@@ -1,0 +1,39 @@
+<h1>Listing pallets</h1>
+
+<table>
+  <tr>
+    <th>Receipt</th>
+    <th>Container</th>
+    <th>Quality</th>
+    <th>Variety</th>
+    <th>Price kg</th>
+    <th>Quantity</th>
+    <th>Gross weight</th>
+    <th>Code</th>
+    <th>Tare</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pallets.each do |pallet| %>
+  <tr>
+    <td><%= pallet.receipt_id %></td>
+    <td><%= pallet.container_id %></td>
+    <td><%= pallet.quality_id %></td>
+    <td><%= pallet.variety_id %></td>
+    <td><%= pallet.price_kg %></td>
+    <td><%= pallet.quantity %></td>
+    <td><%= pallet.gross_weight %></td>
+    <td><%= pallet.code %></td>
+    <td><%= pallet.tare %></td>
+    <td><%= link_to 'Show', pallet %></td>
+    <td><%= link_to 'Edit', edit_pallet_path(pallet) %></td>
+    <td><%= link_to 'Destroy', pallet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Pallet', new_pallet_path %>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Code:</b>
+  <%= @dispatch.code %>
+</p>
+
+<p>
+  <b>Destination:</b>
+  <%= @dispatch.destination_id %>
+</p>
+
+<p>
+  <b>Kind:</b>
+  <%= @dispatch.kind_id %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @dispatch.date %>
+</p>
+
+<p>
+  <b>Hour:</b>
+  <%= @dispatch.hour %>
+</p>
+
+
+<%= link_to 'Edit', edit_dispatch_path(@dispatch) %> |
+<%= link_to 'Back', dispatches_path %>

@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Receipt:</b>
+  <%= @pallet.receipt_id %>
+</p>
+
+<p>
+  <b>Container:</b>
+  <%= @pallet.container_id %>
+</p>
+
+<p>
+  <b>Quality:</b>
+  <%= @pallet.quality_id %>
+</p>
+
+<p>
+  <b>Variety:</b>
+  <%= @pallet.variety_id %>
+</p>
+
+<p>
+  <b>Price kg:</b>
+  <%= @pallet.price_kg %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @pallet.quantity %>
+</p>
+
+<p>
+  <b>Gross weight:</b>
+  <%= @pallet.gross_weight %>
+</p>
+
+<p>
+  <b>Code:</b>
+  <%= @pallet.code %>
+</p>
+
+<p>
+  <b>Tare:</b>
+  <%= @pallet.tare %>
+</p>
+
+
+<%= link_to 'Edit', edit_pallet_path(@pallet) %> |
+<%= link_to 'Back', pallets_path %>

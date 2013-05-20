@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  code: MyString
+  producer_id: 1
+  kind_id: 1
+  date: 2013-05-15
+  hour: 2013-05-15 20:20:13
+
+two:
+  code: MyString
+  producer_id: 1
+  kind_id: 1
+  date: 2013-05-15
+  hour: 2013-05-15 20:20:13

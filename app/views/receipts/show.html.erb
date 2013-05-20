@@ -1,0 +1,235 @@
+
+
+
+
+
+<p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Ingreso</h1>
+</div>
+<div class="box">
+	<%= link_to 'Volver', receipts_path , :class => "button blue alignright" %>
+
+
+	<div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Productor:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="productor"><%=  (Producer.all(:select => "company_name", :conditions => ["id = ?",@receipt.producer_id]))[0].company_name %></label>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Rut:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="rut"><%= (Producer.all(:select => "rut", :conditions => ["id = ?",@receipt.producer_id]))[0].rut %></label>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Código productor:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="codigo_productor"><%= (Producer.all(:select => "sag_code", :conditions => ["id = ?",@receipt.producer_id]))[0].sag_code %></label>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Especie:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="especie"><%= (Kind.all(:select => "name", :conditions => ["id = ?",@receipt.kind_id]))[0].name %></label>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Fecha:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="fecha"><%= @receipt.date.strftime('%d/%m/%Y') %></label>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Hora:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="hora"><%= @receipt.hour.strftime('%H:%M:%S') %></label>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Número ingreso:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="numero_ingreso"><%= @receipt.code %></label>
+      </div>
+    </div>
+
+</div>
+
+
+<div class="box">
+
+	<div class = "contentSubPanel">
+	    <div class="headContent">
+	      <h1>Registrar</h1>
+	    </div>
+	</div>
+	<%= form_for(([@receipt, @receipt.pallets.build])) do |f| %>
+		<div class="box">	
+		    <div class="line-forme">
+		    	<div class="forme-lab">
+		    		<label>Variedad:</label>
+		    	</div>
+		      
+		        <div class="forme-in">
+		          <% varieties_array = Variety.all.map { |variety| [variety.name, variety.id] }%>
+	        	  <%= f.select(:variety_id, varieties_array, :selected => :prompt, :prompt => '- Seleccione variedad -') %>
+	        	</div>	        	
+	        </div>
+
+
+	        <div class="line-forme">
+		    	<div class="forme-lab">
+		    		<label>Calidad:</label>
+		    	</div>
+		      
+		        <div class="forme-in">
+		          <% qualities_array = Quality.all.map { |quality| [quality.name, quality.id] }%>
+	        	  <%= f.select(:quality_id, qualities_array, :selected => :prompt, :prompt => '- Seleccione calidad -') %>
+	        	</div>	        	
+	        </div>
+
+	        <div class="line-forme">
+		        <div class="forme-lab">
+		          <label>Precio por kg ($):</label>
+		        </div>
+		      
+		        <div class="forme-in">
+		          <%= f.text_field(:price_kg)%>
+		        </div>
+	      	</div>
+
+	      	<div class="line-forme">
+		        <div class="forme-lab">
+		          <label>Tipo envase:</label>
+		        </div>
+		      
+		        <div class="forme-in">
+		        <% containers_array = Container.all.map { |container| [container.name, container.id] }%>
+	        	  <%= f.select(:container_id, containers_array, :selected => :prompt, :prompt => '- Seleccione tipo envase -') %>
+		        </div>
+	      	</div>
+
+	      	<div class="line-forme">
+		        <div class="forme-lab">
+		          <label>Cantidad envases:</label>
+		        </div>
+		      
+		        <div class="forme-in">
+		          <%= f.text_field(:quantity)%>
+		        </div>
+	      	</div>
+
+	      	<div class="line-forme">
+		        <div class="forme-lab">
+		          <label>Peso Bruto (Kg):</label>
+		        </div>
+		      
+		        <div class="forme-in">
+		          <%= f.text_field(:gross_weight)%>
+		        </div>
+	      	</div>
+
+	      	<div class="line-forme">
+		        <div class="forme-lab">
+		          <label>Código Pallet:</label>
+		        </div>
+		      
+		        <div class="forme-in">
+		          <%= f.text_field(:code)%>
+		        </div>
+	      	</div>
+
+	      	<div class="line-forme">
+		        <div class="forme-lab">
+		          <label>Destare Pallet (Kg):</label>
+		        </div>
+		      
+		        <div class="forme-in">
+		          <%= f.text_field(:tare)%>
+		        </div>
+	      	</div>
+
+	    </div>
+	    <%= f.hidden_field :receipt_id, { :value => @receipt.id} %>
+
+	    <%= f.submit :Agregar %> 
+    <% end %>
+
+	  <div class = "contentSubPanel">
+	    <div class="headContent">
+	    <h1>Lista de ingresos</h1>
+	    </div>
+	    <div class="box">
+	      
+
+	      <table cellpadding="0" cellspacing="0" border="0" id="tablealone" class="display datatable">
+	        <thead>
+	          <tr>
+	            <th style="width:20% !important;">Código Pallet</th>
+	            <th>N° Envases</th>
+	            <th>Peso Neto (Kg)</th>
+	            <th>Variedad</th>
+	            <th>Calidad</th>
+	            <th>Precio</th>
+	            <th style="width:20% !important;">Acciones</th>
+	          </tr>
+	        </thead>
+
+	        <tbody>
+                  <% @receipt.pallets.each do |pallet| %>
+                    
+                        <tr>
+                          <td><%= pallet.code %></td>
+                          <td><%= pallet.quantity %></td>
+                          <td><%= pallet.gross_weight%></td>
+                          <td><%= pallet.variety_id %></td>
+                          <td><%= pallet.quality_id %></td>
+                          <td><%= pallet.price_kg %></td>
+                          <td>
+                          	<%= link_to 'Ver', [@receipt, pallet], :method => :show %>
+                          <%= link_to 'Editar', [@receipt, pallet], :method => :update %>
+                          <%= link_to 'Eliminar', [@receipt, pallet], :method => :delete %></td>
+                        </tr>
+                    
+                  <% end %>
+                </tbody>
+	      
+	      </table>
+
+	    </div>
+	  </div>
+</div>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_receipt_path(@receipt) , :class => "button green alignright" %>
+</div>
+
+

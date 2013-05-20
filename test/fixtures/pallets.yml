@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  receipt_id: 1
+  container_id: 1
+  quality_id: 1
+  variety_id: 1
+  price_kg: 1.5
+  quantity: 1
+  gross_weight: 1.5
+  code: MyString
+  tare: 1.5
+
+two:
+  receipt_id: 1
+  container_id: 1
+  quality_id: 1
+  variety_id: 1
+  price_kg: 1.5
+  quantity: 1
+  gross_weight: 1.5
+  code: MyString
+  tare: 1.5

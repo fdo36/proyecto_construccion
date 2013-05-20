@@ -1,0 +1,2 @@
+module ReceiptContainersHelper
+end
