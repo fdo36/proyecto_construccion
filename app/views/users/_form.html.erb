@@ -101,7 +101,7 @@
         <%= f.label :"Compañia" %><br />
       </div>  
       <div class="forme-in">
-        <% companies_array = Company.all.map { |company| [company.name, company.id] } %>
+        <% companies_array = Company.where(:active => true).map { |company| [company.name, company.id] } %>
       <%= f.select(:company_id, companies_array) %>
       </div>  
     </div>
