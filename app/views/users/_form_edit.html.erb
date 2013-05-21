@@ -1,0 +1,128 @@
+<div class="box">
+  <%= form_for(@user) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2>Se han encontrado los siguientes errores:</h2>
+
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Correo_electrónico %><br />
+      </div>
+      <div class="forme-in">
+         <%= f.text_field :email %>
+      </div>
+    </div>      
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Activo %><br />
+      </div>  
+      <div class="forme-in">
+        <%= f.check_box :active %>
+      </div>
+    </div>  
+
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Teléfono %><br />
+      </div>  
+      <div class="forme-in">
+        <%= f.number_field :phone %>
+      </div>
+    </div>    
+    
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Nombre %><br />
+      </div>    
+      <div class="forme-in">
+        <%= f.text_field :name %>
+      </div>  
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Apellido %><br />
+      </div>  
+      <div class="forme-in">
+        <%= f.text_field :lastname %>    
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Genero %><br />
+      </div>
+      <div class="forme-in">
+        <%= f.radio_button(:gender, "Masculino") %>
+        <%= label_tag(:label1, "Masculino") %>
+        <%= f.radio_button(:gender,"Femenino") %>
+        <%= label_tag(:label1, "Femenino") %>
+      </div>
+    </div>      
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Pregunta_secreta %><br />
+      </div>
+      <div class="forme-in">  
+        <%= f.text_field :secret_question %>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Respuesta_Secreta %><br />
+      </div>  
+      <div class="forme-in">
+      <%= f.text_field :secret_answer %>
+      </div>  
+    </div>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Súper_Usuario%><br />
+      </div>  
+      <div class="forme-in">
+      <%= f.check_box :super_admin %>
+      </div>  
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :"Compañia" %><br />
+      </div>  
+      <div class="forme-in">
+        <% companies_array = Company.where(:active => true).map { |company| [company.name, company.id] } %>
+      <%= f.select(:company_id, companies_array) %>
+      </div>  
+    </div>
+    
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Roles %><br />
+      </div>
+      <div class="forme-in">
+      <% @roles.each do |role| %>
+        <%= check_box_tag 'role_ids[]', role.id, @user.roles.member?(role) -%>
+        <%= h role.name -%>
+      <% end %>
+      </div>
+    </div>
+</div>
+
+<div class="foot-box">
+  <%= link_to 'Cancelar', users_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+ <% end %>
