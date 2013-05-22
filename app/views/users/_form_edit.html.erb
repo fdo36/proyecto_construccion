@@ -89,6 +89,8 @@
       <%= f.text_field :secret_answer %>
       </div>  
     </div>
+
+    <% if current_user.super_admin == true %>
     <div class="line-forme">
       <div class="forme-lab">
         <%= f.label :Súper_Usuario%><br />
@@ -101,13 +103,14 @@
     <div class="line-forme">
       <div class="forme-lab">
         <%= f.label :"Compañia" %><br />
-      </div>  
+      </div>
       <div class="forme-in">
         <% companies_array = Company.where(:active => true).map { |company| [company.name, company.id] } %>
       <%= f.select(:company_id, companies_array) %>
       </div>  
     </div>
-    
+    <% end %>
+
     <div class="line-forme">
       <div class="forme-lab">
         <%= f.label :Roles %><br />
