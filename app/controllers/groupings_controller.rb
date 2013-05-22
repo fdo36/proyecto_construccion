@@ -45,7 +45,7 @@ class GroupingsController < ApplicationController
 
     respond_to do |format|
       if @grouping.save
-        format.html { redirect_to @grouping, notice: 'La agrupación fue creada exitosamente.' }
+        format.html { redirect_to '/groupings', notice: "La agrupación #{@grouping.name} fue creada exitosamente." }
         format.json { render json: @grouping, status: :created, location: @grouping }
       else
         format.html { render action: "new" }
@@ -61,7 +61,7 @@ class GroupingsController < ApplicationController
 
     respond_to do |format|
       if @grouping.update_attributes(params[:grouping])
-        format.html { redirect_to @grouping, notice: 'La agrupación fue editada exitosamente.' }
+        format.html { redirect_to '/groupings', notice: "La agrupación #{@grouping.name} fue editada exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

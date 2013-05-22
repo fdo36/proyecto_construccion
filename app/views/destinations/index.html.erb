@@ -4,6 +4,8 @@
 <div class="box">
   <%= link_to 'Nuevo Destino', new_destination_path , :class => "button blue alignright" %>
 
+  <p id="notice" class="alignleft"><%= notice %> </p>
+
     <div class="contentSubPanel">
         <div class="headContent">
             <h1>Destinos Habilitados</h1>
@@ -32,7 +34,7 @@
                   <td><%= destination.email %></td>
                   <td><%= link_to 'Ver', destination %>
                   <%= link_to 'Editar', edit_destination_path(destination) %>
-                  <%= link_to 'Deshabilitar', destinations_disable_path(destination) %>
+                  <%= link_to 'Deshabilitar', destinations_disable_path(destination) %></td>
                 </tr>
               <% end %>
             <% end %>

@@ -21,7 +21,7 @@
 
 <p>
   <b>Comuna:</b>
-  <%= @producer.commune_id %>
+  <%= Commune.find(@producer.commune_id).name %>
 </p>
 
 <p>

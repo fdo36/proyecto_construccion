@@ -26,15 +26,43 @@
 				"sPaginationType": "full_numbers",
 				"bJQueryUI": true,
 				"aoColumnDefs": [
-		      { "bSortable": false, "aTargets": [ -1 ] }
+		      { "bSortable": false, "aTargets": [ -1 ] },
+		      { "bSearchable": false, "aTargets": [ -1 ]}
 		    ] } );
-
 		});
 		$(document).on("click", "#mostrar-dialog",function(event) 
 		{	
 			$( "#dialog-modal" ).dialog( "open" );
 		});
   	</script>
+
+  	<script>
+      function show_producer_communes(region) {
+        $.get("/regions/"+region.value+"/communes.json", function(data) { 
+	    	var options = '';
+	      	$.each(data, function(i, item){	
+	            options += '<option value="' + item.id + '">' + item.name + '</option>';
+	        });
+	        $("select#producer_commune_id").html(options);
+	      	if (region.value === '' ) $("select#producer_commune_id").html();
+
+        });
+      }
+	</script>
+	<script>
+      function show_destination_communes(region) {
+        $.get("/regions/"+region.value+"/communes.json", function(data) { 
+	    	var options = '';
+	      	$.each(data, function(i, item){	
+	            options += '<option value="' + item.id + '">' + item.name + '</option>';
+	        });
+	        $("select#destination_commune_id").html(options);
+	      	if (region.value === '' ) $("select#destination_commune_id").html();
+
+        });
+      }
+	</script>
+
 </head>
 <body>
 

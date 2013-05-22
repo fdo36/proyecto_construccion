@@ -4,6 +4,8 @@
 <div class="box">
   <%= link_to 'Nuevo Envase', new_container_path , :class => "button blue alignright" %>
 
+  <p id="notice" class="alignleft"><%= notice %> </p>
+
   <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
     <thead>
       <tr>
@@ -17,9 +19,9 @@
   <tr>
     <td><%= container.name %></td>
     <td><%= container.tare %></td>
-    <td><%= link_to 'Ver', container %></td>
-    <td><%= link_to 'Editar', edit_container_path(container) %></td>
-    <td><%= link_to 'Eliminar', container, method: :delete, data: { confirm: '¿Está seguro de eliminar este Envase?' } %></td>
+    <td><%= link_to 'Ver', container %>
+    <%= link_to 'Editar', edit_container_path(container) %>
+    <%= link_to 'Eliminar', container, method: :delete, data: { confirm: '¿Está seguro de eliminar este Envase?' } %></td>
   </tr>
 <% end %>
     </tbody>

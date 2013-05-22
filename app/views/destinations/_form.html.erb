@@ -30,11 +30,21 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
+      <%= f.label :Región %><br />
+    </div>
+    <div class="forme-in">
+      <% @regions = Region.all.map { |region| [region.name, region.id] } %>
+      <%= select_tag('regions', options_for_select(@regions),
+        :onchange => "show_destination_communes(this)", :selected => :prompt, :prompt => '- Seleccione región -') %>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
       <%= f.label :Comuna %><br />
     </div>
     <div class="forme-in">
-      <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
-      <%= f.select(:commune_id, communes_array, :selected => :prompt, :prompt => '- Seleccione comuna -') %>
+
+      <%= f.select(:commune_id, {} ,:selected => :prompt, :prompt => '- Seleccione comuna -') %>
     </div>
   </div>
   <div class="line-forme">
