@@ -282,8 +282,8 @@ section#content{
 }
 
 
-.forme-in input[type="text"], .forme-in select{
-	width: 100%;
+.forme-in  input[type="text"], .forme-in select{
+	width: 97%;
 	height: 90%;
 }
 
