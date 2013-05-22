@@ -80,6 +80,14 @@
       <%= f.text_field :email %>
     </div>
    </div> 
+   <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Activo %><br />
+      </div>  
+      <div class="forme-in">
+        <%= f.check_box :active %>
+      </div>
+    </div>
 </div>
 <div class="foot-box">
   <%= link_to 'Cancelar', companies_path , :class => "button silver alignright" %>
