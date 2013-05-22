@@ -3,7 +3,11 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    if current_user.super_admin == true 
+      @users = User.all
+    else
+      @users = User.where(:company_id => current_user.company_id)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

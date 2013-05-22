@@ -1,5 +1,10 @@
 #encoding: utf-8
 es:
+  unauthorized:
+    manage:
+      all: "Usted no esta autorizado para hacer esto en %{subject}."
+      user: "No esta autorizado a manejar otras cuentas"
+
   date:
     abbr_day_names:
     - dom

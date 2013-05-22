@@ -32,6 +32,7 @@
                             <td><%= user.super_admin %></td>
                             <td><%= link_to 'Ver', user %>
                             <%= link_to 'Editar', edit_user_path(user) %>
+                            <%= link_to 'Cambiar contraseña', edit_user_password_path(user) %>
                             <%= link_to 'Deshabilitar', users_disable_path(user) %>
                             </td>
                         </tr>
