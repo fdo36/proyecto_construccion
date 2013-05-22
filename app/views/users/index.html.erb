@@ -3,14 +3,9 @@
 </div>
 <div class="box">
     <div class="contentSubPanel">
-        
-        
             <div class="temporada-pan1">
                 <%= link_to 'Nuevo Usuario', new_user_path , :class => "button blue alignright" %>
-            
-
             </div>
-        
     </div>
     
     <div class="contentSubPanel">
@@ -44,7 +39,7 @@
                             <td><%= link_to 'Ver', user %>
                             <%= link_to 'Editar', edit_user_path(user) %>
                             <%= link_to 'Deshabilitar', users_disable_path(user) %>
-                            <%= link_to 'Eliminar', user, method: :delete, data: { confirm: '¿Esta seguro de eliminar este Usuario?' } %></td>
+                            </td>
                         </tr>
                         <%end%>
                     <% end %>
