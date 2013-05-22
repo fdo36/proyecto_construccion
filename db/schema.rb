@@ -29,15 +29,15 @@ ActiveRecord::Schema.define(:version => 20130520031605) do
   end
 
   create_table "companies", :force => true do |t|
-    t.string   "name",             :default => "", :null => false
-    t.integer  "rut",                              :null => false
+    t.string   "name"
+    t.integer  "rut"
     t.string   "address"
     t.string   "city"
     t.string   "line_of_business"
     t.integer  "phone"
-    t.string   "email",            :default => "", :null => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.string   "email"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "region"
     t.boolean  "active"
   end
