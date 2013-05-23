@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520031605) do
+ActiveRecord::Schema.define(:version => 20130523162318) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -32,14 +32,14 @@ ActiveRecord::Schema.define(:version => 20130520031605) do
     t.string   "name",             :default => "", :null => false
     t.integer  "rut",                              :null => false
     t.string   "address"
-    t.string   "city"
     t.string   "line_of_business"
     t.integer  "phone"
     t.string   "email",            :default => "", :null => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
-    t.string   "region"
     t.boolean  "active"
+    t.integer  "region_id"
+    t.integer  "commune_id"
   end
 
   create_table "containers", :force => true do |t|

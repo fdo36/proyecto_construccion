@@ -44,7 +44,7 @@
           </div>  
           <div class="forme-in">
             <% regions_array = Region.all.map { |region| [region.name, region.id] } %>
-          <%= f.select(:region, regions_array) %>
+          <%= f.select(:region_id, regions_array, :selected => :prompt, :prompt => '- Seleccione región -') %>
           </div>  
         </div>
     <div class="line-forme">
@@ -53,7 +53,7 @@
           </div>  
           <div class="forme-in">
             <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
-          <%= f.select(:city, communes_array) %>
+          <%= f.select(:commune_id, communes_array, :selected => :prompt, :prompt => '- Seleccione comuna -') %>
           </div>  
         </div>
   <div class="line-forme">

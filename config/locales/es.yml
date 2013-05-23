@@ -223,6 +223,8 @@ es:
         name: "Nombre de la Compañía"
         rut: "Rut"
         email: "Correo electrónico"
+        commune_id: "Comuna"
+        region_id: "Región"
       user:
         email: "Correo electrónico"
         password: "Contraseña"
