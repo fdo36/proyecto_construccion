@@ -1,7 +1,7 @@
 #encoding: utf-8
 class RutValidator < ActiveModel::Validator
   def validate(record)
-  	invalid = false
+  	invalid = true
   	t = record.rut[0, record.rut.length - 2].to_i
   	d = record.rut[record.rut.length - 1, record.rut.length]
     v=1
@@ -17,22 +17,29 @@ class RutValidator < ActiveModel::Validator
 	end
 	s = 11 - s%11
 	if s == 11
-	  if d.to_i != 0
-	  	invalid = true
+	  if d.to_i == 0
+	  	invalid = false
 	  end
 	elsif s == 10
-	  if d.to_str.eql? "K"  or d.to_str.eql? "k"
-	  	puts "debiera ser K"
-	  	invalid = true
+	  if d.casecmp("K") == 0
+	  	invalid = false
 	  end
 	else
-	  if d.to_i != s
-	  	invalid = true
+	  if d.to_i == s
+	  	invalid = false
 	  end	
 	end
 
     if invalid == true
       record.errors[:base] << "El RUT es inválido"
     end
+   
+    @producer = Producer.where(:rut => record.rut)
+    @destination = Destination.where(:rut => record.rut)
+    if !@producer.empty? or !@destination.empty?
+    	record.errors[:base] << "El RUT ya ha sido ingresado"
+    end
+
+
   end
 end
