@@ -21,7 +21,8 @@ class RutValidator < ActiveModel::Validator
 	  	invalid = true
 	  end
 	elsif s == 10
-	  if d != "K" || d != "k"
+	  if d.to_str.eql? "K"  or d.to_str.eql? "k"
+	  	puts "debiera ser K"
 	  	invalid = true
 	  end
 	else
