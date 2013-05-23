@@ -1,6 +1,9 @@
 #encoding: utf-8
+require 'rutValidator.rb'
 class Destination < ActiveRecord::Base
   attr_accessible :active, :address, :commune_id, :company_name, :contact, :email, :phone, :rut, :is_deleted
+
+  validates_with RutValidator
 
   validates :address, :commune_id, :company_name, :contact, :email, :phone, :rut, :presence => true
 

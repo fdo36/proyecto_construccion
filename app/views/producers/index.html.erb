@@ -16,8 +16,6 @@
                 <thead>
                   <tr>
                     <th style="width:20% !important;">Nombre</th>
-                    <th>Dirección</th>
-                    <th>Comuna</th>
                     <th>Teléfono</th>
                     <th>Email</th>
                     <th colspan="3" style="width:20% !important;">Acciones</th>
@@ -28,8 +26,6 @@
                     <% if ((producer.active == true) and (producer.is_deleted == false))%>
                         <tr>
                           <td><%= producer.company_name %></td>
-                          <td><%= producer.address %></td>
-                          <td><%= (Commune.all(:select => "name", :conditions => ["id = ?",producer.commune_id]))[0].name%></td>
                           <td><%= producer.phone %></td>
                           <td><%= producer.email %></td>
                           <td><%= link_to 'Ver', producer %>
@@ -53,8 +49,6 @@
                 <thead>
                   <tr>
                     <th style="width:20% !important;">Nombre</th>
-                    <th>Dirección</th>
-                    <th>Comuna</th>
                     <th>Teléfono</th>
                     <th>Email</th>
                     <th colspan="3" style="width:20% !important;">Acciones</th>
@@ -65,8 +59,6 @@
                     <% if ((producer.active == false) and (producer.is_deleted == false))%>
                         <tr>
                           <td><%= producer.company_name %></td>
-                          <td><%= producer.address %></td>
-                          <td><%= (Commune.all(:select => "name", :conditions => ["id = ?",producer.commune_id]))[0].name%></td>
                           <td><%= producer.phone %></td>
                           <td><%= producer.email %></td>
                           <td><%= link_to 'Ver', producer %>
