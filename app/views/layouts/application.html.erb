@@ -38,26 +38,40 @@
 
   	<script>
       function show_producer_communes(region) {
-        $.get("/regions/"+region.value+"/communes.json", function(data) { 
-	    	var options = '';
-	      	$.each(data, function(i, item){	
-	            options += '<option value="' + item.id + '">' + item.name + '</option>';
+      	if (region.value == '') {
+      		var options = '<option value>- Seleccione comuna -</option>';
+      		$("select#producer_commune_id").html(options);
+      	}
+      	else
+      	{
+	        $.get("/regions/"+region.value+"/communes.json", function(data) { 
+		    	var options = '';
+		      	$.each(data, function(i, item){	
+		            options += '<option value="' + item.id + '">' + item.name + '</option>';
+		        });
+		        $("select#producer_commune_id").html(options);
 	        });
-	        $("select#producer_commune_id").html(options);
-        });
+        }
       }
 	</script>
 	<script>
       function show_destination_communes(region) {
-        $.get("/regions/"+region.value+"/communes.json", function(data) { 
-	    	var options = '';
-	      	$.each(data, function(i, item){	
-	            options += '<option value="' + item.id + '">' + item.name + '</option>';
-	        });
-	        $("select#destination_commune_id").html(options);
-	      	if (region.value === '' ) $("select#destination_commune_id").html();
+      	if (region.value == '') {
+      		var options = '<option value>- Seleccione comuna -</option>';
+      		$("select#destination_commune_id").html(options);
+      	}
+      	else
+      	{
+	        $.get("/regions/"+region.value+"/communes.json", function(data) { 
+		    	var options = '';
+		      	$.each(data, function(i, item){	
+		            options += '<option value="' + item.id + '">' + item.name + '</option>';
+		        });
+		        $("select#destination_commune_id").html(options);
+		      	if (region.value === '' ) $("select#destination_commune_id").html();
 
-        });
+	        });
+    	}
       }
 	</script>
 
