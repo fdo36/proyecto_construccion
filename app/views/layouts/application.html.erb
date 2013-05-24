@@ -17,6 +17,7 @@
 	<script src="/js/jquery-ui.js"></script>
 	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTablesES.js"></script>
+	<script type="text/javascript" src="/plugins/jquery.Rut/jquery.Rut.js"></script>
 
 	<script>
 		$(function() {
@@ -29,6 +30,11 @@
 		      { "bSortable": false, "aTargets": [ -1 ] },
 		      { "bSearchable": false, "aTargets": [ -1 ]}
 		    ] } );
+
+		    $('.rut').Rut({
+			  on_error: function(){ alert('Rut incorrecto'); },
+			  format_on: 'keyup'
+			});
 		});
 		$(document).on("click", "#mostrar-dialog",function(event) 
 		{	
@@ -36,30 +42,46 @@
 		});
   	</script>
 
+	<script>
+		
+	</script>
+
   	<script>
       function show_producer_communes(region) {
-        $.get("/regions/"+region.value+"/communes.json", function(data) { 
-	    	var options = '';
-	      	$.each(data, function(i, item){	
-	            options += '<option value="' + item.id + '">' + item.name + '</option>';
+      	if (region.value == '') {
+      		var options = '<option value>- Seleccione comuna -</option>';
+      		$("select#producer_commune_id").html(options);
+      	}
+      	else
+      	{
+	        $.get("/regions/"+region.value+"/communes.json", function(data) { 
+		    	var options = '';
+		      	$.each(data, function(i, item){	
+		            options += '<option value="' + item.id + '">' + item.name + '</option>';
+		        });
+		        $("select#producer_commune_id").html(options);
 	        });
-	        $("select#producer_commune_id").html(options);
-	      	if (region.value === '' ) $("select#producer_commune_id").html();
-
-        });
+        }
       }
 	</script>
 	<script>
       function show_destination_communes(region) {
-        $.get("/regions/"+region.value+"/communes.json", function(data) { 
-	    	var options = '';
-	      	$.each(data, function(i, item){	
-	            options += '<option value="' + item.id + '">' + item.name + '</option>';
-	        });
-	        $("select#destination_commune_id").html(options);
-	      	if (region.value === '' ) $("select#destination_commune_id").html();
+      	if (region.value == '') {
+      		var options = '<option value>- Seleccione comuna -</option>';
+      		$("select#destination_commune_id").html(options);
+      	}
+      	else
+      	{
+	        $.get("/regions/"+region.value+"/communes.json", function(data) { 
+		    	var options = '';
+		      	$.each(data, function(i, item){	
+		            options += '<option value="' + item.id + '">' + item.name + '</option>';
+		        });
+		        $("select#destination_commune_id").html(options);
+		      	if (region.value === '' ) $("select#destination_commune_id").html();
 
-        });
+	        });
+    	}
       }
 	</script>
 
