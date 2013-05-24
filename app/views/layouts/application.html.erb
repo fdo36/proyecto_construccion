@@ -17,6 +17,7 @@
 	<script src="/js/jquery-ui.js"></script>
 	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTablesES.js"></script>
+	<script type="text/javascript" src="/plugins/jquery.Rut/jquery.Rut.js"></script>
 
 	<script>
 		$(function() {
@@ -29,12 +30,21 @@
 		      { "bSortable": false, "aTargets": [ -1 ] },
 		      { "bSearchable": false, "aTargets": [ -1 ]}
 		    ] } );
+
+		    $('.rut').Rut({
+			  on_error: function(){ alert('Rut incorrecto'); },
+			  format_on: 'keyup'
+			});
 		});
 		$(document).on("click", "#mostrar-dialog",function(event) 
 		{	
 			$( "#dialog-modal" ).dialog( "open" );
 		});
   	</script>
+
+	<script>
+		
+	</script>
 
   	<script>
       function show_producer_communes(region) {
