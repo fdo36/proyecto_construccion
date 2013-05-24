@@ -48,7 +48,7 @@ end
 class ValidatorDestinationRutAlreadySaved < ActiveModel::Validator
   def validate(record)
   	destination = Destination.where(:rut => record.rut)
-  	if !destination.empty?
+  	if !destination.empty?  and !@editing
   		record.errors[:base] << "ya existe un destino con el RUT indicado."
   	end
   end

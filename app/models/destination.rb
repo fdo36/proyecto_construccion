@@ -16,7 +16,7 @@ class Destination < ActiveRecord::Base
     :message => "debe ingresar el formato válido. Ejemplo: 11.111.111-1" }
 
   validates_with RutValidator
-  validates_with ValidatorDestinationRutAlreadySaved
+  #validates_with ValidatorDestinationRutAlreadySaved
 
   belongs_to :commune
 end

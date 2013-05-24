@@ -26,7 +26,7 @@ class DestinationsController < ApplicationController
   # GET /destinations/new.json
   def new
     @destination = Destination.new
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @destination }
@@ -36,6 +36,7 @@ class DestinationsController < ApplicationController
   # GET /destinations/1/edit
   def edit
     @destination = Destination.find(params[:id])
+    @editing = true
   end
 
   # POST /destinations
@@ -75,7 +76,6 @@ class DestinationsController < ApplicationController
   # DELETE /destinations/1.json
   def destroy
     @destination = Destination.find(params[:id])
-    @destination.destroy
 
     respond_to do |format|
       format.html { redirect_to destinations_url }
