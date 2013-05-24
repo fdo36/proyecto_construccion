@@ -8,7 +8,7 @@ class Producer < ActiveRecord::Base
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
     :message => "debe seguir el formato ejemplo@midominio.com" }
 
-  validates :rut, :format => { :with => /^(\d{1,3}\d{3}\d{3}-)([a-zA-Z]{1}$|\d{1}$)/,
+  validates :rut, :format => { :with => /^(\d{1,3}.\d{3}.\d{3}-)([a-zA-Z]{1}$|\d{1}$)/,
     :message => "debe ingresar el formato válido. Ejemplo: 11111111-1" }
 
   validates :phone, :format => { :with => /^-?((?:\d+|\d*)$)/,

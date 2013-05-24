@@ -2,7 +2,7 @@
 class RutValidator < ActiveModel::Validator
   def validate(record)
   	invalid = true
-  	t = record.rut[0, record.rut.length - 2].to_i
+  	t = (record.rut[0, record.rut.length - 2].delete(".")).to_i
   	d = record.rut[record.rut.length - 1, record.rut.length]
     v=1
 	s=0
@@ -33,13 +33,5 @@ class RutValidator < ActiveModel::Validator
     if invalid == true
       record.errors[:base] << "El RUT es inválido"
     end
-   
-    @producer = Producer.where(:rut => record.rut)
-    @destination = Destination.where(:rut => record.rut)
-    if !@producer.empty? or !@destination.empty?
-    	record.errors[:base] << "El RUT ya ha sido ingresado"
-    end
-
-
   end
 end
