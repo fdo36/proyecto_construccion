@@ -31,7 +31,25 @@ class RutValidator < ActiveModel::Validator
 	end
 
     if invalid == true
-      record.errors[:base] << "El RUT es inválido"
+      record.errors[:base] << "el RUT es inválido"
     end
+  end
+end
+
+class ValidatorProducerRutAlreadySaved < ActiveModel::Validator
+  def validate(record)
+  	producer = Producer.where(:rut => record.rut)
+  	if !producer.empty?
+  		record.errors[:base] << "ya existe un productor con el RUT indicado."
+  	end
+  end
+end
+
+class ValidatorDestinationRutAlreadySaved < ActiveModel::Validator
+  def validate(record)
+  	destination = Destination.where(:rut => record.rut)
+  	if !destination.empty?
+  		record.errors[:base] << "ya existe un destino con el RUT indicado."
+  	end
   end
 end
