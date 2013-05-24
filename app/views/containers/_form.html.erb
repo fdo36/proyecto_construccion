@@ -14,7 +14,10 @@
 
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Nombre %><br />
+      <label> 
+        Nombre                
+        <em class="formee-req">*</em>
+      </label>            
     </div>
     <div class="forme-in">
       <%= f.text_field :name %>
@@ -22,13 +25,18 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Tara %><br />
+      <label> 
+        Tara                
+        <em class="formee-req">*</em>
+      </label>            
     </div>
     <div class="forme-in">
       <%= f.text_field :tare %>
-    </div>
-    
+    </div>    
   </div>
+  <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
 </div>
 <div class="foot-box">
   <%= link_to 'Cancelar', containers_path , :class => "button silver alignright" %>

@@ -14,7 +14,10 @@
 
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Rut %><br />
+      <label> 
+        Rut                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :rut %>
@@ -22,7 +25,10 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Nombre %><br />
+      <label> 
+        Nombre Compañia                
+        <em class="formee-req">*</em>
+      </label>
     </div>
     <div class="forme-in">
       <%= f.text_field :company_name %>
@@ -30,7 +36,10 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Región %><br />
+        <label> 
+        Región          
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <% @regions = Region.all.map { |region| [region.name, region.id] } %>
@@ -40,7 +49,10 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Comuna %><br />
+      <label> 
+        Comuna     
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
 
@@ -49,7 +61,10 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Dirección %><br />
+      <label> 
+        Dirección 
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :address %>
@@ -57,7 +72,9 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Email %><br />
+      <label> 
+        E-Mail      
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :email %>
@@ -65,7 +82,10 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Contacto %><br />
+        <label> 
+        Contacto
+        <em class="formee-req">*</em>
+      </label> 
     </div>
     <div class="forme-in">
       <%= f.text_field :contact %>
@@ -73,12 +93,18 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Teléfono %><br />
+        <label> 
+        Teléfono
+        <em class="formee-req">*</em>
+      </label> 
     </div>
     <div class="forme-in">
       <%= f.text_field :phone %>
     </div>
   </div>
+  <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
 </div>
 <div class="foot-box">
   <%= link_to 'Cancelar', destinations_path , :class => "button silver alignright" %>
