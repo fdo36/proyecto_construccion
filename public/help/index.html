@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+	<script src="help/helpHandler.js"></script>
+
 	<link rel="stylesheet" href="css/jquery-ui.css" />
 	<link  rel="stylesheet" href="css/styles.css" type="text/css"></style>
 	<link  rel="stylesheet" href="css/default_buttons.css" type="text/css"></style>
@@ -15,7 +18,7 @@
 		<section id="content">
 			
 
-			<div class="contentPanel">
+			<div class="contentPanel" id="contentPanel">
 	
 				<h1> Seleccione un módulo para obtener ayuda al respecto </h1>
 
@@ -24,11 +27,9 @@
 
 			<section id="left">
 				<div id="leftCol">
-
-			
 				<ul id="action" >
 					<h2 class="headLeft"> Ayuda sobre </h2>
-					<li><a href="help/grouping.html">Agrupaciones</a></li>
+					<li id="grouping"><p>Agrupaciones</p></li>
 					<li><a href="quality.html">Calidades</a></li>
 					<li><a href="destination.html">Destinos</a></li>
 					<li><a href="container.html">Envases</a></li>
@@ -36,8 +37,6 @@
 					<li><a href="producer">Productores</a></li>
 					<li><a href="variety.html">Variedades</a></li>
 				</ul>
-			
-					
 				</div>
 			</section>
 		</section>
