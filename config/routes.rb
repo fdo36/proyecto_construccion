@@ -110,4 +110,8 @@ ProyectoConstruccion::Application.routes.draw do
   match 'producers/:id/disable' => 'producers#disable', :as => 'producers_disable'
   match 'producers/:id/delete_producer' => 'producers#delete_producer', :as => 'producer_delete'
   
+  match '/help/css/jquery-ui.css', :to => redirect('/css/jquery-ui.css')
+  match '/help/css/styles.css', :to => redirect('/css/styles.css')
+  match '/help/css/default_buttons.css', :to => redirect('/css/default_buttons.css')
+  
 end
