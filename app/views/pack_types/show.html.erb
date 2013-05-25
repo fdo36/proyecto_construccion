@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @pack_type.name %>
+</p>
+
+<p>
+  <b>Tare:</b>
+  <%= @pack_type.tare %>
+</p>
+
+<p>
+  <b>Company:</b>
+  <%= @pack_type.company_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_pack_type_path(@pack_type) %> |
+<%= link_to 'Back', pack_types_path %>

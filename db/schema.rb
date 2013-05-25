@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523162318) do
+ActiveRecord::Schema.define(:version => 20130525200207) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -71,6 +71,16 @@ ActiveRecord::Schema.define(:version => 20130523162318) do
     t.boolean  "is_deleted"
   end
 
+  create_table "dispatches", :force => true do |t|
+    t.integer  "destination_id"
+    t.integer  "kind_id"
+    t.datetime "dispatch_datetime"
+    t.integer  "company_id"
+    t.integer  "user_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
   create_table "groupings", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -100,6 +110,55 @@ ActiveRecord::Schema.define(:version => 20130523162318) do
   add_index "kinds_producers", ["kind_id", "producer_id"], :name => "index_kinds_producers_on_kind_id_and_producer_id"
   add_index "kinds_producers", ["producer_id", "kind_id"], :name => "index_kinds_producers_on_producer_id_and_kind_id"
 
+  create_table "pack_group_dispatches", :force => true do |t|
+    t.integer  "gross_weight"
+    t.integer  "quantity"
+    t.integer  "quality_id"
+    t.integer  "variety_id"
+    t.integer  "dispatch_id"
+    t.integer  "pack_type_id"
+    t.integer  "company_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "pack_group_receipts", :force => true do |t|
+    t.integer  "price_per_unit"
+    t.integer  "quantity"
+    t.integer  "gross_weight"
+    t.integer  "pack_type_id"
+    t.integer  "variety_id"
+    t.integer  "quality_id"
+    t.integer  "receipt_id"
+    t.integer  "company_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "pack_types", :force => true do |t|
+    t.string   "name"
+    t.integer  "tare"
+    t.integer  "company_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "pallets", :force => true do |t|
+    t.integer  "code"
+    t.integer  "quantity"
+    t.integer  "price_per_unit"
+    t.integer  "gross_weight"
+    t.integer  "tare"
+    t.integer  "variety_id"
+    t.integer  "quality_id"
+    t.integer  "receipt_id"
+    t.integer  "pack_type_id"
+    t.integer  "company_id"
+    t.integer  "dispatch_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "producers", :force => true do |t|
     t.string   "rut"
     t.string   "company_name"
@@ -120,6 +179,17 @@ ActiveRecord::Schema.define(:version => 20130523162318) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "receipts", :force => true do |t|
+    t.integer  "code"
+    t.datetime "receipt_datetime"
+    t.integer  "producer_id"
+    t.integer  "kind_id"
+    t.integer  "user_id"
+    t.integer  "company_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "regions", :force => true do |t|
@@ -149,6 +219,14 @@ ActiveRecord::Schema.define(:version => 20130523162318) do
     t.integer  "kind_id"
     t.integer  "is_active"
     t.integer  "is_delete"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "settings", :force => true do |t|
+    t.string   "key"
+    t.string   "value"
+    t.integer  "company_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

@@ -1,0 +1,49 @@
+<%= form_for(@pack_group_receipt) do |f| %>
+  <% if @pack_group_receipt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pack_group_receipt.errors.count, "error") %> prohibited this pack_group_receipt from being saved:</h2>
+
+      <ul>
+      <% @pack_group_receipt.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :price_per_unit %><br />
+    <%= f.number_field :price_per_unit %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br />
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :gross_weight %><br />
+    <%= f.number_field :gross_weight %>
+  </div>
+  <div class="field">
+    <%= f.label :pack_type_id %><br />
+    <%= f.number_field :pack_type_id %>
+  </div>
+  <div class="field">
+    <%= f.label :variety_id %><br />
+    <%= f.number_field :variety_id %>
+  </div>
+  <div class="field">
+    <%= f.label :quality_id %><br />
+    <%= f.number_field :quality_id %>
+  </div>
+  <div class="field">
+    <%= f.label :receipt_id %><br />
+    <%= f.number_field :receipt_id %>
+  </div>
+  <div class="field">
+    <%= f.label :company_id %><br />
+    <%= f.number_field :company_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

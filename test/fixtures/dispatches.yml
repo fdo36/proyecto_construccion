@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  destination_id: 1
+  kind_id: 1
+  dispatch_datetime: 2013-05-25 15:48:37
+  company_id: 1
+  user_id: 1
+
+two:
+  destination_id: 1
+  kind_id: 1
+  dispatch_datetime: 2013-05-25 15:48:37
+  company_id: 1
+  user_id: 1
