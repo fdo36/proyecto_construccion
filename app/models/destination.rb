@@ -14,4 +14,7 @@ class Destination < ActiveRecord::Base
     :message => "debe ingresar el formato válido. Ejemplo: 11111111-1" }
 
   belongs_to :commune
+  has_many :dispatches
+  has_many :producers
+  has_many :receipts
 end

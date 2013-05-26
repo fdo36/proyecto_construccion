@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130525200207) do
+ActiveRecord::Schema.define(:version => 20130525205616) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -59,15 +59,15 @@ ActiveRecord::Schema.define(:version => 20130525200207) do
 
   create_table "destinations", :force => true do |t|
     t.string   "rut"
-    t.string   "company_name"
+    t.string   "name"
     t.integer  "commune_id"
     t.string   "address"
     t.string   "email"
     t.string   "phone"
     t.text     "contact"
     t.boolean  "active"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
   end
 
@@ -109,6 +109,13 @@ ActiveRecord::Schema.define(:version => 20130525200207) do
 
   add_index "kinds_producers", ["kind_id", "producer_id"], :name => "index_kinds_producers_on_kind_id_and_producer_id"
   add_index "kinds_producers", ["producer_id", "kind_id"], :name => "index_kinds_producers_on_producer_id_and_kind_id"
+
+  create_table "localities", :force => true do |t|
+    t.string   "name"
+    t.integer  "commune_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "pack_group_dispatches", :force => true do |t|
     t.integer  "gross_weight"
@@ -161,7 +168,7 @@ ActiveRecord::Schema.define(:version => 20130525200207) do
 
   create_table "producers", :force => true do |t|
     t.string   "rut"
-    t.string   "company_name"
+    t.string   "name"
     t.string   "line_of_business"
     t.integer  "commune_id"
     t.string   "address"
@@ -173,6 +180,7 @@ ActiveRecord::Schema.define(:version => 20130525200207) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.boolean  "is_deleted"
+    t.integer  "locality_id"
   end
 
   create_table "qualities", :force => true do |t|

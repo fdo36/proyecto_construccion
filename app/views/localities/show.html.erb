@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @locality.name %>
+</p>
+
+<p>
+  <b>Commune:</b>
+  <%= @locality.commune_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_locality_path(@locality) %> |
+<%= link_to 'Back', localities_path %>

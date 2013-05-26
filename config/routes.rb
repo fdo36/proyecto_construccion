@@ -1,4 +1,7 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :localities
+
+
   resources :settings
 
 
