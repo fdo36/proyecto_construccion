@@ -1,36 +1,35 @@
 <script type="text/javascript">
-   function show_rut(s) {
+   function show_rut1(s) {
+      if(s.value == "")
+      {      
+         var inputRut = document.getElementById('rut1');
+         inputRut.value = "-";
 
-    if(s.value == "")
-    {      
-      var inputRut = document.getElementById('rut');
-      inputRut.value = "-";
+         var inputCodigo = document.getElementById('codigo1');
+         inputCodigo.value = "-";
+      }
+      else
+      {
+         $.get("/producers/"+s.value+".json", function(data) {
+            var inputRut = document.getElementById('rut1');
+            inputRut.value = data.rut;
 
-      var inputCodigo = document.getElementById('codigo');
-      inputCodigo.value = "-";
-    }
-
-    $.get("/producers/"+s.value+".json", function(data) {
-
-      var inputRut = document.getElementById('rut');
-      inputRut.value = data.rut;
-
-      var inputCodigo = document.getElementById('codigo');
-      inputCodigo.value = data.sag_code;
-    });
-  }
+            var inputCodigo = document.getElementById('codigo1');
+            inputCodigo.value = data.sag_code;
+         });
+      }
+   }
 </script>
 
-
 <!--Precio por Productor-->
-<%= form_tag  do |f| %>
+<%= form_tag  do %>
    <div class="line-forme">
       <div class="forme-lab">
          <%= label_tag 'Productor'%> 
       </div>
       <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
       <div class="forme-in">
-         <%= select_tag "Productores1", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut(this)" %>
+         <%= select_tag "Productores1", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut1(this)" %>
       </div>
    </div>
 
@@ -39,22 +38,22 @@
          <%= label_tag "rut"  %>
       </div>
       <div class="forme-in ">
-         <input id="rut" value="-" disabled="true"></input>
+         <input id="rut1" value="-" disabled="true"></input>
       </div>
    </div>
 
    <div class="line-forme">
       <div class="forme-lab">
-         <%= label_tag "Cod. Productor" %>
+         <%= label_tag "Cod. Productor"%>
       </div>
       <div class="forme-in">
-         <input id="codigo" value="-" disabled="true"></input>
+         <input id="codigo1" value="-" disabled="true"></input>
       </div>
    </div>
 
    <div class="line-forme">
       <div class="forme-lab">
-         <%= label_tag 'Especie' %>
+         <%= label_tag 'Especie'%>
       </div>
       <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
       <div class="forme-in">
