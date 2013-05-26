@@ -1,83 +1,61 @@
-<script type="text/javascript">
-   function show_rut(s) {
+<%= form_tag  do %>
 
-    if(s.value == "")
-    {      
-      var inputRut = document.getElementById('rut');
-      inputRut.value = "-";
+         <div class="line-forme">
+            <div class="forme-lab">
+              <%= label_tag 'Productor'%> 
+           </div>
+           <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+           <div class="forme-in">
 
-      var inputCodigo = document.getElementById('codigo');
-      inputCodigo.value = "-";
-    }
+               <%= select_tag "Productores1", options_for_select(@kinds_array), :prompt => "Seleccione un Productor"  %>
+            </div>                        
+         </div>
+                   
+         <div class="line-forme">
+            <div class="forme-lab">
+              <%= label_tag "Rut"  %> 
+           </div>
+           <div class="forme-in ">
+               <%= text_field_tag 'rut1', "", :disabled => true %>
+            </div>                        
+         </div> 
 
-    $.get("/producers/"+s.value+".json", function(data) {
+         <div class="line-forme">
+            <div class="forme-lab">
+              <%= label_tag "Cod. Productor" %> 
+           </div>
+           <div class="forme-in">
+               <%= text_field_tag 'codigo1', "", :disabled => true %>
+            </div>                        
+         </div>                                               
 
-      var inputRut = document.getElementById('rut');
-      inputRut.value = data.rut;
+         <div class="line-forme">
+            <div class="forme-lab">
+              <%= label_tag 'Especie' %> 
+           </div>
+           <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+           <div class="forme-in">
+               <%= select_tag "Especies1", options_for_select(@kinds_array), :prompt => "Seleccione una Especie" %>
+            </div>                        
+         </div> 
 
-      var inputCodigo = document.getElementById('codigo');
-      inputCodigo.value = data.sag_code;
-    });
-  }
-</script>
+         <div class="line-forme">
+            <div class="forme-lab">
+              <%= label_tag 'Fecha Inicio' %> 
+           </div>
+           <div class="field">
+               <%= select_date %>
+            </div>                        
+         </div>   
 
-
-<!--Precio por Productor-->
-<%= form_tag  do |f| %>
-   <div class="line-forme">
-      <div class="forme-lab">
-         <%= label_tag 'Productor'%> 
-      </div>
-      <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
-      <div class="forme-in">
-         <%= select_tag "Productores1", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut(this)" %>
-      </div>
-   </div>
-
-   <div class="line-forme">
-      <div class="forme-lab">
-         <%= label_tag "rut"  %>
-      </div>
-      <div class="forme-in ">
-         <input id="rut" value="-" disabled="true"></input>
-      </div>
-   </div>
-
-   <div class="line-forme">
-      <div class="forme-lab">
-         <%= label_tag "Cod. Productor" %>
-      </div>
-      <div class="forme-in">
-         <input id="codigo" value="-" disabled="true"></input>
-      </div>
-   </div>
-
-   <div class="line-forme">
-      <div class="forme-lab">
-         <%= label_tag 'Especie' %>
-      </div>
-      <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
-      <div class="forme-in">
-         <%= select_tag "Especies1", options_for_select(@kinds_array), :prompt => "Seleccione una Especie" %>
-      </div>
-   </div>
-
-   <div class="line-forme">
-      <div class="forme-lab">
-         <%= label_tag 'Fecha Inicio' %>
-      </div>
-      <div class="field">
-         <%= select_date %>
-      </div>
-   </div>
-
-   <div class="line-forme">
-      <div class="forme-lab">
-         <%= label_tag 'Fecha Termino' %>
-      </div>
-      <div class="field">
-         <%= select_date %>
-      </div>
-   </div>
-   <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>
-<% end %>
+         <div class="line-forme">
+            <div class="forme-lab">
+              <%= label_tag 'Fecha Termino' %> 
+           </div>
+           <div class="field">
+               <%= select_date %>
+            </div>                        
+         </div>                                                                    
+         <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>
+                       
+<% end %>  
