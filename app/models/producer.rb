@@ -2,7 +2,7 @@
 class Producer < ActiveRecord::Base
   attr_accessible :active, :address, :commune_id, :name, :contact, :email, :line_of_business, :phone, :rut, :sag_code, :is_deleted
 
-  validates :address, :commune_id, :company_name, :contact, :email, :line_of_business, :phone, :rut, :sag_code, :presence => true
+  validates :address, :commune_id, :name, :contact, :email, :line_of_business, :phone, :rut, :sag_code, :presence => true
   
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
     :message => "debe seguir el formato ejemplo@midominio.com" }
