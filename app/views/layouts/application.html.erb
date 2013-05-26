@@ -53,29 +53,29 @@
 				<% if current_user.super_admin == true %>
 					<ul id="action" >
 						<h2 class="headLeft"> Acciones </h2>
-						<li> <p><%= link_to('Cuentas', users_path) %></p></li>
-						<li> <p><%= link_to('Roles', roles_path) %></p></li>
-						<li> <p><%= link_to('Compañias', companies_path)%></p></li>
+						<li> <%= link_to('Cuentas', users_path) %></li>
+						<li> <%= link_to('Roles', roles_path) %></li>
+						<li> <%= link_to('Compañias', companies_path)%></li>
 						
 					</ul>
 				<%else%>
 					<ul id="action" >
 						<h2 class="headLeft"> Entradas/Salidas </h2>
-						<li> <p><%= link_to "Ingresos", "/" %></p></li>
-						<li> <p><%= link_to "Temporadas", "/seasons" %></p></li>
-						<li> <p><%= link_to "Despachos", "/" %></p></li>
-						<li> <p><%= link_to "Informes", "/" %></p></li>
+						<li> <%= link_to "Ingresos", "/" %></li>
+						<li> <%= link_to "Temporadas", "/seasons" %></p></li>
+						<li> <%= link_to "Despachos", "/" %></li>
+						<li> <%= link_to "Informes", "/" %></li>
 					</ul>
 					
 					<ul id="maintainer" >
 						<h2 class="headLeft"> Recursos </h2>
-						<li> <p><%= link_to "Productores", "/producers" %></p></li>
-						<li> <p><%= link_to "Envases", "/containers" %></p></li>
-						<li> <p><%= link_to "Destinos", "/destinations" %></p></li>
-						<li> <p><%= link_to "Especies", "/kinds" %></p></li>
-						<li> <p><%= link_to "Variedades", "/varieties" %></p></li>
-						<li> <p><%= link_to "Calidades", "/qualities" %></p></li>
-						<li> <p><%= link_to "Agrupaciones", "/groupings" %></p></li>
+						<li> <%= link_to "Productores", "/producers" %></li>
+						<li> <%= link_to "Envases", "/containers" %></li>
+						<li> <%= link_to "Destinos", "/destinations" %></p></li>
+						<li> <%= link_to "Especies", "/kinds" %></li>
+						<li> <%= link_to "Variedades", "/varieties" %></li>
+						<li> <%= link_to "Calidades", "/qualities" %></li>
+						<li> <%= link_to "Agrupaciones", "/groupings" %></li>
 					</ul>
 				<%end%>		
 					
