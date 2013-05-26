@@ -360,6 +360,7 @@ margin-right: -.3em;
 .temporada-pan1 .field{
 	float: left;
 }
+
 #nameLogin{
 	position: absolute;
 	right: 242px;
@@ -367,15 +368,12 @@ margin-right: -.3em;
 	padding: 0;
 	height: 45px;
 	width: 200px;
-	border-right: 1px solid #8dbb00;
-	border-left: 1px solid #8dbb00;
-	
-	font-weight: bold;
 }
 #nameLogin p
 {
 	padding-top: 0px;
 	padding-left: 45px;
+	color: #fff;
 }
 
 
@@ -401,4 +399,8 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.newTopBanner{
+	height: 25px;
 }
