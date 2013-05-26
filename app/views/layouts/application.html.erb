@@ -57,7 +57,7 @@
 						<li><%= link_to('Roles', roles_path) %></li>
 						<li><%= link_to('Compañias', companies_path)%></li>
 					</ul>
-					<%end%>
+					<%else%>
 					<p>Entradas/Salidas</p>
 					<ul>
 						<li> <%= link_to "Ingresos", "/" %></li>
@@ -75,6 +75,7 @@
 						<li> <%= link_to "Calidades", "/qualities" %></li>
 						<li> <%= link_to "Agrupaciones", "/groupings" %></li>
 					</ul>
+					<%end%>
 				</ul>
 				</div>
 			</section>
