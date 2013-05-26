@@ -1,0 +1,60 @@
+<%= form_tag  do %>
+
+                        <div class="line-forme">
+                           <div class="forme-lab">
+	                          <%= label_tag 'Productor' %> 
+	                       </div>
+	                       <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+	                       <div class="forme-in">
+                              <%= select_tag "Productores3", options_for_select(@kinds_array), :prompt => "Seleccione un Productor" %>
+                           </div>                        
+                        </div>
+
+                        <div class="line-forme">
+                           <div class="forme-lab">
+	                          <%= label_tag 'Rut' %> 
+	                       </div>
+	                       <div class="forme-in">
+                              <%= text_field_tag 'rut3', "", :disabled => true %>
+                           </div>                        
+                        </div> 
+
+                        <div class="line-forme">
+                           <div class="forme-lab">
+	                          <%= label_tag 'Cod. Productor' %> 
+	                       </div>
+	                       <div class="forme-in">
+                              <%= text_field_tag 'codigo3', "", :disabled => true %>
+                           </div>                        
+                        </div>                                               
+
+                        <div class="line-forme">
+                           <div class="forme-lab">
+	                          <%= label_tag 'Envase' %> 
+	                       </div>
+	                       <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+	                       <div class="forme-in">
+                              <%= select_tag "Envases3", options_for_select(@kinds_array), :prompt => "Seleccione un Envase" %>
+                           </div>                        
+                        </div> 
+
+                        <div class="line-forme">
+                           <div class="forme-lab">
+	                          <%= label_tag 'Fecha Inicio' %> 
+	                       </div>
+	                       <div class="field">
+                              <%= select_date %>
+                           </div>                        
+                        </div>   
+
+                        <div class="line-forme">
+                           <div class="forme-lab">
+	                          <%= label_tag 'Fecha Termino' %> 
+	                       </div>
+	                       <div class="field">
+                              <%= select_date %>
+                           </div>                        
+                        </div>                                                                    
+                        <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>
+                       
+<% end %>               	
