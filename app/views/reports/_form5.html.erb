@@ -1,12 +1,12 @@
 <%= form_tag  do %>
 
-      <div class="line-forme">
+     <div class="line-forme">
          <div class="forme-lab">
            <%= label_tag 'Destino' %> 
         </div>
-        <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+        <% @destinations_array = Destination.all.map { |desti| [desti.address, desti.id] } %>
         <div class="forme-in">
-            <%= select_tag "Destinos5", options_for_select(@kinds_array), :prompt => "Seleccione un Destino" %>
+            <%= select_tag "Destinos5", options_for_select(@destinations_array), :prompt => "Seleccione un Destino" %>
          </div>                        
       </div>
 
@@ -14,11 +14,11 @@
          <div class="forme-lab">
            <%= label_tag 'Envase' %> 
         </div>
-        <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+        <% @pack_types_array = PackType.all.map { |pack| [pack.name, pack.id] } %>
         <div class="forme-in">
-            <%= select_tag "Envases5", options_for_select(@kinds_array), :prompt => "Seleccione un Envase" %>
+            <%= select_tag "Envases5", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" %>
          </div>                        
-      </div> 
+      </div>
 
       <div class="line-forme">
          <div class="forme-lab">

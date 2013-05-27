@@ -30,7 +30,7 @@ ProyectoConstruccion::Application.routes.draw do
   resources :seasons
 
 
-  resources :containers
+  #resources :containers
 
 
   resources :destinations

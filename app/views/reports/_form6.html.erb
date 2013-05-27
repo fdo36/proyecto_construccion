@@ -4,9 +4,9 @@
       <div class="forme-lab">
         <%= label_tag 'Productores' %> 
      </div>
-     <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+     <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
      <div class="forme-in">
-         <%= select_tag "Productores6", options_for_select(@kinds_array), :prompt => "Todos los Productores"  %>
+         <%= select_tag "Productores6", options_for_select(@producers_array), :prompt => "Todos los Productores"  %>
       </div>                        
    </div>
    <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>
