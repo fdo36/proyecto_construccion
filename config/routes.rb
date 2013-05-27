@@ -1,10 +1,40 @@
 ProyectoConstruccion::Application.routes.draw do
+<<<<<<< HEAD
   wiki_root '/wiki'
+=======
+
+
+  resources :reports
+
+  resources :localities
+
+
+  resources :settings
+
+
+  resources :pack_group_dispatches
+
+
+  resources :receipts
+
+
+  resources :pack_types
+
+
+  resources :pack_group_receipts
+
+
+  resources :pallets
+
+
+  resources :dispatches
+
+>>>>>>> c5d3da07b5fd8f82755cd68642f221c448c33df2
 
   resources :seasons
 
 
-  resources :containers
+  #resources :containers
 
 
   resources :destinations
@@ -99,6 +129,9 @@ ProyectoConstruccion::Application.routes.draw do
   
   match 'users/:id/enable' => 'users#enable', :as => 'users_enable'
   match 'users/:id/disable' => 'users#disable', :as => 'users_disable'
+
+  match 'companies/:id/enable' => 'companies#enable', :as => 'companies_enable'
+  match 'companies/:id/disable' => 'companies#disable', :as => 'companies_disable'
   
   match 'seasons/:id/enable' => 'seasons#enable', :as => 'seasons_enable'
   match 'seasons/:id/disable' => 'seasons#disable', :as => 'seasons_disable'

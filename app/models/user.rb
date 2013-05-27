@@ -7,8 +7,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
 
-  validates :secret_answer, :presence => true
-  validates :secret_question, :presence => true
+
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :company_id, :password_confirmation, :remember_me, :gender, :phone, :active, :name, :lastname, :secret_answer, :secret_question, :super_admin
@@ -16,7 +15,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
 
   belongs_to :company
-
+  has_many :dispatches
+  has_many :receipts
   
  
 

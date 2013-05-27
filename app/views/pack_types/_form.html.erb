@@ -1,0 +1,37 @@
+<div class="box">
+<%= form_for(@pack_type) do |f| %>
+  <% if @pack_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @pack_type.errors.count > 1 ? "#{@pack_type.errors.count} errores." : "#{@pack_type.errors.count} error." %> no se puede guardar el envase</h2>
+
+      <ul>
+      <% @pack_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Nombre %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Tara %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :tare %>
+    </div>
+    
+  </div>
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', pack_types_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+<% end %>

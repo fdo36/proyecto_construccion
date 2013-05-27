@@ -5,4 +5,5 @@ class Commune < ActiveRecord::Base
   has_many :producers
   has_many :destinations
   has_many :companies
+  has_many :localities
 end

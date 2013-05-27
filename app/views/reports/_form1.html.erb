@@ -1,0 +1,100 @@
+<script type="text/javascript">
+   function show_rut1(s)
+   {
+      if(s.value == "")
+      {      
+         var inputRut = document.getElementById('rut1');
+         inputRut.value = "-";
+
+         var inputCodigo = document.getElementById('codigo1');
+         inputCodigo.value = "-";
+      }
+      else
+      {
+         $.get("/producers/"+s.value+".json", function(data) {
+            var inputRut = document.getElementById('rut1');
+            inputRut.value = data.rut;
+
+            var inputCodigo = document.getElementById('codigo1');
+            inputCodigo.value = data.sag_code;
+         });
+      }
+   }
+
+   function get_parameters1()
+   {
+      var selectID = document.getElementById('Productores1');
+      $.get("/producers/"+selectID.value+".json", function(data) {
+         var nombre_Productor = data.name;
+         var rut_Productor = data.rut;
+         var sag_code_Productor = data.sag_code;
+      });
+
+      var selectID = document.getElementById('Especies1');
+      $.get("/kinds/"+selectID.value+".json", function(data) {
+         var nombre_Especie = data.name;
+      });
+
+      alert("Productor "+nombre_Productor+" Rut "+rut_Productor+" Codigo Sag "+sag_code_Productor+" Especie "+nombre_Especie);
+   }
+</script>
+
+<!--Precio por Productor-->
+<%= form_tag  do %>
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Productor'%> 
+      </div>
+      <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
+      <div class="forme-in">
+         <%= select_tag "Productores1", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut1(this)" %>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag "rut"  %>
+      </div>
+      <div class="forme-in ">
+         <input id="rut1" value="-" disabled="true"></input>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag "Cod. Productor"%>
+      </div>
+      <div class="forme-in">
+         <input id="codigo1" value="-" disabled="true"></input>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Especie'%>
+      </div>
+      <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+      <div class="forme-in">
+         <%= select_tag "Especies1", options_for_select(@kinds_array), :prompt => "Seleccione una Especie" %>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Fecha Inicio' %>
+      </div>
+      <div class="field">
+         <%= select_date %>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Fecha Termino' %>
+      </div>
+      <div class="field">
+         <%= select_date %>
+      </div>
+   </div>
+   <button class="button blue alignleft" onclick="get_parameters1()">Generar Informe</button>
+<% end %>

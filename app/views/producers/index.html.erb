@@ -2,10 +2,17 @@
     <h1>Lista de Productores</h1>
 </div>
 <div class="box">
+<<<<<<< HEAD
   <%= link_to 'Nuevo Productor', new_producer_path , :class => "button blue alignright" %>
 
   <p id="notice" class="alignleft"><%= notice %> </p>
 
+=======
+  <div class="newTopBanner">
+    <%= link_to 'Nuevo Productor', new_producer_path , :class => "button blue alignright" %>
+  </div>
+  
+>>>>>>> c5d3da07b5fd8f82755cd68642f221c448c33df2
     <div class="contentSubPanel">
         <div class="headContent">
             <h1>Productores Habilitados</h1>
@@ -25,7 +32,13 @@
                   <% @producers.each do |producer| %>
                     <% if ((producer.active == true) and (producer.is_deleted == false))%>
                         <tr>
+<<<<<<< HEAD
                           <td><%= producer.company_name %></td>
+=======
+                          <td><%= producer.name %></td>
+                          <td><%= producer.address %></td>
+                          <td><%= (Commune.all(:select => "name", :conditions => ["id = ?",producer.commune_id]))[0].name%></td>
+>>>>>>> c5d3da07b5fd8f82755cd68642f221c448c33df2
                           <td><%= producer.phone %></td>
                           <td><%= producer.email %></td>
                           <td><%= link_to 'Ver', producer %>
@@ -58,7 +71,13 @@
                   <% @producers.each do |producer| %>
                     <% if ((producer.active == false) and (producer.is_deleted == false))%>
                         <tr>
+<<<<<<< HEAD
                           <td><%= producer.company_name %></td>
+=======
+                          <td><%= producer.name %></td>
+                          <td><%= producer.address %></td>
+                          <td><%= (Commune.all(:select => "name", :conditions => ["id = ?",producer.commune_id]))[0].name%></td>
+>>>>>>> c5d3da07b5fd8f82755cd68642f221c448c33df2
                           <td><%= producer.phone %></td>
                           <td><%= producer.email %></td>
                           <td><%= link_to 'Ver', producer %>

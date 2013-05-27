@@ -2,7 +2,9 @@
     <h1>Lista de Destinos</h1>
 </div>
 <div class="box">
-  <%= link_to 'Nuevo Destino', new_destination_path , :class => "button blue alignright" %>
+  <div class="newTopBanner">
+    <%= link_to 'Nuevo Destino', new_destination_path , :class => "button blue alignright" %>
+  </div>
 
   <p id="notice" class="alignleft"><%= notice %> </p>
 
@@ -25,7 +27,13 @@
             <% @destinations.each do |destination| %>
               <% if ((destination.active == true) and (destination.is_deleted == false))%>
                 <tr>
+<<<<<<< HEAD
                   <td><%= destination.company_name %></td>
+=======
+                  <td><%= destination.name %></td>
+                  <td><%= destination.address %></td>
+                  <td><%= Commune.find(destination.commune_id).name %></td>
+>>>>>>> c5d3da07b5fd8f82755cd68642f221c448c33df2
                   <td><%= destination.phone %></td>
                   <td><%= destination.email %></td>
                   <td><%= link_to 'Ver', destination %>
@@ -58,7 +66,13 @@
             <% @destinations.each do |destination| %>
               <% if ((destination.active == false) and (destination.is_deleted == false))%>
                 <tr>
+<<<<<<< HEAD
                   <td><%= destination.company_name %></td>
+=======
+                  <td><%= destination.name %></td>
+                  <td><%= destination.address %></td>
+                  <td><%= destination.commune_id %></td>
+>>>>>>> c5d3da07b5fd8f82755cd68642f221c448c33df2
                   <td><%= destination.phone %></td>
                   <td><%= destination.email %></td>
                   <td><%= link_to 'Ver', destination %>

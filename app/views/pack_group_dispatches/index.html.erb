@@ -1,0 +1,35 @@
+<h1>Listing pack_group_dispatches</h1>
+
+<table>
+  <tr>
+    <th>Gross weight</th>
+    <th>Quantity</th>
+    <th>Quality</th>
+    <th>Variety</th>
+    <th>Dispatch</th>
+    <th>Pack type</th>
+    <th>Company</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pack_group_dispatches.each do |pack_group_dispatch| %>
+  <tr>
+    <td><%= pack_group_dispatch.gross_weight %></td>
+    <td><%= pack_group_dispatch.quantity %></td>
+    <td><%= pack_group_dispatch.quality_id %></td>
+    <td><%= pack_group_dispatch.variety_id %></td>
+    <td><%= pack_group_dispatch.dispatch_id %></td>
+    <td><%= pack_group_dispatch.pack_type_id %></td>
+    <td><%= pack_group_dispatch.company_id %></td>
+    <td><%= link_to 'Show', pack_group_dispatch %></td>
+    <td><%= link_to 'Edit', edit_pack_group_dispatch_path(pack_group_dispatch) %></td>
+    <td><%= link_to 'Destroy', pack_group_dispatch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Pack group dispatch', new_pack_group_dispatch_path %>
