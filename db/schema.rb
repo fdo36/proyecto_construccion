@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130526232551) do
+ActiveRecord::Schema.define(:version => 20130527213401) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -149,6 +149,14 @@ ActiveRecord::Schema.define(:version => 20130526232551) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "pack_types_producers", :id => false, :force => true do |t|
+    t.integer "pack_type_id"
+    t.integer "producer_id"
+  end
+
+  add_index "pack_types_producers", ["pack_type_id", "producer_id"], :name => "index_pack_types_producers_on_pack_type_id_and_producer_id"
+  add_index "pack_types_producers", ["producer_id", "pack_type_id"], :name => "index_pack_types_producers_on_producer_id_and_pack_type_id"
 
   create_table "pallets", :force => true do |t|
     t.integer  "code"
@@ -312,6 +320,9 @@ ActiveRecord::Schema.define(:version => 20130526232551) do
 
   add_foreign_key "kinds_producers", "kinds", :name => "kinds_producers_kind_id_fk"
   add_foreign_key "kinds_producers", "producers", :name => "kinds_producers_producer_id_fk"
+
+  add_foreign_key "pack_types_producers", "pack_types", :name => "pack_types_producers_pack_type_id_fk"
+  add_foreign_key "pack_types_producers", "producers", :name => "pack_types_producers_producer_id_fk"
 
   add_foreign_key "producers", "communes", :name => "producers_commune_id_fk"
 

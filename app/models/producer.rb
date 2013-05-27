@@ -24,5 +24,5 @@ class Producer < ActiveRecord::Base
   belongs_to :locality
   has_and_belongs_to_many :groupings
   has_and_belongs_to_many :kinds
-  has_and_belongs_to_many :containers
+  has_and_belongs_to_many :pack_types
 end
