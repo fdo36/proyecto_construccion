@@ -28,7 +28,7 @@
               <% total_price += pallet.price_per_unit %>
             <% end %>
             <% receipt.pack_group_receipts.each do |pack_group_receipt| %>
-              <% total_price += pack_group_receipt.price_kg %>
+              <% total_price += pack_group_receipt.price_per_unit %>
             <% end %>
             <td><%= total_price %></td>
             <td>
