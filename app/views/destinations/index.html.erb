@@ -27,7 +27,7 @@
             <% @destinations.each do |destination| %>
               <% if ((destination.active == true) and (destination.is_deleted == false))%>
                 <tr>
-                  <td><%= destination.company_name %></td>
+                  <td><%= destination.name %></td>
                   <td><%= destination.address %></td>
                   <td><%= Commune.find(destination.commune_id).name %></td>
                   <td><%= destination.phone %></td>
@@ -64,7 +64,7 @@
             <% @destinations.each do |destination| %>
               <% if ((destination.active == false) and (destination.is_deleted == false))%>
                 <tr>
-                  <td><%= destination.company_name %></td>
+                  <td><%= destination.name %></td>
                   <td><%= destination.address %></td>
                   <td><%= destination.commune_id %></td>
                   <td><%= destination.phone %></td>

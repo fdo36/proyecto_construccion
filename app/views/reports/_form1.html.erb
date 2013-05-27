@@ -1,5 +1,6 @@
 <script type="text/javascript">
-   function show_rut1(s) {
+   function show_rut1(s)
+   {
       if(s.value == "")
       {      
          var inputRut = document.getElementById('rut1');
@@ -18,6 +19,23 @@
             inputCodigo.value = data.sag_code;
          });
       }
+   }
+
+   function get_parameters1()
+   {
+      var selectID = document.getElementById('Productores1');
+      $.get("/producers/"+selectID.value+".json", function(data) {
+         var nombre_Productor = data.name;
+         var rut_Productor = data.rut;
+         var sag_code_Productor = data.sag_code;
+      });
+
+      var selectID = document.getElementById('Especies1');
+      $.get("/kinds/"+selectID.value+".json", function(data) {
+         var nombre_Especie = data.name;
+      });
+
+      alert("Productor "+nombre_Productor+" Rut "+rut_Productor+" Codigo Sag "+sag_code_Productor+" Especie "+nombre_Especie);
    }
 </script>
 
@@ -78,5 +96,6 @@
          <%= select_date %>
       </div>
    </div>
+   <button class="button blue alignleft" onclick="get_parameters1()">Generar Informe</button>
    <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>
 <% end %>
