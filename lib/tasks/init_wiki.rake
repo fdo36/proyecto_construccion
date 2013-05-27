@@ -1,3 +1,4 @@
+#encoding: utf-8 
 namespace :init_wiki do
 	desc "TODO"
     task :load => :environment do
