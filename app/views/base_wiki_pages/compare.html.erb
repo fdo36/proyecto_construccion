@@ -1,19 +1,24 @@
 <%= wiki_page_style %>
-
-<h1><%=wt '%{page_title} - Comparando versiones %{old_version} y %{new_version}', :page_title => h( @page.title ), :old_version => @old_version.number, :new_version => @new_version.number %></h1>
-
-<ul class="wiki_page_back_to_main_page">
-  <%= content_tag('li', link_to( wt( 'Página principal' ), "/wiki" )) %>
-</ul>
-
-<%=wt 'Lista de cambios:' %>
-
-<%= wiki_paginate @versions do%>
-  <%= wiki_page_history @page, @versions %>
-<% end %>
-
-<%=wt 'Cambios en el contenido de:' %>
-
-<div class="wiki_diff">
-  <%= wiki_diff @old_version.content, @new_version.content %>
+<div class="headContent">
+	<h1><%=wt '%{page_title} - Comparando versiones %{old_version} y %{new_version}', :page_title => h( @page.title ), :old_version => @old_version.number, :new_version => @new_version.number %></h1>
 </div>
+<div class="box">
+	<%=wt 'Lista de cambios:' %>
+
+	<%= wiki_paginate @versions do%>
+	  <%= wiki_page_history @page, @versions %>
+	<% end %>
+
+	<%=wt 'Cambios en el contenido de:' %>
+
+	<div class="wiki_diff">
+	  <%= wiki_diff @old_version.content, @new_version.content %>
+	</div>
+</div>
+<div class="foot-box">
+	<%= wiki_page_actions %>
+</div>
+
+
+
+
