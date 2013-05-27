@@ -1,0 +1,34 @@
+<%= wiki_page_style %>
+
+<h1><%=wt 'Editar página' %></h1>
+
+<% if params[:preview] %>
+<div class="wiki_content">
+  <%=wiki_content @page.content %>
+</div>
+<% end %>
+
+<%= wiki_page_form do |f| %>
+  <%= f.hidden_field :previous_version_number, :value => f.object.last_version_number %>
+  <%= hidden_field_tag :path, @page.path %>
+
+  <p><%=wt 'Titulo:' %><br /><%= f.text_field :title %></p>
+  <%# If our 'content' contains newlines, Erubis will indent them (to make the
+      produced HTML look nicer). However those indenting spaces *will* appear
+      in the textarea in the user's browser and will get POSTed by the browser
+      when submitting the form and thus would get written to the wiki content
+      into the database.  The gsub's below replace the linebreaks ('\r\n')
+      with UTF8 linefeeds (same way HAML solves this problem), which are
+      ignored by Erubis and should be correctly displayed as linebreaks by
+      modern browsers. 
+      , :value => f.object.content.gsub("\n", '&#x000A;').gsub("\r",'')%>
+  <p><%=wt 'Contenido:' %><br /><%= f.text_area(:content).html_safe %></p>
+  <p><%=wt 'Comentarios de este cambio (opcional):' %><br /><%= f.text_field :comment %></p>
+
+  <input type="submit" name="save" value="<%=wt 'Guardar página' %>" class="submit" />
+  <input type="submit" name="preview" value="<%=wt 'Vista previa' %>" class="submit" />
+  <input type="submit" name="cancel" value="<%=wt 'Cancelar' %>" class="submit" />
+<% end %>
+
+<%= wiki_page_attachments(@page) %>
+

@@ -188,7 +188,7 @@ section#content{
 
 
 
-.contentPanel {
+.contentPanel, .contentPanelHelp {
 	padding: 0;
 	position: relative;
 	margin-left: 215px;
@@ -377,4 +377,72 @@ margin-right: -.3em;
 
 	padding-top: 0px;
 	padding-left: 45px;
+}
+
+.box a {
+	color: #0645ad;
+}
+.contentPanelHelp .box{
+	padding: 20px;
+	background: #fff;
+}
+
+.contentPanelHelp .box p{
+	font-size: 13px;
+	margin: 0px;
+}
+
+.contentPanelHelp .box h1{
+	font-size: 26px;
+	margin: 0;
+}
+.contentPanelHelp .box h2{
+	font-size: 20px;
+	margin: 0;
+	border-bottom: 1px solid #aaa;
+}
+
+
+.indexHelp{
+	border: 1px solid #ccc;
+	padding: 15px;
+	padding-top: 10px;
+	width: 200px;
+	margin-bottom: 20px;
+	background-color: #f9f9f9;
+}
+
+.indexHelp h2{
+	font-size: 15px!important;
+}
+
+.indexHelp ol{
+	padding: 0;
+}
+
+.indexHelp li {
+	display: block;
+}
+
+.indexHelp a{
+	text-decoration: none;
+}
+
+.contentHelp h2 {
+	margin-top: 10px!important;
+	margin-bottom: 18px!important;
+}
+
+.contentHelp h3{
+	font-size: 16px;
+	margin: 0;
+	margin-bottom: 8px;
+}
+.textContent{
+	margin-bottom: 10px;
+}
+
+.textContent img{
+	margin: 10px;
+	border: 1px solid #a1a1a1;
 }

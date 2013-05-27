@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516145114) do
+ActiveRecord::Schema.define(:version => 20130526232551) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -29,15 +29,15 @@ ActiveRecord::Schema.define(:version => 20130516145114) do
   end
 
   create_table "companies", :force => true do |t|
-    t.string   "name",             :default => "", :null => false
-    t.integer  "rut",                              :null => false
+    t.string   "name"
+    t.integer  "rut"
     t.string   "address"
     t.string   "city"
     t.string   "line_of_business"
     t.integer  "phone"
-    t.string   "email",            :default => "", :null => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.string   "email"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "region"
   end
 
@@ -185,6 +185,33 @@ ActiveRecord::Schema.define(:version => 20130516145114) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "wiki_page_versions", :force => true do |t|
+    t.integer  "page_id",    :null => false
+    t.integer  "updator_id"
+    t.integer  "number"
+    t.string   "comment"
+    t.string   "path"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "updated_at"
+  end
+
+  add_index "wiki_page_versions", ["page_id"], :name => "index_wiki_page_versions_on_page_id"
+  add_index "wiki_page_versions", ["updator_id"], :name => "index_wiki_page_versions_on_updator_id"
+
+  create_table "wiki_pages", :force => true do |t|
+    t.integer  "creator_id"
+    t.integer  "updator_id"
+    t.string   "path"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "wiki_pages", ["creator_id"], :name => "index_wiki_pages_on_creator_id"
+  add_index "wiki_pages", ["path"], :name => "index_wiki_pages_on_path", :unique => true
 
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
 

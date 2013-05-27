@@ -1,0 +1,14 @@
+<%= wiki_page_style %>
+
+<h1><%=h @page.title %></h1>
+
+<ul class="wiki_page_back_to_main_page">
+  <%= content_tag('li', link_to( wt( 'Página principal' ), "/wiki" )) %>
+</ul>
+<%= wiki_page_info %>
+<%= wiki_page_actions %>
+  
+<div class="wiki_content">
+  <%=wiki_content @page.content %>
+</div>
+
