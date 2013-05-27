@@ -1,12 +1,11 @@
 <%= wiki_page_style %>
-
-<h1><%=wt '%{page_title} - Registro histórico', :page_title => @page.title %></h1>
-
-<ul class="wiki_page_back_to_main_page">
-  <%= content_tag('li', link_to( wt( 'Página principal' ), "/wiki" )) %>
-</ul>
-
-<%= wiki_page_info %>
-<%= wiki_page_actions %>
-
-<%= wiki_page_history %>
+<div class="headContent">
+  <h1><%=wt '%{page_title} - Registro histórico', :page_title => @page.title %></h1>
+</div>
+<div class="box">
+	<%= wiki_page_info %>
+	<%= wiki_page_history %>
+</div>
+<div class="foot-box">
+	<%= wiki_page_actions %>
+</div>

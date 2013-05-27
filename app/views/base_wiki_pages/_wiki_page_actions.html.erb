@@ -1,5 +1,4 @@
-<ul class="wiki_page_actions">
-  <%= content_tag('li', link_to( wt( 'Registro' ), wiki_page_history_path(@page) )) if history_allowed? %>
-  <%= content_tag('li', link_to( wt( 'Editar' ), wiki_page_edit_path(@page) )) if edit_allowed? %>
-  <%= content_tag('li', link_to( wt( 'Eliminar' ), wiki_page_path(@page), :method => :delete, :confirm => wt( "Estás seguro que deseas eliminar esta página?" ) )) if destroy_allowed? %>
-</ul>
+  <%= link_to( wt( 'Registro Histórico' ), wiki_page_history_path(@page), :class => "button green alignright") if history_allowed? %>
+  <%= link_to( wt( 'Editar' ), wiki_page_edit_path(@page), :class => "button green alignright" ) if edit_allowed? %>
+  <%= link_to( wt( 'Eliminar' ), wiki_page_path(@page), :class => "button red alignright", :method => :delete, :confirm => wt( "Estás seguro que deseas eliminar esta página?" ) ) if destroy_allowed? %>
+  <%= link_to( wt( 'Página principal Ayuda' ), "/wiki", :class => "button blue alignleft")%>
