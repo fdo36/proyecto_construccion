@@ -105,13 +105,28 @@
       <%= f.text_field :secret_answer %>
       </div>  
     </div>
+
+    <script>
+      $(document).ready(function(){
+         $("#checkbox_Super_User").on("click", function(){
+            if($("#checkbox_Super_User").is(':checked')){
+                $("#user_company_id").attr('disabled','disabled');
+             }
+             else{
+                $("#user_company_id").removeAttr('disabled');
+             }
+         });
+      });
+
+    </script>
+
     <% if current_user.super_admin == true %>
     <div class="line-forme">
       <div class="forme-lab">
         <%= f.label :Súper_Usuario%><br />
       </div>  
       <div class="forme-in">
-      <%= f.check_box :super_admin %>
+      <%= f.check_box :super_admin, :id => "checkbox_Super_User" %>
       </div>  
     </div>
 
@@ -121,10 +136,11 @@
       </div>  
       <div class="forme-in">
         <% companies_array = Company.where(:active => true).map { |company| [company.name, company.id] } %>
-      <%= f.select(:company_id, companies_array) %>
+      <%= f.select(:company_id, companies_array,:selected => :prompt, :prompt => '- Seleccione una Compañia-')%>
       </div>  
     </div>
     <% end %>
+
     <div class="line-forme">
       <div class="forme-lab">
         <%= f.label :Roles %><br />
