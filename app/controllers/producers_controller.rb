@@ -53,7 +53,7 @@ class ProducersController < ApplicationController
 
     respond_to do |format|
       if @producer.save
-        format.html { redirect_to "/producers", notice: "El productor #{@producer.company_name} fue creado exitosamente." }
+        format.html { redirect_to "/producers", notice: "El productor #{@producer.name} fue creado exitosamente." }
         format.json { render json: @producer, status: :created, location: @producer }
       else
         format.html { render action: "new" }
@@ -74,7 +74,7 @@ class ProducersController < ApplicationController
 
     respond_to do |format|
       if @producer.update_attributes(params[:producer])
-        format.html { redirect_to "/producers", notice: "El productor #{@producer.company_name} fue editado exitosamente." }
+        format.html { redirect_to "/producers", notice: "El productor #{@producer.name} fue editado exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

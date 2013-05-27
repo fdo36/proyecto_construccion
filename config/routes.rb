@@ -1,9 +1,6 @@
 ProyectoConstruccion::Application.routes.draw do
-<<<<<<< HEAD
   wiki_root '/wiki'
-=======
-
-
+  
   resources :reports
 
   resources :localities
@@ -29,7 +26,6 @@ ProyectoConstruccion::Application.routes.draw do
 
   resources :dispatches
 
->>>>>>> c5d3da07b5fd8f82755cd68642f221c448c33df2
 
   resources :seasons
 

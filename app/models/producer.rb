@@ -4,14 +4,8 @@ require 'validators.rb'
 class Producer < ActiveRecord::Base
   attr_accessible :active, :address, :commune_id, :name, :contact, :email, :line_of_business, :phone, :rut, :sag_code, :is_deleted
 
-<<<<<<< HEAD
-  validates :address, :commune_id, :company_name, :contact, :line_of_business, :phone, :rut, :sag_code, :presence => true
-=======
-  validates :address, :commune_id, :name, :contact, :email, :line_of_business, :phone, :rut, :sag_code, :presence => true
-  
-  validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
-    :message => "debe seguir el formato ejemplo@midominio.com" }
->>>>>>> c5d3da07b5fd8f82755cd68642f221c448c33df2
+  validates :address, :commune_id, :name, :contact, :line_of_business, :phone, :rut, :sag_code, :presence => true
+
 
   validates :email, :format => { :with => /\A(([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,}))?\z/i,
     :message => "debe seguir el formato ejemplo@midominio.com" }

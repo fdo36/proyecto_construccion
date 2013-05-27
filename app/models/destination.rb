@@ -3,11 +3,8 @@ require 'validators.rb'
 class Destination < ActiveRecord::Base
   attr_accessible :active, :address, :commune_id, :name, :contact, :email, :phone, :rut, :is_deleted
 
-<<<<<<< HEAD
-  validates :address, :commune_id, :company_name, :contact, :phone, :rut, :presence => true
-=======
-  validates :address, :commune_id, :name, :contact, :email, :phone, :rut, :presence => true
->>>>>>> c5d3da07b5fd8f82755cd68642f221c448c33df2
+  validates :address, :commune_id, :name, :contact, :phone, :rut, :presence => true
+
 
   #:presence => true
   validates :email, :format => { :with => /\A(([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,}))?\z/i,

@@ -47,7 +47,7 @@ class DestinationsController < ApplicationController
 
     respond_to do |format|
       if @destination.save
-        format.html { redirect_to '/destinations', notice: "El destino #{@destination.company_name} fue creado exitosamente." }
+        format.html { redirect_to '/destinations', notice: "El destino #{@destination.name} fue creado exitosamente." }
         format.json { render json: @destination, status: :created, location: @destination }
       else
         format.html { render action: "new" }
@@ -63,7 +63,7 @@ class DestinationsController < ApplicationController
 
     respond_to do |format|
       if @destination.update_attributes(params[:destination])
-        format.html { redirect_to '/destinations', notice: "El destino #{@destination.company_name} fue editado exitosamente." }
+        format.html { redirect_to '/destinations', notice: "El destino #{@destination.name} fue editado exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
