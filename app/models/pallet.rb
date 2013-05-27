@@ -6,4 +6,10 @@ class Pallet < ActiveRecord::Base
   belongs_to :pack_type
   belongs_to :company
   belongs_to :dispatch
+
+  
+  validates :gross_weight, :tare, :presence =>true, :numericality => true
+  validates :variety_id,:quality_id,:price_per_unit,:pack_type_id, :quantity, :code, :receipt_id, 
+   :presence => true, :numericality => { :only_integer => true }
+
 end

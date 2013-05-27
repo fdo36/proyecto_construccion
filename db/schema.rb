@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130525200207) do
+ActiveRecord::Schema.define(:version => 20130525200208) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(:version => 20130525200207) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.boolean  "is_deleted"
+    t.string   "code"
   end
 
   create_table "qualities", :force => true do |t|
@@ -278,7 +279,20 @@ ActiveRecord::Schema.define(:version => 20130525200207) do
   add_foreign_key "kinds_producers", "kinds", :name => "kinds_producers_kind_id_fk"
   add_foreign_key "kinds_producers", "producers", :name => "kinds_producers_producer_id_fk"
 
+  add_foreign_key "pack_group_receipts", "pack_types", :name => "pack_group_receipts_pack_type_id_fk"
+  add_foreign_key "pack_group_receipts", "qualities", :name => "pack_group_receipts_quality_id_fk"
+  add_foreign_key "pack_group_receipts", "receipts", :name => "pack_group_receipts_receipt_id_fk"
+  add_foreign_key "pack_group_receipts", "varieties", :name => "pack_group_receipts_variety_id_fk"
+
+  add_foreign_key "pallets", "pack_types", :name => "pallets_pack_type_id_fk"
+  add_foreign_key "pallets", "qualities", :name => "pallets_quality_id_fk"
+  add_foreign_key "pallets", "receipts", :name => "pallets_receipt_id_fk"
+  add_foreign_key "pallets", "varieties", :name => "pallets_variety_id_fk"
+
   add_foreign_key "producers", "communes", :name => "producers_commune_id_fk"
+
+  add_foreign_key "receipts", "kinds", :name => "receipts_kind_id_fk"
+  add_foreign_key "receipts", "producers", :name => "receipts_producer_id_fk"
 
   add_foreign_key "roles_users", "roles", :name => "roles_users_role_id_fk"
   add_foreign_key "roles_users", "users", :name => "roles_users_user_id_fk"

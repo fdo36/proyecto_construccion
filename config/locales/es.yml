@@ -256,11 +256,36 @@ es:
         phone: "Teléfono"
         rut: "Rut"
         sag_code: "Código SAG"
+        code: "Código Interno"
       quality:
         name: "Nombre"
       variety:
         kind_id: "Especie"
         name: "Nombre"
+      receipt:
+        code: "Id"
+        kind_id: "Especie"
+        producer_id: "Productor"
+      pack_group_receipt:
+        receip_id: "Ingreso"
+        pack_type_id: "Envase"
+        quality_id: "Calidad"
+        kind_id: "Especie"
+        price_per_unit: "Precio"
+        quantity: "Cantidad"
+        gross_weight: "Peso Bruto"
+        variety_id: "Variedad"
+      pallet:
+        code: "Código Pallet"
+        receip_id: "Ingreso"
+        pack_type_id: "Envase"
+        quality_id: "Calidad"
+        kind_id: "Especie"
+        price_per_unit: "Precio"
+        quantity: "Cantidad"
+        gross_weight: "Peso Bruto"
+        variety_id: "Variedad"
+        tare: "Destare Pallet"
 
 
 

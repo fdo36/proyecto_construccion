@@ -11,11 +11,18 @@ ProyectoConstruccion::Application.routes.draw do
   resources :pack_types
 
 
+  resources :receipts do
+    resources :pack_group_receipts
+  end
+
+  resources :receipts do
+    resources :pallets    
+  end
+
   resources :pack_group_receipts
 
-
   resources :pallets
-
+  
 
   resources :dispatches
 

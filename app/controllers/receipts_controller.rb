@@ -1,4 +1,5 @@
 class ReceiptsController < ApplicationController
+  load_and_authorize_resource
   # GET /receipts
   # GET /receipts.json
   def index
@@ -14,6 +15,8 @@ class ReceiptsController < ApplicationController
   # GET /receipts/1.json
   def show
     @receipt = Receipt.find(params[:id])
+    @pallet = Pallet.new
+    @pack_group_receipt = PackGroupReceipt.new
 
     respond_to do |format|
       format.html # show.html.erb
@@ -44,7 +47,7 @@ class ReceiptsController < ApplicationController
 
     respond_to do |format|
       if @receipt.save
-        format.html { redirect_to @receipt, notice: 'Receipt was successfully created.' }
+        format.html { redirect_to @receipt, notice: 'El ingreso fue creado exitosamente.' }
         format.json { render json: @receipt, status: :created, location: @receipt }
       else
         format.html { render action: "new" }
@@ -60,7 +63,7 @@ class ReceiptsController < ApplicationController
 
     respond_to do |format|
       if @receipt.update_attributes(params[:receipt])
-        format.html { redirect_to @receipt, notice: 'Receipt was successfully updated.' }
+        format.html { redirect_to @receipt, notice: 'El ingreso fue editado exitosamente..' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

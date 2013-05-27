@@ -1,35 +1,152 @@
 <p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Ingreso</h1>
+</div>
+<div class="box">
+  <%= link_to 'Volver', receipts_path , :class => "button blue alignright" %>
 
-<p>
-  <b>Code:</b>
-  <%= @receipt.code %>
-</p>
+  <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Productor:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="productor"><%=  (Producer.all(:select => "company_name", :conditions => ["id = ?",@receipt.producer_id]))[0].company_name %></label>
+      </div>
+    </div>
 
-<p>
-  <b>Receipt datetime:</b>
-  <%= @receipt.receipt_datetime %>
-</p>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Rut:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="rut"><%= (Producer.all(:select => "rut", :conditions => ["id = ?",@receipt.producer_id]))[0].rut %></label>
+      </div>
+    </div>
 
-<p>
-  <b>Producer:</b>
-  <%= @receipt.producer_id %>
-</p>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Código Productor:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="codigo_productor"><%= (Producer.all(:select => "code", :conditions => ["id = ?",@receipt.producer_id]))[0].code %></label>
+      </div>
+    </div>
 
-<p>
-  <b>Kind:</b>
-  <%= @receipt.kind_id %>
-</p>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Especie:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="especie"><%= (Kind.all(:select => "name", :conditions => ["id = ?",@receipt.kind_id]))[0].name %></label>
+      </div>
+    </div>
 
-<p>
-  <b>User:</b>
-  <%= @receipt.user_id %>
-</p>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Fecha:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="fecha"><%= @receipt.receipt_datetime.strftime('%d/%m/%Y') %></label>
+      </div>
+    </div>
 
-<p>
-  <b>Company:</b>
-  <%= @receipt.company_id %>
-</p>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Hora:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="hora"><%= @receipt.receipt_datetime.strftime('%H:%M:%S') %></label>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Número Ingreso:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="numero_ingreso"><%= @receipt.code %></label>
+      </div>
+    </div>
+</div>
 
 
-<%= link_to 'Edit', edit_receipt_path(@receipt) %> |
-<%= link_to 'Back', receipts_path %>
+<div class="box">
+  <div class = "contentSubPanel">
+    <div class="headContent">
+      <h1>Lista de ingresos</h1>
+    </div>
+
+    <div class="box">
+      <%= link_to 'Agregar pallet', new_receipt_pallet_path(@receipt) , :class => "button blue alignright" %>   
+      <%= link_to 'Agregar envases sueltos', new_receipt_pack_group_receipt_path(@receipt) , :class => "button blue alignright" %>
+
+      <table cellpadding="0" cellspacing="0" border="0" id="tablealone" class="display datatable">
+        <thead>
+          <tr>
+            <th style="width:20% !important;">Código Pallet</th>
+            <th>N° Envases</th>
+            <th>Peso Neto (Kg)</th>
+            <th>Variedad</th>
+            <th>Calidad</th>
+            <th>Precio</th>
+            <th style="width:20% !important;">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% PackGroupReceipt.all.each do |pack_group_receipt| %>
+            <% if pack_group_receipt.receipt_id == @receipt.id %>
+                <tr>
+                  <td><%= "<no aplica>" %></td>
+                  <td><%= pack_group_receipt.quantity %></td>
+                  <td><%=(pack_group_receipt.gross_weight - (pack_group_receipt.quantity * PackType.find(pack_group_receipt.pack_type_id).tare)) %></td>
+                  <td><%= Variety.find(pack_group_receipt.variety_id).name %></td>
+                  <td><%= Quality.find(pack_group_receipt.quality_id).name %></td>
+                  <td><%= pack_group_receipt.price_per_unit %></td>
+                  <td>
+                    <%= link_to 'Ver', [@receipt, pack_group_receipt] %>
+                    <%= link_to 'Editar', [@receipt, pack_group_receipt], :method => :edit %>
+                    <%= link_to 'Eliminar', [@receipt, pack_group_receipt], :method => :delete, data: { confirm: '¿Está seguro de eliminar este registro?' } %></td>
+                </tr>
+      
+            <% end %>
+          <% end %> 
+          <% @receipt.pallets.each do |pallet| %>
+            <% if pallet.id != nil %>
+              <tr>
+                <%if pallet.code == nil%> 
+                  <td><%= pallet.code.value = "no aplica"  %></td>
+                <%end%>
+                <td><%= pallet.code %></td>
+                <td><%= pallet.quantity %></td>
+                <% if pallet.tare != nil %>
+                <td><%=(pallet.gross_weight - ((PackType.find(pallet.pack_type_id).tare) * pallet.quantity) - pallet.tare) %></td>
+                <%else%>
+                <td><%=(pallet.gross_weight) %></td>
+                <%end%>
+                <td><%= Variety.find(pallet.variety_id).name %></td>
+                <td><%= Quality.find(pallet.quality_id).name %></td>
+                <td><%= pallet.price_per_unit %></td>
+                <td>
+                  <%= link_to 'Ver', [@receipt, pallet]%>
+                  <%= link_to 'Editar', edit_pallet_path(pallet) %>
+                  <%= link_to 'Eliminar', [@receipt, pallet], :method => :delete, data: { confirm: '¿Está seguro de eliminar este registro?' } %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="foot-box">
+  <%= link_to 'Editar', edit_receipt_path(@receipt) , :class => "button green alignright" %>
+</div>

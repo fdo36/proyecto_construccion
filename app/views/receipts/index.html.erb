@@ -1,33 +1,46 @@
-<h1>Listing receipts</h1>
+<div class="headContent">
+  <h1>Lista de Ingresos</h1>
+</div>
+<div class="box">
+  <%= link_to 'Nuevo ingreso', new_receipt_path , :class => "button blue alignright" %>
 
-<table>
-  <tr>
-    <th>Code</th>
-    <th>Receipt datetime</th>
-    <th>Producer</th>
-    <th>Kind</th>
-    <th>User</th>
-    <th>Company</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th style="width:20% !important;">Orden N°</th>
+        <th>Productor</th>
+        <th>Fecha</th>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th style="width:20% !important;">Acciones</th>
+      </tr>
+     </thead> 
+     <tbody>
+      <% @receipts.each do |receipt| %>
 
-<% @receipts.each do |receipt| %>
-  <tr>
-    <td><%= receipt.code %></td>
-    <td><%= receipt.receipt_datetime %></td>
-    <td><%= receipt.producer_id %></td>
-    <td><%= receipt.kind_id %></td>
-    <td><%= receipt.user_id %></td>
-    <td><%= receipt.company_id %></td>
-    <td><%= link_to 'Show', receipt %></td>
-    <td><%= link_to 'Edit', edit_receipt_path(receipt) %></td>
-    <td><%= link_to 'Destroy', receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+          <tr>
+            <td><%= receipt.code %></td>
+            <td><%= (Producer.all(:select => "company_name", :conditions => ["id = ?",receipt.producer_id]))[0].company_name %></td>
+            <td><%= receipt.receipt_datetime.strftime('%d/%m/%Y') %></td>
+            <td><%= (Kind.all(:select => "name", :conditions => ["id = ?",receipt.kind_id]))[0].name %></td>
+            <% total_price = 0 %>
+            <% receipt.pallets.each do |pallet| %>
+              <% total_price += pallet.price_per_unit %>
+            <% end %>
+            <% receipt.pack_group_receipts.each do |pack_group_receipt| %>
+              <% total_price += pack_group_receipt.price_kg %>
+            <% end %>
+            <td><%= total_price %></td>
+            <td>
+              <%= link_to 'Ver', receipt %>
+            <%= link_to 'Editar', edit_receipt_path(receipt) %>
+            <%= link_to 'Eliminar', receipt, method: :delete, data: { confirm: '¿Está seguro de eliminar este ingreso?'} %></td>
+          </tr>   
+                           
+      <% end %>
+      </tbody>
+   
+  
+  </table>
 
-<br />
-
-<%= link_to 'New Receipt', new_receipt_path %>
+</div>
