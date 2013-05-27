@@ -8,6 +8,6 @@ class PackGroupReceipt < ActiveRecord::Base
 
   validates  :gross_weight, :presence => true, :numericality => true
 
-  validates :quantity, :code, :pack_type_id,:price_per_unit,:quality_id, :receipt_id, :variety_id,:presence => true, :numericality => { :only_integer => true }
+  validates :quantity, :pack_type_id,:price_per_unit,:quality_id, :receipt_id, :variety_id,:presence => true, :numericality => { :only_integer => true }
 
 end

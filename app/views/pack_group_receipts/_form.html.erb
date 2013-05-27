@@ -1,9 +1,9 @@
 <div class="box">
-<%= form_for([@receipt, @pack_group_receipt], :url => receipt_pack_group_receipt_path) do |f| %>
+<%= form_for([@receipt, @pack_group_receipt], :url => receipt_pack_group_receipts_path) do |f| %>
 
   <% if @pack_group_receipt.errors.any? %>
     <div id="error_explanation">
-      <h2><%= @pack_group_receipt.errors.count > 1 ? "#{@pack_group_receipt.errors.count} errores." : "#{@rpack_group_receipt.errors.count} error." %> No se pueden guardar los envases sueltos:</h2>
+      <h2><%= @pack_group_receipt.errors.count > 1 ? "#{@pack_group_receipt.errors.count} errores." : "#{@pack_group_receipt.errors.count} error." %> No se pueden guardar los envases sueltos:</h2>
 
       <ul>
       <% @pack_group_receipt.errors.full_messages.each do |msg| %>
@@ -86,7 +86,6 @@
   </div>
 
   <%= f.hidden_field :company_id, :value => 1 %>
-  <%= f.hidden_field :dispatch_id, :value => 1 %>
 
   
 </div>
@@ -94,4 +93,6 @@
   <div class="actions">
     <%= f.submit :Agregar %>
   </div>
+
+
 <% end %>

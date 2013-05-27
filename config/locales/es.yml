@@ -272,7 +272,7 @@ es:
         quality_id: "Calidad"
         kind_id: "Especie"
         price_per_unit: "Precio"
-        quantity: "Cantidad"
+        quantity: "Cantidad Envases"
         gross_weight: "Peso Bruto"
         variety_id: "Variedad"
       pallet:
@@ -282,7 +282,7 @@ es:
         quality_id: "Calidad"
         kind_id: "Especie"
         price_per_unit: "Precio"
-        quantity: "Cantidad"
+        quantity: "Cantidad Envases"
         gross_weight: "Peso Bruto"
         variety_id: "Variedad"
         tare: "Destare Pallet"

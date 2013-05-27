@@ -12,14 +12,13 @@ ProyectoConstruccion::Application.routes.draw do
 
 
   resources :receipts do
-    resources :pack_group_receipts
-  end
-
-  resources :receipts do
     resources :pallets    
   end
 
-  resources :pack_group_receipts
+  resources :receipts do
+    resources :pack_group_receipts
+  end
+ 
 
   resources :pallets
   
@@ -120,7 +119,6 @@ ProyectoConstruccion::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
-  
   match 'users/:id/enable' => 'users#enable', :as => 'users_enable'
   match 'users/:id/disable' => 'users#disable', :as => 'users_disable'
 

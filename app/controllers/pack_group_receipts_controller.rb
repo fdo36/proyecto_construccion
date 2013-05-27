@@ -29,7 +29,7 @@ class PackGroupReceiptsController < ApplicationController
     @pack_group_receipt = @receipt.pack_group_receipts.build
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html 
       format.json { render json: @pack_group_receipt }
     end
   end
