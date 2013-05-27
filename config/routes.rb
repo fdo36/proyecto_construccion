@@ -1,8 +1,36 @@
 ProyectoConstruccion::Application.routes.draw do
+  wiki_root '/wiki'
+  
+  resources :reports
+
+  resources :localities
+
+
+  resources :settings
+
+
+  resources :pack_group_dispatches
+
+
+  resources :receipts
+
+
+  resources :pack_types
+
+
+  resources :pack_group_receipts
+
+
+  resources :pallets
+
+
+  resources :dispatches
+
+
   resources :seasons
 
 
-  resources :containers
+  #resources :containers
 
 
   resources :destinations
@@ -97,6 +125,9 @@ ProyectoConstruccion::Application.routes.draw do
   
   match 'users/:id/enable' => 'users#enable', :as => 'users_enable'
   match 'users/:id/disable' => 'users#disable', :as => 'users_disable'
+
+  match 'companies/:id/enable' => 'companies#enable', :as => 'companies_enable'
+  match 'companies/:id/disable' => 'companies#disable', :as => 'companies_disable'
   
   match 'seasons/:id/enable' => 'seasons#enable', :as => 'seasons_enable'
   match 'seasons/:id/disable' => 'seasons#disable', :as => 'seasons_disable'
@@ -109,5 +140,9 @@ ProyectoConstruccion::Application.routes.draw do
   match 'producers/:id/enable' => 'producers#enable', :as => 'producers_enable'
   match 'producers/:id/disable' => 'producers#disable', :as => 'producers_disable'
   match 'producers/:id/delete_producer' => 'producers#delete_producer', :as => 'producer_delete'
+  
+  match '/help/css/jquery-ui.css', :to => redirect('/css/jquery-ui.css')
+  match '/help/css/styles.css', :to => redirect('/css/styles.css')
+  match '/help/css/default_buttons.css', :to => redirect('/css/default_buttons.css')
   
 end

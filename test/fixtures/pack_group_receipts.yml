@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  price_per_unit: 1
+  quantity: 1
+  gross_weight: 1
+  pack_type_id: 1
+  variety_id: 1
+  quality_id: 1
+  receipt_id: 1
+  company_id: 1
+
+two:
+  price_per_unit: 1
+  quantity: 1
+  gross_weight: 1
+  pack_type_id: 1
+  variety_id: 1
+  quality_id: 1
+  receipt_id: 1
+  company_id: 1

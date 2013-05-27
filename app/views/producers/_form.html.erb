@@ -30,7 +30,7 @@
       </label>  
     </div>
     <div class="forme-in">
-      <%= f.text_field :company_name %>
+      <%= f.text_field :name %>
     </div>
   </div>
   <div class="line-forme">
@@ -132,8 +132,9 @@
     </div>
     <div class="forme-in">
         <% @groupings.each do |grouping| %>
-          <%= check_box_tag 'grouping_ids[]', grouping.id, @producer.groupings.member?(grouping) -%>
+          <br><%= check_box_tag "grouping_ids[]", grouping.id, @producer.groupings.member?(grouping) -%>
           <%= h grouping.name -%>
+          <%= text_field "algo" ,"text_field_#{grouping.name}", :onchange => "algo()" %>
         <% end %>
     </div>
   </div>

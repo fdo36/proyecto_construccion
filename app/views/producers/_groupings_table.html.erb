@@ -1,0 +1,26 @@
+<div class="headContent">
+  <h1>Lista de agrupaciones de <%= @producer.name %></h1>
+</div>
+<div class="box">
+
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th style="width:20% !important;">Nombre</th>
+        <th>Descripción</th>
+      </tr>
+    </thead>
+  <tbody>
+  <% groupings = @producer.groupings %>
+  <% groupings.each do |grouping| %>
+    
+      <tr>
+        <td><%= grouping.name %></td>
+        <td><%= grouping.description %></td>
+      </tr>
+    
+  <% end %>
+    </tbody>
+  </table>
+
+</div>

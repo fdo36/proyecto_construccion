@@ -1,0 +1,84 @@
+<script type="text/javascript">
+   function show_rut3(s) {
+
+      if(s.value == "")
+      {      
+         var inputRut = document.getElementById('rut3');
+         inputRut.value = "-";
+
+         var inputCodigo = document.getElementById('codigo3');
+         inputCodigo.value = "-";
+      }
+      else
+      {
+         $.get("/producers/"+s.value+".json", function(data) {
+            var inputRut = document.getElementById('rut3');
+            inputRut.value = data.rut;
+
+            var inputCodigo = document.getElementById('codigo3');
+            inputCodigo.value = data.sag_code;
+         });
+      }
+   }
+</script>
+
+<!--Envases Productor-->
+<%= form_tag  do %>
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Productor'%>
+      </div>
+      <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
+      <div class="forme-in">
+         <%= select_tag "Productores1", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut3(this)" %>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag "rut"%>
+      </div>
+      <div class="forme-in">
+         <input id="rut3" value="-" disabled="true"></input>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag "Cod. Productor" %>
+      </div>
+      <div class="forme-in">
+         <input id="codigo3" value="-" disabled="true"></input>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Envase' %>
+      </div>
+      <% @pack_types_array = PackType.all.map { |pack| [pack.name, pack.id] } %>
+      <div class="forme-in">
+         <%= select_tag "Envases3", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" %>
+      </div>
+   </div> 
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Fecha Inicio' %>
+      </div>
+      <div class="field">
+         <%= select_date %>
+      </div>
+   </div>   
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Fecha Termino' %>
+      </div>
+      <div class="field">
+         <%= select_date %>
+      </div>
+   </div>                                                                    
+   <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>
+                       
+<% end %>               	

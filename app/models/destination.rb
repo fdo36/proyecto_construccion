@@ -1,9 +1,10 @@
 #encoding: utf-8
 require 'validators.rb'
 class Destination < ActiveRecord::Base
-  attr_accessible :active, :address, :commune_id, :company_name, :contact, :email, :phone, :rut, :is_deleted
+  attr_accessible :active, :address, :commune_id, :name, :contact, :email, :phone, :rut, :is_deleted
 
-  validates :address, :commune_id, :company_name, :contact, :phone, :rut, :presence => true
+  validates :address, :commune_id, :name, :contact, :phone, :rut, :presence => true
+
 
   #:presence => true
   validates :email, :format => { :with => /\A(([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,}))?\z/i,
@@ -16,7 +17,10 @@ class Destination < ActiveRecord::Base
     :message => "debe ingresar el formato válido. Ejemplo: 11.111.111-1" }
 
   validates_with RutValidator
-  validates_with ValidatorDestinationRutAlreadySaved
+  #validates_with ValidatorDestinationRutAlreadySaved
 
   belongs_to :commune
+  has_many :dispatches
+  has_many :producers
+  has_many :receipts
 end

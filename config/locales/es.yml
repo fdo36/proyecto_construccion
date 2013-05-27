@@ -1,5 +1,10 @@
 #encoding: utf-8
 es:
+  unauthorized:
+    manage:
+      all: "Usted no esta autorizado para hacer esto en %{subject}."
+      user: "No esta autorizado a manejar otras cuentas"
+
   date:
     abbr_day_names:
     - dom
@@ -218,6 +223,8 @@ es:
         name: "Nombre de la Compañía"
         rut: "Rut"
         email: "Correo electrónico"
+        commune_id: "Comuna"
+        region_id: "Región"
       user:
         email: "Correo electrónico"
         password: "Contraseña"

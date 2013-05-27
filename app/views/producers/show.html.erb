@@ -11,7 +11,7 @@
 
 <p>
   <b>Nombre:</b>
-  <%= @producer.company_name %>
+  <%= @producer.name %>
 </p>
 
 <p>
@@ -48,7 +48,9 @@
   <b>Código SAG:</b>
   <%= @producer.sag_code %>
 </p>
+<%= render 'groupings_table' %>
 </div>
 <div class="foot-box">
   <%= link_to 'Editar', edit_producer_path(@producer) , :class => "button green alignright" %>
 </div>
+

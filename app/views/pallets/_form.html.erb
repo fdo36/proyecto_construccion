@@ -1,0 +1,61 @@
+<%= form_for(@pallet) do |f| %>
+  <% if @pallet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pallet.errors.count, "error") %> prohibited this pallet from being saved:</h2>
+
+      <ul>
+      <% @pallet.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %><br />
+    <%= f.number_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br />
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :price_per_unit %><br />
+    <%= f.number_field :price_per_unit %>
+  </div>
+  <div class="field">
+    <%= f.label :gross_weight %><br />
+    <%= f.number_field :gross_weight %>
+  </div>
+  <div class="field">
+    <%= f.label :tare %><br />
+    <%= f.number_field :tare %>
+  </div>
+  <div class="field">
+    <%= f.label :variety_id %><br />
+    <%= f.number_field :variety_id %>
+  </div>
+  <div class="field">
+    <%= f.label :quality_id %><br />
+    <%= f.number_field :quality_id %>
+  </div>
+  <div class="field">
+    <%= f.label :receipt_id %><br />
+    <%= f.number_field :receipt_id %>
+  </div>
+  <div class="field">
+    <%= f.label :pack_type_id %><br />
+    <%= f.number_field :pack_type_id %>
+  </div>
+  <div class="field">
+    <%= f.label :company_id %><br />
+    <%= f.number_field :company_id %>
+  </div>
+  <div class="field">
+    <%= f.label :dispatch_id %><br />
+    <%= f.number_field :dispatch_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

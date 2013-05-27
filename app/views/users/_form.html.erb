@@ -14,6 +14,24 @@
 
     <div class="line-forme">
       <div class="forme-lab">
+        <%= f.label :Contraseña %><br />
+      </div>  
+      <div class="forme-in">  
+        <%= f.password_field :password %>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Confirma_tu_contraseña %><br />
+      </div>    
+      <div class="forme-in">  
+        <%= f.password_field :password_confirmation %>
+      </div>
+    </div>  
+
+    <div class="line-forme">
+      <div class="forme-lab">
         <%= f.label :Correo_electrónico %><br />
       </div>
       <div class="forme-in">
@@ -87,6 +105,7 @@
       <%= f.text_field :secret_answer %>
       </div>  
     </div>
+    <% if current_user.super_admin == true %>
     <div class="line-forme">
       <div class="forme-lab">
         <%= f.label :Súper_Usuario%><br />
@@ -101,11 +120,11 @@
         <%= f.label :"Compañia" %><br />
       </div>  
       <div class="forme-in">
-        <% companies_array = Company.all.map { |company| [company.name, company.id] } %>
+        <% companies_array = Company.where(:active => true).map { |company| [company.name, company.id] } %>
       <%= f.select(:company_id, companies_array) %>
       </div>  
     </div>
-    
+    <% end %>
     <div class="line-forme">
       <div class="forme-lab">
         <%= f.label :Roles %><br />

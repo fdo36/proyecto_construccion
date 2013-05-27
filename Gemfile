@@ -11,6 +11,7 @@ gem 'cancan'
 gem 'jquery-ui-rails'
 gem 'foreigner'
 gem 'devise-i18n-views'
+gem 'railroady'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -26,6 +27,8 @@ end
 
 gem 'jquery-rails'
 
+gem 'irwi', :git => 'git://github.com/alno/irwi.git'
+gem 'RedCloth'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

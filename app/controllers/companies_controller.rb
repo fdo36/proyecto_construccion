@@ -70,6 +70,26 @@ class CompaniesController < ApplicationController
     end
   end
 
+    def disable
+    @company = Company.find(params[:id])
+    @company.update_attribute(:active, false)
+  
+    respond_to do |format|
+      format.html { redirect_to companies_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def enable
+    @company = Company.find(params[:id])
+    @company.update_attribute(:active, true)
+
+    respond_to do |format|
+      format.html { redirect_to users_url }
+      format.json { head :no_content }
+    end
+  end
+
   # DELETE /companies/1
   # DELETE /companies/1.json
   def destroy
