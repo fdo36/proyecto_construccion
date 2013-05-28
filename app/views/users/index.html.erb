@@ -17,7 +17,6 @@
                 <thead>
                     <tr>
                         <th style="width:20% !important;">Email</th>
-                        <th>Teléfono</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Genero</th>
@@ -32,7 +31,6 @@
                         <% if (user.active == true) %>
                         <tr>
                             <td><%= user.email %></td>
-                            <td><%= user.phone %></td>
                             <td><%= user.name %></td>
                             <td><%= user.lastname %></td>
                             <td><%= user.gender %></td>
@@ -42,6 +40,7 @@
                             <td>
 							<%= link_to('Ver', company_user_path(@company, user)) %>
                             <%= link_to('Editar', edit_company_user_path(@company, user)) %>
+							<%= link_to('Cambiar contraseña', edit_user_password_path(@company, user)) %>
                             <%= link_to('Deshabilitar', users_disable_path(@company, user)) %>
                             </td>
                         </tr>
@@ -62,7 +61,6 @@
                 <thead>
                     <tr>
                         <th style="width:20% !important;">Email</th>
-                        <th>Teléfono</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>Genero</th>
@@ -78,7 +76,6 @@
                         <% if (user.active != true)  %>
                         <tr>
                             <td><%= user.email %></td>
-                            <td><%= user.phone %></td>
                             <td><%= user.name %></td>
                             <td><%= user.lastname %></td>
                             <td><%= user.gender %></td>

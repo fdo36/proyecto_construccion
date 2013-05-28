@@ -43,8 +43,8 @@ ProyectoConstruccion::Application.routes.draw do
      resources :communes
   end
 
-  match "/admin/users/:id/edit_password" => "users#edit_password", :as => "edit_user_password"
-
+  match "/companies/:company_id/users/:id/edit_password" => "users#edit_password", :as => "edit_user_password"
+  
   resources :companies do
     resources :roles do
       resources :access_rights

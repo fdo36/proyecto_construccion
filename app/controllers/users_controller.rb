@@ -100,10 +100,12 @@ class UsersController < ApplicationController
       raise CanCan::AccessDenied.new("Usted no puede administrar otra compañia", :manage, @company)
     end
     @user = User.find(params[:id])
-    @roles = Role.all
-    role_ids = params[:role_ids] if params[:role_ids]
-    role_ids ||= []
-    @user.role_ids = role_ids
+    if !params.has_key?(:password_only)
+      @roles = Role.all
+      role_ids = params[:role_ids] if params[:role_ids]
+      role_ids ||= []
+      @user.role_ids = role_ids
+    end
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -116,6 +118,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_password
+    @user = User.find(params[:id])
+    @company = Company.find(params[:company_id])
+    respond_to do |format|
+        format.html
+        format.json { head :no_content }
+    end
+  end
+  
   def disable
     @company = Company.find(params[:company_id])
     if !can?(:manage, @company)

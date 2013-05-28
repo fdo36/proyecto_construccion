@@ -25,6 +25,8 @@ class Ability
                 end
             end
         end
+        can :read, User, :id => user.id
+        can :update, User, :id => user.id
     end
   end
 end

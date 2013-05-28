@@ -58,6 +58,8 @@ namespace :init_data do
         role.access_rights << a
         a=AccessRight.create(:model_name => "User", :action => "manage")
         role.access_rights << a
+        a=AccessRight.create(:model_name => "Role", :action => "manage")
+        role.access_rights << a
 
 	user = User.new(:email => "admin@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => false, :company_id => company.id)
 	user.save(:validate => false)
