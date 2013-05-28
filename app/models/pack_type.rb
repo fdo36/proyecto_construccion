@@ -8,7 +8,7 @@ class PackType < ActiveRecord::Base
    #validates :tare, :format => { :with => /^-?[0-9]+([,\.][0-9]*)?$/, 
    	#:message => "debe ser un número válido" }
 
-  belongs_to :company_id
+  belongs_to :company
   has_many :pack_group_receipts
   has_many :pack_group_dispatches
   has_many :pallets
