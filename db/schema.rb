@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(:version => 20130528041444) do
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
+    t.integer  "user_id"
+    t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
@@ -209,6 +211,8 @@ ActiveRecord::Schema.define(:version => 20130528041444) do
     t.integer  "producer_id"
     t.integer  "kind_id"
     t.datetime "receipt_datetime"
+    t.integer  "user_id"
+    t.integer  "company_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end

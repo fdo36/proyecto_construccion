@@ -20,7 +20,7 @@
 
           <tr>
             <td><%= receipt.code %></td>
-            <td><%= (Producer.all(:select => "company_name", :conditions => ["id = ?",receipt.producer_id]))[0].company_name %></td>
+            <td><%= (Producer.all(:select => "name", :conditions => ["id = ?",receipt.producer_id]))[0].name %></td>
             <td><%= receipt.receipt_datetime.strftime('%d/%m/%Y') %></td>
             <td><%= (Kind.all(:select => "name", :conditions => ["id = ?",receipt.kind_id]))[0].name %></td>
             <% total_price = 0 %>
