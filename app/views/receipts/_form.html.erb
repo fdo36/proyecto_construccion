@@ -16,6 +16,81 @@
   
 </script>
 
+<script type="text/javascript">
+  function search_rut(s) {
+    if(s.value == "")
+    {      
+      $('#select_producer').val("");
+      $('#rut').val("-");
+      $('#codigo').val("-");
+      $('#codigo_sag').val("-");
+    }
+
+    $.get("/producers.json", function(data) {
+     
+     for (var i = data.length - 1; i >= 0; i--) {
+      if(data[i]["rut"]==s.value){
+        $('#select_producer').val([data[i]["name"], data[i]["id"]]);
+        $('#codigo').val(data[i]["code"]);
+        $('#codigo_sag').val(data[i]["sag_code"]);    
+        
+      }
+     };
+
+     
+   });
+    
+  }  
+</script>
+
+<script type="text/javascript">
+  function search_code(s) {
+    if(s.value == "")
+    {      
+      $('#select_producer').val("");
+      $('#rut').val("-");
+      $('#codigo').val("-");
+      $('#codigo_sag').val("-");
+    }
+
+    $.get("/producers.json", function(data) {
+     for (var i = data.length - 1; i >= 0; i--) {
+      if(data[i]["code"]==s.value){
+        $('#select_producer').val([data[i]["name"], data[i]["id"]]);
+        $('#rut').val(data[i]["rut"]);
+        $('#codigo_sag').val(data[i]["sag_code"]);   
+            
+      }
+     };
+   });
+    
+  }  
+</script>
+
+<script type="text/javascript">
+  function search_sag(s) {
+    if(s.value == "")
+    {      
+      $('#select_producer').val("");
+      $('#rut').val("-");
+      $('#codigo').val("-");
+      $('#codigo_sag').val("-");
+    }
+
+    $.get("/producers.json", function(data) {
+     for (var i = data.length - 1; i >= 0; i--) {
+      if(data[i]["sag_code"]==s.value){
+        $('#select_producer').val([data[i]["name"], data[i]["id"]]);
+        $('#rut').val(data[i]["rut"]);
+        $('#codigo').val(data[i]["code"]); 
+            
+      }
+     };
+   });
+    
+  }  
+</script>
+
 
 <div class="box">
 <%= form_for(@receipt) do |f| %>
@@ -42,7 +117,7 @@
     
       <div class="forme-in">
         <% @options = Producer.all.map { |p| [p.name, p.id] } %>
-        <%= f.select(:producer_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione productor - '} , :onchange => "show_rut(this)") %>  
+        <%= f.select(:producer_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione productor - '} , :id => 'select_producer',:onchange => "show_rut(this)") %>  
 
       </div>
 
@@ -55,7 +130,7 @@
         
       <div class="forme-in">
         
-        <%= f.text_field(:code, :id => 'rut')%>
+        <%= f.text_field(:code, :id => 'rut', :onblur => "search_rut(this)")%>
 
       </div>
     </div>
@@ -72,7 +147,7 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <label>Código Interno SAG:</label>
+        <label>Código SAG Productor:</label>
       </div>
     
       <div class="forme-in">
