@@ -18,7 +18,7 @@ class DispatchesControllerTest < ActionController::TestCase
 
   test "should create dispatch" do
     assert_difference('Dispatch.count') do
-      post :create, dispatch: { code: @dispatch.code, date: @dispatch.date, destination_id: @dispatch.destination_id, hour: @dispatch.hour, kind_id: @dispatch.kind_id }
+      post :create, dispatch: { company_id: @dispatch.company_id, destination_id: @dispatch.destination_id, dispatch_datetime: @dispatch.dispatch_datetime, kind_id: @dispatch.kind_id, user_id: @dispatch.user_id }
     end
 
     assert_redirected_to dispatch_path(assigns(:dispatch))
@@ -35,7 +35,7 @@ class DispatchesControllerTest < ActionController::TestCase
   end
 
   test "should update dispatch" do
-    put :update, id: @dispatch, dispatch: { code: @dispatch.code, date: @dispatch.date, destination_id: @dispatch.destination_id, hour: @dispatch.hour, kind_id: @dispatch.kind_id }
+    put :update, id: @dispatch, dispatch: { company_id: @dispatch.company_id, destination_id: @dispatch.destination_id, dispatch_datetime: @dispatch.dispatch_datetime, kind_id: @dispatch.kind_id, user_id: @dispatch.user_id }
     assert_redirected_to dispatch_path(assigns(:dispatch))
   end
 

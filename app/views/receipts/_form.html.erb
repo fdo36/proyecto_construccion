@@ -1,19 +1,4 @@
 <script type="text/javascript">
-  function validate(){
-    if (pallet.checked == 0){
-        pallet_code.disabled = true;
-        
-        pallet_destare.disabled = true;
-
-    }else{
-        pallet_code.disabled = false;
-        pallet_destare.disabled = false;
-    }
-  }
-</script>
-
-
-<script type="text/javascript">
   function show_rut(s) {
     if(s.value == "")
     {      
@@ -23,31 +8,10 @@
     
     $.get("/producers/"+s.value+".json", function(data) {
      $('#rut').html(data.rut); 
-     $('#codigo').html(data.sag_code); 
-   });  
+     $('#codigo').html(data.code);
+   });
   }
   
-</script>
-<script type="text/javascript">
-  function agregarTabla(){
-    var largo = tablealone.rows.length;
-    var row = tablealone.insertRow(largo);
-
-    var cell1 = row.insertCell(0);
-    cell1.appendChild("aslgokasdo");
-
-    var cell2 = row.insertCell(1);
-    cell2.appendChild("adskaksd");
-
-  }
-</script>
-
-<script type = "text/javascript">
-  function displayResult()
-  {
-    var x = $(".mySelect").find(':value'); 
-    alert("Index "+x);
-  }
 </script>
 
 
@@ -55,7 +19,7 @@
 <%= form_for(@receipt) do |f| %>
   <% if @receipt.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@receipt.errors.count, "error") %> prohibited this receipt from being saved:</h2>
+      <h2><%= @receipt.errors.count > 1 ? "#{@receipt.errors.count} errores." : "#{@receipt.errors.count} error." %> No se puede guardar el ingreso:</h2>
 
       <ul>
       <% @receipt.errors.full_messages.each do |msg| %>
@@ -113,38 +77,26 @@
       </div>
     </div>
 
-    <div class="line-forme">
-      <div class="forme-lab">
-        <label>Fecha:</label>
-      </div>
-    
-      <div class="forme-in">
-        
-        <%= f.text_field :date, :value => Time.now.strftime("%d/%m/%Y"), :class =>"date" %>
-      </div>
-    </div>
 
     <div class="line-forme">
       <div class="forme-lab">
-        <label>Hora:</label>
-      </div>
-    
-      <div class="forme-in">
-
-        <%= f.text_field :hour, :value => Time.now.strftime("%I:%M:%S") %>
-      </div>
+        <label>Total:</label>
+      </div> 
+      <%= f.datetime_select :receipt_datetime %>         
     </div>
-  
-  </div>
 
+    <%= f.hidden_field :user_id, :value => 1 %>
+    <%= f.hidden_field :company_id, :value => 1 %>
+     
   
+  </div>  
 </div>
 
 
 <div class="foot-box">
   <div class="line-forme">
     <div class="forme-lab">
-      <label>Número ingreso:</label>
+      <label>Número Ingreso:</label>
     </div>
   
     <div class="forme-in">

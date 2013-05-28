@@ -42,7 +42,7 @@
     </div>
     <div class="forme-in">
       <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
-      <%= f.select(:commune_id, communes_array) %>
+      <%= f.select(:commune_id, communes_array, :selected => :prompt, :prompt => '- Seleccione comuna -') %>
     </div>
   </div>
   <div class="line-forme">
@@ -83,6 +83,15 @@
     </div>
     <div class="forme-in">
       <%= f.text_field :sag_code %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :"Código Interno" %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :code %>
     </div>
   </div>
 

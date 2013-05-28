@@ -1,7 +1,9 @@
-<%= form_for(@pallet) do |f| %>
+<div class="box">
+<%= form_for([@receipt, @pallet], :url => receipt_pallets_path) do |f| %>
+
   <% if @pallet.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@pallet.errors.count, "error") %> prohibited this pallet from being saved:</h2>
+      <h2><%= @pallet.errors.count > 1 ? "#{@pallet.errors.count} errores." : "#{@pallet.errors.count} error." %> No se puede guardar el pallet:</h2>
 
       <ul>
       <% @pallet.errors.full_messages.each do |msg| %>
@@ -11,43 +13,104 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :receipt_id %><br />
-    <%= f.number_field :receipt_id %>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label>Número Ingreso *</label>
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :receipt_id, :readonly => true %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :container_id %><br />
-    <%= f.number_field :container_id %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label>Variedad *</label>
+    </div>
+    <div class="forme-in">
+      <% varieties_aux = Array.new
+      varieties_array = Variety.all.map { |variety|
+        if (variety.kind_id == @receipt.kind_id)
+          varieties_aux.push([variety.name, variety.id])
+        end
+      }
+      %>
+      <%= f.select(:variety_id, varieties_aux, :selected => :prompt, :prompt => '- Seleccione variedad -') %>
+    </div>
+  </div>  
+
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label>Calidad *</label>
+    </div>
+    <div class="forme-in">
+      <% quality_array = Quality.all.map { |quality| [quality.name, quality.id] } %>
+      <%= f.select(:quality_id, quality_array, :selected => :prompt, :prompt => '- Seleccione calidad -')  %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :quality_id %><br />
-    <%= f.number_field :quality_id %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label>Precio por Kg($) *</label>
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :price_per_unit %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :variety_id %><br />
-    <%= f.number_field :variety_id %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label>Tipo Envase *</label>
+    </div>
+    <div class="forme-in">
+      <% container_array = PackType.all.map { |container| [container.name, container.id] } %>
+      <%= f.select(:pack_type_id, container_array, :selected => :prompt, :prompt => '- Seleccione envase -')  %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :price_kg %><br />
-    <%= f.text_field :price_kg %>
+  
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label>Cantidad Envases *</label>
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :quantity %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :quantity %><br />
-    <%= f.number_field :quantity %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label>Peso Bruto (Kg) *</label>
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :gross_weight %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :gross_weight %><br />
-    <%= f.text_field :gross_weight %>
+  
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label>Código Pallet *</label>
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :code %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :code %><br />
-    <%= f.text_field :code %>
+  
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label>Destare Pallet (Kg) *</label>
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :tare %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :tare %><br />
-    <%= f.text_field :tare %>
+
+  <%= f.hidden_field :company_id, :value => 1 %>
+  <%= f.hidden_field :dispatch_id, :value => 1 %>
+     
+</div>
+
+ <div class="actions">
+    <%= f.submit :Agregar %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>

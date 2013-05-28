@@ -1,4 +1,5 @@
 class PalletsController < ApplicationController
+  load_and_authorize_resource
   # GET /pallets
   # GET /pallets.json
   def index
@@ -24,10 +25,10 @@ class PalletsController < ApplicationController
   # GET /pallets/new
   # GET /pallets/new.json
   def new
-    @pallet = Pallet.new
-
+    @receipt = Receipt.find(params[:receipt_id])
+    @pallet = @receipt.pallets.build
     respond_to do |format|
-      format.html # new.html.erb
+      format.html 
       format.json { render json: @pallet }
     end
   end
@@ -40,15 +41,17 @@ class PalletsController < ApplicationController
   # POST /pallets
   # POST /pallets.json
   def create
-    @pallet = Pallet.new(params[:pallet])
+    @receipt = Receipt.find(params[:receipt_id])
+    @pallet = @receipt.pallets.create(params[:pallet])
+
 
     respond_to do |format|
       if @pallet.save
-        format.html { redirect_to :back }
+        format.html { redirect_to receipt_path(@receipt) } 
         format.json { render json: @pallet, status: :created, location: @pallet }
       else
-        format.html { render action: "new" }
-        format.json { render json: @pallet.errors, status: :unprocessable_entity }
+        format.html { render action: "new"  }
+        format.json { render json: @pallets.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -76,8 +79,9 @@ class PalletsController < ApplicationController
     @pallet.destroy
 
     respond_to do |format|
-      format.html { redirect_to pallets_url }
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end
 end
+  

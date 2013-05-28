@@ -1,18 +1,13 @@
 <p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Pallet</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', pallets_path , :class => "button blue alignright" %>
 
 <p>
   <b>Receipt:</b>
   <%= @pallet.receipt_id %>
-</p>
-
-<p>
-  <b>Container:</b>
-  <%= @pallet.container_id %>
-</p>
-
-<p>
-  <b>Quality:</b>
-  <%= @pallet.quality_id %>
 </p>
 
 <p>
@@ -21,8 +16,18 @@
 </p>
 
 <p>
+  <b>Quality:</b>
+  <%= @pallet.quality_id %>
+</p>
+
+<p>
   <b>Price kg:</b>
   <%= @pallet.price_kg %>
+</p>
+
+<p>
+  <b>Container:</b>
+  <%= @pallet.container_id %>
 </p>
 
 <p>
@@ -45,6 +50,7 @@
   <%= @pallet.tare %>
 </p>
 
-
-<%= link_to 'Edit', edit_pallet_path(@pallet) %> |
-<%= link_to 'Back', pallets_path %>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_pallet_path(@pallet) , :class => "button green alignright" %>
+</div>

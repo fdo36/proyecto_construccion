@@ -1,38 +1,87 @@
 <div class="headContent">
-  <h1>Lista de Compañias</h1>
+    <h1>Compañias</h1>
 </div>
 <div class="box">
-  <%= link_to 'Nueva Compañia', new_company_path , :class => "button blue alignright" %>
-
-  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
-    <thead>
-      <tr>
-        <th style="width:20% !important;">Nombre</th>
-        <th>Rut</th>
-        <th>Giro del negocio</th>
-        <th>Teléfono</th>
-        <th>Email</th>
-        <th style="width:20% !important;">Acciones</th>
-        
-      </tr>
-    </thead>
-  <tbody>
-
-  <% @companies.each do |company| %>
+    <div class="contentSubPanel">
+            <div class="temporada-pan1">
+                <%= link_to 'Nueva Compañia', new_company_path , :class => "button blue alignright" %>
+            </div>      
+    </div>
     
-      <tr>
-        <td><%= company.name %></td>
-        <td><%= company.rut %></td>
-        <td><%= company.line_of_business %></td>
-        <td><%= company.phone %></td>
-        <td><%= company.email %></td>
-        <td><%= link_to 'Ver', company %>
-        <%= link_to 'Editar', edit_company_path(company) %>
-        <%= link_to 'Eliminar', company, method: :delete, data: { confirm: '¿Está seguro de eliminar esta Compañia?' } %></td>
-      </tr>
-    
-  <% end %>
-    </tbody>
-  </table>
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Compañias Activas</h1>
+        </div>
+        <div class="box">
 
+            <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="tab_tempo_ini">
+                <thead>
+                    <tr>
+                        <th style="width:20% !important;">Nombre</th>
+                        <th>Rut</th>
+                        <th>Giro del negocio</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th style="width:20% !important;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    <% @companies.each do |company| %>
+                        <% if ((company.active == true) or (company.active ==nil)) %>
+                        <tr>
+                            <td><%= company.name %></td>
+                            <td><%= company.rut %></td>
+                            <td><%= company.line_of_business %></td>
+                            <td><%= company.phone %></td>
+                            <td><%= company.email %></td>
+                            <td><%= link_to 'Ver', company %>
+                            <%= link_to 'Editar', edit_company_path(company) %>
+                            <%= link_to 'Deshabilitar', companies_disable_path(company) %>
+                            </td>
+                        </tr>
+                        <%end%>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Compañias Desactivadas</h1>
+        </div>
+        <div class="box">
+
+            <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="tab_tempo_fin">
+                <thead>
+                    <tr>
+                        <th style="width:20% !important;">Nombre</th>
+                        <th>Rut</th>
+                        <th>Giro del negocio</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th style="width:20% !important;">Acciones</th>
+                     </tr>
+                </thead>
+                <tbody>
+
+                    <% @companies.each do |company| %>
+                        <% if (company.active == false)  %>
+                        <tr>
+                            <td><%= company.name %></td>
+                            <td><%= company.rut %></td>
+                            <td><%= company.line_of_business %></td>
+                            <td><%= company.phone %></td>
+                            <td><%= company.email %></td>
+                            <td><%= link_to 'Ver', company %>
+                            <%= link_to 'Editar', edit_company_path(company) %>
+                            <%= link_to 'Habilitar', companies_enable_path(company) %>
+                            <%= link_to 'Eliminar', company, method: :delete, data: { confirm: '¿Esta seguro de eliminar esta Compañia?' } %></td>
+                        </tr>
+                        <%end%>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

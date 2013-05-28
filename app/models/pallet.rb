@@ -1,3 +1,15 @@
 class Pallet < ActiveRecord::Base
-  attr_accessible :code, :container_id, :gross_weight, :price_kg, :quality_id, :quantity, :receipt_id, :tare, :variety_id
+  attr_accessible :code, :company_id, :dispatch_id, :gross_weight, :pack_type_id, :price_per_unit, :quality_id, :quantity, :receipt_id, :tare, :variety_id
+  belongs_to :variety
+  belongs_to :quality
+  belongs_to :receipt
+  belongs_to :pack_type
+  belongs_to :company
+  belongs_to :dispatch
+
+  
+  validates :gross_weight, :tare, :presence =>true, :numericality => true
+  validates :variety_id,:quality_id,:price_per_unit,:pack_type_id, :quantity, :code, :receipt_id, 
+   :presence => true, :numericality => { :only_integer => true }
+
 end

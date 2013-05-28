@@ -12,10 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :code %><br />
-    <%= f.text_field :code %>
-  </div>
-  <div class="field">
     <%= f.label :destination_id %><br />
     <%= f.number_field :destination_id %>
   </div>
@@ -24,12 +20,16 @@
     <%= f.number_field :kind_id %>
   </div>
   <div class="field">
-    <%= f.label :date %><br />
-    <%= f.date_select :date %>
+    <%= f.label :dispatch_datetime %><br />
+    <%= f.datetime_select :dispatch_datetime %>
   </div>
   <div class="field">
-    <%= f.label :hour %><br />
-    <%= f.datetime_select :hour %>
+    <%= f.label :company_id %><br />
+    <%= f.number_field :company_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
   </div>
   <div class="actions">
     <%= f.submit %>

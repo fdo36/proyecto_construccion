@@ -1,4 +1,5 @@
 class AccessRightsController < ApplicationController
+  load_and_authorize_resource
   # GET /access_rights
   # GET /access_rights.json
   def index

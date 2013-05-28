@@ -26,7 +26,7 @@
     </div>
     <div class="forme-in">
       <% kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
-      <%= f.select(:kind_id, kinds_array) %>
+      <%= f.select(:kind_id, kinds_array, :selected => :prompt, :prompt => '- Seleccione especie -') %>
     </div>
 
     

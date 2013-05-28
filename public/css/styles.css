@@ -282,8 +282,8 @@ section#content{
 }
 
 
-.forme-in input[type="text"], .forme-in select{
-	width: 100%;
+.forme-in  input[type="text"], .forme-in select{
+	width: 97%;
 	height: 90%;
 }
 
@@ -359,4 +359,41 @@ margin-right: -.3em;
 
 .temporada-pan1 .field{
 	float: left;
+}
+#nameLogin{
+	position: absolute;
+	right: 242px;
+	top: 0;
+	padding: 0;
+	height: 45px;
+	width: 200px;
+	border-right: 1px solid #8dbb00;
+	border-left: 1px solid #8dbb00;
+	
+	font-weight: bold;
+}
+#nameLogin p
+{
+
+	padding-top: 0px;
+	padding-left: 45px;
+}
+
+
+#leftCol a{
+	float: left;
+	border-bottom: 1px solid rgb(151, 201, 0);
+	text-decoration: none;
+	font-size: 12.2px;
+	color: #698907;
+	font-weight: bold;
+	padding-left: 15px;
+	padding-top: 10px;
+	width: 185px;
+	height: 29px;
+}
+
+#leftCol a:hover{
+	background: #849E34;
+	color:fff;
 }

@@ -3,7 +3,11 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    if current_user.super_admin == true 
+      @users = User.all
+    else
+      @users = User.where(:company_id => current_user.company_id)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -48,6 +52,9 @@ class UsersController < ApplicationController
     role_ids = params[:role_ids] if params[:role_ids] 
     role_ids ||= []
     @user.role_ids = role_ids
+    if current_user.super_admin != true
+      @user.company_id = current_user.company_id
+    end
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'El usuario fue creado exitosamente.' }
@@ -76,6 +83,26 @@ class UsersController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def disable
+    @user = User.find(params[:id])
+    @user.update_attribute(:active, false)
+  
+    respond_to do |format|
+      format.html { redirect_to users_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def enable
+    @user = User.find(params[:id])
+    @user.update_attribute(:active, true)
+
+    respond_to do |format|
+      format.html { redirect_to users_url }
+      format.json { head :no_content }
     end
   end
 

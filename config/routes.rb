@@ -1,20 +1,29 @@
 ProyectoConstruccion::Application.routes.draw do
-  resources :dispatch_containers
+  resources :settings
 
 
-  resources :dispatches
+  resources :pack_group_dispatches
 
 
-  resources :receipt_containers
+  resources :receipts
 
 
-  resources :pallets
+  resources :pack_types
+
 
   resources :receipts do
-    resources :pallets
+    resources :pallets    
   end
+
+  resources :receipts do
+    resources :pack_group_receipts
+  end
+ 
+
+  resources :pallets
   
-  resources :receipts
+
+  resources :dispatches
 
 
   resources :seasons
@@ -51,6 +60,7 @@ ProyectoConstruccion::Application.routes.draw do
 
   devise_for :users
   resources :users, :path => "admin/users"
+
 
 
   # The priority is based upon order of creation:
@@ -109,7 +119,12 @@ ProyectoConstruccion::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+  match 'users/:id/enable' => 'users#enable', :as => 'users_enable'
+  match 'users/:id/disable' => 'users#disable', :as => 'users_disable'
 
+  match 'companies/:id/enable' => 'companies#enable', :as => 'companies_enable'
+  match 'companies/:id/disable' => 'companies#disable', :as => 'companies_disable'
+  
   match 'seasons/:id/enable' => 'seasons#enable', :as => 'seasons_enable'
   match 'seasons/:id/disable' => 'seasons#disable', :as => 'seasons_disable'
   match 'seasons/:id/delete_season' => 'seasons#delete_season', :as => 'season_delete'

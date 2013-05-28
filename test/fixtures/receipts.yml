@@ -1,15 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  code: MyString
+  code: 1
+  receipt_datetime: 2013-05-25 15:59:58
   producer_id: 1
   kind_id: 1
-  date: 2013-05-15
-  hour: 2013-05-15 20:20:13
+  user_id: 1
+  company_id: 1
 
 two:
-  code: MyString
+  code: 1
+  receipt_datetime: 2013-05-25 15:59:58
   producer_id: 1
   kind_id: 1
-  date: 2013-05-15
-  hour: 2013-05-15 20:20:13
+  user_id: 1
+  company_id: 1

@@ -1,23 +1,27 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  receipt_id: 1
-  container_id: 1
-  quality_id: 1
-  variety_id: 1
-  price_kg: 1.5
+  code: 1
   quantity: 1
-  gross_weight: 1.5
-  code: MyString
-  tare: 1.5
+  price_per_unit: 1
+  gross_weight: 1
+  tare: 1
+  variety_id: 1
+  quality_id: 1
+  receipt_id: 1
+  pack_type_id: 1
+  company_id: 1
+  dispatch_id: 1
 
 two:
-  receipt_id: 1
-  container_id: 1
-  quality_id: 1
-  variety_id: 1
-  price_kg: 1.5
+  code: 1
   quantity: 1
-  gross_weight: 1.5
-  code: MyString
-  tare: 1.5
+  price_per_unit: 1
+  gross_weight: 1
+  tare: 1
+  variety_id: 1
+  quality_id: 1
+  receipt_id: 1
+  pack_type_id: 1
+  company_id: 1
+  dispatch_id: 1

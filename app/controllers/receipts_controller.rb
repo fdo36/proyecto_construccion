@@ -1,5 +1,6 @@
 #encoding: utf-8
 class ReceiptsController < ApplicationController
+  load_and_authorize_resource
   # GET /receipts
   # GET /receipts.json
   def index
@@ -15,6 +16,8 @@ class ReceiptsController < ApplicationController
   # GET /receipts/1.json
   def show
     @receipt = Receipt.find(params[:id])
+    @pallet = Pallet.new
+    @pack_group_receipt = PackGroupReceipt.new
 
     respond_to do |format|
       format.html # show.html.erb

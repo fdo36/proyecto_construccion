@@ -1,0 +1,27 @@
+<h1>Listing pack_types</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Tare</th>
+    <th>Company</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pack_types.each do |pack_type| %>
+  <tr>
+    <td><%= pack_type.name %></td>
+    <td><%= pack_type.tare %></td>
+    <td><%= pack_type.company_id %></td>
+    <td><%= link_to 'Show', pack_type %></td>
+    <td><%= link_to 'Edit', edit_pack_type_path(pack_type) %></td>
+    <td><%= link_to 'Destroy', pack_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Pack type', new_pack_type_path %>

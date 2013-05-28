@@ -1,0 +1,29 @@
+<%= form_for(@pack_type) do |f| %>
+  <% if @pack_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pack_type.errors.count, "error") %> prohibited this pack_type from being saved:</h2>
+
+      <ul>
+      <% @pack_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :tare %><br />
+    <%= f.number_field :tare %>
+  </div>
+  <div class="field">
+    <%= f.label :company_id %><br />
+    <%= f.number_field :company_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

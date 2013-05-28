@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Code:</b>
-  <%= @dispatch.code %>
-</p>
-
-<p>
   <b>Destination:</b>
   <%= @dispatch.destination_id %>
 </p>
@@ -16,13 +11,18 @@
 </p>
 
 <p>
-  <b>Date:</b>
-  <%= @dispatch.date %>
+  <b>Dispatch datetime:</b>
+  <%= @dispatch.dispatch_datetime %>
 </p>
 
 <p>
-  <b>Hour:</b>
-  <%= @dispatch.hour %>
+  <b>Company:</b>
+  <%= @dispatch.company_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @dispatch.user_id %>
 </p>
 
 

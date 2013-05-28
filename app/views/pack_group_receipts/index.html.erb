@@ -1,0 +1,37 @@
+<h1>Listing pack_group_receipts</h1>
+
+<table>
+  <tr>
+    <th>Price per unit</th>
+    <th>Quantity</th>
+    <th>Gross weight</th>
+    <th>Pack type</th>
+    <th>Variety</th>
+    <th>Quality</th>
+    <th>Receipt</th>
+    <th>Company</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pack_group_receipts.each do |pack_group_receipt| %>
+  <tr>
+    <td><%= pack_group_receipt.price_per_unit %></td>
+    <td><%= pack_group_receipt.quantity %></td>
+    <td><%= pack_group_receipt.gross_weight %></td>
+    <td><%= pack_group_receipt.pack_type_id %></td>
+    <td><%= pack_group_receipt.variety_id %></td>
+    <td><%= pack_group_receipt.quality_id %></td>
+    <td><%= pack_group_receipt.receipt_id %></td>
+    <td><%= pack_group_receipt.company_id %></td>
+    <td><%= link_to 'Show', pack_group_receipt %></td>
+    <td><%= link_to 'Edit', edit_pack_group_receipt_path(pack_group_receipt) %></td>
+    <td><%= link_to 'Destroy', pack_group_receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Pack group receipt', new_pack_group_receipt_path %>

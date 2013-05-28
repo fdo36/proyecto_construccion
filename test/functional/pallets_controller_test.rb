@@ -18,7 +18,7 @@ class PalletsControllerTest < ActionController::TestCase
 
   test "should create pallet" do
     assert_difference('Pallet.count') do
-      post :create, pallet: { code: @pallet.code, container_id: @pallet.container_id, gross_weight: @pallet.gross_weight, price_kg: @pallet.price_kg, quality_id: @pallet.quality_id, quantity: @pallet.quantity, receipt_id: @pallet.receipt_id, tare: @pallet.tare, variety_id: @pallet.variety_id }
+      post :create, pallet: { code: @pallet.code, company_id: @pallet.company_id, dispatch_id: @pallet.dispatch_id, gross_weight: @pallet.gross_weight, pack_type_id: @pallet.pack_type_id, price_per_unit: @pallet.price_per_unit, quality_id: @pallet.quality_id, quantity: @pallet.quantity, receipt_id: @pallet.receipt_id, tare: @pallet.tare, variety_id: @pallet.variety_id }
     end
 
     assert_redirected_to pallet_path(assigns(:pallet))
@@ -35,7 +35,7 @@ class PalletsControllerTest < ActionController::TestCase
   end
 
   test "should update pallet" do
-    put :update, id: @pallet, pallet: { code: @pallet.code, container_id: @pallet.container_id, gross_weight: @pallet.gross_weight, price_kg: @pallet.price_kg, quality_id: @pallet.quality_id, quantity: @pallet.quantity, receipt_id: @pallet.receipt_id, tare: @pallet.tare, variety_id: @pallet.variety_id }
+    put :update, id: @pallet, pallet: { code: @pallet.code, company_id: @pallet.company_id, dispatch_id: @pallet.dispatch_id, gross_weight: @pallet.gross_weight, pack_type_id: @pallet.pack_type_id, price_per_unit: @pallet.price_per_unit, quality_id: @pallet.quality_id, quantity: @pallet.quantity, receipt_id: @pallet.receipt_id, tare: @pallet.tare, variety_id: @pallet.variety_id }
     assert_redirected_to pallet_path(assigns(:pallet))
   end
 

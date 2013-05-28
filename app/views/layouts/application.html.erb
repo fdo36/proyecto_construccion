@@ -48,25 +48,35 @@
 
 			<section id="left">
 				<div id="leftCol">
-		
+
+				<% if current_user.super_admin == true %>
+					<ul id="action" >
+						<h2 class="headLeft"> Acciones </h2>
+						<li> <%= link_to('Cuentas', users_path) %></li>
+						<li> <%= link_to('Roles', roles_path) %></li>
+						<li> <%= link_to('Compañias', companies_path)%></li>
+						
+					</ul>
+				<%else%>
 					<ul id="action" >
 						<h2 class="headLeft"> Entradas/Salidas </h2>
-						<li> <p><%= link_to "Ingresos", "/receipts" %></p></li>
-						<li> <p><%= link_to "Temporadas", "/seasons" %></p></li>
-						<li> <p><%= link_to "Despachos", "/" %></p></li>
-						<li> <p><%= link_to "Informes", "/" %></p></li>
+						<li> <%= link_to "Ingresos", "/receipts" %></li>
+						<li> <%= link_to "Temporadas", "/seasons" %></p></li>
+						<li> <%= link_to "Despachos", "/" %></li>
+						<li> <%= link_to "Informes", "/" %></li>
 					</ul>
 					
 					<ul id="maintainer" >
 						<h2 class="headLeft"> Recursos </h2>
-						<li> <p><%= link_to "Productores", "/producers" %></p></li>
-						<li> <p><%= link_to "Envases", "/containers" %></p></li>
-						<li> <p><%= link_to "Destinos", "/destinations" %></p></li>
-						<li> <p><%= link_to "Especies", "/kinds" %></p></li>
-						<li> <p><%= link_to "Variedades", "/varieties" %></p></li>
-						<li> <p><%= link_to "Calidades", "/qualities" %></p></li>
-						<li> <p><%= link_to "Agrupaciones", "/groupings" %></p></li>
+						<li> <%= link_to "Productores", "/producers" %></li>
+						<li> <%= link_to "Envases", "/containers" %></li>
+						<li> <%= link_to "Destinos", "/destinations" %></p></li>
+						<li> <%= link_to "Especies", "/kinds" %></li>
+						<li> <%= link_to "Variedades", "/varieties" %></li>
+						<li> <%= link_to "Calidades", "/qualities" %></li>
+						<li> <%= link_to "Agrupaciones", "/groupings" %></li>
 					</ul>
+				<%end%>		
 					
 				</div>
 			</section>
@@ -76,32 +86,41 @@
 			<div id="pageHead">
 				<div id="logo">
 					<img src="/images/des.png" width="40" height="40">
-					<h1 id="textLogo">Sistema Centros de Acopio</h1>
+					<% if current_user.super_admin == true %>
+						<h1 id="textLogo">Administración</h1>
+					<%else%>
+						<h1 id="textLogo">Sistema Centros de Acopio</h1>
+					<%end%>
 				</div>
+				
+				<div id="nameLogin">
+				
+						<p><%= current_user.email %></p>
+					
+
+				</div>
+				
 				<div class="tools">
 					<div class="toolsCompressed">
-						<p> Usuario</p>
+						<p>Cuenta</p>
 					</div>
 					
 					<ul class="toolsMenu">
-
-						<li><p><%= link_to('Cuentas', users_path) %></p></li>
-						<li><p>Permisos</p></li>
+						<li><p>Perfil</p></li>
 						<li><p><%= link_to('Cerrar sesión', destroy_user_session_path, :method => :delete) %></p> </li>
 					</ul>
 				</div>
-
+				<% if current_user.super_admin != true and can?(:manage, User) %>
 				<div class="tools first-tool">
 					<div class="toolsCompressed">
-						<p> Herramientas</p>
+						<p>Compañia</p>
 					</div>
-					
 					<ul class="toolsMenu">
+						<li> <p><%= link_to('Cuentas', users_path) %></p> </li>
 						<li> <p>Configuración</p> </li>
-						<li> <p>Ayuda</p> </li>
-						<li> <p>Acerca de</p></li>
 					</ul>
 				</div>
+				<% end %>
 			</div>
 		</section>
 

@@ -44,8 +44,8 @@ test:
   encoding: unicode
   database: proyecto_construccion_test
   pool: 5
-  username: proyecto_construccion
-  password:
+  username: stifler
+  password: stifler
 
 production:
   adapter: postgresql

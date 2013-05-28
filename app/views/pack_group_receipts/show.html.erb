@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Envase</h1>
+</div>
+<div class="box">
+  <%= link_to 'Volver', pack_group_receipt_path , :class => "button blue alignright" %>
+<p>
+  <b>Receipt:</b>
+  <%= @pack_group_receipt.receipt_id %>
+</p>
+
+<p>
+  <b>Variety:</b>
+  <%= @pack_group_receipt.variety_id %>
+</p>
+
+<p>
+  <b>Quality:</b>
+  <%= @pack_group_receipt.quality_id %>
+</p>
+
+<p>
+  <b>Price kg:</b>
+  <%= @pack_group_receipt.price_per_unit %>
+</p>
+
+<p>
+  <b>Container:</b>
+  <%= @pack_group_receipt.pack_type_id %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @pack_group_receipt.quantity %>
+</p>
+
+<p>
+  <b>Gross weight:</b>
+  <%= @pack_group_receipt.gross_weight %>
+</p>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_pack_group_receipt_path(@pack_group_receipt) , :class => "button green alignright" %>
+</div>

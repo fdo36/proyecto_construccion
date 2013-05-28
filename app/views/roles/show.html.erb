@@ -19,7 +19,9 @@
 	<ul>
 	<% @role.access_rights.each do |access_right| %>
 		<li>
-			<strong><%= access_right.model_name  %></strong>: <%= access_right.action %> <%= link_to 'Eliminar', [@role, access_right], :method => :delete %>
+      <% a = {'create' => 'crear', 'read' => 'leer', 'update' => 'actualizar', 'delete' => 'eliminar', 'manage' => 'administrar'} %>
+      <% m = {'Company' => 'Compañía', 'Quality' => 'Calidad', 'Region' => 'Región', 'Role' => 'Rol', 'User' => 'Usuario', 'AccessRight' => 'Permiso', 'Kind' => 'Tipo', 'Grouping' => 'Agrupación', 'Commune' => 'Comuna', 'Variety' => 'Variedad', 'Destination' => 'Destino', 'Container' => 'Contenedor', 'Producer' => 'Productor', 'Season' => 'Temporada'} %>
+			<strong><%= m[access_right.model_name]  %></strong>: <%= a[access_right.action] %> <%= link_to 'Eliminar', [@role, access_right], :method => :delete %>
 		</li>
 	<% end %>
     </ul>

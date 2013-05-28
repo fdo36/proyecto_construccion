@@ -14,23 +14,32 @@
         <th>Precio</th>
         <th style="width:20% !important;">Acciones</th>
       </tr>
-
+     </thead> 
+     <tbody>
       <% @receipts.each do |receipt| %>
-                    
-                        <tr>
-                          <td><%= receipt.code %></td>
-                          <td><%= (Producer.all(:select => "company_name", :conditions => ["id = ?",receipt.producer_id]))[0].company_name %></td>
-                          <td><%= receipt.date.strftime('%d/%m/%Y') %></td>
-                          <td><%= (Kind.all(:select => "name", :conditions => ["id = ?",receipt.kind_id]))[0].name %></td>
-                          <td><%= receipt.id %></td>
-                          <td>
-                            <%= link_to 'Ver', receipt %>
-                          <%= link_to 'Editar', edit_receipt_path(receipt) %>
-                          <%= link_to 'Eliminar', receipt, method: :delete, data: { confirm: '¿Está seguro de eliminar este ingreso?'} %></td>
-                        </tr>                    
-      <% end %>
 
-    </thead>
+          <tr>
+            <td><%= receipt.code %></td>
+            <td><%= (Producer.all(:select => "company_name", :conditions => ["id = ?",receipt.producer_id]))[0].company_name %></td>
+            <td><%= receipt.receipt_datetime.strftime('%d/%m/%Y') %></td>
+            <td><%= (Kind.all(:select => "name", :conditions => ["id = ?",receipt.kind_id]))[0].name %></td>
+            <% total_price = 0 %>
+            <% receipt.pallets.each do |pallet| %>
+              <% total_price += pallet.price_per_unit %>
+            <% end %>
+            <% receipt.pack_group_receipts.each do |pack_group_receipt| %>
+              <% total_price += pack_group_receipt.price_per_unit %>
+            <% end %>
+            <td><%= total_price %></td>
+            <td>
+              <%= link_to 'Ver', receipt %>
+            <%= link_to 'Editar', edit_receipt_path(receipt) %>
+            <%= link_to 'Eliminar', receipt, method: :delete, data: { confirm: '¿Está seguro de eliminar este ingreso?'} %></td>
+          </tr>   
+                           
+      <% end %>
+      </tbody>
+   
   
   </table>
 

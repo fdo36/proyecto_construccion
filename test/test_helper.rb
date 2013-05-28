@@ -2,6 +2,12 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+class ActiveRecord::ConnectionAdapters::PostgreSQLAdapter
+  def supports_disable_referential_integrity?
+    false
+  end
+end
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #

@@ -1,5 +1,10 @@
 #encoding: utf-8
 es:
+  unauthorized:
+    manage:
+      all: "Usted no esta autorizado para hacer esto en %{subject}."
+      user: "No esta autorizado a manejar otras cuentas"
+
   date:
     abbr_day_names:
     - dom
@@ -198,20 +203,33 @@ es:
   activerecord:
     errors:
       <<: *errors
-  #activerecord:      
-  #  attributes:  
-  #    user:
-  #      email: "Correo electrónico"
-  #      password: "Contraseña"   
-  activerecord:
+    models:
+      access_right: "Permiso"
+      commune: "Comuna"
+      company: "Compañía"
+      container: "Contenedor"
+      destination: "Destino"
+      grouping: "Agrupación"
+      kind: "Tipo"
+      producer: "Productor"
+      quality: "Calidad"
+      region: "Región"
+      role: "Rol"
+      season: "Temporada"
+      user: "Usuario"
+      variety: "Variedad"
     attributes:
       company:
-        name: "Nombre de la Compañia"
+        name: "Nombre de la Compañía"
         rut: "Rut"
         email: "Correo electrónico"
+        commune_id: "Comuna"
+        region_id: "Región"
       user:
         email: "Correo electrónico"
         password: "Contraseña"
+        secret_question: "Pregunta secreta"
+        secret_answer: "Respuesta secreta"
       container:
         name: "Nombre"
         tare: "Tara"
@@ -238,11 +256,37 @@ es:
         phone: "Teléfono"
         rut: "Rut"
         sag_code: "Código SAG"
+        code: "Código Interno"
       quality:
         name: "Nombre"
       variety:
         kind_id: "Especie"
         name: "Nombre"
+      receipt:
+        code: "Id"
+        kind_id: "Especie"
+        producer_id: "Productor"
+      pack_group_receipt:
+        receip_id: "Ingreso"
+        pack_type_id: "Envase"
+        quality_id: "Calidad"
+        kind_id: "Especie"
+        price_per_unit: "Precio"
+        quantity: "Cantidad Envases"
+        gross_weight: "Peso Bruto"
+        variety_id: "Variedad"
+      pallet:
+        code: "Código Pallet"
+        receip_id: "Ingreso"
+        pack_type_id: "Envase"
+        quality_id: "Calidad"
+        kind_id: "Especie"
+        price_per_unit: "Precio"
+        quantity: "Cantidad Envases"
+        gross_weight: "Peso Bruto"
+        variety_id: "Variedad"
+        tare: "Destare Pallet"
+
 
 
 

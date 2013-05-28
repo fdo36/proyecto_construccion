@@ -2,11 +2,11 @@
 
 <table>
   <tr>
-    <th>Code</th>
     <th>Destination</th>
     <th>Kind</th>
-    <th>Date</th>
-    <th>Hour</th>
+    <th>Dispatch datetime</th>
+    <th>Company</th>
+    <th>User</th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,11 +14,11 @@
 
 <% @dispatches.each do |dispatch| %>
   <tr>
-    <td><%= dispatch.code %></td>
     <td><%= dispatch.destination_id %></td>
     <td><%= dispatch.kind_id %></td>
-    <td><%= dispatch.date %></td>
-    <td><%= dispatch.hour %></td>
+    <td><%= dispatch.dispatch_datetime %></td>
+    <td><%= dispatch.company_id %></td>
+    <td><%= dispatch.user_id %></td>
     <td><%= link_to 'Show', dispatch %></td>
     <td><%= link_to 'Edit', edit_dispatch_path(dispatch) %></td>
     <td><%= link_to 'Destroy', dispatch, method: :delete, data: { confirm: 'Are you sure?' } %></td>

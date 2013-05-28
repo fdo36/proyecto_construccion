@@ -2,9 +2,9 @@ es:
   devise:
     failure:
       user:
-         not_found_in_database: Combinación de Correo electronico/Contraseña errónea
+         not_found_in_database: Combinación de Correo electrónico/Contraseña errónea
          unauthenticated: Debe identificarse antes de continuar
-         translation_missing: Combinación de Correo electronico/Contraseña errónea
+         invalid:   Correo electrónico incorrecto
     confirmations:
       new:
         resend_confirmation_instructions: Reenviar instrucciones de confirmación
@@ -30,7 +30,7 @@ es:
     passwords:
       new:
         forgot_your_password: ¿Ha olvidado su contraseña?
-        send_me_reset_password_instructions: Envíeme las instrucciones para resetear mi contraseña
+        send_me_reset_password_instructions: Envieme las instrucciones para resetear mi contraseña
     registrations:
       edit:
         are_you_sure: ¿Está usted seguro?
