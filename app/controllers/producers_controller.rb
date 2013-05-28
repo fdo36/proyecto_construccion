@@ -44,6 +44,7 @@ class ProducersController < ApplicationController
   # POST /producers
   # POST /producers.json
   def create
+
     @producer = Producer.new(params[:producer])
     @producer.update_attributes(:active => "1", :is_deleted => "0")
 
@@ -52,6 +53,7 @@ class ProducersController < ApplicationController
     grouping_ids ||= []
     @producer.grouping_ids = grouping_ids
 
+    @producer.company_id = current_user.company_id
 
     respond_to do |format|
       if @producer.save
