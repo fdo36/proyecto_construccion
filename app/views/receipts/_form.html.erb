@@ -2,13 +2,15 @@
   function show_rut(s) {
     if(s.value == "")
     {      
-      $('#rut').text("-"); 
-      $('#codigo').text("-");
+      $('#rut').val(""); 
+      $('#codigo').val("");
+      $('#codigo_sag').val("");
     }
     
     $.get("/producers/"+s.value+".json", function(data) {
-     $('#rut').html(data.rut); 
-     $('#codigo').html(data.code);
+     $('#rut').val(data.rut); 
+     $('#codigo').val(data.code);
+     $('#codigo_sag').val(data.sag_code);
    });
   }
   
@@ -52,17 +54,29 @@
       </div>
         
       <div class="forme-in">
-        <label id="rut">-</label>
+        
+        <%= f.text_field(:code, :id => 'rut')%>
+
       </div>
     </div>
 
     <div class="line-forme">
       <div class="forme-lab">
-        <label>Código Productor:</label>
+        <label>Código Interno Productor:</label>
       </div>
     
       <div class="forme-in">
-        <label id="codigo">-</label>
+        <%= f.text_field(:code, :id => 'codigo')%>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Código SAG Productor:</label>
+      </div>
+    
+      <div class="forme-in">
+        <%= f.text_field(:code, :id => 'codigo_sag')%>
       </div>
     </div>
 
