@@ -4,6 +4,8 @@
 </div>
 <div class="box">
   <%= link_to 'Volver', dispatches_path , :class => "button blue alignright" %>
+  
+
 
     <div class="line-forme">
       <div class="forme-lab">
@@ -11,7 +13,7 @@
       </div>
         
       <div class="forme-in">
-        <label><%= @dispatch.destination_id %></label>
+        <label><%= (Destination.all(:select => "name", :conditions => ["id = ?",@dispatch.destination_id]))[0].name %></label>
       </div>
     </div>
 
@@ -21,39 +23,32 @@
       </div>
         
       <div class="forme-in">
-        <label> <%= @dispatch.kind_id %></label>
+        <label> <%= (Kind.all(:select => "name", :conditions => ["id = ?",@dispatch.kind_id]))[0].name %></label>
       </div>
     </div>
 
-    <div class="line-forme">
+        <div class="line-forme">
       <div class="forme-lab">
         <label><b>Fecha:</b></label>
       </div>
         
       <div class="forme-in">
-        <label><%= @dispatch.dispatch_datetime %></label>
+        <label id="fecha"><%= @dispatch.dispatch_datetime.strftime('%d/%m/%Y') %></label>
       </div>
     </div>
 
     <div class="line-forme">
       <div class="forme-lab">
-        <label><b>Compañía:</b></label>
+        <label><b>Hora:</b></label>
       </div>
         
       <div class="forme-in">
-        <label>-</label>
+        <label id="hora"><%= @dispatch.dispatch_datetime.strftime('%H:%M:%S') %></label>
       </div>
     </div>
 
-    <div class="line-forme">
-      <div class="forme-lab">
-        <label><b>Usuario:</b></label>
-      </div>
-        
-      <div class="forme-in">
-        <label>-</label>
-      </div>
-    </div>
+
+
 </div>
 
 <div class="box">
@@ -86,10 +81,10 @@
                 <tr>
                   <td><%= "<no aplica>" %></td>
                   <td><%= pack_group_dispatch.quantity %></td>
-                  <td><%=(pack_group_dispatch.gross_weight - (pack_group_dispatch.quantity * Container.find(pack_group_dispatch.container_id).tare)) %></td>
+                  <td><%=(pack_group_dispatch.gross_weight - (pack_group_dispatch.quantity * PackType.find(pack_group_dispatch.pack_type_id).tare)) %></td>
                   <td><%= Variety.find(pack_group_dispatch.variety_id).name %></td>
                   <td><%= Quality.find(pack_group_dispatch.quality_id).name %></td>
-                  <td><%= pack_group_dispatch.price_kg %></td>
+                  <td><%= pack_group_dispatch.price_per_unit %></td>
                   <td>
                     <%= link_to 'Ver', [@dispatch, pack_group_dispatch] %>
                     <%= link_to 'Editar', edit_dispatch_pack_group_dispatch_path(@dispatch)%>
@@ -107,13 +102,13 @@
                 <td><%= pallet.code %></td>
                 <td><%= pallet.quantity %></td>
                 <% if pallet.tare != nil %>
-                <td><%=(pallet.gross_weight - ((Container.find(pallet.container_id).tare) * pallet.quantity) - pallet.tare) %></td>
+                <td><%=(pallet.gross_weight - ((PackType.find(pallet.pack_type_id).tare) * pallet.quantity) - pallet.tare) %></td>
                 <%else%>
                 <td><%=(pallet.gross_weight) %></td>
                 <%end%>
                 <td><%= Variety.find(pallet.variety_id).name %></td>
                 <td><%= Quality.find(pallet.quality_id).name %></td>
-                <td><%= pallet.price_kg %></td>
+                <td><%= pallet.price_per_unit %></td>
                 <td>
                   <%= link_to 'Ver', [@dispatch, pallet]%>
                   <%= link_to 'Editar', edit_dispatch_pallet_path(@dispatch) %>

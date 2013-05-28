@@ -15,7 +15,8 @@
 
   <div class="line-forme">
     <div class="forme-lab">
-      <label>Número Ingreso *</label>
+      <label>Número Ingreso </label>
+      <em class="formee-req">*</em>
     </div>
     <div class="forme-in">
       <%= f.text_field :receipt_id, :readonly => true %>
@@ -24,7 +25,8 @@
 
   <div class="line-forme">
     <div class="forme-lab">
-      <label>Variedad *</label>
+      <label>Variedad </label>
+      <em class="formee-req">*</em>
     </div>
     <div class="forme-in">
       <% varieties_aux = Array.new
@@ -40,7 +42,8 @@
 
   <div class="line-forme">
     <div class="forme-lab">
-      <label>Calidad *</label>
+      <label>Calidad </label>
+      <em class="formee-req">*</em>
     </div>
     <div class="forme-in">
       <% quality_array = Quality.all.map { |quality| [quality.name, quality.id] } %>
@@ -50,7 +53,8 @@
 
   <div class="line-forme">
     <div class="forme-lab">
-      <label>Precio por Kg ($) *</label>
+      <label>Precio por Kg ($) </label>
+      <em class="formee-req">*</em>
     </div>
     <div class="forme-in">
       <%= f.text_field :price_per_unit, :min => 1 %>
@@ -59,7 +63,8 @@
 
   <div class="line-forme">
     <div class="forme-lab">
-      <label>Tipo Envase *</label>
+      <label>Tipo Envase </label>
+      <em class="formee-req">*</em>
     </div>
     <div class="forme-in">
       <% container_array = PackType.all.map { |container| [container.name, container.id] } %>
@@ -69,7 +74,8 @@
   
   <div class="line-forme">
     <div class="forme-lab">
-      <label>Cantidad Envases *</label>
+      <label>Cantidad Envases </label>
+      <em class="formee-req">*</em>
     </div>
     <div class="forme-in">
       <%= f.text_field :quantity %>
@@ -78,12 +84,17 @@
 
   <div class="line-forme">
     <div class="forme-lab">
-      <label>Peso Bruto (Kg) *</label>
+      <label>Peso Bruto (Kg) </label>
+      <em class="formee-req">*</em>
     </div>
     <div class="forme-in">
       <%= f.text_field :gross_weight %>
     </div>
   </div>
+
+  <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
 
   <%= f.hidden_field :company_id, :value => 1 %>
 

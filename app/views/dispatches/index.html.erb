@@ -7,9 +7,10 @@
   <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
     <thead>
       <tr>
-        <th style="width:20% !important;">Destination</th>
-        <th>Kind</th>
-        <th>Dispatch datetime</th>
+        <th style="width:20% !important;">Destino</th>
+        <th>Especie</th>
+        <th>Fecha</th>
+        <th>Hora</th>
         <!-- <th>Company</th>
         <th>User</th> -->
         <th style="width:20% !important;">Acciones</th>
@@ -19,9 +20,10 @@
       <% @dispatches.each do |dispatch| %>
 
           <tr>
-            <td><%= dispatch.destination_id %></td>
-            <td><%= dispatch.kind_id %></td>
-            <td><%= dispatch.dispatch_datetime %></td>
+            <td><%= (Destination.all(:select => "name", :conditions => ["id = ?",dispatch.destination_id]))[0].name %></td>
+            <td><%= (Kind.all(:select => "name", :conditions => ["id = ?",dispatch.kind_id]))[0].name %></td>
+            <td><%= dispatch.dispatch_datetime.strftime('%d/%m/%Y') %></td>
+            <td><%= dispatch.dispatch_datetime.strftime('%H:%M:%S') %></td>
             
             <td>
             <%= link_to 'Ver', dispatch %>
