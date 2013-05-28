@@ -1,6 +1,6 @@
 class CreateGroupingsProducersTable < ActiveRecord::Migration
   def up
-  	create_table :groupings_producers, :id => false do |t|
+  	create_table :groupings_producers do |t|
           t.references :grouping
           t.foreign_key :groupings
           t.references :producer

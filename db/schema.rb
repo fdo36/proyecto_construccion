@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130527213401) do
+ActiveRecord::Schema.define(:version => 20130528213150) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -29,15 +29,15 @@ ActiveRecord::Schema.define(:version => 20130527213401) do
   end
 
   create_table "companies", :force => true do |t|
-    t.string   "name"
-    t.integer  "rut"
+    t.string   "name",             :default => "", :null => false
+    t.integer  "rut",                              :null => false
     t.string   "address"
     t.string   "commune_id"
     t.string   "line_of_business"
     t.integer  "phone"
-    t.string   "email"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.string   "email",            :default => "", :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.boolean  "active"
     t.integer  "region_id"
   end
@@ -88,9 +88,10 @@ ActiveRecord::Schema.define(:version => 20130527213401) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "groupings_producers", :id => false, :force => true do |t|
+  create_table "groupings_producers", :force => true do |t|
     t.integer "grouping_id"
     t.integer "producer_id"
+    t.string  "code"
   end
 
   add_index "groupings_producers", ["grouping_id", "producer_id"], :name => "index_groupings_producers_on_grouping_id_and_producer_id"
