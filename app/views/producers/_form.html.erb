@@ -1,3 +1,45 @@
+<script>
+
+function load_region () {
+  var pathname = window.location.pathname;
+  if(pathname.match(/edit$/)) // SÓLO SI ESTA EDITANDO HACE ESTO
+  {
+    pathname = pathname.replace('/edit', '.json');
+    $.get(pathname, function(data) {
+      $.get("/regions.json", function(regions) { 
+        $.each(regions, function(index, region){
+          $.get("/regions/"+region.id+"/communes.json", function(communes) { 
+            $.each(communes, function(index, commune){
+              if(commune.id == data.commune_id)
+              {
+                //LA VARIABLE "region" TIENE LA INFORMACION DE LA REGION CORRESPONDIENTE A LA COMUNA SELECCIONADA
+                //LA VARIABLE "commune" TIENE LA INFORMACION DE LA COMUNA ASOCIADA AL PRODUCTOR ACTUAL
+                $("#regions").val(region.id);
+
+                $.get("/regions/"+region.id+"/communes.json", function(data) { 
+                  var options = '';
+                  $.each(data, function(i, item){ 
+                      options += '<option value="' + item.id + '">' + item.name + '</option>';
+                      console.log(item.id +" : "+ commune.id);
+                  });
+                  $("#producer_commune_id").html(options);
+                  $("#producer_commune_id").val(commune.id);
+                });
+                
+              }
+            });
+          });
+        });
+      });
+
+    });
+  }
+}
+
+$(document).ready(function(){
+  load_region();
+});
+</script>
 <div class="box">
 <%= form_for (@producer) do |f| %>
   <% if @producer.errors.any? %>
@@ -54,7 +96,7 @@
     <div class="forme-in">
       <% @regions = Region.all.map { |region| [region.name, region.id] } %>
       <%= select_tag('regions', options_for_select(@regions),
-          :onchange => "show_producer_communes(this)", :selected => :prompt, :prompt => '- Seleccione región -') %>
+          :onchange => "show_producer_communes(this.value)", :selected => :prompt, :prompt => '- Seleccione región -') %>
     </div>
   </div>
   <div class="line-forme">
