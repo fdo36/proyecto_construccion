@@ -4,22 +4,22 @@ namespace :init_wiki do
     task :load => :environment do
     	WikiPage.create(:creator_id => 1, :updator_id => 1, :path=>'', :title => "Ayuda sistema centros de acopio", :content => "h1. Este es el índice de la ayuda
 
-* Entradas/Salidas
+* *Entradas/Salidas*
 
-* [[Ingresos]]
-* [[Temporadas]]
-* [[Despachos]]
-* [[Informes]]
+** [[Ingresos]]
+** [[Temporadas]]
+** [[Despachos]]
+** [[Informes]]
 
-* Recursos
+* *Recursos*
 
-* [[Productores]]
-* [[Envases]]
-* [[Destinos]]
-* [[Especies]]
-* [[Variedades]]
-* [[Calidades]]
-* [[Agrupaciones]]")
+** [[Productores]]
+** [[Envases]]
+** [[Destinos]]
+** [[Especies]]
+** [[Variedades]]
+** [[Calidades]]
+** [[Agrupaciones]]")
     end
 
 end

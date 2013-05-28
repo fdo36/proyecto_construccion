@@ -1,3 +1,4 @@
+<% if current_user.super_admin == true %>
 <%= wiki_page_style %>
 
 <h1><%=wt 'Nueva página' %></h1>
@@ -11,4 +12,7 @@
   <%= hidden_field_tag :path, @page.path %>
 
   <input type="submit" value="<%=wt 'Crear página' %>" class="submit" />
+<% end %>
+<% else %>
+  <%=wt 'No posees los permisos necesarios para estar acá.' %>
 <% end %>

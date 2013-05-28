@@ -1,3 +1,4 @@
+<% if current_user.super_admin == true %>
 <%= wiki_page_style %>
 <div class="headContent">
   <h1><%=wt '%{page_title} - Registro histórico', :page_title => @page.title %></h1>
@@ -9,3 +10,6 @@
 <div class="foot-box">
 	<%= wiki_page_actions %>
 </div>
+<% else %>
+  <%=wt 'No posees los permisos necesarios para estar acá.' %>
+<% end %>
