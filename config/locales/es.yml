@@ -286,6 +286,7 @@ es:
         gross_weight: "Peso Bruto"
         variety_id: "Variedad"
         tare: "Destare Pallet"
+        pallet_code: "El pallet código"
 
 
 
