@@ -154,6 +154,14 @@ ActiveRecord::Schema.define(:version => 20130528041444) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "pack_types", :force => true do |t|
+    t.string   "name"
+    t.integer  "tare"
+    t.integer  "company_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "pallets", :force => true do |t|
     t.integer  "code"
     t.integer  "quantity"
