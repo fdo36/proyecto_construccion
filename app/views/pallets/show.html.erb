@@ -5,48 +5,49 @@
 <div class="box">
 <%= link_to 'Volver', pallets_path , :class => "button blue alignright" %>
 
+
 <p>
-  <b>Receipt:</b>
-  <%= @pallet.receipt_id %>
+  <b>Número Ingreso:</b>
+  <%= (Receipt.all(:select => "code", :conditions => ["id = ?",@pallet.receipt_id]))[0].code %>
 </p>
 
 <p>
-  <b>Variety:</b>
-  <%= @pallet.variety_id %>
+  <b>Variedad:</b>
+  <%= (Variety.all(:select => "name", :conditions => ["id = ?",@pallet.variety_id]))[0].name %>
 </p>
 
 <p>
-  <b>Quality:</b>
-  <%= @pallet.quality_id %>
+  <b>Calidad:</b>
+  <%= (Quality.all(:select => "name", :conditions => ["id = ?",@pallet.quality_id]))[0].name %>
 </p>
 
 <p>
-  <b>Price kg:</b>
-  <%= @pallet.price_kg %>
+  <b>Precio por Kg ($):</b>
+  <%= @pallet.price_per_unit %>
 </p>
 
 <p>
-  <b>Container:</b>
-  <%= @pallet.container_id %>
+  <b>Tipo Envases:</b>
+  <%= (PackType.all(:select => "name", :conditions => ["id = ?",@pallet.pack_type_id]))[0].name %>
 </p>
 
 <p>
-  <b>Quantity:</b>
+  <b>Cantidad Envases:</b>
   <%= @pallet.quantity %>
 </p>
 
 <p>
-  <b>Gross weight:</b>
+  <b>Peso Bruto (Kg):</b>
   <%= @pallet.gross_weight %>
 </p>
 
 <p>
-  <b>Code:</b>
+  <b>Código Pallet:</b>
   <%= @pallet.code %>
 </p>
 
 <p>
-  <b>Tare:</b>
+  <b>Destare Pallet (Kg):</b>
   <%= @pallet.tare %>
 </p>
 
