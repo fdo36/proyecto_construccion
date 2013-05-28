@@ -1,4 +1,11 @@
 ProyectoConstruccion::Application.routes.draw do
+
+
+  resources :reports
+
+  resources :localities
+
+
   resources :settings
 
 
@@ -29,7 +36,7 @@ ProyectoConstruccion::Application.routes.draw do
   resources :seasons
 
 
-  resources :containers
+  #resources :containers
 
 
   resources :destinations

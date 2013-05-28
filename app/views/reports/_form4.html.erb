@@ -1,0 +1,42 @@
+<%= form_tag  do %>
+
+      <div class="line-forme">
+         <div class="forme-lab">
+           <%= label_tag 'Destino' %> 
+        </div>
+        <% @destinations_array = Destination.all.map { |desti| [desti.address, desti.id] } %>
+        <div class="forme-in">
+            <%= select_tag "Destinos4", options_for_select(@destinations_array), :prompt => "Seleccione un Destino" %>
+         </div>                        
+      </div>
+
+      <div class="line-forme">
+         <div class="forme-lab">
+           <%= label_tag 'Envase' %> 
+        </div>
+        <% @pack_types_array = PackType.all.map { |pack| [pack.name, pack.id] } %>
+        <div class="forme-in">
+            <%= select_tag "Envases4", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" %>
+         </div>                        
+      </div> 
+
+      <div class="line-forme">
+         <div class="forme-lab">
+           <%= label_tag 'Fecha Inicio' %> 
+        </div>
+        <div class="field">
+            <%= select_date %>
+         </div>                        
+      </div>   
+
+      <div class="line-forme">
+         <div class="forme-lab">
+           <%= label_tag 'Fecha Termino' %> 
+        </div>
+        <div class="field">
+            <%= select_date %>
+         </div>                        
+      </div>                                                                    
+      <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>
+                       
+<% end %> 

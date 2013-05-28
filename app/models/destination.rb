@@ -1,8 +1,8 @@
 #encoding: utf-8
 class Destination < ActiveRecord::Base
-  attr_accessible :active, :address, :commune_id, :company_name, :contact, :email, :phone, :rut, :is_deleted
+  attr_accessible :active, :address, :commune_id, :name, :contact, :email, :phone, :rut, :is_deleted
 
-  validates :address, :commune_id, :company_name, :contact, :email, :phone, :rut, :presence => true
+  validates :address, :commune_id, :name, :contact, :email, :phone, :rut, :presence => true
 
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i,
     :message => "debe seguir el formato ejemplo@midominio.com" }
@@ -15,4 +15,7 @@ class Destination < ActiveRecord::Base
 
   has_one :dispatch
   belongs_to :commune
+  has_many :dispatches
+  has_many :producers
+  has_many :receipts
 end
