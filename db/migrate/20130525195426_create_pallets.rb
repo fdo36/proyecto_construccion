@@ -13,7 +13,7 @@ class CreatePallets < ActiveRecord::Migration
       t.integer :receipt_id
       t.foreign_key :receipts
       t.integer :pack_type_id
-      t.foreign_key :pack_types
+#      t.foreign_key :pack_types
       t.integer :company_id
       t.integer :dispatch_id
 

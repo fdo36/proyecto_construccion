@@ -6,8 +6,7 @@ class CreateReceipts < ActiveRecord::Migration
       t.foreign_key :producers
       t.integer :kind_id
       t.foreign_key :kinds
-      t.date :date
-      t.datetime :hour
+      t.datetime :receipt_datetime
 
       t.timestamps
     end

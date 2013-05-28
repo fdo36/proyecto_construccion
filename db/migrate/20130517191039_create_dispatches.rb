@@ -6,8 +6,7 @@ class CreateDispatches < ActiveRecord::Migration
       t.foreign_key :destinations
       t.integer :kind_id
       t.foreign_key :kinds
-      t.date :date
-      t.datetime :hour
+      t.datetime :dispatch_datetime
 
       t.timestamps
     end

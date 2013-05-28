@@ -5,7 +5,7 @@ class CreatePackGroupReceipts < ActiveRecord::Migration
       t.integer :quantity
       t.integer :gross_weight
       t.integer :pack_type_id
-      t.foreign_key :pack_types
+#      t.foreign_key :pack_types
       t.integer :variety_id
       t.foreign_key :varieties
       t.integer :quality_id
