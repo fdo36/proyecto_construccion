@@ -16,6 +16,7 @@
 	<script src="/js/jquery-ui.js"></script>
 	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTablesES.js"></script>
+	<script type="text/javascript" src="/plugins/jquery.Rut/jquery.Rut.js"></script>
 
 	<script>
 		$(function() {
@@ -25,15 +26,68 @@
 				"sPaginationType": "full_numbers",
 				"bJQueryUI": true,
 				"aoColumnDefs": [
-		      { "bSortable": false, "aTargets": [ -1 ] }
+		      { "bSortable": false, "aTargets": [ -1 ] },
+		      { "bSearchable": false, "aTargets": [ -1 ]}
 		    ] } );
 
+		    $('.rut').Rut({
+			  on_error: function(){ alert('Rut incorrecto'); },
+			  format_on: 'keyup'
+			});
 		});
 		$(document).on("click", "#mostrar-dialog",function(event) 
 		{	
 			$( "#dialog-modal" ).dialog( "open" );
 		});
   	</script>
+
+  	<script>
+  	// ACTUALIZA EL COMBOBOX DE COMUNAS DEPENDIENDO DE LO QUE SE SELECCIONE EN EL DE REGIONES
+      function show_communes(region_selector, commune_selector_id) {
+      	if (region_selector.value == '') {
+      		var options = '<option value>- Seleccione comuna -</option>';
+      		$("#"+commune_selector_id).html(options);
+      	}
+      	else
+      	{
+	        $.get("/regions/"+region_selector.value+"/communes.json", function(data) { 
+		    	var options = '';
+		      	$.each(data, function(i, item){	
+		            options += '<option value="' + item.id + '">' + item.name + '</option>';
+		        });
+		        $("#"+commune_selector_id).html(options);
+	        });
+        }
+      }
+	</script>
+
+	<script>
+	// CARGA LAS REGIONES Y COMUNAS PARA EL EDITAR
+	function load_regions(region_selector_id, commune_selector_id) {
+		var pathname = window.location.pathname;
+		if(!pathname.match(/new$/)) // SÓLO SI ESTA EDITANDO HACE ESTO
+		{	
+		  	pathname = pathname.replace('/edit', '');
+		  	pathname = pathname + ".json";
+		    $.get(pathname, function(commune) {
+		      $.get("/regions/-1/communes/" + commune.commune_id +".json", function(region){
+		      	
+		      	$("#"+region_selector_id).val(region.region_id);
+
+		      	$.get("/regions/"+region.region_id+"/communes.json", function(data) { 
+                  var options = '';
+                  $.each(data, function(i, item){ 
+                      options += '<option value="' + item.id + '">' + item.name + '</option>';
+                  });
+                  $("#"+commune_selector_id).html(options);
+		      	  $("#"+commune_selector_id).val(commune.commune_id);
+                });
+		      });
+		  	});
+		}
+	}
+	</script>
+
 </head>
 <body>
 

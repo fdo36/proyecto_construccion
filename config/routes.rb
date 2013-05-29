@@ -1,6 +1,6 @@
 ProyectoConstruccion::Application.routes.draw do
-
-
+  wiki_root '/wiki'
+  
   resources :reports
 
   resources :localities
@@ -39,6 +39,9 @@ ProyectoConstruccion::Application.routes.draw do
 
   resources :producers
 
+  resources :regions do
+     resources :communes
+  end
 
   match "/admin/users/:id/edit_password" => "users#edit_password", :as => "edit_user_password"
 
@@ -52,7 +55,6 @@ ProyectoConstruccion::Application.routes.draw do
   devise_for :users, :path => "admin/users"
 
   root :to => 'start#index'
-
   # See how all your routes lay out with "rake routes"
 
   match 'companies/:company_id/users/:id/enable' => 'users#enable', :as => 'users_enable'
@@ -72,5 +74,9 @@ ProyectoConstruccion::Application.routes.draw do
   match 'producers/:id/enable' => 'producers#enable', :as => 'producers_enable'
   match 'producers/:id/disable' => 'producers#disable', :as => 'producers_disable'
   match 'producers/:id/delete_producer' => 'producers#delete_producer', :as => 'producer_delete'
+  
+  match '/help/css/jquery-ui.css', :to => redirect('/css/jquery-ui.css')
+  match '/help/css/styles.css', :to => redirect('/css/styles.css')
+  match '/help/css/default_buttons.css', :to => redirect('/css/default_buttons.css')
   
 end

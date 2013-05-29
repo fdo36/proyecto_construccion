@@ -98,9 +98,10 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "groupings_producers", :id => false, :force => true do |t|
+  create_table "groupings_producers", :force => true do |t|
     t.integer "grouping_id"
     t.integer "producer_id"
+    t.string  "code"
   end
 
   add_index "groupings_producers", ["grouping_id", "producer_id"], :name => "index_groupings_producers_on_grouping_id_and_producer_id"
@@ -154,11 +155,19 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
 
   create_table "pack_types", :force => true do |t|
     t.string   "name"
-    t.integer  "tare"
     t.integer  "company_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.float    "tare"
   end
+
+  create_table "pack_types_producers", :id => false, :force => true do |t|
+    t.integer "pack_type_id"
+    t.integer "producer_id"
+  end
+
+  add_index "pack_types_producers", ["pack_type_id", "producer_id"], :name => "index_pack_types_producers_on_pack_type_id_and_producer_id"
+  add_index "pack_types_producers", ["producer_id", "pack_type_id"], :name => "index_pack_types_producers_on_producer_id_and_pack_type_id"
 
   create_table "pallets", :force => true do |t|
     t.integer  "code"
@@ -298,6 +307,33 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "wiki_page_versions", :force => true do |t|
+    t.integer  "page_id",    :null => false
+    t.integer  "updator_id"
+    t.integer  "number"
+    t.string   "comment"
+    t.string   "path"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "updated_at"
+  end
+
+  add_index "wiki_page_versions", ["page_id"], :name => "index_wiki_page_versions_on_page_id"
+  add_index "wiki_page_versions", ["updator_id"], :name => "index_wiki_page_versions_on_updator_id"
+
+  create_table "wiki_pages", :force => true do |t|
+    t.integer  "creator_id"
+    t.integer  "updator_id"
+    t.string   "path"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "wiki_pages", ["creator_id"], :name => "index_wiki_pages_on_creator_id"
+  add_index "wiki_pages", ["path"], :name => "index_wiki_pages_on_path", :unique => true
+
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
 
   add_foreign_key "containers_producers", "containers", :name => "containers_producers_container_id_fk"
@@ -319,6 +355,10 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
   add_foreign_key "kinds_producers", "kinds", :name => "kinds_producers_kind_id_fk"
   add_foreign_key "kinds_producers", "producers", :name => "kinds_producers_producer_id_fk"
 
+<<<<<<< HEAD
+  add_foreign_key "pack_types_producers", "pack_types", :name => "pack_types_producers_pack_type_id_fk"
+  add_foreign_key "pack_types_producers", "producers", :name => "pack_types_producers_producer_id_fk"
+=======
   add_foreign_key "pack_group_receipts", "qualities", :name => "pack_group_receipts_quality_id_fk"
   add_foreign_key "pack_group_receipts", "receipts", :name => "pack_group_receipts_receipt_id_fk"
   add_foreign_key "pack_group_receipts", "varieties", :name => "pack_group_receipts_variety_id_fk"
@@ -326,6 +366,7 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
   add_foreign_key "pallets", "qualities", :name => "pallets_quality_id_fk"
   add_foreign_key "pallets", "receipts", :name => "pallets_receipt_id_fk"
   add_foreign_key "pallets", "varieties", :name => "pallets_variety_id_fk"
+>>>>>>> 6347acc1c896738de69ffc9b4f23c24389189b91
 
   add_foreign_key "producers", "communes", :name => "producers_commune_id_fk"
 

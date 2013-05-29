@@ -1,5 +1,41 @@
+<script>
+$(document).ready(function(){
+  load_regions("regions", "producer_commune_id");
+  initialize_checkBoxes();
+});
+
+function initialize_checkBoxes () {
+  $.get("/groupings.json", function(groupings){
+    $.each(groupings, function(index, value){
+      
+      if($("#CheckBox_"+value.id).attr("checked") != "checked")
+      {
+        $("#TextField_" + value.id).attr("disabled", "disabled");
+      }
+      else
+      {
+        $("#TextField_" + value.id).removeAttr("disabled");
+      }
+    })
+  })
+}
+
+function checkBox_click (chkbox) {
+  var index = chkbox.id.split("_");
+  index = index[index.length-1];
+  if(!chkbox.checked)
+  {
+    $("#TextField_" + index).attr("disabled", "disabled");
+  }
+  else
+  {
+    $("#TextField_" + index).removeAttr("disabled");
+  }
+}
+</script>
+
 <div class="box">
-<%= form_for(@producer) do |f| %>
+<%= form_for (@producer) do |f| %>
   <% if @producer.errors.any? %>
     <div id="error_explanation">
       <h2><%= @producer.errors.count > 1 ? "#{@producer.errors.count} errores." : "#{@producer.errors.count} error." %> no se puede guardar el productor:</h2>
@@ -11,18 +47,23 @@
       </ul>
     </div>
   <% end %>
-
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Rut %><br />
+      <label> 
+        Rut                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
-      <%= f.text_field :rut %>
+      <%= f.text_field :rut, :class => 'rut' %>
     </div>
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Nombre %><br />
+      <label> 
+        Nombre Compañia                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :name %>
@@ -30,7 +71,10 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Giro %><br />
+      <label> 
+        Giro                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :line_of_business %>
@@ -38,16 +82,35 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Comuna %><br />
+      <label> 
+        Región                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
-      <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
-      <%= f.select(:commune_id, communes_array, :selected => :prompt, :prompt => '- Seleccione comuna -') %>
+      <% @regions = Region.all.map { |region| [region.name, region.id] } %>
+      <%= select_tag('regions', options_for_select(@regions),
+          :onchange => "show_communes(this, 'producer_commune_id')", :selected => :prompt, :prompt => '- Seleccione región -') %>
     </div>
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Dirección %><br />
+      <label> 
+        Comuna                
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+
+      <%= f.select(:commune_id, "commune" ,:selected => :prompt, :prompt => '- Seleccione comuna -') %>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Dirección                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :address %>
@@ -55,7 +118,9 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Email %><br />
+      <label> 
+        E-Mail                
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :email %>
@@ -63,7 +128,10 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Teléfono %><br />
+      <label> 
+        Teléfono                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :phone %>
@@ -71,7 +139,10 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Contacto %><br />
+      <label> 
+        Contacto                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :contact %>
@@ -79,33 +150,52 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :"Código SAG" %><br />
+      <label> 
+        Código SAG                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :sag_code %>
     </div>
   </div>
-
   <div class="line-forme">
     <div class="forme-lab">
+      <label> 
+        Código
+        <em class="formee-req">*</em>
+      </label>  
       <%= f.label :"Código Interno" %><br />
     </div>
     <div class="forme-in">
       <%= f.text_field :code %>
     </div>
   </div>
-
+  
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :"Agrupaciones" %><br />
-    </div>
-    <div class="forme-in">
-        <% @groupings.each do |grouping| %>
-          <%= check_box_tag 'grouping_ids[]', grouping.id, @producer.groupings.member?(grouping) -%>
-          <%= h grouping.name -%>
-        <% end %>
+      <label> 
+        Agrupaciones                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
   </div>
+    
+    <% @groupings.each do |grouping| %>
+      <div class="line-forme" style="margin-left:50px">
+        <div class="forme-lab">
+          <%= check_box_tag "grouping_ids[]", grouping.id, @producer.groupings.member?(grouping), :id => "CheckBox_#{grouping.id}", :onclick => "checkBox_click(this)"-%>
+          <%= h grouping.name -%>
+        </div>
+        <div class="forme-in">
+          <% r = GroupingsProducer.where(:grouping_id => grouping.id, :producer_id => @producer.id) %>
+          <%= text_field "grouping_code" ,"grouping_#{grouping.id}", :value =>  r.empty? ? "" : r.first.code, :id => "TextField_#{grouping.id}" %>
+        </div>
+      </div>  
+    <% end %>
+  <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
 </div>
 
 <div class="foot-box">
