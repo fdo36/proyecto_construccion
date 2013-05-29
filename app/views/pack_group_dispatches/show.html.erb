@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Gross weight:</b>
+  <%= @pack_group_dispatch.gross_weight %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @pack_group_dispatch.quantity %>
+</p>
+
+<p>
+  <b>Quality:</b>
+  <%= @pack_group_dispatch.quality_id %>
+</p>
+
+<p>
+  <b>Variety:</b>
+  <%= @pack_group_dispatch.variety_id %>
+</p>
+
+<p>
+  <b>Dispatch:</b>
+  <%= @pack_group_dispatch.dispatch_id %>
+</p>
+
+<p>
+  <b>Pack type:</b>
+  <%= @pack_group_dispatch.pack_type_id %>
+</p>
+
+<p>
+  <b>Company:</b>
+  <%= @pack_group_dispatch.company_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_pack_group_dispatch_path(@pack_group_dispatch) %> |
+<%= link_to 'Back', pack_group_dispatches_path %>

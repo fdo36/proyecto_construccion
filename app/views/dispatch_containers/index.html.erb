@@ -1,0 +1,33 @@
+<h1>Listing dispatch_containers</h1>
+
+<table>
+  <tr>
+    <th>Dispatch</th>
+    <th>Container</th>
+    <th>Quality</th>
+    <th>Variety</th>
+    <th>Quantity</th>
+    <th>Gross weight</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @dispatch_containers.each do |dispatch_container| %>
+  <tr>
+    <td><%= dispatch_container.dispatch_id %></td>
+    <td><%= dispatch_container.container_id %></td>
+    <td><%= dispatch_container.quality_id %></td>
+    <td><%= dispatch_container.variety_id %></td>
+    <td><%= dispatch_container.quantity %></td>
+    <td><%= dispatch_container.gross_weight %></td>
+    <td><%= link_to 'Show', dispatch_container %></td>
+    <td><%= link_to 'Edit', edit_dispatch_container_path(dispatch_container) %></td>
+    <td><%= link_to 'Destroy', dispatch_container, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Dispatch container', new_dispatch_container_path %>

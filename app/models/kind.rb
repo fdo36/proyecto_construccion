@@ -6,4 +6,6 @@ class Kind < ActiveRecord::Base
   has_and_belongs_to_many :producers
   has_many :varieties
   has_many :seasons
+  has_many :dispatches
+  has_many :receipts
 end

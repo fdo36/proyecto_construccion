@@ -1,0 +1,163 @@
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+//Accion por defecto
+$(".tab_content").hide(); 
+$("ul.tabs li:first").addClass("active").show(); 
+$(".tab_content:first").show(); 
+
+//evento (onClick)
+$("ul.tabs li").click(function() {
+$("ul.tabs li").removeClass("active"); 
+$(this).addClass("active"); 
+$(".tab_content").hide(); 
+var activeTab = $(this).find("a").attr("href");
+$(activeTab).fadeIn(); 
+return false;
+});
+
+});
+</script>
+
+
+
+
+
+
+<!--Contenido  Reportes-->
+<div class="headContent">
+  <h1>Informes</h1>
+</div>
+
+   <ul class="tabs">
+       <li><a href="#tab1">Precio por Productor</a></li>
+       <li><a href="#tab2">Facturación a Productores</a></li>
+       <li><a href="#tab3">Envases Productor</a></li>
+       <li><a href="#tab4">Envases Destino</a></li>
+       <li><a href="#tab5">Despacho por Destino</a></li>
+       <li><a href="#tab6">Productores</a></li>
+       <li><a href="#tab7">Destinos</a></li>
+   </ul>
+ 
+
+   <div class="tab_container">
+
+       <!--Precio por Productor-->
+       <div id="tab1" class="tab_content">
+
+          <div class="contentSubPanel">
+              <div class="headContent">
+                  <h1>Generar Informe: Contenido Precio por Productor</h1>
+              </div>
+              <div class="box">
+              
+                 <%= render 'form1' %>  
+                  
+              </div>
+          </div>
+
+       </div>
+
+       <!--Facturación a Productores-->
+       <div id="tab2" class="tab_content">
+
+          <div class="contentSubPanel">
+              <div class="headContent">
+                  <h1>Generar Informe: Facturación a Productores</h1>
+              </div>
+              <div class="box">
+
+                 <%= render 'form2' %>                                 	
+           
+              </div>
+          </div>
+
+       </div>
+
+       <!--Envases Productor-->
+       <div id="tab3" class="tab_content">
+
+          <div class="contentSubPanel">
+              <div class="headContent">
+                  <h1>Generar Informe: Envases Productor</h1>
+              </div>
+              <div class="box">
+
+                   <%= render 'form3' %>
+
+              </div>
+          </div>
+
+       </div>
+
+       <!--Envases Destino-->
+       <div id="tab4" class="tab_content">
+
+          <div class="contentSubPanel">
+              <div class="headContent">
+                  <h1>Generar Informe: Envases Destino</h1>
+              </div>
+              <div class="box">
+
+                    <%= render 'form4' %>           	
+
+              </div>
+          </div>
+
+       </div>
+
+       <!--Despacho por Destino-->
+       <div id="tab5" class="tab_content">
+
+          <div class="contentSubPanel">
+              <div class="headContent">
+                  <h1>Generar Informe: Despacho por Destino</h1>
+              </div>
+              <div class="box">
+
+                    <%= render 'form5' %>
+
+              </div>
+          </div>
+
+       </div>
+
+       <!--Productores-->
+       <div id="tab6" class="tab_content">
+
+          <div class="contentSubPanel">
+              <div class="headContent">
+                  <h1>Generar Informe: Productores</h1>
+              </div>
+              <div class="box">
+
+                    <%= render 'form6' %>           	
+
+              </div>
+          </div>
+
+       </div>
+
+       <!--Destinos-->
+       <div id="tab7" class="tab_content">
+
+          <div class="contentSubPanel">
+              <div class="headContent">
+                  <h1>Generar Informe: Destinos</h1>
+              </div>
+              <div class="box">
+
+                    <%= render 'form7' %>           
+
+               </div> 
+                                 
+
+           </div>
+
+
+        </div>
+                        
+                        
+
+    </div>

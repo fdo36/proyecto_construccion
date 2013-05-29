@@ -13,5 +13,7 @@ class Company < ActiveRecord::Base
   has_many :users
   belongs_to :commune
   belongs_to :region
+  has_many :receipts
+  has_many :dispatches
 end
 
