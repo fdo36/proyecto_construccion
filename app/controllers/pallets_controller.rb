@@ -44,7 +44,6 @@ class PalletsController < ApplicationController
     @receipt = Receipt.find(params[:receipt_id])
     @pallet = @receipt.pallets.create(params[:pallet])
 
-
     respond_to do |format|
       if @pallet.save
         format.html { redirect_to receipt_path(@receipt) } 

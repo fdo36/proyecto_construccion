@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
+    t.integer  "user_id"
+    t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
@@ -191,6 +193,7 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
     t.datetime "updated_at",       :null => false
     t.boolean  "is_deleted"
     t.integer  "locality_id"
+    t.integer  "code"
   end
 
   create_table "qualities", :force => true do |t|
@@ -216,6 +219,8 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
     t.integer  "producer_id"
     t.integer  "kind_id"
     t.datetime "receipt_datetime"
+    t.integer  "user_id"
+    t.integer  "company_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
