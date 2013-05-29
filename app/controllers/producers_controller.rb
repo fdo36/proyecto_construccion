@@ -52,19 +52,19 @@ class ProducersController < ApplicationController
     @producer.grouping_ids = grouping_ids
 
 
-
     respond_to do |format|
       if @producer.save
         grouping_ids.each do |id|
           grouping_code = params[:grouping_code]
           code = grouping_code['grouping_'+id]
           gc = GroupingsProducer.where(:grouping_id => id, :producer_id => @producer.id).first
-          if gc.nil? or gc.code.nil?
+          if gc.nil?
             GroupingsProducer.create(:grouping_id => id, :producer_id => @producer.id, :code => code)  
           else
             gc.code = code
           end
         end
+
         format.html { redirect_to "/producers", notice: "El productor #{@producer.name} fue creado exitosamente." }
         format.json { render json: @producer, status: :created, location: @producer }
 
@@ -93,12 +93,11 @@ class ProducersController < ApplicationController
           grouping_code = params[:grouping_code]
           code = grouping_code['grouping_'+id]
           gc = GroupingsProducer.where(:grouping_id => id, :producer_id => @producer.id).first
-          if gc.nil? or gc.code.nil?
+          if gc.nil?
             GroupingsProducer.create(:grouping_id => id, :producer_id => @producer.id, :code => code)  
           else
             gc.code = code
-          end
-          
+          end  
         end
         format.html { redirect_to "/producers", notice: "El productor #{@producer.name} fue editado exitosamente." }
         format.json { head :no_content }
