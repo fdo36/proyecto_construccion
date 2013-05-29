@@ -6,23 +6,16 @@ class Report1Pdf < Prawn::Document
 		if data.length == 1
 			@kind = data[0][0]
 			@mtrxx = data[0][1]
-			report_info()
+			report_info(data)
 		else
 			if data!=nil and data.length>0
-				for i in (0 .. (data.length-1))
-					@kind = data[i][0]
-					@mtrxx = data[i][1]
-					report_info()
-					if i <= data.length-2
-						start_new_page
-					end
-				end
+				report_info(data)
 			end
 		end
 		report_foot()
 	end
 
-	def report_info()
+	def report_info(data)
 		report_head()
 	    marginx1 = 110
 	    marginx2 = 300
@@ -45,23 +38,36 @@ class Report1Pdf < Prawn::Document
 		move_down 7
 		y_current = cursor
 
-		stroke_line [0, cursor], [540, cursor]
+		for i in (0 .. (data.length-1))
+			@kind = data[i][0]
+			@mtrxx = data[i][1]
+			if @kind != nil
 
-		move_down 10
-		y_current = cursor
-		text "Especie", :size => 13
-		text_box ": #{@kind[0].name}", :at => [marginx1, y_current], :style => :bold #TIPO DE EMVASE
-		stroke_line [marginx1, cursor], [540, cursor]
+				stroke_line [0, cursor], [540, cursor]
 
-		move_down 20
+				move_down 10
+				y_current = cursor
+				text "Especie", :size => 13
 
-		if @mtrxx!= nil and @mtrxx.length>0
-			datos = [ ["Nro Ingreso","Fecha","Variedad","Calidad","Precio(Kgs.)"]]#dejar como está y llenar las siguientes filas
-			for i in (0 .. (@mtrxx.length-1))
-				datos << @mtrxx[i]
+				if data.length==1
+					text_box ": #{@kind.name}", :at => [marginx1, y_current], :style => :bold #TIPO DE EMVASE
+				else
+					text_box ": #{@kind[0].name}", :at => [marginx1, y_current], :style => :bold #TIPO DE EMVASE
+				end
+
+				stroke_line [marginx1, cursor], [540, cursor]
+
+				move_down 20
+
+				if @mtrxx!= nil and @mtrxx.length>0
+					datos = [ ["Nro Ingreso","Fecha","Variedad","Calidad","Precio(Kgs.)"]]#dejar como está y llenar las siguientes filas
+					for i in (0 .. (@mtrxx.length-1))
+						datos << @mtrxx[i]
+					end
+					table(datos , :width =>540)
+					move_down 20
+				end
 			end
-			table(datos , :width =>540)
-			move_down 20
 		end
 
 		stroke_line [0, cursor], [540, cursor]

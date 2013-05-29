@@ -56,7 +56,7 @@ class Report6Pdf < Prawn::Document
 		bounding_box([marginx2, y_current], :width => 200, :height => 20) do
 			text "<u>Comuna</u>", :inline_format => true
 		end
-		@commune = Region.find(@producer.commune_id)
+		@commune = Commune.find(@producer.commune_id)
 		text_box ": #{@commune.name}", :at => [marginx3, y_current]
 
 		move_down 7
