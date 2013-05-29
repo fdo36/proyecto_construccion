@@ -1,43 +1,42 @@
-<h1>Listing pallets</h1>
+<div class="headContent">
+  <h1>Lista de Pallets</h1>
+</div>
+<div class="box">
+  <%= link_to 'Nuevo Pallet', new_pallet_path , :class => "button blue alignright" %>
 
-<table>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th>Receipt</th>
+        <th>pallet</th>
+        <th>Quality</th>
+        <th>Variety</th>
+        <th>Price kg</th>
+        <th>Quantity</th>
+        <th>Gross weight</th>
+        <th>Code</th>
+        <th>Tare</th>
+        <th style="width:20% !important;">Acciones</th>
+      </tr>
+    </thead>
+  <tbody>
+  <% @pallets.each do |pallet| %>
   <tr>
-    <th>Code</th>
-    <th>Quantity</th>
-    <th>Price per unit</th>
-    <th>Gross weight</th>
-    <th>Tare</th>
-    <th>Variety</th>
-    <th>Quality</th>
-    <th>Receipt</th>
-    <th>Pack type</th>
-    <th>Company</th>
-    <th>Dispatch</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @pallets.each do |pallet| %>
-  <tr>
-    <td><%= pallet.code %></td>
-    <td><%= pallet.quantity %></td>
-    <td><%= pallet.price_per_unit %></td>
-    <td><%= pallet.gross_weight %></td>
-    <td><%= pallet.tare %></td>
-    <td><%= pallet.variety_id %></td>
-    <td><%= pallet.quality_id %></td>
     <td><%= pallet.receipt_id %></td>
-    <td><%= pallet.pack_type_id %></td>
-    <td><%= pallet.company_id %></td>
-    <td><%= pallet.dispatch_id %></td>
-    <td><%= link_to 'Show', pallet %></td>
-    <td><%= link_to 'Edit', edit_pallet_path(pallet) %></td>
-    <td><%= link_to 'Destroy', pallet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= pallet.id %></td>
+    <td><%= pallet.quality_id %></td>
+    <td><%= pallet.variety_id %></td>
+    <td><%= pallet.price_kg %></td>
+    <td><%= pallet.quantity %></td>
+    <td><%= pallet.gross_weight %></td>
+    <td><%= pallet.code %></td>
+    <td><%= pallet.tare %></td>
+    <td><%= link_to 'Ver', pallet %>
+    <%= link_to 'Editar', edit_pallet_path(pallet) %>
+    <%= link_to 'Eliminar', pallet, method: :delete, data: { confirm: '¿Está seguro que desea eliminar el registro?' } %></td>
   </tr>
 <% end %>
-</table>
+    </tbody>
+  </table>
 
-<br />
-
-<%= link_to 'New Pallet', new_pallet_path %>
+</div>

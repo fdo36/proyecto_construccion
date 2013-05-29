@@ -1,5 +1,5 @@
 <div class="box">
-  <%= form_for(@user) do |f| %>
+  <%= form_for([@company, @user]) do |f| %>
     <% if @user.errors.any? %>
       <div id="error_explanation">
         <h2>Se han encontrado los siguientes errores:</h2>
@@ -115,16 +115,8 @@
       </div>  
     </div>
 
-    <div class="line-forme">
-      <div class="forme-lab">
-        <%= f.label :"Compañia" %><br />
-      </div>  
-      <div class="forme-in">
-        <% companies_array = Company.where(:active => true).map { |company| [company.name, company.id] } %>
-      <%= f.select(:company_id, companies_array) %>
-      </div>  
-    </div>
     <% end %>
+
     <div class="line-forme">
       <div class="forme-lab">
         <%= f.label :Roles %><br />
@@ -139,7 +131,7 @@
 </div>
 
 <div class="foot-box">
-  <%= link_to 'Cancelar', users_path , :class => "button silver alignright" %>
+  <%= link_to 'Cancelar', company_users_path(@company), :class => "button silver alignright" %>
   <%= f.submit :Guardar , :class => "button green alignright" %>
 </div>
  <% end %>

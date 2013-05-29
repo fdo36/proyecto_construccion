@@ -3,7 +3,7 @@
   <h1>Ver Rol</h1>
 </div>
 <div class="box">
-<%= link_to 'Volver', roles_path , :class => "button blue alignright" %>
+<%= link_to 'Volver', company_roles_path(@company) , :class => "button blue alignright" %>
 <p>
   <b>Nombre:</b>
   <%= @role.name %>
@@ -20,8 +20,7 @@
 	<% @role.access_rights.each do |access_right| %>
 		<li>
       <% a = {'create' => 'crear', 'read' => 'leer', 'update' => 'actualizar', 'delete' => 'eliminar', 'manage' => 'administrar'} %>
-      <% m = {'Company' => 'Compañía', 'Quality' => 'Calidad', 'Region' => 'Región', 'Role' => 'Rol', 'User' => 'Usuario', 'AccessRight' => 'Permiso', 'Kind' => 'Tipo', 'Grouping' => 'Agrupación', 'Commune' => 'Comuna', 'Variety' => 'Variedad', 'Destination' => 'Destino', 'Container' => 'Contenedor', 'Producer' => 'Productor', 'Season' => 'Temporada'} %>
-			<strong><%= m[access_right.model_name]  %></strong>: <%= a[access_right.action] %> <%= link_to 'Eliminar', [@role, access_right], :method => :delete %>
+	  <strong><%= access_right.model_name  %></strong>: <%= a[access_right.action] %> <%= link_to 'Eliminar', company_role_access_right_path(@company, @role, access_right), :method => :delete %>
 		</li>
 	<% end %>
     </ul>
@@ -30,7 +29,7 @@
   <div class="line-forme">
     <h2>Agregar permiso</h2>
   </div>
-  <%= form_for([@role, @role.access_rights.build]) do |f| %>
+  <%= form_for([@company, @role, @role.access_rights.build]) do |f| %>
     <div class="line-forme">
       <div class="forme-lab">
         <%= f.label :Caracteristica %><br />
@@ -39,7 +38,7 @@
         <%= f.select :model_name, options_for_select(@supported_models) %>
       </div>
     </div>
-      <div class="line-forme">
+    <div class="line-forme">
       <div class="forme-lab">
         <%= f.label :Permiso_para %><br />
       </div>
@@ -55,5 +54,5 @@
 
 </div>
 <div class="foot-box">
-  <%= link_to 'Editar', edit_role_path(@role) , :class => "button green alignright" %>
+  <%= link_to 'Editar', edit_company_role_path(@company, @role) , :class => "button green alignright" %>
 </div>

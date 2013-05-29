@@ -2,7 +2,6 @@
 <html>
 <head>
 	<meta charset="utf-8">
-
 	<title>Centros de Acopio</title>
 
   	<%= stylesheet_link_tag    "application", :media => "all" %>
@@ -107,14 +106,12 @@
 					<% if current_user.super_admin %>
 					<p>Acciones</p>
 					<ul>
-						<li><%= link_to('Cuentas', users_path) %></li>
-						<li><%= link_to('Roles', roles_path) %></li>
 						<li><%= link_to('Compañias', companies_path)%></li>
 					</ul>
 					<%else%>
 					<p>Entradas/Salidas</p>
 					<ul>
-						<li> <%= link_to "Ingresos", "/" %></li>
+						<li> <%= link_to "Ingresos", "/receipts" %></li>
 						<li> <%= link_to "Temporadas", "/seasons" %></li>
 						<li> <%= link_to "Despachos", "/" %></li>
 						<li> <%= link_to "Informes", "/reports" %></li>
@@ -169,7 +166,7 @@
 						<p>Compañia</p>
 					</div>
 					<ul class="toolsMenu">
-						<li> <p><%= link_to('Cuentas', users_path) %></p> </li>
+						<li> <p><%= link_to('Cuentas', company_users_path(current_user.company)) %></p> </li>
 						<li> <p>Configuración</p> </li>
 					</ul>
 				</div>

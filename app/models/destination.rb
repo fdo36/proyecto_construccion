@@ -19,6 +19,7 @@ class Destination < ActiveRecord::Base
   validates_with RutValidator
   #validates_with ValidatorDestinationRutAlreadySaved
 
+  has_one :dispatch
   belongs_to :commune
   has_many :dispatches
   has_many :producers

@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Receipt:</b>
+  <%= @receipt_container.receipt_id %>
+</p>
+
+<p>
+  <b>Container:</b>
+  <%= @receipt_container.container_id %>
+</p>
+
+<p>
+  <b>Quality:</b>
+  <%= @receipt_container.quality_id %>
+</p>
+
+<p>
+  <b>Variety:</b>
+  <%= @receipt_container.variety_id %>
+</p>
+
+<p>
+  <b>Price kg:</b>
+  <%= @receipt_container.price_kg %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @receipt_container.quantity %>
+</p>
+
+<p>
+  <b>Gross weight:</b>
+  <%= @receipt_container.gross_weight %>
+</p>
+
+
+<%= link_to 'Edit', edit_receipt_container_path(@receipt_container) %> |
+<%= link_to 'Back', receipt_containers_path %>

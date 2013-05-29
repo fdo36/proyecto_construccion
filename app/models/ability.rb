@@ -15,11 +15,18 @@ class Ability
                     model_class = Object.const_get(access_right.model_name)
                     allowed_actions = ["create", "read", "update", "destroy", "manage"]
                     if allowed_actions.member? access_right.action
-                      can access_right.action.to_sym, model_class
+                      if access_right.model_name == "Company"
+                        id_attr = :id
+                      else
+                        id_attr = :company_id
+                      end
+                      can access_right.action.to_sym, model_class, id_attr => user.company_id
                     end
                 end
             end
         end
+        can :read, User, :id => user.id
+        can :update, User, :id => user.id
     end
   end
 end

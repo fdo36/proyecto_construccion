@@ -1,4 +1,5 @@
 class PackGroupReceiptsController < ApplicationController
+  load_and_authorize_resource
   # GET /pack_group_receipts
   # GET /pack_group_receipts.json
   def index
@@ -24,10 +25,11 @@ class PackGroupReceiptsController < ApplicationController
   # GET /pack_group_receipts/new
   # GET /pack_group_receipts/new.json
   def new
-    @pack_group_receipt = PackGroupReceipt.new
+    @receipt = Receipt.find(params[:receipt_id])
+    @pack_group_receipt = @receipt.pack_group_receipts.build
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html 
       format.json { render json: @pack_group_receipt }
     end
   end
@@ -40,11 +42,12 @@ class PackGroupReceiptsController < ApplicationController
   # POST /pack_group_receipts
   # POST /pack_group_receipts.json
   def create
+    @receipt = Receipt.find(params[:receipt_id])
     @pack_group_receipt = PackGroupReceipt.new(params[:pack_group_receipt])
 
     respond_to do |format|
       if @pack_group_receipt.save
-        format.html { redirect_to @pack_group_receipt, notice: 'Pack group receipt was successfully created.' }
+        format.html { redirect_to receipt_path(@receipt) }
         format.json { render json: @pack_group_receipt, status: :created, location: @pack_group_receipt }
       else
         format.html { render action: "new" }
@@ -76,7 +79,7 @@ class PackGroupReceiptsController < ApplicationController
     @pack_group_receipt.destroy
 
     respond_to do |format|
-      format.html { redirect_to pack_group_receipts_url }
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end

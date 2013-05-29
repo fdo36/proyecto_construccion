@@ -2,7 +2,7 @@
    function show_rut1(s)
    {
       if(s.value == "")
-      {      
+      {
          var inputRut = document.getElementById('rut1');
          inputRut.value = "-";
 
@@ -21,21 +21,62 @@
       }
    }
 
+   function myfunction(event)
+   {
+      var keyCode = ('which' in event) ? event.which : event.keyCode;
+      if(keyCode==9)
+      {
+         var rut22 = document.getElementById('rut22');
+         $.getJSON("/producers.json", function(data) {
+            var bandera = false;
+            $.each(data, function(index, element){
+               if(element.rut==rut22.value)
+               {
+                  var inputCodigo = document.getElementById('nombrectm');
+                  inputCodigo.value = element.name;
+                  bandera = true;
+               }
+            });
+
+            if(bandera==false)
+            {
+               var inputCodigo = document.getElementById('nombrectm');
+               inputCodigo.value = "-";
+            }
+         });
+      }
+   }
+
    function get_parameters1()
    {
-      var selectID = document.getElementById('Productores1');
-      $.get("/producers/"+selectID.value+".json", function(data) {
-         var nombre_Productor = data.name;
-         var rut_Productor = data.rut;
-         var sag_code_Productor = data.sag_code;
-      });
+      var producerID = document.getElementById('Productores1');
 
-      var selectID = document.getElementById('Especies1');
-      $.get("/kinds/"+selectID.value+".json", function(data) {
-         var nombre_Especie = data.name;
-      });
+      if(producerID.value=="")
+      {
+         //Hacer una consulta mas general
+      }
+      else
+      {
+         $.get("/producers/"+producerID.value+".json", function(producers) {
+            var especieID = document.getElementById('Especies1');
 
-      alert("Productor "+nombre_Productor+" Rut "+rut_Productor+" Codigo Sag "+sag_code_Productor+" Especie "+nombre_Especie);
+            if(especieID.value=="")
+            {
+               //Hacer la consulta mas general
+            }
+            else
+            {
+               //Hacer la consulta mas especifica!!
+               $.get("/kinds/"+especieID.value+".json", function(kinds) {
+                  $.get("/receipts.json", function(receipts) {
+                     $.each(data, function(index, element){
+                        
+                     });
+                  });
+               });
+            }
+         });
+      }
    }
 </script>
 
@@ -96,5 +137,5 @@
          <%= select_date %>
       </div>
    </div>
-   <button class="button blue alignleft" onclick="get_parameters1()">Generar Informe</button>
 <% end %>
+<button class="button blue alignleft" onclick="get_parameters1()">Generar Informe</button>

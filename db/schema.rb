@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529043628) do
+ActiveRecord::Schema.define(:version => 20130529101120) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130529043628) do
     t.datetime "updated_at", :null => false
     t.integer  "role_id"
     t.string   "action"
+    t.integer  "company_id"
   end
 
   create_table "communes", :force => true do |t|
@@ -69,14 +70,27 @@ ActiveRecord::Schema.define(:version => 20130529043628) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
+    t.integer  "company_id"
+  end
+
+  create_table "dispatch_containers", :force => true do |t|
+    t.integer  "dispatch_id"
+    t.integer  "container_id"
+    t.integer  "quality_id"
+    t.integer  "variety_id"
+    t.integer  "quantity"
+    t.float    "gross_weight"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "dispatches", :force => true do |t|
+    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
-    t.integer  "company_id"
     t.integer  "user_id"
+    t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
@@ -86,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20130529043628) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "company_id"
   end
 
   create_table "groupings_producers", :force => true do |t|
@@ -101,6 +116,7 @@ ActiveRecord::Schema.define(:version => 20130529043628) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "kinds_producers", :id => false, :force => true do |t|
@@ -191,19 +207,33 @@ ActiveRecord::Schema.define(:version => 20130529043628) do
     t.boolean  "is_deleted"
     t.integer  "locality_id"
     t.integer  "code"
+    t.integer  "company_id"
   end
 
   create_table "qualities", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
+  end
+
+  create_table "receipt_containers", :force => true do |t|
+    t.integer  "receipt_id"
+    t.integer  "container_id"
+    t.integer  "quality_id"
+    t.integer  "variety_id"
+    t.float    "price_kg"
+    t.integer  "quantity"
+    t.float    "gross_weight"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "receipts", :force => true do |t|
-    t.integer  "code"
-    t.datetime "receipt_datetime"
+    t.string   "code"
     t.integer  "producer_id"
     t.integer  "kind_id"
+    t.datetime "receipt_datetime"
     t.integer  "user_id"
     t.integer  "company_id"
     t.datetime "created_at",       :null => false
@@ -221,6 +251,7 @@ ActiveRecord::Schema.define(:version => 20130529043628) do
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "company_id"
   end
 
   create_table "roles_users", :id => false, :force => true do |t|
@@ -271,6 +302,9 @@ ActiveRecord::Schema.define(:version => 20130529043628) do
     t.boolean  "super_admin"
     t.integer  "company_id"
     t.string   "gender"
+    t.string   "address"
+    t.integer  "region_id"
+    t.integer  "commune_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -281,6 +315,7 @@ ActiveRecord::Schema.define(:version => 20130529043628) do
     t.integer  "kind_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "wiki_page_versions", :force => true do |t|
@@ -317,16 +352,40 @@ ActiveRecord::Schema.define(:version => 20130529043628) do
 
   add_foreign_key "destinations", "communes", :name => "destinations_commune_id_fk"
 
+  add_foreign_key "dispatch_containers", "containers", :name => "dispatch_containers_container_id_fk"
+  add_foreign_key "dispatch_containers", "dispatches", :name => "dispatch_containers_dispatch_id_fk"
+  add_foreign_key "dispatch_containers", "qualities", :name => "dispatch_containers_quality_id_fk"
+  add_foreign_key "dispatch_containers", "varieties", :name => "dispatch_containers_variety_id_fk"
+
+  add_foreign_key "dispatches", "destinations", :name => "dispatches_destination_id_fk"
+  add_foreign_key "dispatches", "kinds", :name => "dispatches_kind_id_fk"
+
   add_foreign_key "groupings_producers", "groupings", :name => "groupings_producers_grouping_id_fk"
   add_foreign_key "groupings_producers", "producers", :name => "groupings_producers_producer_id_fk"
 
   add_foreign_key "kinds_producers", "kinds", :name => "kinds_producers_kind_id_fk"
   add_foreign_key "kinds_producers", "producers", :name => "kinds_producers_producer_id_fk"
 
+  add_foreign_key "pack_group_receipts", "qualities", :name => "pack_group_receipts_quality_id_fk"
+  add_foreign_key "pack_group_receipts", "receipts", :name => "pack_group_receipts_receipt_id_fk"
+  add_foreign_key "pack_group_receipts", "varieties", :name => "pack_group_receipts_variety_id_fk"
+
   add_foreign_key "pack_types_producers", "pack_types", :name => "pack_types_producers_pack_type_id_fk"
   add_foreign_key "pack_types_producers", "producers", :name => "pack_types_producers_producer_id_fk"
 
+  add_foreign_key "pallets", "qualities", :name => "pallets_quality_id_fk"
+  add_foreign_key "pallets", "receipts", :name => "pallets_receipt_id_fk"
+  add_foreign_key "pallets", "varieties", :name => "pallets_variety_id_fk"
+
   add_foreign_key "producers", "communes", :name => "producers_commune_id_fk"
+
+  add_foreign_key "receipt_containers", "containers", :name => "receipt_containers_container_id_fk"
+  add_foreign_key "receipt_containers", "qualities", :name => "receipt_containers_quality_id_fk"
+  add_foreign_key "receipt_containers", "receipts", :name => "receipt_containers_receipt_id_fk"
+  add_foreign_key "receipt_containers", "varieties", :name => "receipt_containers_variety_id_fk"
+
+  add_foreign_key "receipts", "kinds", :name => "receipts_kind_id_fk"
+  add_foreign_key "receipts", "producers", :name => "receipts_producer_id_fk"
 
   add_foreign_key "roles_users", "roles", :name => "roles_users_role_id_fk"
   add_foreign_key "roles_users", "users", :name => "roles_users_user_id_fk"

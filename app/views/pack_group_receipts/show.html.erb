@@ -1,45 +1,42 @@
 <p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Envase</h1>
+</div>
+<div class="box">
+  
+<p>
+  <b>Número Ingreso:</b>
+  <%= (Receipt.all(:select => "code", :conditions => ["id = ?",@pack_group_receipt.receipt_id]))[0].code %>
+</p>
 
 <p>
-  <b>Price per unit:</b>
+  <b>Variedad:</b>
+  <%= (Variety.all(:select => "name", :conditions => ["id = ?",@pack_group_receipt.variety_id]))[0].name %>
+</p>
+
+<p>
+  <b>Calidad:</b>
+  <%= (Quality.all(:select => "name", :conditions => ["id = ?",@pack_group_receipt.quality_id]))[0].name %>
+</p>
+
+<p>
+  <b>Precio por Kg ($):</b>
   <%= @pack_group_receipt.price_per_unit %>
 </p>
 
 <p>
-  <b>Quantity:</b>
+  <b>Tipo Envases:</b>
+  <%= (PackType.all(:select => "name", :conditions => ["id = ?",@pack_group_receipt.pack_type_id]))[0].name %>
+</p>
+
+<p>
+  <b>Cantidad Envases:</b>
   <%= @pack_group_receipt.quantity %>
 </p>
 
 <p>
-  <b>Gross weight:</b>
+  <b>Peso Bruto (Kg):</b>
   <%= @pack_group_receipt.gross_weight %>
 </p>
 
-<p>
-  <b>Pack type:</b>
-  <%= @pack_group_receipt.pack_type_id %>
-</p>
-
-<p>
-  <b>Variety:</b>
-  <%= @pack_group_receipt.variety_id %>
-</p>
-
-<p>
-  <b>Quality:</b>
-  <%= @pack_group_receipt.quality_id %>
-</p>
-
-<p>
-  <b>Receipt:</b>
-  <%= @pack_group_receipt.receipt_id %>
-</p>
-
-<p>
-  <b>Company:</b>
-  <%= @pack_group_receipt.company_id %>
-</p>
-
-
-<%= link_to 'Edit', edit_pack_group_receipt_path(@pack_group_receipt) %> |
-<%= link_to 'Back', pack_group_receipts_path %>
+</div>

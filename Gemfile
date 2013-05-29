@@ -26,6 +26,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'chronic'
 
 gem 'irwi', :git => 'git://github.com/alno/irwi.git'
 gem 'RedCloth'
