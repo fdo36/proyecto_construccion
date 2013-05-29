@@ -1,18 +1,31 @@
 <% if current_user.super_admin == true %>
-<%= wiki_page_style %>
+<div class="headContent">
+  <h1><%=wt 'Nueva página' %></h1>
+</div>
+<div class="box">
+	<%= wiki_page_style %>
+	<%= wiki_page_form do |f| %>
+	<%= f.hidden_field :previous_version_number, :value => f.object.last_version_number %>
 
-<h1><%=wt 'Nueva página' %></h1>
+	<p><%=wt 'Titulo:' %><br /><%= f.text_field :title %></p>
+	<p><%=wt 'Contenido:' %><br /><%= f.text_area :content %></p>
+	<%= f.hidden_field :comment, :value => 'Primera revisión'%>
+	<%= hidden_field_tag :path, @page.path %>
 
-<%= wiki_page_form do |f| %>
-  <%= f.hidden_field :previous_version_number, :value => f.object.last_version_number %>
-  
-  <p><%=wt 'Titulo:' %><br /><%= f.text_field :title %></p>
-  <p><%=wt 'Contenido:' %><br /><%= f.text_area :content %></p>
-  <%= f.hidden_field :comment, :value => 'Primera revisión'%>
-  <%= hidden_field_tag :path, @page.path %>
-
-  <input type="submit" value="<%=wt 'Crear página' %>" class="submit" />
+	
+</div>
+<div class="foot-box">
+	<input type="submit" value="<%=wt 'Crear página' %>" class="button green alignright" />
+</div>
 <% end %>
 <% else %>
-  <%=wt 'No posees los permisos necesarios para estar acá.' %>
+	<div class="headContent">
+	<h1>Error</h1>
+	</div>
+	<div class="box">
+	<%=wt 'No posees los permisos necesarios para estar acá.' %>
+	</div>
+	<div class="foot-box">
+	<%= link_to( wt( 'Página principal Ayuda' ), "/wiki", :class => "button blue alignleft")%>
+	</div>
 <% end %>

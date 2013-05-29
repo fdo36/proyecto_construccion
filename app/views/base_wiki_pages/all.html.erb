@@ -1,11 +1,10 @@
-<%= wiki_page_style -%>
-
+<div class="headContent">
 <h1><%=wt 'Todas las páginas' %></h1>
-
-<ul>
+</div>
+<div class="box">
   <% wiki_paginate @pages do -%>
     <% @pages.each do |page| -%>
       <li><%= link_to page.title, wiki_page_path( page ) %></li>
     <% end -%>
   <% end -%>
-</ul>
+</div>
