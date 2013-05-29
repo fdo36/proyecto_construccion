@@ -14,7 +14,10 @@
 
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Nombre %><br />
+      <label> 
+        Nombre                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :name %>
@@ -23,7 +26,10 @@
 
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :RUT %><br />
+      <label> 
+        Rut                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.number_field :rut %>
@@ -38,23 +44,32 @@
       <%= f.text_field :address %>
     </div>
   </div>
-  <div class="line-forme">
-          <div class="forme-lab">
-            <%= f.label :"Región" %><br />
-          </div>  
-          <div class="forme-in">
-            <% regions_array = Region.all.map { |region| [region.name, region.id] } %>
-          <%= f.select(:region_id, regions_array, :selected => :prompt, :prompt => '- Seleccione región -') %>
-          </div>  
-        </div>
+
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :"Comuna" %><br />
-    </div>  
+      <label> 
+        Región                
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
     <div class="forme-in">
-      <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
-      <%= f.select(:commune_id, communes_array, :selected => :prompt, :prompt => '- Seleccione comuna -') %>
-    </div>  
+      <% @regions = Region.all.map { |region| [region.name, region.id] } %>
+      <%= select_tag('regions', options_for_select(@regions),
+          :onchange => "show_communes(this, 'company_commune_id')", :selected => :prompt, :prompt => '- Seleccione región -') %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Comuna                
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+
+      <%= f.select(:commune_id, "commune" ,:selected => :prompt, :prompt => '- Seleccione comuna -') %>
+    </div>
   </div>
   <div class="line-forme">
     <div class="forme-lab">
@@ -74,7 +89,10 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Correo_electrónico %><br />
+      <label> 
+        Correo Electrónico                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :email %>
@@ -88,6 +106,10 @@
         <%= f.check_box :active %>
       </div>
     </div>
+    <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
+</div>
 </div>
 <div class="foot-box">
   <%= link_to 'Cancelar', companies_path , :class => "button silver alignright" %>

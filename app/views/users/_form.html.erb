@@ -14,7 +14,34 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :Contraseña %><br />
+        <label> 
+        Nombre             
+        <em class="formee-req">*</em>
+      </label> 
+      </div>    
+      <div class="forme-in">
+        <%= f.text_field :name %>
+      </div>  
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+        Apellido             
+        <em class="formee-req">*</em>
+      </label> 
+      </div>  
+      <div class="forme-in">
+        <%= f.text_field :lastname %>    
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+        Contraseña                
+        <em class="formee-req">*</em>
+      </label> 
       </div>  
       <div class="forme-in">  
         <%= f.password_field :password %>
@@ -23,21 +50,15 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :Confirma_tu_contraseña %><br />
+        <label> 
+        Confirmar Contraseña               
+        <em class="formee-req">*</em>
+      </label> 
       </div>    
       <div class="forme-in">  
         <%= f.password_field :password_confirmation %>
       </div>
     </div>  
-
-    <div class="line-forme">
-      <div class="forme-lab">
-        <%= f.label :Correo_electrónico %><br />
-      </div>
-      <div class="forme-in">
-         <%= f.text_field :email %>
-      </div>
-    </div>      
 
     <div class="line-forme">
       <div class="forme-lab">
@@ -51,30 +72,55 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :Teléfono %><br />
+        <label> 
+        Teléfono                
+        <em class="formee-req">*</em>
+      </label> 
       </div>  
       <div class="forme-in">
         <%= f.number_field :phone %>
       </div>
-    </div>    
-    
-    <div class="line-forme">
-      <div class="forme-lab">
-        <%= f.label :Nombre %><br />
-      </div>    
-      <div class="forme-in">
-        <%= f.text_field :name %>
-      </div>  
     </div>
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :Apellido %><br />
-      </div>  
-      <div class="forme-in">
-        <%= f.text_field :lastname %>    
+        <label> 
+        Correo Electrónico                
+        <em class="formee-req">*</em>
+      </label> 
       </div>
+      <div class="forme-in">
+         <%= f.text_field :email %>
+      </div>
+    </div>      
+        
+    <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Región                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
+    <div class="forme-in">
+      <% @regions = Region.all.map { |region| [region.name, region.id] } %>
+      <%= select_tag('regions', options_for_select(@regions),
+          :onchange => "show_communes(this, 'user_commune_id')", :selected => :prompt, :prompt => '- Seleccione región -') %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Comuna                
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+
+      <%= f.select(:commune_id, "commune" ,:selected => :prompt, :prompt => '- Seleccione comuna -') %>
+    </div>
+  </div>
+
 
     <div class="line-forme">
       <div class="forme-lab">
@@ -128,6 +174,10 @@
       <% end %>
       </div>
     </div>
+    <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
+</div>
 </div>
 
 <div class="foot-box">
