@@ -1,14 +1,21 @@
+#encoding: utf-8
 class UsersController < ApplicationController
   load_and_authorize_resource
   # GET /users
   # GET /users.json
   def index
-    if current_user.super_admin == true 
-      @users = User.all
+    
+    @company = Company.find(params[:company_id])
+    if !can?(:manage, @company)
+      raise CanCan::AccessDenied.new("Usted no puede administrar otra compañia", :manage, @company)
+    end
+      
+    if current_user.super_admin == true
+      @users = User.where(:company_id => params[:company_id])
     else
       @users = User.where(:company_id => current_user.company_id)
     end
-    @company = Company.find(params[:company_id])
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
@@ -18,8 +25,12 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(params[:id])
     @company = Company.find(params[:company_id])
+    if !can?(:manage, @company)
+      raise CanCan::AccessDenied.new("Usted no puede administrar otra compañia", :manage, @company)
+    end
+    
+    @user = User.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -30,6 +41,9 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @company = Company.find(params[:company_id])
+    if !can?(:manage, @company)
+      raise CanCan::AccessDenied.new("Usted no puede administrar otra compañia", :manage, @company)
+    end
     @user = User.new
     @roles = Role.all
     respond_to do |format|
@@ -41,6 +55,9 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @company = Company.find(params[:company_id])
+    if !can?(:manage, @company)
+      raise CanCan::AccessDenied.new("Usted no puede administrar otra compañia", :manage, @company)
+    end
     @user = User.find(params[:id])
     @roles = Role.all
     @user.role_ids = params[:role_ids] if params[:role_ids]
@@ -50,6 +67,9 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @company = Company.find(params[:company_id])
+    if !can?(:manage, @company)
+      raise CanCan::AccessDenied.new("Usted no puede administrar otra compañia", :manage, @company)
+    end
     @user = User.new(params[:user])
     @roles = Role.all
     role_ids = params[:role_ids] if params[:role_ids] 
@@ -76,6 +96,9 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @company = Company.find(params[:company_id])
+    if !can?(:manage, @company)
+      raise CanCan::AccessDenied.new("Usted no puede administrar otra compañia", :manage, @company)
+    end
     @user = User.find(params[:id])
     @roles = Role.all
     role_ids = params[:role_ids] if params[:role_ids]
@@ -95,9 +118,16 @@ class UsersController < ApplicationController
 
   def disable
     @company = Company.find(params[:company_id])
+    if !can?(:manage, @company)
+      raise CanCan::AccessDenied.new("Usted no puede administrar otra compañia", :manage, @company)
+    end
     @user = User.find(params[:id])
-    @user.update_attribute(:active, false)
-  
+    
+    if ((!@user.super_admin && @user.company_id == @current_user.company_id && can?(:manage, User)) ||
+      @user.super_admin)
+        @user.update_attribute(:active, false)
+    end
+
     respond_to do |format|
       format.html { redirect_to company_users_path(@company) }
       format.json { head :no_content }
@@ -106,8 +136,15 @@ class UsersController < ApplicationController
 
   def enable
     @company = Company.find(params[:company_id])
+    if !can?(:manage, @company)
+      raise CanCan::AccessDenied.new("Usted no puede administrar otra compañia", :manage, @company)
+    end
     @user = User.find(params[:id])
-    @user.update_attribute(:active, true)
+    
+    if ((!@user.super_admin && @user.company_id == @current_user.company_id && can?(:manage, User)) ||
+      @user.super_admin)
+        @user.update_attribute(:active, true)
+    end
 
     respond_to do |format|
       format.html { redirect_to company_users_path(@company) }
@@ -119,6 +156,9 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @company = Company.find(params[:company_id])
+    if !can?(:manage, @company)
+      raise CanCan::AccessDenied.new("Usted no puede administrar otra compañia", :manage, @company)
+    end
     @user = User.find(params[:id])
     @user.destroy
 
