@@ -1,30 +1,132 @@
 <p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Despacho</h1>
+</div>
+<div class="box">
+  <%= link_to 'Volver', dispatches_path , :class => "button blue alignright" %>
 
-<p>
-  <b>Destination:</b>
-  <%= @dispatch.destination_id %>
-</p>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Destino:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label><%= @dispatch.destination_id %></label>
+      </div>
+    </div>
 
-<p>
-  <b>Kind:</b>
-  <%= @dispatch.kind_id %>
-</p>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Especie:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label> <%= @dispatch.kind_id %></label>
+      </div>
+    </div>
 
-<p>
-  <b>Dispatch datetime:</b>
-  <%= @dispatch.dispatch_datetime %>
-</p>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Fecha:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label><%= @dispatch.dispatch_datetime %></label>
+      </div>
+    </div>
 
-<p>
-  <b>Company:</b>
-  <%= @dispatch.company_id %>
-</p>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Compañía:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label>-</label>
+      </div>
+    </div>
 
-<p>
-  <b>User:</b>
-  <%= @dispatch.user_id %>
-</p>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Usuario:</b></label>
+      </div>
+        
+      <div class="forme-in">
+        <label>-</label>
+      </div>
+    </div>
+</div>
 
+<div class="box">
+  <div class = "contentSubPanel">
+    <div class="headContent">
+      <h1>Lista de Despacho</h1>
+    </div>
 
-<%= link_to 'Edit', edit_dispatch_path(@dispatch) %> |
-<%= link_to 'Back', dispatches_path %>
+    <div class="box">
+      <%= link_to 'Agregar envase', new_dispatch_pack_group_dispatch_path(@dispatch) , :class => "button blue alignright" %>  
+      <%= link_to 'Agregar pallet', new_dispatch_pallet_path(@dispatch) , :class => "button blue alignright" %>   
+      
+
+      <table cellpadding="0" cellspacing="0" border="0" id="tablealone" class="display datatable">
+        <thead>
+          <tr>
+            <th style="width:20% !important;">Código Pallet</th>
+            <th>N° Envases</th>
+            <th>Peso Neto (Kg)</th>
+            <th>Variedad</th>
+            <th>Calidad</th>
+            <th>Precio</th>
+            <th style="width:20% !important;">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @dispatch.pack_group_dispatches.each do |pack_group_dispatch| %>
+            <% if pack_group_dispatch.dispatch_id == @dispatch.id %>
+                <tr>
+                  <td><%= "<no aplica>" %></td>
+                  <td><%= pack_group_dispatch.quantity %></td>
+                  <td><%=(pack_group_dispatch.gross_weight - (pack_group_dispatch.quantity * Container.find(pack_group_dispatch.container_id).tare)) %></td>
+                  <td><%= Variety.find(pack_group_dispatch.variety_id).name %></td>
+                  <td><%= Quality.find(pack_group_dispatch.quality_id).name %></td>
+                  <td><%= pack_group_dispatch.price_kg %></td>
+                  <td>
+                    <%= link_to 'Ver', [@dispatch, pack_group_dispatch] %>
+                    <%= link_to 'Editar', edit_dispatch_pack_group_dispatch_path(@dispatch)%>
+                    <%= link_to 'Eliminar', [@dispatch, pack_group_dispatch], :method => :delete, data: { confirm: '¿Está seguro de eliminar este registro?' } %></td>
+                </tr>
+      
+            <% end %>
+          <% end %> 
+          <% @dispatch.pallets.each do |pallet| %>
+            <% if pallet.id != nil %>
+              <tr>
+                <%if pallet.code == nil%> 
+                  <td><%= pallet.code.value = "no aplica"  %></td>
+                <%end%>
+                <td><%= pallet.code %></td>
+                <td><%= pallet.quantity %></td>
+                <% if pallet.tare != nil %>
+                <td><%=(pallet.gross_weight - ((Container.find(pallet.container_id).tare) * pallet.quantity) - pallet.tare) %></td>
+                <%else%>
+                <td><%=(pallet.gross_weight) %></td>
+                <%end%>
+                <td><%= Variety.find(pallet.variety_id).name %></td>
+                <td><%= Quality.find(pallet.quality_id).name %></td>
+                <td><%= pallet.price_kg %></td>
+                <td>
+                  <%= link_to 'Ver', [@dispatch, pallet]%>
+                  <%= link_to 'Editar', edit_dispatch_pallet_path(@dispatch) %>
+                  <%= link_to 'Eliminar', [@dispatch, pallet], :method => :delete, data: { confirm: '¿Está seguro de eliminar este registro?' } %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="foot-box">
+  <%= link_to 'Editar', edit_dispatch_path(@dispatch) , :class => "button green alignright" %>
+</div>

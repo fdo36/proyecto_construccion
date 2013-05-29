@@ -42,6 +42,7 @@ class DispatchesController < ApplicationController
   def create
     @dispatch = Dispatch.new(params[:dispatch])
 
+    @dispatch.company_id = current_user.company_id
     respond_to do |format|
       if @dispatch.save
         format.html { redirect_to @dispatch, notice: 'Dispatch was successfully created.' }

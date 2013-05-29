@@ -1,31 +1,38 @@
-<h1>Listing dispatches</h1>
+<div class="headContent">
+  <h1>Lista de Despachos</h1>
+</div>
+<div class="box">
+  <%= link_to 'Nuevo despacho', new_dispatch_path , :class => "button blue alignright" %>
 
-<table>
-  <tr>
-    <th>Destination</th>
-    <th>Kind</th>
-    <th>Dispatch datetime</th>
-    <th>Company</th>
-    <th>User</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th style="width:20% !important;">Destination</th>
+        <th>Kind</th>
+        <th>Dispatch datetime</th>
+        <!-- <th>Company</th>
+        <th>User</th> -->
+        <th style="width:20% !important;">Acciones</th>
+      </tr>
+     </thead> 
+     <tbody>
+      <% @dispatches.each do |dispatch| %>
 
-<% @dispatches.each do |dispatch| %>
-  <tr>
-    <td><%= dispatch.destination_id %></td>
-    <td><%= dispatch.kind_id %></td>
-    <td><%= dispatch.dispatch_datetime %></td>
-    <td><%= dispatch.company_id %></td>
-    <td><%= dispatch.user_id %></td>
-    <td><%= link_to 'Show', dispatch %></td>
-    <td><%= link_to 'Edit', edit_dispatch_path(dispatch) %></td>
-    <td><%= link_to 'Destroy', dispatch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+          <tr>
+            <td><%= dispatch.destination_id %></td>
+            <td><%= dispatch.kind_id %></td>
+            <td><%= dispatch.dispatch_datetime %></td>
+            
+            <td>
+            <%= link_to 'Ver', dispatch %>
+            <%= link_to 'Editar', edit_dispatch_path(dispatch) %>
+            <%= link_to 'Eliminar', dispatch, method: :delete, data: { confirm: '¿Está seguro de eliminar este despacho?'} %></td>
+          </tr>   
+                           
+      <% end %>
+      </tbody>
+   
+  
+  </table>
 
-<br />
-
-<%= link_to 'New Dispatch', new_dispatch_path %>
+</div>
