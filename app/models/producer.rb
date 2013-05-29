@@ -2,7 +2,7 @@
 require 'validators.rb'
 
 class Producer < ActiveRecord::Base
-  attr_accessible :active, :address, :commune_id, :name, :contact, :email, :line_of_business, :phone, :rut, :sag_code, :is_deleted
+  attr_accessible :active, :address, :commune_id, :name, :contact, :email, :line_of_business, :phone, :rut, :sag_code, :is_deleted, :code
 
   validates :address, :commune_id, :name, :contact, :line_of_business, :phone, :rut, :sag_code, :presence => true
 

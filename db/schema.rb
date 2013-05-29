@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529024043) do
+ActiveRecord::Schema.define(:version => 20130529043628) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(:version => 20130529024043) do
     t.datetime "updated_at",       :null => false
     t.boolean  "is_deleted"
     t.integer  "locality_id"
+    t.integer  "code"
   end
 
   create_table "qualities", :force => true do |t|
