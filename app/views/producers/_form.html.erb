@@ -156,14 +156,8 @@ $(document).ready(function(){
           <%= h grouping.name -%>
         </div>
         <div class="forme-in">
-          <% r = GroupingsProducer.where(:grouping_id => grouping.id, :producer_id => @producer.id)
-            if r.empty?
-              code_value = ""
-            else
-              code_value = r.first.code
-            end
-          %>
-          <%= text_field "grouping_code" ,"grouping_#{grouping.id}", :value =>  code_value %>
+          <% r = GroupingsProducer.where(:grouping_id => grouping.id, :producer_id => @producer.id) %>
+          <%= text_field "grouping_code" ,"grouping_#{grouping.id}", :value =>  r.empty? ? "" : r.first.code %>
         </div>
       </div>  
     <% end %>

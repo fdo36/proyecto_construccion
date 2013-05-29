@@ -8,6 +8,7 @@
       <tr>
         <th style="width:20% !important;">Nombre</th>
         <th>Descripción</th>
+        <th>Código de agrupación</th>
       </tr>
     </thead>
   <tbody>
@@ -17,6 +18,8 @@
       <tr>
         <td><%= grouping.name %></td>
         <td><%= grouping.description %></td>
+        <% r = GroupingsProducer.where(:grouping_id => grouping.id, :producer_id => @producer.id) %>
+        <td><%= r.empty? ? "" : r.first.code %></td>
       </tr>
     
   <% end %>
