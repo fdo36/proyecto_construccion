@@ -1,7 +1,37 @@
 <script>
 $(document).ready(function(){
   load_regions("regions", "producer_commune_id");
+  initialize_checkBoxes();
 });
+
+function initialize_checkBoxes () {
+  $.get("/groupings.json", function(groupings){
+    $.each(groupings, function(index, value){
+      
+      if($("#CheckBox_"+value.id).attr("checked") != "checked")
+      {
+        $("#TextField_" + value.id).attr("disabled", "disabled");
+      }
+      else
+      {
+        $("#TextField_" + value.id).removeAttr("disabled");
+      }
+    })
+  })
+}
+
+function checkBox_click (chkbox) {
+  var index = chkbox.id.split("_");
+  index = index[index.length-1];
+  if(!chkbox.checked)
+  {
+    $("#TextField_" + index).attr("disabled", "disabled");
+  }
+  else
+  {
+    $("#TextField_" + index).removeAttr("disabled");
+  }
+}
 </script>
 
 <div class="box">
@@ -152,12 +182,12 @@ $(document).ready(function(){
     <% @groupings.each do |grouping| %>
       <div class="line-forme" style="margin-left:50px">
         <div class="forme-lab">
-          <%= check_box_tag "grouping_ids[]", grouping.id, @producer.groupings.member?(grouping) -%>
+          <%= check_box_tag "grouping_ids[]", grouping.id, @producer.groupings.member?(grouping), :id => "CheckBox_#{grouping.id}", :onclick => "checkBox_click(this)"-%>
           <%= h grouping.name -%>
         </div>
         <div class="forme-in">
           <% r = GroupingsProducer.where(:grouping_id => grouping.id, :producer_id => @producer.id) %>
-          <%= text_field "grouping_code" ,"grouping_#{grouping.id}", :value =>  r.empty? ? "" : r.first.code %>
+          <%= text_field "grouping_code" ,"grouping_#{grouping.id}", :value =>  r.empty? ? "" : r.first.code, :id => "TextField_#{grouping.id}" %>
         </div>
       </div>  
     <% end %>
