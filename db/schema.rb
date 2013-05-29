@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529073823) do
+ActiveRecord::Schema.define(:version => 20130529084718) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
+    t.integer  "company_id"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -98,6 +99,7 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "company_id"
   end
 
   create_table "groupings_producers", :force => true do |t|
@@ -113,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "kinds_producers", :id => false, :force => true do |t|
@@ -203,12 +206,14 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
     t.boolean  "is_deleted"
     t.integer  "locality_id"
     t.integer  "code"
+    t.integer  "company_id"
   end
 
   create_table "qualities", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "receipt_containers", :force => true do |t|
@@ -309,6 +314,7 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
     t.integer  "kind_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "wiki_page_versions", :force => true do |t|

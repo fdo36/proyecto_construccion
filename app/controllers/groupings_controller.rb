@@ -1,5 +1,6 @@
 #encoding: utf-8
 class GroupingsController < ApplicationController
+  load_and_authorize_resource
   # GET /groupings
   # GET /groupings.json
   def index
