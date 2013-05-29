@@ -1,3 +1,9 @@
+<script>
+$(document).ready(function(){
+  load_regions("regions", "destination_commune_id");
+});
+</script>
+
 <div class="box">
 <%= form_for(@destination) do |f| %>
   <% if @destination.errors.any? %>
@@ -44,7 +50,7 @@
     <div class="forme-in">
       <% @regions = Region.all.map { |region| [region.name, region.id] } %>
       <%= select_tag('regions', options_for_select(@regions),
-        :onchange => "show_destination_communes(this)", :selected => :prompt, :prompt => '- Seleccione región -') %>
+        :onchange => "show_communes(this, 'destination_commune_id')", :selected => :prompt, :prompt => '- Seleccione región -') %>
     </div>
   </div>
   <div class="line-forme">

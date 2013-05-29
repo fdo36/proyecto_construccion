@@ -19,9 +19,9 @@
   <tr>
     <td><%= pack_type.name %></td>
     <td><%= pack_type.tare %></td>
-    <td><%= link_to 'Ver', pack_type %></td>
-    <td><%= link_to 'Editar', edit_pack_type_path(pack_type) %></td>
-    <td><%= link_to 'Eliminar', pack_type, method: :delete, data: { confirm: '¿Está seguro de eliminar este Envase?' } %></td>
+    <td><%= link_to 'Ver', pack_type %>
+    <%= link_to 'Editar', edit_pack_type_path(pack_type) %>
+    <%= link_to 'Eliminar', pack_type, method: :delete, data: { confirm: '¿Está seguro de eliminar este Envase?' } %></td>
   </tr>
 <% end %>
     </tbody>
