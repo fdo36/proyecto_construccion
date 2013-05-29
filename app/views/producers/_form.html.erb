@@ -126,6 +126,17 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
+        Código
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :code %>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
         Agrupaciones                
         <em class="formee-req">*</em>
       </label>  
@@ -139,7 +150,14 @@
           <%= h grouping.name -%>
         </div>
         <div class="forme-in">
-          <%= text_field "grouping_code" ,"grouping_#{grouping.id}" %>
+          <% r = GroupingsProducer.where(:grouping_id => grouping.id, :producer_id => @producer.id)
+            if r.empty?
+              code_value = ""
+            else
+              code_value = r.first.code
+            end
+          %>
+          <%= text_field "grouping_code" ,"grouping_#{grouping.id}", :value =>  code_value %>
         </div>
       </div>  
     <% end %>

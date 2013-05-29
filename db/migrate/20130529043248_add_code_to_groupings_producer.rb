@@ -1,4 +1,4 @@
-class AddCodeToGroupingsProducers < ActiveRecord::Migration
+class AddCodeToGroupingsProducer < ActiveRecord::Migration
   def change
     add_column :groupings_producers, :code, :string
   end
