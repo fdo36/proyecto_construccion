@@ -4,8 +4,9 @@ class PackType < ActiveRecord::Base
 
   validates :name, :tare, :presence => true
 
-  validates :tare, :format => { :with => /^-?(?:\d+|\d*\.\d+)$/, 
-  	:message => "debe ser un número válido" }
+  validates :tare, :numericality => true
+   #validates :tare, :format => { :with => /^-?[0-9]+([,\.][0-9]*)?$/, 
+   	#:message => "debe ser un número válido" }
 
   belongs_to :company_id
   has_many :pack_group_receipts

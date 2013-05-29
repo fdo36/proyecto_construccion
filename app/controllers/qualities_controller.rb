@@ -61,7 +61,7 @@ class QualitiesController < ApplicationController
 
     respond_to do |format|
       if @quality.update_attributes(params[:quality])
-        format.html { redirect_to '/qualities', notice: "La calidad #{@quality.name} fue creada exitosamente." }
+        format.html { redirect_to '/qualities', notice: "La calidad #{@quality.name} fue editada exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
