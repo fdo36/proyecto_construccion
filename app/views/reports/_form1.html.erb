@@ -1,0 +1,141 @@
+<script type="text/javascript">
+   function show_rut1(s)
+   {
+      if(s.value == "")
+      {
+         var inputRut = document.getElementById('rut1');
+         inputRut.value = "-";
+
+         var inputCodigo = document.getElementById('codigo1');
+         inputCodigo.value = "-";
+      }
+      else
+      {
+         $.get("/producers/"+s.value+".json", function(data) {
+            var inputRut = document.getElementById('rut1');
+            inputRut.value = data.rut;
+
+            var inputCodigo = document.getElementById('codigo1');
+            inputCodigo.value = data.sag_code;
+         });
+      }
+   }
+
+   function myfunction(event)
+   {
+      var keyCode = ('which' in event) ? event.which : event.keyCode;
+      if(keyCode==9)
+      {
+         var rut22 = document.getElementById('rut22');
+         $.getJSON("/producers.json", function(data) {
+            var bandera = false;
+            $.each(data, function(index, element){
+               if(element.rut==rut22.value)
+               {
+                  var inputCodigo = document.getElementById('nombrectm');
+                  inputCodigo.value = element.name;
+                  bandera = true;
+               }
+            });
+
+            if(bandera==false)
+            {
+               var inputCodigo = document.getElementById('nombrectm');
+               inputCodigo.value = "-";
+            }
+         });
+      }
+   }
+
+   function get_parameters1()
+   {
+      var producerID = document.getElementById('Productores1');
+
+      if(producerID.value=="")
+      {
+         //Hacer una consulta mas general
+      }
+      else
+      {
+         $.get("/producers/"+producerID.value+".json", function(producers) {
+            var especieID = document.getElementById('Especies1');
+
+            if(especieID.value=="")
+            {
+               //Hacer la consulta mas general
+            }
+            else
+            {
+               //Hacer la consulta mas especifica!!
+               $.get("/kinds/"+especieID.value+".json", function(kinds) {
+                  $.get("/receipts.json", function(receipts) {
+                     $.each(data, function(index, element){
+                        
+                     });
+                  });
+               });
+            }
+         });
+      }
+   }
+</script>
+
+<!--Precio por Productor-->
+<%= form_tag  do %>
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Productor'%> 
+      </div>
+      <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
+      <div class="forme-in">
+         <%= select_tag "Productores1", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut1(this)" %>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag "rut"  %>
+      </div>
+      <div class="forme-in ">
+         <input id="rut1" value="-" disabled="true"></input>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag "Cod. Productor"%>
+      </div>
+      <div class="forme-in">
+         <input id="codigo1" value="-" disabled="true"></input>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Especie'%>
+      </div>
+      <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+      <div class="forme-in">
+         <%= select_tag "Especies1", options_for_select(@kinds_array), :prompt => "Seleccione una Especie" %>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Fecha Inicio' %>
+      </div>
+      <div class="field">
+         <%= select_date %>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Fecha Termino' %>
+      </div>
+      <div class="field">
+         <%= select_date %>
+      </div>
+   </div>
+<% end %>
+<button class="button blue alignleft" onclick="get_parameters1()">Generar Informe</button>

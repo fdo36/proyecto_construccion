@@ -1,0 +1,116 @@
+<script type="text/javascript">
+  function show_rut(s) {
+    if(s.value == "")
+    {      
+      $('#rut').text("-"); 
+      $('#codigo').text("-");
+    }
+    
+    $.get("/producers/"+s.value+".json", function(data) {
+     $('#rut').html(data.rut); 
+     $('#codigo').html(data.code);
+   });
+  }
+  
+</script>
+
+
+<div class="box">
+<%= form_for(@receipt) do |f| %>
+  <% if @receipt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @receipt.errors.count > 1 ? "#{@receipt.errors.count} errores." : "#{@receipt.errors.count} error." %> No se puede guardar el ingreso:</h2>
+
+      <ul>
+      <% @receipt.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class = "contentSubPanel">
+    
+    
+    <div class="line-forme">
+      
+      <div class="forme-lab">
+        <label>Productor:</label>
+      </div>
+    
+      <div class="forme-in">
+        <% @options = Producer.all.map { |p| [p.company_name, p.id] } %>
+        <%= f.select(:producer_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione productor - '} , :onchange => "show_rut(this)") %>  
+
+      </div>
+
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Rut:</label>
+      </div>
+        
+      <div class="forme-in">
+        <label id="rut">-</label>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Código Productor:</label>
+      </div>
+    
+      <div class="forme-in">
+        <label id="codigo">-</label>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Especie:</label>
+      </div>
+    
+      <div class="forme-in">
+        <% kinds_array = Kind.all.map { |kind| [kind.name, kind.id] }%>
+        <%= f.select(:kind_id, kinds_array, :selected => :prompt, :prompt => '- Seleccione especie -') %>      
+      </div>
+    </div>
+
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Total:</label>
+      </div> 
+      <%= f.datetime_select :receipt_datetime %>         
+    </div>
+
+    <%= f.hidden_field :user_id, :value => 1 %>
+    <%= f.hidden_field :company_id, :value => 1 %>
+     
+  
+  </div>  
+</div>
+
+
+<div class="foot-box">
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label>Número Ingreso:</label>
+    </div>
+  
+    <div class="forme-in">
+      <% receipts_array = Receipt.all.map { |receipt| [receipt.code] }%>
+      <% if (receipts_array.size == 0) %>
+        <%= f.text_field(:code, :value => '1', :readonly => true)%>
+      <% else %>
+        <%= f.text_field(:code, :value => (Integer((receipts_array[receipts_array.size - 1])[0])+1).to_s, :readonly => true)%>
+      <%end%>
+    </div>
+
+    <%= link_to 'Cancelar', receipts_path , :class => "button silver alignright" %>
+    <%= f.submit :Aceptar , :class => "button green alignright" %>
+  </div>
+  
+</div>
+<% end %>

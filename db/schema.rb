@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20130528203655) do
 
   create_table "destinations", :force => true do |t|
     t.string   "rut"
-    t.string   "company_name"
+    t.string   "name"
     t.integer  "commune_id"
     t.string   "address"
     t.string   "email"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(:version => 20130528203655) do
 
   create_table "producers", :force => true do |t|
     t.string   "rut"
-    t.string   "company_name"
+    t.string   "name"
     t.string   "line_of_business"
     t.integer  "commune_id"
     t.string   "address"
@@ -153,6 +153,14 @@ ActiveRecord::Schema.define(:version => 20130528203655) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "settings", :force => true do |t|
+    t.string   "key"
+    t.string   "value"
+    t.integer  "company_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -175,9 +183,6 @@ ActiveRecord::Schema.define(:version => 20130528203655) do
     t.boolean  "super_admin"
     t.integer  "company_id"
     t.string   "gender"
-    t.string   "address"
-    t.integer  "region_id"
-    t.integer  "commune_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -197,11 +202,27 @@ ActiveRecord::Schema.define(:version => 20130528203655) do
 
   add_foreign_key "destinations", "communes", :name => "destinations_commune_id_fk"
 
+  add_foreign_key "dispatch_containers", "containers", :name => "dispatch_containers_container_id_fk"
+  add_foreign_key "dispatch_containers", "dispatches", :name => "dispatch_containers_dispatch_id_fk"
+  add_foreign_key "dispatch_containers", "qualities", :name => "dispatch_containers_quality_id_fk"
+  add_foreign_key "dispatch_containers", "varieties", :name => "dispatch_containers_variety_id_fk"
+
+  add_foreign_key "dispatches", "destinations", :name => "dispatches_destination_id_fk"
+  add_foreign_key "dispatches", "kinds", :name => "dispatches_kind_id_fk"
+
   add_foreign_key "groupings_producers", "groupings", :name => "groupings_producers_grouping_id_fk"
   add_foreign_key "groupings_producers", "producers", :name => "groupings_producers_producer_id_fk"
 
   add_foreign_key "kinds_producers", "kinds", :name => "kinds_producers_kind_id_fk"
   add_foreign_key "kinds_producers", "producers", :name => "kinds_producers_producer_id_fk"
+
+  add_foreign_key "pack_group_receipts", "qualities", :name => "pack_group_receipts_quality_id_fk"
+  add_foreign_key "pack_group_receipts", "receipts", :name => "pack_group_receipts_receipt_id_fk"
+  add_foreign_key "pack_group_receipts", "varieties", :name => "pack_group_receipts_variety_id_fk"
+
+  add_foreign_key "pallets", "qualities", :name => "pallets_quality_id_fk"
+  add_foreign_key "pallets", "receipts", :name => "pallets_receipt_id_fk"
+  add_foreign_key "pallets", "varieties", :name => "pallets_variety_id_fk"
 
   add_foreign_key "producers", "communes", :name => "producers_commune_id_fk"
 

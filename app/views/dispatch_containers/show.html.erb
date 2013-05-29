@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Dispatch:</b>
+  <%= @dispatch_container.dispatch_id %>
+</p>
+
+<p>
+  <b>Container:</b>
+  <%= @dispatch_container.container_id %>
+</p>
+
+<p>
+  <b>Quality:</b>
+  <%= @dispatch_container.quality_id %>
+</p>
+
+<p>
+  <b>Variety:</b>
+  <%= @dispatch_container.variety_id %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @dispatch_container.quantity %>
+</p>
+
+<p>
+  <b>Gross weight:</b>
+  <%= @dispatch_container.gross_weight %>
+</p>
+
+
+<%= link_to 'Edit', edit_dispatch_container_path(@dispatch_container) %> |
+<%= link_to 'Back', dispatch_containers_path %>

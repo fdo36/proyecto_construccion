@@ -1,0 +1,14 @@
+<%= form_tag  do %>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+        <%= label_tag 'Productores' %> 
+     </div>
+     <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
+     <div class="forme-in">
+         <%= select_tag "Productores6", options_for_select(@producers_array), :prompt => "Todos los Productores"  %>
+      </div>                        
+   </div>
+   <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>
+                       
+<% end %> 

@@ -1,4 +1,5 @@
 class SeasonsController < ApplicationController
+  load_and_authorize_resource
   # GET /seasons
   # GET /seasons.json
   def index
@@ -47,7 +48,7 @@ class SeasonsController < ApplicationController
 
     respond_to do |format|
       if @season.save
-        format.html { redirect_to @season, notice: 'Season was successfully created.' }
+        format.html { redirect_to @season, notice: 'La Temporada ha sido creada satisfactoriamente.' }
         format.json { render json: @season, status: :created, location: @season }
       else
         format.html { render action: "new" }

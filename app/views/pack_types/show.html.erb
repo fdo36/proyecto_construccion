@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Envase</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', pack_types_path , :class => "button blue alignright" %>
+<p>
+  <b>Nombre:</b>
+  <%= @pack_type.name %>
+</p>
+
+<p>
+  <b>Tara:</b>
+  <%= @pack_type.tare %>
+</p>
+</div>
+<div class="foot-box">
+	<%= link_to 'Editar', edit_pack_type_path(@pack_type) , :class => "button green alignright" %>
+</div>

@@ -1,0 +1,13 @@
+<%= form_tag  do %>
+
+      <div class="line-forme">
+         <div class="forme-lab">
+           <%= label_tag 'Destinos' %> 
+        </div>
+        <% @destinations_array = Destination.all.map { |desti| [desti.address, desti.id] } %>
+        <div class="forme-in">
+            <%= select_tag "Destinos7", options_for_select(@destinations_array), :prompt => "Todos los Destinos" %>
+         </div>                        
+      </div>
+      <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>
+<% end %> 
