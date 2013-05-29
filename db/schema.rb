@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523162318) do
+ActiveRecord::Schema.define(:version => 20130528203655) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -175,6 +175,9 @@ ActiveRecord::Schema.define(:version => 20130523162318) do
     t.boolean  "super_admin"
     t.integer  "company_id"
     t.string   "gender"
+    t.string   "address"
+    t.integer  "region_id"
+    t.integer  "commune_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

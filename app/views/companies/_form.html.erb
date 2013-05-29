@@ -47,15 +47,15 @@
           <%= f.select(:region_id, regions_array, :selected => :prompt, :prompt => '- Seleccione región -') %>
           </div>  
         </div>
-    <div class="line-forme">
-          <div class="forme-lab">
-            <%= f.label :"Comuna" %><br />
-          </div>  
-          <div class="forme-in">
-            <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
-          <%= f.select(:commune_id, communes_array, :selected => :prompt, :prompt => '- Seleccione comuna -') %>
-          </div>  
-        </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :"Comuna" %><br />
+    </div>  
+    <div class="forme-in">
+      <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
+      <%= f.select(:commune_id, communes_array, :selected => :prompt, :prompt => '- Seleccione comuna -') %>
+    </div>  
+  </div>
   <div class="line-forme">
     <div class="forme-lab">
       <%= f.label :Giro_del_Negocio %><br />
