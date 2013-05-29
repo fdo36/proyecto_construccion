@@ -1,0 +1,21 @@
+<% if current_user.super_admin == true %>
+	<div class="headContent">
+	  <h1>Error</h1>
+	</div>
+	<div class="box">
+	<%=(wt 'There is no such page', :default => 'No existe esta página. Quieres <a href="%{new_url}">crearla</a>?', :new_url => wiki_page_new_path ).html_safe %>  
+	</div>
+	<div class="foot-box">
+		<%= link_to( wt( 'Página principal Ayuda' ), "/wiki", :class => "button blue alignleft")%>
+	</div>
+<% else %>
+	<div class="headContent">
+	<h1>Error 404</h1>
+	</div>
+	<div class="box">
+	<%=wt 'Página no encontrada' %>
+	</div>
+	<div class="foot-box">
+	<%= link_to( wt( 'Página principal Ayuda' ), "/wiki", :class => "button blue alignleft")%>
+	</div>
+<% end %>

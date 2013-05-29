@@ -21,7 +21,7 @@
 
 <p>
   <b>Comuna:</b>
-  <%= @producer.commune_id %>
+  <%= Commune.find(@producer.commune_id).name %>
 </p>
 
 <p>
@@ -49,6 +49,8 @@
   <%= @producer.sag_code %>
 </p>
 
+<%= render 'groupings_table' %>
+
 <p>
   <b>Código Interno:</b>
   <%= @producer.code %>
@@ -58,3 +60,4 @@
 <div class="foot-box">
   <%= link_to 'Editar', edit_producer_path(@producer) , :class => "button green alignright" %>
 </div>
+

@@ -39,7 +39,7 @@
       </div>
     
       <div class="forme-in">
-        <% @options = Producer.all.map { |p| [p.company_name, p.id] } %>
+        <% @options = Producer.all.map { |p| [p.name, p.id] } %>
         <%= f.select(:producer_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione productor - '} , :onchange => "show_rut(this)") %>  
 
       </div>

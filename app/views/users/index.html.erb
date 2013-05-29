@@ -4,7 +4,7 @@
 <div class="box">
 
     <div class="newTopBanner">
-        <%= link_to 'Nuevo Usuario', new_user_path , :class => "button blue alignright" %>
+        <%= link_to 'Nuevo Usuario', new_company_user_path , :class => "button blue alignright" %>
     </div>
     
     <div class="contentSubPanel">
@@ -19,23 +19,28 @@
                         <th style="width:20% !important;">Email</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
-                        <th>Teléfono</th>
+                        <th>Genero</th>
+						<% if current_user.super_admin %>
                         <th>Súper Usuario</th>
+						<% end %>
                         <th style="width:20% !important;">Acciones</th>
                      </tr>
                 </thead>
                 <tbody> 
                     <% @users.each do |user| %>
-                        <% if ((user.active == true) or (user.active ==nil)) %>
+                        <% if (user.active == true) %>
                         <tr>
                             <td><%= user.email %></td>
                             <td><%= user.name %></td>
                             <td><%= user.lastname %></td>
-                            <td><%= user.phone %></td>
+                            <td><%= user.gender %></td>
+							<% if current_user.super_admin %>
                             <td><%= user.super_admin %></td>
-                            <td><%= link_to 'Ver', user %>
-                            <%= link_to 'Editar', edit_user_path(user) %>
-                            <%= link_to 'Deshabilitar', users_disable_path(user) %>
+							<% end %>
+                            <td>
+							<%= link_to('Ver', company_user_path(@company, user)) %>
+                            <%= link_to('Editar', edit_company_user_path(@company, user)) %>
+                            <%= link_to('Deshabilitar', users_disable_path(@company, user)) %>
                             </td>
                         </tr>
                         <%end%>
@@ -57,25 +62,29 @@
                         <th style="width:20% !important;">Email</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
-                        <th>Teléfono</th>
+                        <th>Genero</th>
+						<% if current_user.super_admin %>
                         <th>Súper Usuario</th>
+						<% end %>
                         <th style="width:20% !important;">Acciones</th>
                      </tr>
                 </thead>
                 <tbody>
 
                     <% @users.each do |user| %>
-                        <% if (user.active == false)  %>
+                        <% if (user.active != true)  %>
                         <tr>
                             <td><%= user.email %></td>
                             <td><%= user.name %></td>
                             <td><%= user.lastname %></td>
-                            <td><%= user.phone %></td>
+                            <td><%= user.gender %></td>
+							<% if current_user.super_admin %>
                             <td><%= user.super_admin %></td>
-                            <td><%= link_to 'Ver', user %>
-                            <%= link_to 'Editar', edit_user_path(user) %>
-                            <%= link_to 'Habilitar', users_enable_path(user) %>
-                            <%= link_to 'Eliminar', user, method: :delete, data: { confirm: '¿Esta seguro de eliminar este Usuario?' } %></td>
+							<% end %>
+                            <td><%= link_to 'Ver', company_user_path(@company, user) %>
+                            <%= link_to 'Editar', edit_company_user_path(@company, user) %>
+                            <%= link_to 'Habilitar', users_enable_path(@company, user) %>
+                            <%= link_to 'Eliminar', company_user_path(@company, user), method: :delete, data: { confirm: '¿Esta seguro de eliminar este Usuario?' } %></td>
                         </tr>
                         <%end%>
                     <% end %>
