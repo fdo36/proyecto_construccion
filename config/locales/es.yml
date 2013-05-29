@@ -215,6 +215,7 @@ es:
       locality: "Localidad"
       pack_group_dispatch: "Despacho de envases"
       pack_group_receipt: "Recepción de envases"
+      pack_type: "Tipo de envase"
       producer: "Productor"
       quality: "Calidad"
       receipt: "Recepción"
