@@ -3,7 +3,7 @@
   <h1>Ver Usuario</h1>
 </div>
 <div class="box">
-  <%= link_to 'Volver', users_path , :class => "button blue alignright" %>
+  <%= link_to 'Volver', company_users_path(@company) , :class => "button blue alignright" %>
   <p>
     <b>Correo electrónico:</b>
     <%= @user.email %>
@@ -45,5 +45,5 @@
   </p>
 </div>  
 <div class="foot-box">
-  <%= link_to 'Editar', edit_user_path(@user) , :class => "button green alignright" %>
+  <%= link_to 'Editar', edit_company_user_path(@company, @user) , :class => "button green alignright" %>
 </div>

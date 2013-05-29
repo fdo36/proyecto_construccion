@@ -12,6 +12,7 @@ class CreateProducers < ActiveRecord::Migration
       t.string :sag_code
       t.boolean :active
       t.foreign_key :communes
+      
 
       t.timestamps
     end

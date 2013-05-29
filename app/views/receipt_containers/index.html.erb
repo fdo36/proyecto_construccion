@@ -1,0 +1,35 @@
+<h1>Listing receipt_containers</h1>
+
+<table>
+  <tr>
+    <th>Receipt</th>
+    <th>Container</th>
+    <th>Quality</th>
+    <th>Variety</th>
+    <th>Price kg</th>
+    <th>Quantity</th>
+    <th>Gross weight</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @receipt_containers.each do |receipt_container| %>
+  <tr>
+    <td><%= receipt_container.receipt_id %></td>
+    <td><%= receipt_container.container_id %></td>
+    <td><%= receipt_container.quality_id %></td>
+    <td><%= receipt_container.variety_id %></td>
+    <td><%= receipt_container.price_kg %></td>
+    <td><%= receipt_container.quantity %></td>
+    <td><%= receipt_container.gross_weight %></td>
+    <td><%= link_to 'Show', receipt_container %></td>
+    <td><%= link_to 'Edit', edit_receipt_container_path(receipt_container) %></td>
+    <td><%= link_to 'Destroy', receipt_container, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Receipt container', new_receipt_container_path %>
