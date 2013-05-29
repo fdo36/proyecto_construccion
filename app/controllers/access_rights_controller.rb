@@ -41,9 +41,10 @@ class AccessRightsController < ApplicationController
   # POST /access_rights
   # POST /access_rights.json
   def create
+    @company = Company.find(params[:company_id])
     @role = Role.find(params[:role_id])
     @access_right = @role.access_rights.create(params[:access_right])
-    redirect_to role_path(@role)
+    redirect_to company_role_path(@company, @role)
   end
 
   # PUT /access_rights/1
@@ -65,9 +66,10 @@ class AccessRightsController < ApplicationController
   # DELETE /access_rights/1
   # DELETE /access_rights/1.json
   def destroy
+    @company = Company.find(params[:company_id])
     @role = Role.find(params[:role_id])
     @access_right = @role.access_rights.find(params[:id])
     @access_right.destroy
-    redirect_to role_path(@role)
+    redirect_to company_role_path(@company, @role)
   end
 end

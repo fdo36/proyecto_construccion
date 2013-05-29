@@ -3,7 +3,7 @@
 </div>
 <div class="box">
   <div class="newTopBanner">
-    <%= link_to 'Nuevo Rol', new_role_path , :class => "button blue alignright" %>
+    <%= link_to 'Nuevo Rol', new_company_role_path(@company), :class => "button blue alignright" %>
   </div>
 
   <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
@@ -23,9 +23,9 @@
       <tr>
         <td><%= role.name %>
         <td><%= role.description %></td>
-        <td><%= link_to 'Ver', role %>
-        <%= link_to 'Editar', edit_role_path(role) %>
-        <%= link_to 'Eliminar', role, method: :delete, data: { confirm: '¿Está seguro de eliminar este Rol?' } %></td>
+        <td><%= link_to 'Ver', company_role_path(@company, role) %>
+        <%= link_to 'Editar', edit_company_role_path(@company, role) %>
+        <%= link_to 'Eliminar', company_role_path(@company, role), method: :delete, data: { confirm: '¿Está seguro de eliminar este Rol?' } %></td>
       </tr>
     
   <% end %>

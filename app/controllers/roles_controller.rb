@@ -3,7 +3,8 @@ class RolesController < ApplicationController
   # GET /roles
   # GET /roles.json
   def index
-    @roles = Role.all
+    @company = Company.find(params[:company_id])
+    @roles = Role.where(:company_id => @company.id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +15,7 @@ class RolesController < ApplicationController
   # GET /roles/1
   # GET /roles/1.json
   def show
+    @company = Company.find(params[:company_id])
     @role = Role.find(params[:id])
     @supported_models = Astrotils::get_models_name.map { |model_name|
       begin
@@ -33,6 +35,7 @@ class RolesController < ApplicationController
   # GET /roles/new
   # GET /roles/new.json
   def new
+    @company = Company.find(params[:company_id])
     @role = Role.new
 
     respond_to do |format|
@@ -43,17 +46,19 @@ class RolesController < ApplicationController
 
   # GET /roles/1/edit
   def edit
+    @company = Company.find(params[:company_id])
     @role = Role.find(params[:id])
   end
 
   # POST /roles
   # POST /roles.json
   def create
+    @company = Company.find(params[:company_id])
     @role = Role.new(params[:role])
-
+    @role.company_id = @company.id
     respond_to do |format|
       if @role.save
-        format.html { redirect_to @role, notice: 'El rol fue creado exitosamente.' }
+        format.html { redirect_to company_role_path(@company, @role), notice: 'El rol fue creado exitosamente.' }
         format.json { render json: @role, status: :created, location: @role }
       else
         format.html { render action: "new" }
@@ -65,11 +70,12 @@ class RolesController < ApplicationController
   # PUT /roles/1
   # PUT /roles/1.json
   def update
+    @company = Company.find(params[:company_id])
     @role = Role.find(params[:id])
 
     respond_to do |format|
       if @role.update_attributes(params[:role])
-        format.html { redirect_to @role, notice: 'El rol fue editado exitosamente.' }
+        format.html { redirect_to company_role_path(@company, @role), notice: 'El rol fue editado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -81,11 +87,12 @@ class RolesController < ApplicationController
   # DELETE /roles/1
   # DELETE /roles/1.json
   def destroy
+    @company = Company.find(params[:company_id])
     @role = Role.find(params[:id])
     @role.destroy
 
     respond_to do |format|
-      format.html { redirect_to roles_url }
+      format.html { redirect_to company_roles_path(@company) }
       format.json { head :no_content }
     end
   end
