@@ -1,3 +1,8 @@
+<script>
+function replace_comma_with_dot (input) {
+  $("#pack_type_tare").val(input.value.replace(",","."));
+}
+</script>
 <div class="box">
 <%= form_for(@pack_type) do |f| %>
   <% if @pack_type.errors.any? %>
@@ -14,7 +19,10 @@
 
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Nombre %><br />
+      <label> 
+        Nombre                
+        <em class="formee-req">*</em>
+      </label> 
     </div>
     <div class="forme-in">
       <%= f.text_field :name %>
@@ -22,13 +30,18 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Tara %><br />
+      <label> 
+        Tara                
+        <em class="formee-req">*</em>
+      </label>   
     </div>
     <div class="forme-in">
-      <%= f.text_field :tare %>
+      <%= f.text_field :tare, :oninput => "replace_comma_with_dot(this)" %>
     </div>
-    
   </div>
+    <label> (
+      <em class="formee-req">*</em>
+    </label> ) Campos obligatorios. 
 </div>
 <div class="foot-box">
   <%= link_to 'Cancelar', pack_types_path , :class => "button silver alignright" %>

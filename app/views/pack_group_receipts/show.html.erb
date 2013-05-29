@@ -3,42 +3,40 @@
   <h1>Ver Envase</h1>
 </div>
 <div class="box">
-  <%= link_to 'Volver', pack_group_receipt_path , :class => "button blue alignright" %>
+  
 <p>
-  <b>Receipt:</b>
-  <%= @pack_group_receipt.receipt_id %>
+  <b>Número Ingreso:</b>
+  <%= (Receipt.all(:select => "code", :conditions => ["id = ?",@pack_group_receipt.receipt_id]))[0].code %>
 </p>
 
 <p>
-  <b>Variety:</b>
-  <%= @pack_group_receipt.variety_id %>
+  <b>Variedad:</b>
+  <%= (Variety.all(:select => "name", :conditions => ["id = ?",@pack_group_receipt.variety_id]))[0].name %>
 </p>
 
 <p>
-  <b>Quality:</b>
-  <%= @pack_group_receipt.quality_id %>
+  <b>Calidad:</b>
+  <%= (Quality.all(:select => "name", :conditions => ["id = ?",@pack_group_receipt.quality_id]))[0].name %>
 </p>
 
 <p>
-  <b>Price kg:</b>
+  <b>Precio por Kg ($):</b>
   <%= @pack_group_receipt.price_per_unit %>
 </p>
 
 <p>
-  <b>Container:</b>
-  <%= @pack_group_receipt.pack_type_id %>
+  <b>Tipo Envases:</b>
+  <%= (PackType.all(:select => "name", :conditions => ["id = ?",@pack_group_receipt.pack_type_id]))[0].name %>
 </p>
 
 <p>
-  <b>Quantity:</b>
+  <b>Cantidad Envases:</b>
   <%= @pack_group_receipt.quantity %>
 </p>
 
 <p>
-  <b>Gross weight:</b>
+  <b>Peso Bruto (Kg):</b>
   <%= @pack_group_receipt.gross_weight %>
 </p>
-</div>
-<div class="foot-box">
-  <%= link_to 'Editar', edit_pack_group_receipt_path(@pack_group_receipt) , :class => "button green alignright" %>
+
 </div>

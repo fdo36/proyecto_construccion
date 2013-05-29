@@ -7,6 +7,8 @@ class CreateDispatches < ActiveRecord::Migration
       t.integer :kind_id
       t.foreign_key :kinds
       t.datetime :dispatch_datetime
+      t.integer :user_id
+      t.integer :company_id
 
       t.timestamps
     end

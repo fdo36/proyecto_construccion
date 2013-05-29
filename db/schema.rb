@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130525205616) do
+ActiveRecord::Schema.define(:version => 20130529095618) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130525205616) do
     t.datetime "updated_at", :null => false
     t.integer  "role_id"
     t.string   "action"
+    t.integer  "company_id"
   end
 
   create_table "communes", :force => true do |t|
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20130525205616) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
+    t.integer  "company_id"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -87,6 +89,8 @@ ActiveRecord::Schema.define(:version => 20130525205616) do
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
+    t.integer  "user_id"
+    t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
@@ -96,11 +100,13 @@ ActiveRecord::Schema.define(:version => 20130525205616) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "company_id"
   end
 
-  create_table "groupings_producers", :id => false, :force => true do |t|
+  create_table "groupings_producers", :force => true do |t|
     t.integer "grouping_id"
     t.integer "producer_id"
+    t.string  "code"
   end
 
   add_index "groupings_producers", ["grouping_id", "producer_id"], :name => "index_groupings_producers_on_grouping_id_and_producer_id"
@@ -110,6 +116,7 @@ ActiveRecord::Schema.define(:version => 20130525205616) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "kinds_producers", :id => false, :force => true do |t|
@@ -152,6 +159,22 @@ ActiveRecord::Schema.define(:version => 20130525205616) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "pack_types", :force => true do |t|
+    t.string   "name"
+    t.integer  "company_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.float    "tare"
+  end
+
+  create_table "pack_types_producers", :id => false, :force => true do |t|
+    t.integer "pack_type_id"
+    t.integer "producer_id"
+  end
+
+  add_index "pack_types_producers", ["pack_type_id", "producer_id"], :name => "index_pack_types_producers_on_pack_type_id_and_producer_id"
+  add_index "pack_types_producers", ["producer_id", "pack_type_id"], :name => "index_pack_types_producers_on_producer_id_and_pack_type_id"
+
   create_table "pallets", :force => true do |t|
     t.integer  "code"
     t.integer  "quantity"
@@ -183,12 +206,15 @@ ActiveRecord::Schema.define(:version => 20130525205616) do
     t.datetime "updated_at",       :null => false
     t.boolean  "is_deleted"
     t.integer  "locality_id"
+    t.integer  "code"
+    t.integer  "company_id"
   end
 
   create_table "qualities", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "receipt_containers", :force => true do |t|
@@ -208,6 +234,8 @@ ActiveRecord::Schema.define(:version => 20130525205616) do
     t.integer  "producer_id"
     t.integer  "kind_id"
     t.datetime "receipt_datetime"
+    t.integer  "user_id"
+    t.integer  "company_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
@@ -223,6 +251,7 @@ ActiveRecord::Schema.define(:version => 20130525205616) do
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "company_id"
   end
 
   create_table "roles_users", :id => false, :force => true do |t|
@@ -273,6 +302,9 @@ ActiveRecord::Schema.define(:version => 20130525205616) do
     t.boolean  "super_admin"
     t.integer  "company_id"
     t.string   "gender"
+    t.string   "address"
+    t.integer  "region_id"
+    t.integer  "commune_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -283,7 +315,35 @@ ActiveRecord::Schema.define(:version => 20130525205616) do
     t.integer  "kind_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
+
+  create_table "wiki_page_versions", :force => true do |t|
+    t.integer  "page_id",    :null => false
+    t.integer  "updator_id"
+    t.integer  "number"
+    t.string   "comment"
+    t.string   "path"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "updated_at"
+  end
+
+  add_index "wiki_page_versions", ["page_id"], :name => "index_wiki_page_versions_on_page_id"
+  add_index "wiki_page_versions", ["updator_id"], :name => "index_wiki_page_versions_on_updator_id"
+
+  create_table "wiki_pages", :force => true do |t|
+    t.integer  "creator_id"
+    t.integer  "updator_id"
+    t.string   "path"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "wiki_pages", ["creator_id"], :name => "index_wiki_pages_on_creator_id"
+  add_index "wiki_pages", ["path"], :name => "index_wiki_pages_on_path", :unique => true
 
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
 
@@ -309,6 +369,9 @@ ActiveRecord::Schema.define(:version => 20130525205616) do
   add_foreign_key "pack_group_receipts", "qualities", :name => "pack_group_receipts_quality_id_fk"
   add_foreign_key "pack_group_receipts", "receipts", :name => "pack_group_receipts_receipt_id_fk"
   add_foreign_key "pack_group_receipts", "varieties", :name => "pack_group_receipts_variety_id_fk"
+
+  add_foreign_key "pack_types_producers", "pack_types", :name => "pack_types_producers_pack_type_id_fk"
+  add_foreign_key "pack_types_producers", "producers", :name => "pack_types_producers_producer_id_fk"
 
   add_foreign_key "pallets", "qualities", :name => "pallets_quality_id_fk"
   add_foreign_key "pallets", "receipts", :name => "pallets_receipt_id_fk"

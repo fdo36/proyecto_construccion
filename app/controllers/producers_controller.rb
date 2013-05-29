@@ -1,5 +1,6 @@
 #encoding: utf-8
 class ProducersController < ApplicationController
+  load_and_authorize_resource
   # GET /producers
   # GET /producers.json
   def index
@@ -43,6 +44,7 @@ class ProducersController < ApplicationController
   # POST /producers
   # POST /producers.json
   def create
+
     @producer = Producer.new(params[:producer])
     @producer.update_attributes(:active => "1", :is_deleted => "0")
 
@@ -51,10 +53,24 @@ class ProducersController < ApplicationController
     grouping_ids ||= []
     @producer.grouping_ids = grouping_ids
 
+    @producer.company_id = current_user.company_id
+
     respond_to do |format|
       if @producer.save
-        format.html { redirect_to @producer, notice: 'El productor fue creado exitosamente.' }
+        grouping_ids.each do |id|
+          grouping_code = params[:grouping_code]
+          code = grouping_code['grouping_'+id]
+          gc = GroupingsProducer.where(:grouping_id => id, :producer_id => @producer.id).first
+          if gc.nil?
+            GroupingsProducer.create(:grouping_id => id, :producer_id => @producer.id, :code => code)  
+          else
+            gc.code = code
+          end
+        end
+
+        format.html { redirect_to "/producers", notice: "El productor #{@producer.name} fue creado exitosamente." }
         format.json { render json: @producer, status: :created, location: @producer }
+
       else
         format.html { render action: "new" }
         format.json { render json: @producer.errors, status: :unprocessable_entity }
@@ -72,9 +88,21 @@ class ProducersController < ApplicationController
     grouping_ids ||= []
     @producer.grouping_ids = grouping_ids
 
+
+
     respond_to do |format|
       if @producer.update_attributes(params[:producer])
-        format.html { redirect_to @producer, notice: 'El productor fue editado exitosamente.' }
+        grouping_ids.each do |id|
+          grouping_code = params[:grouping_code]
+          code = grouping_code['grouping_'+id]
+          gc = GroupingsProducer.where(:grouping_id => id, :producer_id => @producer.id).first
+          if gc.nil?
+            GroupingsProducer.create(:grouping_id => id, :producer_id => @producer.id, :code => code)  
+          else
+            gc.code = code
+          end  
+        end
+        format.html { redirect_to "/producers", notice: "El productor #{@producer.name} fue editado exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

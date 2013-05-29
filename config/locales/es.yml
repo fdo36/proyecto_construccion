@@ -209,13 +209,20 @@ es:
       company: "Compañía"
       container: "Contenedor"
       destination: "Destino"
+      dispatch: "Despacho"
       grouping: "Agrupación"
       kind: "Tipo"
+      locality: "Localidad"
+      pack_group_dispatch: "Despacho de envases"
+      pack_group_receipt: "Recepción de envases"
+      pack_type: "Tipo de envase"
       producer: "Productor"
       quality: "Calidad"
+      receipt: "Recepción"
       region: "Región"
       role: "Rol"
       season: "Temporada"
+      setting: "Configuración"
       user: "Usuario"
       variety: "Variedad"
     attributes:
@@ -286,6 +293,7 @@ es:
         gross_weight: "Peso Bruto"
         variety_id: "Variedad"
         tare: "Destare Pallet"
+        pallet_code: "El pallet código"
 
 
 

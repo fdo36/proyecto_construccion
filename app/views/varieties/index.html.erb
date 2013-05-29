@@ -6,6 +6,8 @@
     <%= link_to 'Nueva Variedad', new_variety_path , :class => "button blue alignright" %>
   </div>
 
+  <p id="notice" class="alignleft"><%= notice %> </p>
+
   <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
     <thead>
       <tr>
@@ -19,9 +21,9 @@
   <tr>
     <td><%= variety.name %></td>
     <td><%= Kind.find(variety.kind_id).name %></td>
-    <td><%= link_to 'Ver', variety %></td>
-    <td><%= link_to 'Editar', edit_variety_path(variety) %></td>
-    <td><%= link_to 'Eliminar', variety, method: :delete, data: { confirm: '¿Está seguro de eliminar esta variedad?' } %></td>
+    <td><%= link_to 'Ver', variety %>
+    <%= link_to 'Editar', edit_variety_path(variety) %>
+    <%= link_to 'Eliminar', variety, method: :delete, data: { confirm: '¿Está seguro de eliminar esta variedad?' } %></td>
   </tr>
 <% end %>
     </tbody>

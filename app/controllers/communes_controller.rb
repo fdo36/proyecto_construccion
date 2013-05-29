@@ -1,4 +1,5 @@
 class CommunesController < ApplicationController
+  load_and_authorize_resource
   # GET /communes
   # GET /communes.json
   def index

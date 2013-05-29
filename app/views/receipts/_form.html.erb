@@ -2,13 +2,15 @@
   function show_rut(s) {
     if(s.value == "")
     {      
-      $('#rut').text("-"); 
-      $('#codigo').text("-");
+      $('#rut').val(""); 
+      $('#codigo').val("");
+      $('#codigo_sag').val("");
     }
     
     $.get("/producers/"+s.value+".json", function(data) {
-     $('#rut').html(data.rut); 
-     $('#codigo').html(data.code);
+     $('#rut').val(data.rut); 
+     $('#codigo').val(data.code);
+     $('#codigo_sag').val(data.sag_code);
    });
   }
   
@@ -39,7 +41,7 @@
       </div>
     
       <div class="forme-in">
-        <% @options = Producer.all.map { |p| [p.company_name, p.id] } %>
+        <% @options = Producer.all.map { |p| [p.name, p.id] } %>
         <%= f.select(:producer_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione productor - '} , :onchange => "show_rut(this)") %>  
 
       </div>
@@ -52,17 +54,29 @@
       </div>
         
       <div class="forme-in">
-        <label id="rut">-</label>
+        
+        <%= f.text_field(:code, :id => 'rut')%>
+
       </div>
     </div>
 
     <div class="line-forme">
       <div class="forme-lab">
-        <label>Código Productor:</label>
+        <label>Código Interno Productor:</label>
       </div>
     
       <div class="forme-in">
-        <label id="codigo">-</label>
+        <%= f.text_field(:code, :id => 'codigo')%>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Código Interno SAG:</label>
+      </div>
+    
+      <div class="forme-in">
+        <%= f.text_field(:code, :id => 'codigo_sag')%>
       </div>
     </div>
 

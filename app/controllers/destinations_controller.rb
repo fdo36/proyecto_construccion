@@ -1,5 +1,6 @@
 #encoding: utf-8
 class DestinationsController < ApplicationController
+  load_and_authorize_resource
   # GET /destinations
   # GET /destinations.json
   def index
@@ -26,7 +27,7 @@ class DestinationsController < ApplicationController
   # GET /destinations/new.json
   def new
     @destination = Destination.new
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @destination }
@@ -36,6 +37,7 @@ class DestinationsController < ApplicationController
   # GET /destinations/1/edit
   def edit
     @destination = Destination.find(params[:id])
+    @editing = true
   end
 
   # POST /destinations
@@ -46,7 +48,7 @@ class DestinationsController < ApplicationController
 
     respond_to do |format|
       if @destination.save
-        format.html { redirect_to @destination, notice: 'El destino fue creado exitosamente.' }
+        format.html { redirect_to '/destinations', notice: "El destino #{@destination.name} fue creado exitosamente." }
         format.json { render json: @destination, status: :created, location: @destination }
       else
         format.html { render action: "new" }
@@ -62,7 +64,7 @@ class DestinationsController < ApplicationController
 
     respond_to do |format|
       if @destination.update_attributes(params[:destination])
-        format.html { redirect_to @destination, notice: 'El destino fue editado exitosamente.' }
+        format.html { redirect_to '/destinations', notice: "El destino #{@destination.name} fue editado exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -75,7 +77,6 @@ class DestinationsController < ApplicationController
   # DELETE /destinations/1.json
   def destroy
     @destination = Destination.find(params[:id])
-    @destination.destroy
 
     respond_to do |format|
       format.html { redirect_to destinations_url }

@@ -3,7 +3,6 @@
   <% if @quality.errors.any? %>
     <div id="error_explanation">
       <h2><%= @quality.errors.count > 1 ? "#{@quality.errors.count} errores." : "#{@quality.errors.count} error." %> no se puede guardar la calidad:</h2>
-
       <ul>
       <% @quality.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -11,15 +10,20 @@
       </ul>
     </div>
   <% end %>
-
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Nombre %><br />
+      <label> 
+        Nombre                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :name %>
     </div>
   </div>
+  <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
 </div>
 <div class="foot-box">
   <%= link_to 'Cancelar', qualities_path , :class => "button silver alignright" %>

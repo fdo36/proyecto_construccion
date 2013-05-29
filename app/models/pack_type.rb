@@ -1,7 +1,16 @@
+#encoding: utf-8
 class PackType < ActiveRecord::Base
   attr_accessible :company_id, :name, :tare
-  belongs_to :company_id
+
+  validates :name, :tare, :presence => true
+
+  validates :tare, :numericality => true
+   #validates :tare, :format => { :with => /^-?[0-9]+([,\.][0-9]*)?$/, 
+   	#:message => "debe ser un número válido" }
+
+  belongs_to :company
   has_many :pack_group_receipts
   has_many :pack_group_dispatches
   has_many :pallets
+  has_and_belongs_to_many :producers
 end

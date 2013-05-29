@@ -11,7 +11,7 @@
       </div>
         
       <div class="forme-in">
-        <label id="productor"><%=  (Producer.all(:select => "company_name", :conditions => ["id = ?",@receipt.producer_id]))[0].company_name %></label>
+        <label id="productor"><%=  (Producer.all(:select => "name", :conditions => ["id = ?",@receipt.producer_id]))[0].name %></label>
       </div>
     </div>
 

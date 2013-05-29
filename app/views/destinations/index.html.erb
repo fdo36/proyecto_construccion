@@ -6,6 +6,8 @@
     <%= link_to 'Nuevo Destino', new_destination_path , :class => "button blue alignright" %>
   </div>
 
+  <p id="notice" class="alignleft"><%= notice %> </p>
+
     <div class="contentSubPanel">
         <div class="headContent">
             <h1>Destinos Habilitados</h1>
@@ -16,8 +18,6 @@
                 <thead>
                   <tr>
                     <th style="width:20% !important;">Nombre</th>
-                    <th>Dirección</th>
-                    <th>Comuna</th>
                     <th>Teléfono</th>
                     <th>Email</th>
                     <th colspan="3" style="width:20% !important;">Acciones</th>
@@ -28,13 +28,11 @@
               <% if ((destination.active == true) and (destination.is_deleted == false))%>
                 <tr>
                   <td><%= destination.name %></td>
-                  <td><%= destination.address %></td>
-                  <td><%= Commune.find(destination.commune_id).name %></td>
                   <td><%= destination.phone %></td>
                   <td><%= destination.email %></td>
                   <td><%= link_to 'Ver', destination %>
                   <%= link_to 'Editar', edit_destination_path(destination) %>
-                  <%= link_to 'Deshabilitar', destinations_disable_path(destination) %>
+                  <%= link_to 'Deshabilitar', destinations_disable_path(destination) %></td>
                 </tr>
               <% end %>
             <% end %>
@@ -53,8 +51,6 @@
                 <thead>
                   <tr>
                     <th style="width:20% !important;">Nombre</th>
-                    <th>Dirección</th>
-                    <th>Comuna</th>
                     <th>Teléfono</th>
                     <th>Email</th>
                     <th colspan="3" style="width:20% !important;">Acciones</th>
@@ -65,8 +61,6 @@
               <% if ((destination.active == false) and (destination.is_deleted == false))%>
                 <tr>
                   <td><%= destination.name %></td>
-                  <td><%= destination.address %></td>
-                  <td><%= destination.commune_id %></td>
                   <td><%= destination.phone %></td>
                   <td><%= destination.email %></td>
                   <td><%= link_to 'Ver', destination %>

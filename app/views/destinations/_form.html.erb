@@ -1,3 +1,9 @@
+<script>
+$(document).ready(function(){
+  load_regions("regions", "destination_commune_id");
+});
+</script>
+
 <div class="box">
 <%= form_for(@destination) do |f| %>
   <% if @destination.errors.any? %>
@@ -14,15 +20,21 @@
 
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Rut %><br />
+      <label> 
+        Rut                
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
-      <%= f.text_field :rut %>
+      <%= f.text_field :rut, :class => 'rut' %>
     </div>
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Nombre %><br />
+      <label> 
+        Nombre Compañia                
+        <em class="formee-req">*</em>
+      </label>
     </div>
     <div class="forme-in">
       <%= f.text_field :name %>
@@ -30,16 +42,35 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Comuna %><br />
+        <label> 
+        Región          
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
-      <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
-      <%= f.select(:commune_id, communes_array, :selected => :prompt, :prompt => '- Seleccione comuna -') %>
+      <% @regions = Region.all.map { |region| [region.name, region.id] } %>
+      <%= select_tag('regions', options_for_select(@regions),
+        :onchange => "show_communes(this, 'destination_commune_id')", :selected => :prompt, :prompt => '- Seleccione región -') %>
     </div>
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Dirección %><br />
+      <label> 
+        Comuna     
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+
+      <%= f.select(:commune_id, {} ,:selected => :prompt, :prompt => '- Seleccione comuna -') %>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Dirección 
+        <em class="formee-req">*</em>
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :address %>
@@ -47,7 +78,9 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Email %><br />
+      <label> 
+        E-Mail      
+      </label>  
     </div>
     <div class="forme-in">
       <%= f.text_field :email %>
@@ -55,7 +88,10 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Contacto %><br />
+        <label> 
+        Contacto
+        <em class="formee-req">*</em>
+      </label> 
     </div>
     <div class="forme-in">
       <%= f.text_field :contact %>
@@ -63,12 +99,18 @@
   </div>
   <div class="line-forme">
     <div class="forme-lab">
-      <%= f.label :Teléfono %><br />
+        <label> 
+        Teléfono
+        <em class="formee-req">*</em>
+      </label> 
     </div>
     <div class="forme-in">
       <%= f.text_field :phone %>
     </div>
   </div>
+  <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
 </div>
 <div class="foot-box">
   <%= link_to 'Cancelar', destinations_path , :class => "button silver alignright" %>
