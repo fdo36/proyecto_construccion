@@ -1,5 +1,6 @@
 #encoding: utf-8
 class VarietiesController < ApplicationController
+  load_and_authorize_resource
   # GET /varieties
   # GET /varieties.json
   def index

@@ -1,5 +1,6 @@
 #encoding: utf-8
 class ProducersController < ApplicationController
+  load_and_authorize_resource
   # GET /producers
   # GET /producers.json
   def index
