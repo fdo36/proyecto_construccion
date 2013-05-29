@@ -66,9 +66,11 @@
 	// CARGA LAS REGIONES Y COMUNAS PARA EL EDITAR
 	function load_regions(region_selector_id, commune_selector_id) {
 		var pathname = window.location.pathname;
-		if(pathname.match(/edit$/)) // SÓLO SI ESTA EDITANDO HACE ESTO
+		if(!pathname.match(/new$/)) // SÓLO SI ESTA EDITANDO HACE ESTO
 		{	
-		  	pathname = pathname.replace('/edit', '.json');
+			alert("No estas agregando");
+		  	pathname = pathname.replace('/edit', '');
+		  	pathname = pathname + ".json";
 		    $.get(pathname, function(commune) {
 		      $.get("/regions/-1/communes/" + commune.commune_id +".json", function(region){
 		      	

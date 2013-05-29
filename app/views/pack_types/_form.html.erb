@@ -1,3 +1,8 @@
+<script>
+function replace_comma_with_dot (input) {
+  $("#pack_type_tare").val(input.value.replace(",","."));
+}
+</script>
 <div class="box">
 <%= form_for(@pack_type) do |f| %>
   <% if @pack_type.errors.any? %>
@@ -25,7 +30,7 @@
       <%= f.label :Tara %><br />
     </div>
     <div class="forme-in">
-      <%= f.text_field :tare %>
+      <%= f.text_field :tare, :oninput => "replace_comma_with_dot(this)" %>
     </div>
     
   </div>
