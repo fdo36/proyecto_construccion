@@ -43,8 +43,31 @@ class AccessRightsController < ApplicationController
   def create
     @company = Company.find(params[:company_id])
     @role = Role.find(params[:role_id])
-    @access_right = @role.access_rights.create(params[:access_right])
-    redirect_to company_role_path(@company, @role)
+    access_right_hash = params[:access_right]
+    
+    if current_user.super_admin
+      is_ok = true
+    else
+      current_user.roles.each { |r|
+        r.access_rights.each { |ar|
+          puts  access_right_hash['model_name']
+          if ar.model_name == access_right_hash['model_name'] && ar.action == access_right_hash['action']
+            is_ok = true
+          end
+        }
+      }
+    end
+    
+    respond_to do |format|
+      if is_ok
+        @access_right = @role.access_rights.create(params[:access_right])
+        @access_right.company_id = current_user.company_id
+        @access_right.save
+        format.html { redirect_to company_role_path(@company, @role) }
+      else
+        format.html { redirect_to company_role_path(@company, @role), notice: 'Usted no puede conceder este permiso.' }
+      end
+    end
   end
 
   # PUT /access_rights/1
