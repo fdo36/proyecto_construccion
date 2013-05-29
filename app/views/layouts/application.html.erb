@@ -68,7 +68,6 @@
 		var pathname = window.location.pathname;
 		if(!pathname.match(/new$/)) // SÓLO SI ESTA EDITANDO HACE ESTO
 		{	
-			alert("No estas agregando");
 		  	pathname = pathname.replace('/edit', '');
 		  	pathname = pathname + ".json";
 		    $.get(pathname, function(commune) {

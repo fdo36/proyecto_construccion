@@ -40,5 +40,13 @@
 </div>
 <% end %>
 <% else %>
-  <%=wt 'No posees los permisos necesarios para estar acá.' %>
+  <div class="headContent">
+  <h1>Error</h1>
+  </div>
+  <div class="box">
+    <%=wt 'No posees los permisos necesarios para estar acá.' %>
+  </div>
+  <div class="foot-box">
+    <%= wiki_page_actions %>
+  </div>
 <% end %>
