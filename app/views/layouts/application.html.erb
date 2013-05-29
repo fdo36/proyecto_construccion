@@ -52,8 +52,6 @@
 					<% if current_user.super_admin %>
 					<p>Acciones</p>
 					<ul>
-						<li><%= link_to('Cuentas', users_path) %></li>
-						<li><%= link_to('Roles', roles_path) %></li>
 						<li><%= link_to('Compañias', companies_path)%></li>
 					</ul>
 					<%else%>
@@ -114,7 +112,7 @@
 						<p>Compañia</p>
 					</div>
 					<ul class="toolsMenu">
-						<li> <p><%= link_to('Cuentas', users_path) %></p> </li>
+						<li> <p><%= link_to('Cuentas', company_users_path(current_user.company)) %></p> </li>
 						<li> <p>Configuración</p> </li>
 					</ul>
 				</div>

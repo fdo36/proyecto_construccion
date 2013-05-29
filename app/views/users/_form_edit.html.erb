@@ -1,5 +1,5 @@
 <div class="box">
-  <%= form_for(@user) do |f| %>
+  <%= form_for([@company, @user]) do |f| %>
     <% if @user.errors.any? %>
       <div id="error_explanation">
         <h2>Se han encontrado los siguientes errores:</h2>
@@ -125,7 +125,7 @@
 </div>
 
 <div class="foot-box">
-  <%= link_to 'Cancelar', users_path , :class => "button silver alignright" %>
+  <%= link_to 'Cancelar', company_users_path(@company) , :class => "button silver alignright" %>
   <%= f.submit :Guardar , :class => "button green alignright" %>
 </div>
  <% end %>

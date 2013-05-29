@@ -33,8 +33,9 @@
                             <td><%= company.line_of_business %></td>
                             <td><%= company.phone %></td>
                             <td><%= company.email %></td>
-                            <td><%= link_to 'Ver', company %>
+                            <td><%= link_to 'Detalles', company %>
                             <%= link_to 'Editar', edit_company_path(company) %>
+							<%= link_to 'Cuentas', company_users_path(company) %>
                             <%= link_to 'Deshabilitar', companies_disable_path(company) %>
                             </td>
                         </tr>
@@ -72,7 +73,7 @@
                             <td><%= company.line_of_business %></td>
                             <td><%= company.phone %></td>
                             <td><%= company.email %></td>
-                            <td><%= link_to 'Ver', company %>
+                            <td><%= link_to 'Detalles', company %>
                             <%= link_to 'Editar', edit_company_path(company) %>
                             <%= link_to 'Habilitar', companies_enable_path(company) %>
                             <%= link_to 'Eliminar', company, method: :delete, data: { confirm: '¿Esta seguro de eliminar esta Compañia?' } %></td>
