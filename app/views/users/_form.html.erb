@@ -47,7 +47,34 @@
         <%= f.check_box :active %>
       </div>
     </div>  
+    
+    <div class="line-forme">
+          <div class="forme-lab">
+            <%= f.label :"Región" %><br />
+          </div>  
+          <div class="forme-in">
+            <% regions_array = Region.all.map { |region| [region.name, region.id] } %>
+          <%= f.select(:region_id, regions_array, :selected => :prompt, :prompt => '- Seleccione región -') %>
+          </div>  
+        </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :"Comuna" %><br />
+    </div>  
+    <div class="forme-in">
+      <% communes_array = Commune.all.map { |commune| [commune.name, commune.id] } %>
+      <%= f.select(:commune_id, communes_array, :selected => :prompt, :prompt => '- Seleccione comuna -') %>
+    </div>  
+  </div>
 
+    <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Dirección %><br />
+      </div>
+      <div class="forme-in">
+        <%= f.text_field :address %>
+      </div>
+    </div>
 
     <div class="line-forme">
       <div class="forme-lab">
