@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
+    t.integer  "user_id"
+    t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
@@ -226,6 +228,8 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
     t.integer  "producer_id"
     t.integer  "kind_id"
     t.datetime "receipt_datetime"
+    t.integer  "user_id"
+    t.integer  "company_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
@@ -355,18 +359,16 @@ ActiveRecord::Schema.define(:version => 20130529073823) do
   add_foreign_key "kinds_producers", "kinds", :name => "kinds_producers_kind_id_fk"
   add_foreign_key "kinds_producers", "producers", :name => "kinds_producers_producer_id_fk"
 
-<<<<<<< HEAD
-  add_foreign_key "pack_types_producers", "pack_types", :name => "pack_types_producers_pack_type_id_fk"
-  add_foreign_key "pack_types_producers", "producers", :name => "pack_types_producers_producer_id_fk"
-=======
   add_foreign_key "pack_group_receipts", "qualities", :name => "pack_group_receipts_quality_id_fk"
   add_foreign_key "pack_group_receipts", "receipts", :name => "pack_group_receipts_receipt_id_fk"
   add_foreign_key "pack_group_receipts", "varieties", :name => "pack_group_receipts_variety_id_fk"
 
+  add_foreign_key "pack_types_producers", "pack_types", :name => "pack_types_producers_pack_type_id_fk"
+  add_foreign_key "pack_types_producers", "producers", :name => "pack_types_producers_producer_id_fk"
+
   add_foreign_key "pallets", "qualities", :name => "pallets_quality_id_fk"
   add_foreign_key "pallets", "receipts", :name => "pallets_receipt_id_fk"
   add_foreign_key "pallets", "varieties", :name => "pallets_variety_id_fk"
->>>>>>> 6347acc1c896738de69ffc9b4f23c24389189b91
 
   add_foreign_key "producers", "communes", :name => "producers_commune_id_fk"
 
