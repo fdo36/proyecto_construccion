@@ -2,24 +2,22 @@
 namespace :init_wiki do
 	desc "TODO"
     task :load => :environment do
-    	WikiPage.create(:creator_id => 1, :updator_id => 1, :path=>'', :title => "Ayuda sistema centros de acopio", :content => "h1. Este es el índice de la ayuda
-
-* *Entradas/Salidas*
-
+    	WikiPage.create(:creator_id => 1, :updator_id => 1, :path=>'', :title => "Ayuda sistema centros de acopio", :content => '<div class="textContent"> Seleccione alguno de los elementos para obtener ayuda detallada al respecto.</div>
+<div class="indexHelp">
+* *Entradas/Salidas:*
 ** [[Ingresos]]
 ** [[Temporadas]]
 ** [[Despachos]]
 ** [[Informes]]
-
-* *Recursos*
-
-** [[Productores]]
-** [[Envases]]
-** [[Destinos]]
-** [[Especies]]
-** [[Variedades]]
+* *Recursos:*
+** [[Agrupaciones]]
 ** [[Calidades]]
-** [[Agrupaciones]]")
+** [[Destinos]]
+** [[Envases]]
+** [[Especies]]
+** [[Productores]]
+** [[Variedades]]
+</div>')
     
 
     WikiPage.create(:creator_id => 1, :updator_id => 1, :path => "Agrupaciones", :title => "Agrupaciones", :content => '<div class="textContent">
@@ -430,6 +428,197 @@ Si marcamos el botón "Aceptar", el envase desaparecerá de la lista de envases.
 h2(#faq). Preguntas Frecuentes
 
 Actualmente no existen preguntas frecuentes.
+</div>')
+
+	WikiPage.create(:creator_id => 1, :updator_id => 1, :path => "Productores", :title => "Productores", :content => '<div class="textContent">
+Módulo encargado de mantener los productores. Permite agregar, modificar, habilitar/deshabitar y eliminar cada una de los productores.
+</div>
+
+<div class="indexHelp">
+* "1. Descripción de los Campos":#description
+** "1.1 Rut":#f_rut
+** "1.2 Nombre":#f_name
+** "1.2 Giro":#f_line_of_business
+** "1.3 Región":#f_region
+** "1.4 Comuna":#f_commune
+** "1.5 Dirección":#f_address
+** "1.5 E-Mail":#f_email
+** "1.7 Teléfono":#f_phone
+** "1.8 Contacto":#f_contact
+** "1.9 Código SAG":#f_sag_code
+** "1.9 Código":#f_code
+** "1.1.1 Agrupaciones":#f_code
+* "2. Acciones":#actions
+** "2.1 Agregar nuevo productor":#a_add
+** "2.2 Editar productor existente":#a_edit
+** "2.3. Ver productor existente":#a_show
+** "2.4. Habilitar/Deshabilitar productor existente":#a_disable
+** "2.5. Eliminar productor existente":#a_delete
+* "3. Preguntas Frecuentes":#faq
+** "3.1. ¿Por qué no aparecen agrupaciones para asociar?":#faq_1
+</div>
+
+<div class="contentHelp">
+h2(#description). Descripción de los Campos
+
+h3(#f_rut). Rut:
+
+<div class="contentHelp">
+Campo que almacena el Rut de el productor.
+</div>
+
+h3(#f_name). Nombre:
+
+<div class="contentHelp">
+Campo que almacena el nombre de el productor.
+</div>
+
+h3(#f_line_of_business). Giro:
+
+<div class="contentHelp">
+Campo que almacena el giro de el productor.
+</div>
+
+h3(#f_region). Región:
+
+<div class="contentHelp">
+Campo que almacena la región de el productor.
+</div>
+
+h3(#f_commune). Comuna:
+
+<div class="contentHelp">
+Campo que almacena la comuna de el productor.
+</div>
+
+h3(#f_address). Dirección:
+
+<div class="contentHelp">
+Campo que almacena la dirección de el productor.
+</div>
+
+h3(#f_email). E-Mail:
+
+<div class="contentHelp">
+Campo que almacena el E-Mail de el productor.
+</div>
+
+h3(#f_phone). Teléfono:
+
+<div class="contentHelp">
+Campo que almacena el teléfono de el productor.
+</div>
+
+h3(#f_contact). Contacto:
+
+<div class="contentHelp">
+Campo que almacena el contacto de el productor.
+</div>
+
+h3(#f_contact). Código SAG:
+
+<div class="contentHelp">
+Campo que almacena el código SAG de el productor.
+</div>
+
+h3(#f_contact). Código:
+
+<div class="contentHelp">
+Campo que almacena el código asociado de el productor.
+</div>
+
+h3(#f_contact). Agrupaciones:
+
+<div class="contentHelp">
+Campo que almacena el o las agrupaciones relacionadas a un productor.
+</div>
+
+h2(#actions). Acciones
+
+h3(#a_add). Agregar nuevo productor:
+
+<div class="textContent">
+Para agregar un nuevo productor, primero debemos seleccionar el módulo "Productor" en la barra de navegación (a la izquierda), ubicada dentro de "Recursos".
+!/help/img/producer/add_1.png!
+El Sistema mostrará en pantalla una lista de todos los productores agregadas con anterioridad (Si se ha ingresado por primera vez, no mostrará ninguno).
+Presionamos el botón "Nuevo Productor", en la esquina superior derecha.
+!/help/img/producer/add_2.png!
+Llenamos la información correspondiente (Los campos obligatorios se destacan con un *). Posteriormente guardamos para continuar o simplemente cancelamos.
+(Cabe señalar, el sistema no mostrará "Agrupaciones" cuando no han sido creadas de forma previa) 
+!/help/img/producer/add_3.png!
+Finalmente, el sistema volverá a la página principal de productores y mostrará en la tabla el productor agregado.
+!/help/img/producer/add_4.png!
+</div>
+
+h3(#a_edit). Editar productores existente:
+
+<div class="textContent">
+Para editar un productor existente, en la página principal del módulo "Productores", seleccionamos "Editar"
+(ubicada al extremo opuesto de el productor por editar y dentro de la columna "acciones").
+!/help/img/producer/edit_1.png!
+El Sistema cargará el formulario de ingreso, pero esta vez mostrará los datos que ya se han ingresado. En este punto se puede modificar la información de dichos campos o no.
+Marcamos en el botón "Guardar" para confirmar los nuevos cambios o simplemente cancelamos.
+!/help/img/producer/edit_2.png!
+Finalmente, el sistema volverá a la página principal de productores y mostrará en la tabla el o los datos modificados.
+!/help/img/producer/edit_3.png
+</div>
+
+h3(#a_show). Ver productores existente:
+
+<div class="textContent">
+Para ver los datos de un productor existente, en la página principal del módulo "Productores", seleccionamos "Ver"
+(ubicada al extremo opuesto de el productor por ver y dentro de la columna "acciones"). 
+!/help/img/producer/show_1.png!
+El Sistema mostrará los datos de el productor seleccionado, sin opción de modificación.
+Por lo demás, en este punto, el sistema permite editar los datos o simplemente volver a la página principal del módulo.
+!/help/img/destination/show_2.png!
+Finalmente, el sistema volverá a la página principal de productor o de edición dependiendo de la acción tomada.!
+</div>
+
+h3(#a_disable). Habilitar/Deshabilitar productor existente: 
+
+<div class="textContent">
+Para deshabilitar los datos de un productor existente, en la página principal del módulo "Productores" y tabla "Habitados", seleccionamos "Deshabilitar"
+(ubicada al extremo opuesto de el productor por deshabilitar y dentro de la columna "acciones"). 
+!/help/img/producer/disable_1.png!
+El Sistema mostrará el productor en la sección de deshabilitados.
+!/help/img/producer/disable_2.png!
+</div>
+(Para volver habilitar el productor, se hace el mismo procedimiento)
+
+h3(#a_delete). Eliminar productor existente:
+
+<div class="textContent">
+(Una vez deshabilitado un productor)
+Para eliminar los datos de un productor existente, en la página principal del módulo "Productores" y tabla "Deshabilitados", seleccionamos "Eliminar"
+(ubicada al extremo opuesto de el productor por eliminar y dentro de la columna "acciones"). 
+!/help/img/producer/delete_1.png!
+El Sistema mostrará un dialogo preguntando si deseamos eliminar el productor.
+!/help/img/producer/delete_2.png!
+Si marcamos el botón "Aceptar", el productor desaparecerá de la lista de productores.
+!/help/img/producer/delete_3.png!
+</div>
+
+h2(#faq). Preguntas Frecuentes
+
+h3(#faq_1). ¿Por qué no aparecen agrupaciones para asociar al momento de crear un nuevo productor?
+
+<div class="textContent">
+El Sistema no mostrará agrupaciones que no estén creadas previamente.
+!/help/img/faq/faq_1.png!
+
+Paso 1: Seleccionar el Módulo "Agrupaciones".
+!/help/img/faq/faq_2.png!
+
+Paso 2: Verificar existencia de "Agrupaciones" previas.
+!/help/img/faq/faq_3.png!
+
+Paso 3: Crear una nueva "Agrupación".
+!/help/img/faq/faq_4.png!
+
+Paso 4: Una vez creada la nueva agrupación, volver a crear un nuevo "Productor" y seleccionar la "Agrupación" recientemente creada.
+!/help/img/faq/faq_5.png!
+</div>
 </div>')
 	end
 end

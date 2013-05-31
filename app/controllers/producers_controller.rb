@@ -65,6 +65,7 @@ class ProducersController < ApplicationController
             GroupingsProducer.create(:grouping_id => id, :producer_id => @producer.id, :code => code)  
           else
             gc.code = code
+            gc.save
           end
         end
 
@@ -100,6 +101,7 @@ class ProducersController < ApplicationController
             GroupingsProducer.create(:grouping_id => id, :producer_id => @producer.id, :code => code)  
           else
             gc.code = code
+            gc.save
           end  
         end
         format.html { redirect_to "/producers", notice: "El productor #{@producer.name} fue editado exitosamente." }
