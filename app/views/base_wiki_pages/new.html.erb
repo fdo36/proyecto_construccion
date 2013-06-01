@@ -8,7 +8,7 @@
 	<%= f.hidden_field :previous_version_number, :value => f.object.last_version_number %>
 
 	<p><%=wt 'Titulo:' %><br /><%= f.text_field :title %></p>
-	<p><%=wt 'Contenido:' %><br /><%= f.text_area :content %></p>
+	<p><%=wt 'Contenido:' %><br /><%= f.text_area :content%></p>
 	<%= f.hidden_field :comment, :value => 'Primera revisión'%>
 	<%= hidden_field_tag :path, @page.path %>
 
