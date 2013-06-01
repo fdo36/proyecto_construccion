@@ -68,7 +68,7 @@
          <%= label_tag 'Fecha Inicio' %>
       </div>
       <div class="field">
-         <%= select_date %>
+         <%= select_date Date.today, :prefix => :start_date3 %>
       </div>
    </div>   
 
@@ -77,7 +77,7 @@
          <%= label_tag 'Fecha Termino' %>
       </div>
       <div class="field">
-         <%= select_date %>
+         <%= select_date Date.today, :prefix => :end_date3 %>
       </div>
    </div>                                                                    
    <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>

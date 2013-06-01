@@ -82,6 +82,20 @@ class ReportsController < ApplicationController
 	    	disposition: "inline"
     end
 
+    if @report_type=="4"
+    	pdf = Report4Pdf.new()
+    	send_data pdf.render,
+	    	type: "application/pdf",
+	    	disposition: "inline"
+    end
+
+    if @report_type=="5"
+    	pdf = Report5Pdf.new()
+    	send_data pdf.render,
+	    	type: "application/pdf",
+	    	disposition: "inline"
+    end
+
     if @report_type=="6"
     	@producer = params[:Productores6]
     	puts "chemimare"
@@ -118,7 +132,13 @@ class ReportsController < ApplicationController
 	    	type: "application/pdf",
 	    	disposition: "inline"
 	    end
+	end
 
+	if @report_type=="7"
+		pdf = Report7Pdf.new()
+    	send_data pdf.render,
+	    	type: "application/pdf",
+	    	disposition: "inline"
 	end
 
     respond_to do |format|
