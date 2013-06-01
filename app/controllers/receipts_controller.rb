@@ -1,6 +1,6 @@
 #encoding: utf-8
 class ReceiptsController < ApplicationController
-  load_and_authorize_resource
+  #load_and_authorize_resource
   # GET /receipts
   # GET /receipts.json
   def index
@@ -46,6 +46,7 @@ class ReceiptsController < ApplicationController
   def create
     @receipt = Receipt.new(params[:receipt])
 
+    @receipt.company_id = current_user.company_id
     respond_to do |format|
       if @receipt.save
         format.html { redirect_to @receipt, notice: 'El ingreso fue creado exitosamente.' }

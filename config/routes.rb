@@ -29,6 +29,14 @@ ProyectoConstruccion::Application.routes.draw do
 
   resources :destinations
 
+  resources :dispatches do
+    resources :pallets    
+  end
+
+  resources :dispatches do
+    resources :pack_group_dispatches
+  end
+
   resources :varieties
 
   resources :kinds
