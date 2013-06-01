@@ -1,5 +1,5 @@
 class PalletsController < ApplicationController
-  load_and_authorize_resource
+  #load_and_authorize_resource
   # GET /pallets
   # GET /pallets.json
   def index
@@ -25,10 +25,24 @@ class PalletsController < ApplicationController
   # GET /pallets/new
   # GET /pallets/new.json
   def new
-    @receipt = Receipt.find(params[:receipt_id])
-    @pallet = @receipt.pallets.build
+    @receipt = nil
+    if params.has_key?(:receipt_id)
+      @receipt = Receipt.find(params[:receipt_id])
+    else
+      @dispatch = Dispatch.find(params[:dispatch_id])
+    end
+
+    if @receipt == nil
+      @pallet = @dispatch.pallets.build
+    else
+      @pallet = @receipt.pallets.build   
+    end
     respond_to do |format|
-      format.html 
+      format.html {
+        if @receipt == nil
+          render 'newD'
+        end
+      }
       format.json { render json: @pallet }
     end
   end
@@ -41,15 +55,38 @@ class PalletsController < ApplicationController
   # POST /pallets
   # POST /pallets.json
   def create
-    @receipt = Receipt.find(params[:receipt_id])
-    @pallet = @receipt.pallets.create(params[:pallet])
+    @receipt = nil
+    if params.has_key?(:receipt_id)
+      @receipt = Receipt.find(params[:receipt_id])
+    else
+      @dispatch = Dispatch.find(params[:dispatch_id])
+    end
 
+    if @receipt == nil
+      @pallet = @dispatch.pallets.create(params[:pallet])
+    else
+      @pallet = @receipt.pallets.create(params[:pallet])
+    end
+
+    @pallet.company_id = current_user.company_id
     respond_to do |format|
       if @pallet.save
-        format.html { redirect_to receipt_path(@receipt) } 
+        format.html { 
+          if @receipt == nil
+            redirect_to dispatch_path(@dispatch) 
+          else
+            redirect_to receipt_path(@receipt)   
+          end
+        } 
         format.json { render json: @pallet, status: :created, location: @pallet }
       else
-        format.html { render action: "new"  }
+        format.html { 
+          if @receipt == nil
+            render action: "newD"
+          else
+            render action: "new"
+          end
+          }
         format.json { render json: @pallets.errors, status: :unprocessable_entity }
       end
     end

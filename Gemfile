@@ -13,6 +13,7 @@ gem 'foreigner'
 gem 'devise-i18n-views'
 gem 'railroady'
 
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -44,3 +45,4 @@ gem 'RedCloth'
 
 # To use debugger
 # gem 'debugger'
+gem 'prawn'

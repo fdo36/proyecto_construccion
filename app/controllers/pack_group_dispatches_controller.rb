@@ -42,6 +42,7 @@ class PackGroupDispatchesController < ApplicationController
   def create
     @pack_group_dispatch = PackGroupDispatch.new(params[:pack_group_dispatch])
 
+    @pack_group_dispatch.company_id = current_user.company_id
     respond_to do |format|
       if @pack_group_dispatch.save
         format.html { redirect_to @pack_group_dispatch, notice: 'Pack group dispatch was successfully created.' }

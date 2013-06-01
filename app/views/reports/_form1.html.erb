@@ -82,6 +82,7 @@
 
 <!--Precio por Productor-->
 <%= form_tag  do %>
+<input type="hidden" value="1" name="report_type"></input>
    <div class="line-forme">
       <div class="forme-lab">
          <%= label_tag 'Productor'%> 
@@ -125,7 +126,7 @@
          <%= label_tag 'Fecha Inicio' %>
       </div>
       <div class="field">
-         <%= select_date %>
+         <%= select_date Date.today, :prefix => :start_date1 %>
       </div>
    </div>
 
@@ -134,8 +135,8 @@
          <%= label_tag 'Fecha Termino' %>
       </div>
       <div class="field">
-         <%= select_date %>
+         <%= select_date Date.today, :prefix => :end_date1%>
       </div>
    </div>
+   <button class="button blue alignleft" onclick="get_parameters1()">Generar Informe</button>
 <% end %>
-<button class="button blue alignleft" onclick="get_parameters1()">Generar Informe</button>
