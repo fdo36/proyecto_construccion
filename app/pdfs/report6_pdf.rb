@@ -1,3 +1,4 @@
+#<!--Productores-->
 class Report6Pdf < Prawn::Document
 	def initialize(data, view)
 		super()

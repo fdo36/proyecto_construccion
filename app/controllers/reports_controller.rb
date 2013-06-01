@@ -68,6 +68,20 @@ class ReportsController < ApplicationController
     	end
     end
 
+    if @report_type=="2"
+    	pdf = Report2Pdf.new()
+    	send_data pdf.render,
+	    	type: "application/pdf",
+	    	disposition: "inline"
+    end
+
+    if @report_type=="3"
+    	pdf = Report3Pdf.new()
+    	send_data pdf.render,
+	    	type: "application/pdf",
+	    	disposition: "inline"
+    end
+
     if @report_type=="6"
     	@producer = params[:Productores6]
     	puts "chemimare"
