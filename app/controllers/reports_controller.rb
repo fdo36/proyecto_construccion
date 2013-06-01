@@ -135,10 +135,24 @@ class ReportsController < ApplicationController
 	end
 
 	if @report_type=="7"
-		pdf = Report7Pdf.new()
-    	send_data pdf.render,
+		@destination = params[:Destinos7]
+    	puts "chemimare"
+    	puts @destination
+    	if @destination==""
+    		mtrxx =  Destination.all
+	    	pdf = Report7Pdf.new(mtrxx, view_context)
+	    	send_data pdf.render,
 	    	type: "application/pdf",
 	    	disposition: "inline"
+	    else
+	    	@destinations = Destination.find(@destination)
+	    	mtrxx = [@destinations]
+
+			pdf = Report7Pdf.new(mtrxx, view_context)
+    		send_data pdf.render,
+	    	type: "application/pdf",
+	    	disposition: "inline"
+    	end
 	end
 
     respond_to do |format|
