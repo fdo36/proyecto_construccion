@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
   validates :password, :presence => true
   validates :password_confirmation, :presence => true
   validates :email, :presence => true
-  validates :commune_id, :presence => true
   validates :phone, :presence => true
 
 
