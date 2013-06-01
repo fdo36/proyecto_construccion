@@ -1,7 +1,24 @@
+<script type="text/javascript">
+  function show_rut(s) {
+    if(s.value == "")
+    {      
+      $('#rut').text("-"); 
+      $('#id').text("-");
+    }
+    
+    $.get("/destinations/"+s.value+".json", function(data) {
+     $('#rut').html(data.rut); 
+     $('#id').html(data.id);
+   });
+  }
+  
+</script>
+
+<div class="box">
 <%= form_for(@dispatch) do |f| %>
   <% if @dispatch.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@dispatch.errors.count, "error") %> prohibited this dispatch from being saved:</h2>
+      <h2><%= @dispatch.errors.count > 1 ? "#{@dispatch.errors.count} errores." : "#{@dispatch.errors.count} error." %> No se puede guardar el despacho:</h2>
 
       <ul>
       <% @dispatch.errors.full_messages.each do |msg| %>
@@ -11,27 +28,65 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :destination_id %><br />
-    <%= f.number_field :destination_id %>
+  <div class = "contentSubPanel">
+    
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Destino</label>
+      </div>    
+      <div class="forme-in">
+        <% @options = Destination.all.map { |d| [d.name, d.id] } %>
+        <%= f.select(:destination_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione destino - '} , :onchange => "show_rut(this)") %>  
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Rut Destino</label>
+      </div>    
+      <div class="forme-in">
+        <label id="rut">-</label>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Código Destino:</label>
+      </div>
+    
+      <div class="forme-in">
+        <label id="id">-</label>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Especie</label>
+      </div>    
+      <div class="forme-in">
+        <% @options = Kind.all.map { |k| [k.name, k.id] } %>
+        <%= f.select(:kind_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione especie - '} , :onchange => "show_rut(this)") %>
+      </div>    
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Fecha de Despacho</label>
+      </div>    
+      <div>
+        <%= f.datetime_select :dispatch_datetime %>
+      </div>    
+    </div>
+
+  </div>  
+</div>
+
+<div class="foot-box">
+  <div class="line-forme">
+    <%= link_to 'Cancelar', dispatches_path , :class => "button silver alignright" %>
+    <%= f.submit :Aceptar , :class => "button green alignright" %>
   </div>
-  <div class="field">
-    <%= f.label :kind_id %><br />
-    <%= f.number_field :kind_id %>
-  </div>
-  <div class="field">
-    <%= f.label :dispatch_datetime %><br />
-    <%= f.datetime_select :dispatch_datetime %>
-  </div>
-  <div class="field">
-    <%= f.label :company_id %><br />
-    <%= f.number_field :company_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</div>
+
+
 <% end %>
