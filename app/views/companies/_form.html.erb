@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <div class="line-forme">
+   <div class="line-forme">
     <div class="forme-lab">
       <label> 
         Rut                
@@ -32,7 +32,7 @@
       </label>  
     </div>
     <div class="forme-in">
-      <%= f.number_field :rut %>
+      <%= f.text_field :rut, :class => 'rut' %>
     </div>
   </div>
 
@@ -82,7 +82,7 @@
       <%= f.label :Teléfono %><br />
     </div>
     <div class="forme-in">
-      <%= f.number_field :phone %>
+      <%= f.text_field :phone %>
     </div>
   </div>
   <div class="line-forme">

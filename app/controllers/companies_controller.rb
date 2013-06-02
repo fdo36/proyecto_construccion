@@ -70,7 +70,7 @@ class CompaniesController < ApplicationController
     end
   end
 
-    def disable
+  def disable
     @company = Company.find(params[:id])
     @company.update_attribute(:active, false)
   

@@ -1,19 +1,24 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  name: MyString
-  rut: 1
-  address: MyString
+  name: NombrePrueba1
+  rut: 11.111.111-1
+  address: DireccionPrueba1
   city: MyString
-  line_of_business: MyString
-  phone: 1
-  email: MyString
+  line_of_business: line1
+  phone: 12345678
+  email: emailprueba1@prueba.com
+  active: true
+  commune_id: 1
+
 
 two:
-  name: MyString
-  rut: 1
-  address: MyString
+  name: NombrePrueba2
+  rut: 22.222.222-2
+  address: DireccionPrueba2
   city: MyString
-  line_of_business: MyString
-  phone: 1
-  email: MyString
+  line_of_business: line2
+  phone: 87654321
+  email: emailprueba2@prueba.com
+  active: true
+  commune_id: 1

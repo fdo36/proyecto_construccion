@@ -46,6 +46,7 @@ test:
   pool: 5
   username: stifler
   password: stifler
+  host: localhost
 
 production:
   adapter: postgresql

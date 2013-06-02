@@ -235,6 +235,7 @@ es:
         email: "Correo electrónico"
         commune_id: "Comuna"
         region_id: "Región"
+        phone: "Teléfono"
       user:
         email: "Correo electrónico"
         password: "Contraseña"
