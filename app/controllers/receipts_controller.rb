@@ -47,6 +47,9 @@ class ReceiptsController < ApplicationController
     @receipt = Receipt.new(params[:receipt])
 
     @receipt.company_id = current_user.company_id
+
+    Receipt.generate_pdf
+
     respond_to do |format|
       if @receipt.save
         format.html { redirect_to @receipt, notice: 'El ingreso fue creado exitosamente.' }
@@ -84,5 +87,19 @@ class ReceiptsController < ApplicationController
       format.html { redirect_to receipts_url }
       format.json { head :no_content }
     end
+  end
+
+  def generate_pdf
+
+    #Aca va algo como:
+    #@producer_id = params[:<Aca depende de como se llame el id del input en la vista de receipts>]
+    #@producer = Producer.find(@producer_id)
+    #Ahora ya tienes el productor y puedes hacer
+    #@producer.id o  @producer.name etc
+
+    pdf = Report8Pdf.new(view_context) # pdf = Report8Pdf.new(@producer, view_context)
+    send_data pdf.render,
+    type: "application/pdf",
+    disposition: "inline"
   end
 end

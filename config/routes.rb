@@ -86,5 +86,7 @@ ProyectoConstruccion::Application.routes.draw do
   match '/help/css/jquery-ui.css', :to => redirect('/css/jquery-ui.css')
   match '/help/css/styles.css', :to => redirect('/css/styles.css')
   match '/help/css/default_buttons.css', :to => redirect('/css/default_buttons.css')
+
+  match 'receipts/generate_pdf' => 'receipts#generate_pdf', :as => 'receipts_generate_pdf'
   
 end
