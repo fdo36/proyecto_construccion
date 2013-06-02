@@ -20,6 +20,7 @@
   function search_rut(s) {
     if(s.value == "")
     {      
+      alert("hola");
       $('#select_producer').val("");
       $('#rut').val("-");
       $('#codigo').val("-");
@@ -32,8 +33,7 @@
       if(data[i]["rut"]==s.value){
         $('#select_producer').val([data[i]["name"], data[i]["id"]]);
         $('#codigo').val(data[i]["code"]);
-        $('#codigo_sag').val(data[i]["sag_code"]);    
-        
+        $('#codigo_sag').val(data[i]["sag_code"]);            
       }
      };
 
