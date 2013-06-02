@@ -7,7 +7,7 @@ class Producer < ActiveRecord::Base
 
   validates :address, :commune_id, :name, :contact, :line_of_business, :phone, :rut, :sag_code, :code, :presence => true
 
-
+  validates :code, :uniqueness => true
 
   validates :email, :format => { :with => /\A(([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,}))?\z/i,
     :message => "debe seguir el formato ejemplo@midominio.com" }
