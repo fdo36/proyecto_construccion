@@ -620,5 +620,21 @@ Paso 4: Una vez creada la nueva agrupación, volver a crear un nuevo "Productor"
 !/help/img/faq/faq_5.png!
 </div>
 </div>')
+		WikiPage.create(:creator_id => 1, :updator_id => 1, 
+    				:path=> 'fdo', :title => 'fdo', :content => 'h1. Fernando
+
+Es un alumno muy bonito y musculoso!!!
+
+terrible cototoo
+
+
+h2. Biografia
+
+Nació en el hospital de curicó y ha vivido toda su vida acá mismo.
+
+WENAA!!!
+
+
+es el más einl de todos los einls!!... de echo, le dicen el "einl man"')
 	end
 end
