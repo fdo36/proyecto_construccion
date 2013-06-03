@@ -61,7 +61,7 @@
       </div>
       <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
       <div class="forme-in">
-         <%= select_tag "Productores1", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut3(this)" %>
+         <%= select_tag "Productores3", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut3(this)" %>
       </div>
    </div>
 
