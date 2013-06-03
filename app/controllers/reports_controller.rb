@@ -116,9 +116,20 @@ class ReportsController < ApplicationController
                 
                 @datos.each do |pallet|
                     fecha = "#{pallet.created_at.year}-#{pallet.created_at.month}-#{pallet.created_at.day}"
-                    puts "aki va uno"
                     temp <<  [[fecha] , [pallet.quantity]]
                  end
+
+                 @datos = PackGroupReceipt.find(:all,
+                    :select => 'pack_group_receipts.created_at, pack_group_receipts.quantity',
+                    :from => 'receipts, pack_group_receipts, producers, pack_types',
+                    :conditions => ["producers.id=? and
+                        producers.id = receipts.producer_id and
+                        receipts.receipt_datetime >= ? and receipts.receipt_datetime <= ? and 
+                        receipts.id=pack_group_receipts.receipt_id and
+                        pack_types.id=? and 
+                        pack_group_receipts.pack_type_id=pack_types.id",
+                        @producer_id,@fecha_inicio, @fecha_termino, pack_type.id])
+
                  mtrxx << [pack_type, temp ]
     		end
     		pdf = Report3Pdf.new(@producer, mtrxx, view_context)
