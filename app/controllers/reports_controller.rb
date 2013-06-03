@@ -83,12 +83,12 @@ class ReportsController < ApplicationController
     	@year_inicio = params[:start_date3]['year']
     	@mes_inicio = params[:start_date3]['month']
     	@dia_inicio = params[:start_date3]['day']
-    	@fecha_inicio = "#{@year_inicio}-#{@mes_inicio}-#{@dia_inicio}"
+    	@fecha_inicio = "#{@year_inicio}-#{@mes_inicio}-#{@dia_inicio} 00:00:00"
 
     	@year_termino = params[:end_date3]['year']
     	@mes_termino = params[:end_date3]['month']
     	@dia_termino = params[:end_date3]['day']
-    	@fecha_termino = "#{@year_termino}-#{@mes_termino}-#{@dia_termino}"
+    	@fecha_termino = "#{@year_termino}-#{@mes_termino}-#{@dia_termino} 23:59:59"
 		
 		@producer = Producer.find(@producer_id)
 
@@ -196,12 +196,12 @@ class ReportsController < ApplicationController
         @year_inicio = params[:start_date4]['year']
         @mes_inicio = params[:start_date4]['month']
         @dia_inicio = params[:start_date4]['day']
-        @fecha_inicio = "#{@year_inicio}-#{@mes_inicio}-#{@dia_inicio}"
+        @fecha_inicio = "#{@year_inicio}-#{@mes_inicio}-#{@dia_inicio} 00:00:00"
 
         @year_termino = params[:end_date4]['year']
         @mes_termino = params[:end_date4]['month']
         @dia_termino = params[:end_date4]['day']
-        @fecha_termino = "#{@year_termino}-#{@mes_termino}-#{@dia_termino}"
+        @fecha_termino = "#{@year_termino}-#{@mes_termino}-#{@dia_termino} 23:59:59"
         
         @destination = Destination.find(@destination_id)
 
@@ -221,9 +221,10 @@ class ReportsController < ApplicationController
                     :conditions => ["destinations.id=? and
                         destinations.id = dispatches.destination_id and
                         dispatches.id=pallets.dispatch_id and
+                        dispatches.dispatch_datetime >= ? and dispatches.dispatch_datetime <= ? and 
                         pack_types.id=? and 
                         pallets.pack_type_id=pack_types.id",
-                        @destination_id, pack_type.id])
+                        @destination_id, @fecha_inicio, @fecha_termino, pack_type.id])
                 temp = []
 
                 @datos.each do |pallet|
@@ -237,9 +238,10 @@ class ReportsController < ApplicationController
                     :conditions => ["destinations.id=? and
                         destinations.id = dispatches.destination_id and
                         dispatches.id=pack_group_dispatches.dispatch_id and
+                        dispatches.dispatch_datetime >= ? and dispatches.dispatch_datetime <= ? and 
                         pack_types.id=? and 
                         pack_group_dispatches.pack_type_id=pack_types.id",
-                        @destination_id, pack_type.id])
+                        @destination_id, @fecha_inicio, @fecha_termino, pack_type.id])
 
                 @datos.each do |pack|
                     fecha = "#{pack.dispatch_datetime.year}-#{pack.dispatch_datetime.month}-#{pack.dispatch_datetime.day}"
@@ -267,9 +269,10 @@ class ReportsController < ApplicationController
                 :conditions => ["destinations.id=? and
                     destinations.id = dispatches.destination_id and
                     dispatches.id=pallets.dispatch_id and
+                    dispatches.dispatch_datetime >= ? and dispatches.dispatch_datetime <= ? and 
                     pack_types.id=? and 
                     pallets.pack_type_id=pack_types.id",
-                    @destination_id, @pack_type_id])
+                    @destination_id, @fecha_inicio, @fecha_termino, @pack_type_id])
             temp = []
 
             @datos.each do |pallet|
@@ -283,9 +286,10 @@ class ReportsController < ApplicationController
                 :conditions => ["destinations.id=? and
                     destinations.id = dispatches.destination_id and
                     dispatches.id=pack_group_dispatches.dispatch_id and
+                    dispatches.dispatch_datetime >= ? and dispatches.dispatch_datetime <= ? and 
                     pack_types.id=? and 
                     pack_group_dispatches.pack_type_id=pack_types.id",
-                    @destination_id, @pack_type_id])
+                    @destination_id, @fecha_inicio, @fecha_termino, @pack_type_id])
 
             @datos.each do |pack|
                 fecha = "#{pack.dispatch_datetime.year}-#{pack.dispatch_datetime.month}-#{pack.dispatch_datetime.day}"
