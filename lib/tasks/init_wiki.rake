@@ -636,5 +636,9 @@ WENAA!!!
 
 
 es el más einl de todos los einls!!... de echo, le dicen el "einl man"')
+
+    				:path=> 'Milo', :title => 'Milo', :content => 'Einl Test
+
+h1. YEAH MEN!')
 	end
 end
