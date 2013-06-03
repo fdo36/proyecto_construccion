@@ -5,7 +5,8 @@ class KindsController < ApplicationController
   # GET /kinds.json
   def index
     @kinds = Kind.all
-    @varities = Variety.all
+    @varieties = Variety.all
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @kinds }
