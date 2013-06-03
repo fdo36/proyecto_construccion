@@ -2,8 +2,7 @@
 <%= form_for([@company, @role]) do |f| %>
    <% if @role.errors.any? %>
     <div id="error_explanation">
-      <h2>Se han encontrado los siguientes errores:</h2>>
-
+      <h2>Se han encontrado los siguientes errores:</h2>
       <ul>
       <% @role.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -12,23 +11,32 @@
     </div>
   <% end %>
 
-  <div class="line-forme">
-    <div class="forme-lab">
-      <%= f.label :Nombre %><br />
+   <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+        Nombre             
+        <em class="formee-req">*</em>
+      </label> 
+      </div>    
+      <div class="forme-in">
+        <%= f.text_field :name %>
+      </div>  
     </div>
-    <div class="forme-in">
-      <%= f.text_field :name %>
-    </div>
-  </div>
 
-  <div class="line-forme">
-    <div class="forme-lab">
-      <%= f.label :Descripción %><br />
+   <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+        Descripción             
+        <em class="formee-req">*</em>
+      </label> 
+      </div>    
+      <div class="forme-in">
+        <%= f.text_field :description %>
+      </div>  
     </div>
-    <div class="forme-in">
-      <%= f.text_field :description %>
-    </div>
-  </div>
+    <label> (
+      <em class="formee-req">*</em>
+    </label> ) Campos obligatorios.
   
 </div>
 <div class="foot-box">

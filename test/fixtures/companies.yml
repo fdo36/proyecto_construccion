@@ -9,7 +9,7 @@ one:
   phone: 12345678
   email: emailprueba1@prueba.com
   active: true
-  commune_id: 1
+  
 
 
 two:
@@ -21,4 +21,4 @@ two:
   phone: 87654321
   email: emailprueba2@prueba.com
   active: true
-  commune_id: 1
+ 

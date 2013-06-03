@@ -205,6 +205,8 @@ es:
       <<: *errors
     models:
       access_right: "Permiso"
+
+      user: "Usuario"
       commune: "Comuna"
       company: "Compañía"
       container: "Contenedor"
@@ -298,7 +300,9 @@ es:
         variety_id: "Variedad"
         tare: "Destare Pallet"
         pallet_code: "El pallet código"
-
+      role:
+        name: "Nombre"
+        description: "Descripción"
 
 
 
