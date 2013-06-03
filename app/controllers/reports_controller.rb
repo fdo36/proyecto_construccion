@@ -166,7 +166,7 @@ class ReportsController < ApplicationController
             @datos.each do |pack_group_receipt|
                 fecha = "#{pack_group_receipt.created_at.year}-#{pack_group_receipt.created_at.month}-#{pack_group_receipt.created_at.day}"
                 temp <<  [[fecha] , [pack_group_receipt.quantity]]
-             end
+            end
             mtrxx << [@pack_type, temp ]
 
     		pdf = Report3Pdf.new(@producer, mtrxx, view_context)
@@ -178,11 +178,120 @@ class ReportsController < ApplicationController
     end
 
     if @report_type=="4"
-    	pdf = Report4Pdf.new()
-    	send_data pdf.render,
-	    	type: "application/pdf",
-	    	disposition: "inline"
+
+        @destination_id = params[:Destinos4]
+        @pack_type_id = params[:Envases4]
+
+        @year_inicio = params[:start_date4]['year']
+        @mes_inicio = params[:start_date4]['month']
+        @dia_inicio = params[:start_date4]['day']
+        @fecha_inicio = "#{@year_inicio}-#{@mes_inicio}-#{@dia_inicio}"
+
+        @year_termino = params[:end_date4]['year']
+        @mes_termino = params[:end_date4]['month']
+        @dia_termino = params[:end_date4]['day']
+        @fecha_termino = "#{@year_termino}-#{@mes_termino}-#{@dia_termino}"
+        
+        @destination = Destination.find(@destination_id)
+
+        if @pack_type_id ==""
+            mtrxx = []
+            @pack_types = PackType.all
+
+            #INGRESO DE ENVASES POR DEVOLUCIONES DEL DESTINO
+            #
+            # # # # # # # # # # #
+
+            #INGRESO DE ENVASES POR DESPACHOS DE PALLETS
+            @pack_types.each do |pack_type|
+                @datos = Dispatch.find(:all,
+                    :select => 'dispatches.dispatch_datetime, pallets.quantity',
+                    :from => 'dispatches, pallets, destinations, pack_types',
+                    :conditions => ["destinations.id=? and
+                        destinations.id = dispatches.destination_id and
+                        dispatches.id=pallets.dispatch_id and
+                        pack_types.id=? and 
+                        pallets.pack_type_id=pack_types.id",
+                        @destination_id, pack_type.id])
+                temp = []
+
+                @datos.each do |pallet|
+                    fecha = "#{pallet.dispatch_datetime.year}-#{pallet.dispatch_datetime.month}-#{pallet.dispatch_datetime.day}"
+                    temp <<  [[fecha] , [pallet.quantity]]
+                end
+
+                @datos = Dispatch.find(:all,
+                    :select => 'dispatches.dispatch_datetime, pack_group_dispatches.quantity',
+                    :from => 'dispatches, pack_group_dispatches, destinations, pack_types',
+                    :conditions => ["destinations.id=? and
+                        destinations.id = dispatches.destination_id and
+                        dispatches.id=pack_group_dispatches.dispatch_id and
+                        pack_types.id=? and 
+                        pack_group_dispatches.pack_type_id=pack_types.id",
+                        @destination_id, pack_type.id])
+
+                @datos.each do |pack|
+                    fecha = "#{pack.dispatch_datetime.year}-#{pack.dispatch_datetime.month}-#{pack.dispatch_datetime.day}"
+                    temp <<  [[fecha] , [pack.quantity]]
+                 end
+                 mtrxx << [pack_type, temp ]
+            end
+            pdf = Report4Pdf.new(@destination, mtrxx, view_context)
+            send_data pdf.render,
+                type: "application/pdf",
+                disposition: "inline"
+        else
+            mtrxx = []
+            @pack_type = PackType.find(@pack_type_id)
+
+            #SALIDA DE ENVASES POR PRESTAMOS
+            #
+            # # # # # # # # # # #
+
+            #INGRESO DE ENVASES POR PALLETS
+            
+            @datos = Dispatch.find(:all,
+                :select => 'dispatches.dispatch_datetime, pallets.quantity',
+                :from => 'dispatches, pallets, destinations, pack_types',
+                :conditions => ["destinations.id=? and
+                    destinations.id = dispatches.destination_id and
+                    dispatches.id=pallets.dispatch_id and
+                    pack_types.id=? and 
+                    pallets.pack_type_id=pack_types.id",
+                    @destination_id, @pack_type_id])
+            temp = []
+
+            @datos.each do |pallet|
+                fecha = "#{pallet.dispatch_datetime.year}-#{pallet.dispatch_datetime.month}-#{pallet.dispatch_datetime.day}"
+                temp <<  [[fecha] , [pallet.quantity]]
+            end
+
+            @datos = Dispatch.find(:all,
+                :select => 'dispatches.dispatch_datetime, pack_group_dispatches.quantity',
+                :from => 'dispatches, pack_group_dispatches, destinations, pack_types',
+                :conditions => ["destinations.id=? and
+                    destinations.id = dispatches.destination_id and
+                    dispatches.id=pack_group_dispatches.dispatch_id and
+                    pack_types.id=? and 
+                    pack_group_dispatches.pack_type_id=pack_types.id",
+                    @destination_id, @pack_type_id])
+
+            @datos.each do |pack|
+                fecha = "#{pack.dispatch_datetime.year}-#{pack.dispatch_datetime.month}-#{pack.dispatch_datetime.day}"
+                temp <<  [[fecha] , [pack.quantity]]
+            end
+            mtrxx << [@pack_type, temp ]
+
+            pdf = Report4Pdf.new(@destination, mtrxx, view_context)
+            send_data pdf.render,
+            type: "application/pdf",
+            disposition: "inline"
+        end
     end
+        
+
+
+    	
 
     if @report_type=="5"
     	pdf = Report5Pdf.new()

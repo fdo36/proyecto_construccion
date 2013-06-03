@@ -18,9 +18,9 @@ class Report3Pdf < Prawn::Document
 	    for i in (0 .. (data.length-1))
 	    	@pack_type =data[i][0]
 	    	@mtrxx = data[i][1]
-	    	puts "length mtrxx"
-	    	puts @mtrxx.length
+	    	
     		stroke_line [0, cursor], [540, cursor]
+
 			move_down 10
 			y_current = cursor
 			text "ENVASE", :size => 13
@@ -35,8 +35,6 @@ class Report3Pdf < Prawn::Document
 				datos =  [["Fecha", "Cantidad de Envases"]]#dejar como está y llenar las siguientes filas
 				for i in (0 .. (@mtrxx.length-1))
 					suma = suma + @mtrxx[i][1][0]
-					puts "lalalalalalal"
-					puts "#{@mtrxx[i][1][0]}"
 					datos <<  ["#{@mtrxx[i][0][0]}", "#{@mtrxx[i][1][0]}"] 
 				end
 				table(datos , :width =>270)
