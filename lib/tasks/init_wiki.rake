@@ -1,8 +1,9 @@
-#encoding: utf-8 
+#encoding: utf-8
 namespace :init_wiki do
-	desc "TODO"
-    task :load => :environment do
-    	WikiPage.create(:creator_id => 1, :updator_id => 1, :path=>'', :title => "Ayuda sistema centros de acopio", :content => '<div class="textContent"> Seleccione alguno de los elementos para obtener ayuda detallada al respecto.</div>
+	desc 'inicializa la wiki'
+	task :load => :environment do
+		WikiPage.create(:creator_id => 1, :updator_id => 1, 
+    				:path=> '', :title => 'Ayuda sistema centros de acopio', :content => '<div class="textContent"> Seleccione alguno de los elementos para obtener ayuda detallada al respecto.</div>
 <div class="indexHelp">
 * *Entradas/Salidas:*
 ** [[Ingresos]]
@@ -18,9 +19,8 @@ namespace :init_wiki do
 ** [[Productores]]
 ** [[Variedades]]
 </div>')
-    
-
-    WikiPage.create(:creator_id => 1, :updator_id => 1, :path => "Agrupaciones", :title => "Agrupaciones", :content => '<div class="textContent">
+		WikiPage.create(:creator_id => 1, :updator_id => 1, 
+    				:path=> 'Agrupaciones', :title => 'Agrupaciones', :content => '<div class="textContent">
 Módulo encargado de mantener las agrupaciones. Permite agregar, modificar y eliminar cada una de las agrupaciones.
 </div>
 
@@ -112,8 +112,8 @@ Actualmente no existen preguntas frecuentes.
 </div>)
 
 end')
-
-WikiPage.create(:creator_id => 1, :updator_id => 1, :path => "Calidades", :title => "Calidades", :content =>'<div class="textContent">
+		WikiPage.create(:creator_id => 1, :updator_id => 1, 
+    				:path=> 'Calidades', :title => 'Calidades', :content => '<div class="textContent">
 Módulo encargado de mantener las calidades. Permite agregar, modificar y eliminar cada una de las calidades.
 </div>
 
@@ -195,8 +195,8 @@ h2(#faq). Preguntas Frecuentes
 
 Actualmente no existen preguntas frecuentes.
 </div>')
-
-WikiPage.create(:creator_id => 1, :updator_id => 1, :path => "Destinos", :title => "Destinos", :content =>'<div class="textContent">
+		WikiPage.create(:creator_id => 1, :updator_id => 1, 
+    				:path=> 'Destinos', :title => 'Destinos', :content => '<div class="textContent">
 Módulo encargado de mantener los destinos. Permite agregar, modificar, habilitar/deshabitar y eliminar cada una de los destinos.
 </div>
 
@@ -339,8 +339,8 @@ h2(#faq). Preguntas Frecuentes
 
 Actualmente no existen preguntas frecuentes.
 </div>')
-
-WikiPage.create(:creator_id => 1, :updator_id => 1, :path => "Envases", :title => "Envases", :content =>'<div class="textContent">
+		WikiPage.create(:creator_id => 1, :updator_id => 1, 
+    				:path=> 'Envases', :title => 'Envases', :content => '<div class="textContent">
 Módulo encargado de mantener los envases. Permite agregar, modificar y eliminar cada uno de los envases.
 </div>
 
@@ -429,8 +429,8 @@ h2(#faq). Preguntas Frecuentes
 
 Actualmente no existen preguntas frecuentes.
 </div>')
-
-	WikiPage.create(:creator_id => 1, :updator_id => 1, :path => "Productores", :title => "Productores", :content => '<div class="textContent">
+		WikiPage.create(:creator_id => 1, :updator_id => 1, 
+    				:path=> 'Productores', :title => 'Productores', :content => '<div class="textContent">
 Módulo encargado de mantener los productores. Permite agregar, modificar, habilitar/deshabitar y eliminar cada una de los productores.
 </div>
 
