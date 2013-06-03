@@ -1,0 +1,71 @@
+<div class="headContent">
+  <h1>Productos</h1>
+</div>
+<div class="box">
+  <div class="newTopBanner">
+    <%= link_to 'Nueva Especie', new_kind_path , :class => "button blue alignright" %>
+  </div>
+
+  <p id="notice" class="alignleft"><%= notice %> </p>
+
+  <div class="contentSubPanel">
+    <div class="headContent">
+      <h1>Lista de Especies</h1>
+    </div>
+    <div class="box">
+      <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th colspan="3" style="width:20% !important;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+          <% @kinds.each do |kind| %>
+            <tr>
+              <td><%= kind.name %></td>
+              <td><%= link_to 'Ver', kind %>
+              <%= link_to 'Editar', edit_kind_path(kind) %>
+              <%= link_to 'Eliminar', kind, method: :delete, data: { confirm: '¿Está seguro de eliminar esta especie?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <br>
+  <div class="newTopBanner">
+    <%= link_to 'Nueva Variedad', new_variety_path , :class => "button blue alignright" %>
+  </div>
+
+  <p id="notice" class="alignleft"><%= notice %> </p>
+
+  <div class="contentSubPanel">
+    <div class="headContent">
+      <h1>Lista de Variedades</h1>
+    </div>
+    <div class="box">
+      <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+        <thead>
+          <tr>
+            <th style="width:20% !important;">Nombre</th>
+            <th>Especie</th>
+            <th style="width:20% !important;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @varities.each do |variety| %>
+            <tr>
+              <td><%= variety.name %></td>
+              <td><%= Kind.find(variety.kind_id).name %></td>
+              <td><%= link_to 'Ver', variety %>
+              <%= link_to 'Editar', edit_variety_path(variety) %>
+              <%= link_to 'Eliminar', variety, method: :delete, data: { confirm: '¿Está seguro de eliminar esta variedad?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
