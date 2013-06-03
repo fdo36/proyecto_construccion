@@ -620,5 +620,9 @@ Paso 4: Una vez creada la nueva agrupación, volver a crear un nuevo "Productor"
 !/help/img/faq/faq_5.png!
 </div>
 </div>')
+		WikiPage.create(:creator_id => 1, :updator_id => 1, 
+    				:path=> 'Milo', :title => 'Milo', :content => 'Einl Test
+
+h1. YEAH MEN!')
 	end
 end
