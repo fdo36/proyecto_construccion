@@ -19,18 +19,16 @@
             inputCodigo.value = data.sag_code;
          });
       }
-      show_kind(s.options[s.selectedIndex].value);
+      show_kind1(s.options[s.selectedIndex].value);
    }
 
-   function show_kind(sel) //sel= id del productor seleccionado
+   function show_kind1(sel) //sel= id del productor seleccionado
    {
       var selKin = document.getElementById("Especies1");
       var i = 1;
       selKin.options.length = 0;
       selKin.options[0] = new Option("Seleccione una Especie","","1");      
 
- 
-            selKin.options[0] = new Option("Seleccione una Especie","","1");
             $.get("/receipts.json", function(data) {
                $.each(data, function(index, element){
                   if(sel == element.producer_id){ //id productor seleccionado == id productor de ingresos
@@ -39,7 +37,6 @@
                            i = i+1;
                            selKin.selectedIndex=0;
                         });
-
                   }                  
                });
             });        

@@ -1,5 +1,5 @@
 class PackTypesController < ApplicationController
-  load_and_authorize_resource
+
   # GET /pack_types
   # GET /pack_types.json
   def index

@@ -1,5 +1,5 @@
 class PackGroupReceiptsController < ApplicationController
-  load_and_authorize_resource
+
   # GET /pack_group_receipts
   # GET /pack_group_receipts.json
   def index
