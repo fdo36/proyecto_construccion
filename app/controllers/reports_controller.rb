@@ -71,10 +71,175 @@ class ReportsController < ApplicationController
     end
 
     if @report_type=="2"
-    	pdf = Report2Pdf.new()
-    	send_data pdf.render,
-	    	type: "application/pdf",
-	    	disposition: "inline"
+
+        @producer_id = params[:Productores2]
+        @kind_id = params[:Especies2]
+
+        @year_inicio = params[:start_date2]['year']
+        @mes_inicio = params[:start_date2]['month']
+        @dia_inicio = params[:start_date2]['day']
+        @fecha_inicio = "#{@year_inicio}-#{@mes_inicio}-#{@dia_inicio}"
+
+        @year_termino = params[:end_date2]['year']
+        @mes_termino = params[:end_date2]['month']
+        @dia_termino = params[:end_date2]['day']
+        @fecha_termino = "#{@year_termino}-#{@mes_termino}-#{@dia_termino}"
+
+        if @producer_id!=""
+            #solo para uno
+            if @kind_id==""
+                #Para 1 productor todas las especies
+                mtrxx = []
+                @producer = Producer.find(@producer_id)
+                @kinds = Kind.all
+                kind_variety = []
+
+                @kinds.each do |kind|
+                    variety_receipts = []
+                    @varieties = Variety.find(:all,
+                        :from => 'varieties',
+                        :select => 'varieties.id, varieties.name',
+                        :conditions => ['varieties.kind_id=?',kind.id])
+
+                    @varieties.each do |variety|
+                        @datos = Receipt.find(:all,
+                        :from => 'receipts, qualities, pallets, producers',
+                        :select => 'receipts.code, receipts.receipt_datetime, qualities.name, pallets.gross_weight ,pallets.price_per_unit',
+                        :conditions => ["producers.id=? and producers.id=receipts.producer_id and 
+                            receipts.receipt_datetime >= ? and receipts.receipt_datetime <= ? and
+                            receipts.kind_id=? and pallets.receipt_id
+                            =receipts.id and pallets.variety_id=? and qualities.id=pallets.quality_id",@producer_id, 
+                            @fecha_inicio, @fecha_termino, kind.id, variety.id])
+
+                        puts "algoooooooooooooooooooooooooooo"
+                        puts @datos.length
+
+                        temp = []
+                        totalKGS = 0
+                        totalPrice = 0
+                        @datos.each do |dato|
+                            roww = []
+                            roww << dato.code
+                            roww << dato.receipt_datetime.strftime("%d/%m/%Y")
+                            roww << dato.name
+                            roww << dato.gross_weight
+                            roww << dato.price_per_unit
+                            roww << (dato.price_per_unit.to_f * dato.gross_weight.to_f)
+                            totalKGS = totalKGS + dato.gross_weight.to_f
+                            totalPrice = totalPrice + (dato.price_per_unit.to_f * dato.gross_weight.to_f)
+                            temp << roww
+                        end
+
+                        @datos = Receipt.find(:all,
+                        :from => 'receipts, qualities, pack_group_receipts, producers',
+                        :select => 'receipts.code, receipts.receipt_datetime, qualities.name, pack_group_receipts.gross_weight ,pack_group_receipts.price_per_unit',
+                        :conditions => ["producers.id=? and producers.id=receipts.producer_id and 
+                            receipts.receipt_datetime >= ? and receipts.receipt_datetime <= ? and
+                            receipts.kind_id=? and pack_group_receipts.receipt_id
+                            =receipts.id and pack_group_receipts.variety_id=? and qualities.id=pack_group_receipts.quality_id",@producer_id, 
+                            @fecha_inicio, @fecha_termino, kind.id, variety.id])
+
+                        puts "algoooooooooooooooooooooooooooo"
+                        puts @datos.length
+
+                        @datos.each do |dato|
+                            roww = []
+                            roww << dato.code
+                            roww << dato.receipt_datetime.strftime("%d/%m/%Y")
+                            roww << dato.name
+                            roww << dato.gross_weight
+                            roww << dato.price_per_unit
+                            roww << (dato.price_per_unit.to_f * dato.gross_weight.to_f)
+                            totalKGS = totalKGS + dato.gross_weight.to_f
+                            totalPrice = totalPrice + (dato.price_per_unit.to_f * dato.gross_weight.to_f)
+                            temp << roww
+                        end
+                        variety_receipts << [variety, temp, totalKGS, totalPrice]
+                    end
+                    kind_variety << [kind, variety_receipts]
+                end
+                mtrxx << [@producer, kind_variety]
+
+                pdf = Report2Pdf.new(mtrxx,view_context)
+                send_data pdf.render,
+                    type: "application/pdf",
+                    disposition: "inline"
+            else
+                #Para 1 productor 1 especie
+                mtrxx = []
+                @producer = Producer.find(@producer_id)
+                @kind = Kind.find(@kind_id)
+
+                kind_variety = []
+
+                @varieties = Variety.find(:all,
+                    :from => 'varieties',
+                    :select => 'varieties.id, varieties.name',
+                    :conditions => ['varieties.kind_id=?',@kind_id])
+
+                variety_receipts = []
+                @varieties.each do |variety|
+                    #Para pallets
+                    @datos = Receipt.find(:all,
+                    :from => 'receipts, qualities, pallets, producers',
+                    :select => 'receipts.code, receipts.receipt_datetime, qualities.name, pallets.gross_weight ,pallets.price_per_unit',
+                    :conditions => ["producers.id=? and producers.id=receipts.producer_id and 
+                        receipts.receipt_datetime >= ? and receipts.receipt_datetime <= ? and
+                        receipts.kind_id=? and pallets.receipt_id
+                        =receipts.id and pallets.variety_id=? and qualities.id=pallets.quality_id",@producer_id, 
+                        @fecha_inicio, @fecha_termino, @kind_id, variety.id])
+
+                    temp = []
+                    totalKGS = 0
+                    totalPrice = 0
+                    @datos.each do |dato|
+                        roww = []
+                        roww << dato.code
+                        roww << dato.receipt_datetime.strftime("%d/%m/%Y")
+                        roww << dato.name
+                        roww << dato.gross_weight
+                        roww << dato.price_per_unit
+                        roww << (dato.price_per_unit.to_f * dato.gross_weight.to_f)
+                        totalKGS = totalKGS + dato.gross_weight.to_f
+                        totalPrice = totalPrice + (dato.price_per_unit.to_f * dato.gross_weight.to_f)
+                        temp << roww
+                    end
+
+                    @datos = Receipt.find(:all,
+                    :from => 'receipts, qualities, pack_group_receipts, producers',
+                    :select => 'receipts.code, receipts.receipt_datetime, qualities.name, pack_group_receipts.gross_weight ,pack_group_receipts.price_per_unit',
+                    :conditions => ["producers.id=? and producers.id=receipts.producer_id and 
+                        receipts.receipt_datetime >= ? and receipts.receipt_datetime <= ? and
+                        receipts.kind_id=? and pack_group_receipts.receipt_id
+                        =receipts.id and pack_group_receipts.variety_id=? and qualities.id=pack_group_receipts.quality_id",@producer_id, 
+                        @fecha_inicio, @fecha_termino, @kind_id, variety.id])
+
+                    @datos.each do |dato|
+                        roww = []
+                        roww << dato.code
+                        roww << dato.receipt_datetime.strftime("%d/%m/%Y")
+                        roww << dato.name
+                        roww << dato.gross_weight
+                        roww << dato.price_per_unit
+                        roww << (dato.price_per_unit.to_f * dato.gross_weight.to_f)
+                        totalKGS = totalKGS + dato.gross_weight.to_f
+                        totalPrice = totalPrice + (dato.price_per_unit.to_f * dato.gross_weight.to_f)
+                        temp << roww
+                    end
+
+                    variety_receipts << [variety, temp, totalKGS, totalPrice]
+                end
+
+                kind_variety << [@kind, variety_receipts]
+
+                mtrxx << [@producer, kind_variety]
+
+                pdf = Report2Pdf.new(mtrxx,view_context)
+                send_data pdf.render,
+                    type: "application/pdf",
+                    disposition: "inline"
+            end
+        end
     end
 
 
@@ -310,10 +475,6 @@ class ReportsController < ApplicationController
             disposition: "inline"
         end
     end
-        
-
-
-    	
 
     if @report_type=="5"
     	pdf = Report5Pdf.new()
