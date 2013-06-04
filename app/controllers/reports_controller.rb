@@ -105,7 +105,7 @@ class ReportsController < ApplicationController
             #INGRESO DE ENVASES POR PALLETS
             @pack_types.each do |pack_type|
                 @datos = Pallet.find(:all,
-                    :select => 'pallets.created_at, pallets.quantity',
+                    :select => 'receipts.receipt_datetime, pallets.quantity',
                     :from => 'receipts, pallets, producers, pack_types',
                     :conditions => ["producers.id=? and
                         producers.id = receipts.producer_id and
@@ -117,12 +117,12 @@ class ReportsController < ApplicationController
                 temp = []
 
                 @datos.each do |pallet|
-                    fecha = "#{pallet.created_at.year}-#{pallet.created_at.month}-#{pallet.created_at.day}"
+                    fecha = "#{pallet.receipt_datetime.to_datetime.year}-#{pallet.receipt_datetime.to_datetime.month}-#{pallet.receipt_datetime.to_datetime.day}"
                     temp <<  [[fecha] , [pallet.quantity]]
                 end
 
                  @datos = PackGroupReceipt.find(:all,
-                    :select => 'pack_group_receipts.created_at, pack_group_receipts.quantity',
+                    :select => 'receipts.receipt_datetime, pack_group_receipts.quantity',
                     :from => 'receipts, pack_group_receipts, producers, pack_types',
                     :conditions => ["producers.id=? and
                         producers.id = receipts.producer_id and
@@ -132,7 +132,7 @@ class ReportsController < ApplicationController
                         pack_group_receipts.pack_type_id=pack_types.id",
                         @producer_id,@fecha_inicio, @fecha_termino, pack_type.id])
                 @datos.each do |pallet|
-                    fecha = "#{pallet.created_at.year}-#{pallet.created_at.month}-#{pallet.created_at.day}"
+                    fecha = "#{pallet.receipt_datetime.to_datetime.year}-#{pallet.receipt_datetime.to_datetime.month}-#{pallet.receipt_datetime.to_datetime.day}"
                     temp <<  [[fecha] , [pallet.quantity]]
                 end
 
@@ -165,7 +165,8 @@ class ReportsController < ApplicationController
             temp = []
             mtrxx = []
     		@datos.each do |pallet|
-    			fecha = "#{pallet.created_at.year}-#{pallet.created_at.month}-#{pallet.created_at.day}"
+                year = pallet.receipt_datetime.to_datetime
+    			fecha = "#{pallet.receipt_datetime.to_datetime.year}-#{pallet.receipt_datetime.to_datetime.month}-#{pallet.receipt_datetime.to_datetime.day}"
     			temp <<  [[fecha] , [pallet.quantity]]
     		 end
 
@@ -181,7 +182,7 @@ class ReportsController < ApplicationController
                     pack_group_receipts.pack_type_id=pack_types.id",
                     @producer_id,@fecha_inicio, @fecha_termino, @pack_type_id])
             @datos.each do |pack_group_receipt|
-                fecha = "#{pack_group_receipt.created_at.year}-#{pack_group_receipt.created_at.month}-#{pack_group_receipt.created_at.day}"
+               fecha = "#{pallet.receipt_datetime.to_datetime.year}-#{pallet.receipt_datetime.to_datetime.month}-#{pallet.receipt_datetime.to_datetime.day}"
                 temp <<  [[fecha] , [pack_group_receipt.quantity]]
             end
             mtrxx << [@pack_type, temp ]
