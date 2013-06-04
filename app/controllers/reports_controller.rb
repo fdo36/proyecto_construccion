@@ -115,11 +115,11 @@ class ReportsController < ApplicationController
                         pallets.pack_type_id=pack_types.id",
                         @producer_id,@fecha_inicio, @fecha_termino, pack_type.id])
                 temp = []
-                
+
                 @datos.each do |pallet|
                     fecha = "#{pallet.created_at.year}-#{pallet.created_at.month}-#{pallet.created_at.day}"
                     temp <<  [[fecha] , [pallet.quantity]]
-                 end
+                end
 
                  @datos = PackGroupReceipt.find(:all,
                     :select => 'pack_group_receipts.created_at, pack_group_receipts.quantity',
@@ -131,8 +131,12 @@ class ReportsController < ApplicationController
                         pack_types.id=? and 
                         pack_group_receipts.pack_type_id=pack_types.id",
                         @producer_id,@fecha_inicio, @fecha_termino, pack_type.id])
+                @datos.each do |pallet|
+                    fecha = "#{pallet.created_at.year}-#{pallet.created_at.month}-#{pallet.created_at.day}"
+                    temp <<  [[fecha] , [pallet.quantity]]
+                end
 
-                 mtrxx << [pack_type, temp ]
+                mtrxx << [pack_type, temp]
     		end
     		pdf = Report3Pdf.new(@producer, mtrxx, view_context)
     		send_data pdf.render,
@@ -149,7 +153,7 @@ class ReportsController < ApplicationController
     		#INGRESO DE ENVASES POR PALLETS
     		
     		@datos = Pallet.find(:all,
- 				:select => 'pallets.created_at, pallets.quantity',
+ 				:select => 'receipts.receipt_datetime, pallets.quantity',
 	    		:from => 'receipts, pallets, producers, pack_types',
 	    		:conditions => ["producers.id=? and
 	    			producers.id = receipts.producer_id and
@@ -168,7 +172,7 @@ class ReportsController < ApplicationController
     		# INGRESO DE ENVASES POR PACK_GROUPS_RECEIPT
     		@datos = PackGroupReceipt.find(:all,
 	    		:from => 'receipts, pack_group_receipts, producers, pack_types',
-	    		:select => 'pack_group_receipts.created_at, pack_group_receipts.quantity',
+	    		:select => 'receipts.receipt_datetime, pack_group_receipts.quantity',
 	    	    :conditions => ["producers.id=? and
                     producers.id = receipts.producer_id and
                     receipts.receipt_datetime >= ? and receipts.receipt_datetime <= ? and 
@@ -319,8 +323,6 @@ class ReportsController < ApplicationController
 
     if @report_type=="6"
     	@producer = params[:Productores6]
-    	puts "chemimare"
-    	puts @producer
     	if @producer==""
     		mtrxx = []
 
