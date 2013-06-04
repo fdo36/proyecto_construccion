@@ -6,6 +6,8 @@ class ProductsController < ApplicationController
   def index
     @kinds = Kind.all
     @varities = Variety.all
+    @kind = Kind.new
+    @variety = Variety.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -47,10 +49,9 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @kind = Kind.new(params[:kind])
-    @variety = Variety.find(params[:id])
+    @variety = Variety.new(params[:variety])
 
     @kind.company_id = current_user.company_id
-    @variety.company_id = current_user.company_id
 
     respond_to do |format|
       if @kind.save
@@ -75,10 +76,10 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @kind.update_attributes(params[:kind])
-        format.html { redirect_to '/kinds', notice: "La especie #{@kind.name} fue editada exitosamente." }
+        format.html { redirect_to '/kinds', notice: "#{@kind.name} fue editada exitosamente." }
         format.json { head :no_content }
       elsif @variety.update_attributes(params(:variety))
-        format.html { redirect_to '/varities', notice: "La especie #{@variety.name} fue editada exitosamente." }
+        format.html { redirect_to '/varities', notice: "#{@variety.name} fue editada exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

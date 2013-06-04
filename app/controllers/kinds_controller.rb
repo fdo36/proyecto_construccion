@@ -5,7 +5,6 @@ class KindsController < ApplicationController
   # GET /kinds.json
   def index
     @kinds = Kind.all
-    @varieties = Variety.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -49,7 +48,7 @@ class KindsController < ApplicationController
 
     respond_to do |format|
       if @kind.save
-        format.html { redirect_to '/products', notice: "La especie #{@kind.name} fue creada exitosamente." }
+        format.html { redirect_to '/products', notice: "#{@kind.name} fue creada exitosamente." }
         format.json { render json: @product, status: :created, location: @product }
       else
         format.html { render action: "new" }
@@ -65,7 +64,7 @@ class KindsController < ApplicationController
 
     respond_to do |format|
       if @kind.update_attributes(params[:kind])
-        format.html { redirect_to '/products', notice: "La especie #{@kind.name} fue editada exitosamente." }
+        format.html { redirect_to '/products', notice: "#{@kind.name} fue editada exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

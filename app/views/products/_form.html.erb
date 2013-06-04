@@ -1,17 +1,86 @@
-<%= form_for(@product) do |f| %>
-  <% if @product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
 
-      <ul>
-      <% @product.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<% if @kind_or_variety == "kind" %>
+<div class="box">
+  <%= form_for(@kind) do |f| %>
+    <% if @kind.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= @kind.errors.count > 1 ? "#{@kind.errors.count} errores." : "#{@kind.errors.count} error." %> no se puede guardar la especie:</h2>
+
+        <ul>
+        <% @kind.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Nombre                
+          <em class="formee-req">*</em>
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= f.text_field :name %>
+      </div>
     </div>
-  <% end %>
+    <label> (
+      <em class="formee-req">*</em>
+    </label> ) Campos obligatorios.
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', products_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+<% end %>
+<% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<% if @kind_or_variety == "variety" %>
+<div class="box">
+  <%= form_for(@variety) do |f| %>
+    <% if @variety.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= @variety.errors.count > 1 ? "#{@variety.errors.count} errores." : "#{@variety.errors.count} error." %> no se puede guardar la variedad:</h2>
+
+        <ul>
+        <% @variety.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Nombre                
+          <em class="formee-req">*</em>
+        </label>
+      </div>
+      <div class="forme-in">
+        <%= f.text_field :name %>
+      </div>
+    </div>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Especie                
+          <em class="formee-req">*</em>
+        </label>
+      </div>
+      <div class="forme-in">
+        <% kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+        <%= f.select(:kind_id, kinds_array, :selected => :prompt, :prompt => '- Seleccione especie -') %>
+      </div>
+    </div>
+    <label> (
+      <em class="formee-req">*</em>
+    </label> ) Campos obligatorios.
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', products_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+<% end %>
 <% end %>

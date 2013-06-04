@@ -47,7 +47,7 @@ class VarietiesController < ApplicationController
 
     respond_to do |format|
       if @variety.save
-        format.html { redirect_to '/products', notice: "La variedad #{@variety.name} fue creada exitosamente." }
+        format.html { redirect_to '/products', notice: "#{@variety.name} fue creada exitosamente." }
         format.json { render json: @product, status: :created, location: @product }
       else
         format.html { render action: "new" }
@@ -63,7 +63,7 @@ class VarietiesController < ApplicationController
 
     respond_to do |format|
       if @variety.update_attributes(params[:variety])
-        format.html { redirect_to '/products', notice: "La variedad #{@variety.name} fue editada exitosamente." }
+        format.html { redirect_to '/products', notice: "#{@variety.name} fue editada exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
