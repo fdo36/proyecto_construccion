@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130602205951) do
-=======
-ActiveRecord::Schema.define(:version => 20130602051903) do
->>>>>>> 133fef7a2aafd8a19bd4583f80f117960b7b3a65
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
