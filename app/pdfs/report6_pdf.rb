@@ -1,3 +1,4 @@
+#<!--Productores-->
 class Report6Pdf < Prawn::Document
 	def initialize(data, view)
 		super()
@@ -38,7 +39,7 @@ class Report6Pdf < Prawn::Document
 		text_box ": #{@producer.rut}", :at => [marginx1, y_current]
 		bounding_box([marginx2, y_current], :width => 200, :height => 20) do
 			text "<u>Codigo SAG</u>", :inline_format => true
-		end
+		end 
 		text_box ": #{@producer.sag_code}", :at => [marginx3, y_current]
 		move_down 7
 		y_current = cursor

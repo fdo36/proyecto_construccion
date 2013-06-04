@@ -254,6 +254,7 @@ es:
         email: "Email"
         phone: "Teléfono"
         rut: "Rut"
+        code: "Código Destino"
       grouping:
         description: "Descripción"
         name: "Nombre"

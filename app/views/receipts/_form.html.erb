@@ -17,78 +17,120 @@
 </script>
 
 <script type="text/javascript">
-  function search_rut(s) {
-    if(s.value == "")
-    {      
+  function search_rut(s) {   
+      
+    if(s.value=="")
+    {           
       $('#select_producer').val("");
-      $('#rut').val("-");
+      $('#rut').val("-");      
       $('#codigo').val("-");
       $('#codigo_sag').val("-");
     }
 
-    $.get("/producers.json", function(data) {
-     
-     for (var i = data.length - 1; i >= 0; i--) {
-      if(data[i]["rut"]==s.value){
-        $('#select_producer').val([data[i]["name"], data[i]["id"]]);
-        $('#codigo').val(data[i]["code"]);
-        $('#codigo_sag').val(data[i]["sag_code"]);    
-        
-      }
-     };
+    else
+    {      
+      $.get("/producers.json", function(data) {       
+       
+       var encontrado = false;       
+       
+       for (var i = data.length - 1; i >= 0; i--) {
+        if(data[i]["rut"]==s.value){
+          $('#rut').val(s.value); 
+          $('#select_producer').val([data[i]["name"], data[i]["id"]]);
+          $('#codigo').val(data[i]["code"]);
+          $('#codigo_sag').val(data[i]["sag_code"]);  
+          encontrado = true;                  
+        }
+       };
+       if(!encontrado)
+       {
+          $('#select_producer').val("");
+          $('#rut').val("-");      
+          $('#codigo').val("-");
+          $('#codigo_sag').val("-");
+       }
 
-     
-   });
-    
+      });      
   }  
+}
 </script>
 
 <script type="text/javascript">
-  function search_code(s) {
-    if(s.value == "")
-    {      
+  function search_code(s) {   
+      
+    if(s.value=="")
+    {           
       $('#select_producer').val("");
-      $('#rut').val("-");
+      $('#rut').val("-");      
       $('#codigo').val("-");
       $('#codigo_sag').val("-");
     }
 
-    $.get("/producers.json", function(data) {
-     for (var i = data.length - 1; i >= 0; i--) {
-      if(data[i]["code"]==s.value){
-        $('#select_producer').val([data[i]["name"], data[i]["id"]]);
-        $('#rut').val(data[i]["rut"]);
-        $('#codigo_sag').val(data[i]["sag_code"]);   
-            
-      }
-     };
-   });
-    
+    else
+    {      
+      $.get("/producers.json", function(data) {       
+       
+       var encontrado = false;       
+       
+       for (var i = data.length - 1; i >= 0; i--) {
+        if(data[i]["code"]==s.value){
+          $('#rut').val(data[i]["rut"]); 
+          $('#select_producer').val([data[i]["name"], data[i]["id"]]);
+          $('#codigo').val(s.value);
+          $('#codigo_sag').val(data[i]["sag_code"]);  
+          encontrado = true;                  
+        }
+       };
+       if(!encontrado)
+       {
+          $('#select_producer').val("");
+          $('#rut').val("-");      
+          $('#codigo').val("-");
+          $('#codigo_sag').val("-");
+       }
+             
+      });      
   }  
+}
 </script>
 
 <script type="text/javascript">
-  function search_sag(s) {
-    if(s.value == "")
-    {      
+  function search_sag(s) {   
+      
+    if(s.value=="")
+    {           
       $('#select_producer').val("");
-      $('#rut').val("-");
+      $('#rut').val("-");      
       $('#codigo').val("-");
       $('#codigo_sag').val("-");
     }
 
-    $.get("/producers.json", function(data) {
-     for (var i = data.length - 1; i >= 0; i--) {
-      if(data[i]["sag_code"]==s.value){
-        $('#select_producer').val([data[i]["name"], data[i]["id"]]);
-        $('#rut').val(data[i]["rut"]);
-        $('#codigo').val(data[i]["code"]); 
-            
-      }
-     };
-   });
-    
+    else
+    {      
+      $.get("/producers.json", function(data) {       
+       
+       var encontrado = false;       
+       
+       for (var i = data.length - 1; i >= 0; i--) {
+        if(data[i]["sag_code"]==s.value){
+          $('#rut').val(data[i]["rut"]); 
+          $('#select_producer').val([data[i]["name"], data[i]["id"]]);
+          $('#codigo').val(data[i]["code"]);
+          $('#codigo_sag').val(s.value);  
+          encontrado = true;                  
+        }
+       };
+       if(!encontrado)
+       {
+          $('#select_producer').val("");
+          $('#rut').val("-");      
+          $('#codigo').val("-");
+          $('#codigo_sag').val("-");
+       }
+             
+      });      
   }  
+}
 </script>
 
 
@@ -127,11 +169,12 @@
     <div class="line-forme">
       <div class="forme-lab">
         <label>Rut </label>
+        <em class="formee-req">*</em>
       </div>
         
       <div class="forme-in">
         
-        <%= f.text_field(:code, :id => 'rut', :onblur => "search_rut(this)")%>
+        <%= f.text_field(:rut, :id => 'rut', :value => "-", :onblur => "search_rut(this)")%>
 
       </div>
     </div>
@@ -139,20 +182,22 @@
     <div class="line-forme">
       <div class="forme-lab">
         <label>Código Interno Productor </label>
+        <em class="formee-req">*</em>
       </div>
     
       <div class="forme-in">
-        <%= f.text_field(:code, :id => 'codigo')%>
+        <%= f.text_field(:code, :id => 'codigo', :value => "-", :onblur => "search_code(this)")%>
       </div>
     </div>
 
     <div class="line-forme">
       <div class="forme-lab">
         <label>Código SAG Productor </label>
+        <em class="formee-req">*</em>
       </div>
     
       <div class="forme-in">
-        <%= f.text_field(:code, :id => 'codigo_sag')%>
+        <%= f.text_field(:sag_code, :id => 'codigo_sag', :value => "-", :onblur => "search_sag(this)")%>
       </div>
     </div>
 
@@ -172,6 +217,7 @@
     <div class="line-forme">
       <div class="forme-lab">
         <label>Fecha </label>
+        <em class="formee-req">*</em>
       </div> 
       <%= f.datetime_select :receipt_datetime %>         
     </div>

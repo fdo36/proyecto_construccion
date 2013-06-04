@@ -17,6 +17,9 @@
 	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTablesES.js"></script>
 	<script type="text/javascript" src="/plugins/jquery.Rut/jquery.Rut.js"></script>
+<!--	<script type="text/javascript" src="/plugins/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="/plugins/ckeditor/styles.js"></script>
+	<link  rel="stylesheet" href="/plugins/ckeditor/contents.css" type="text/css"></style> -->
 
 	<script>
 		$(function() {
@@ -34,6 +37,8 @@
 			  on_error: function(){ alert('Rut incorrecto'); },
 			  format_on: 'keyup'
 			});
+
+		    
 		});
 		$(document).on("click", "#mostrar-dialog",function(event) 
 		{	
@@ -55,6 +60,7 @@
 		      	$.each(data, function(i, item){	
 		            options += '<option value="' + item.id + '">' + item.name + '</option>';
 		        });
+
 		        $("#"+commune_selector_id).html(options);
 	        });
         }

@@ -1,4 +1,6 @@
 <script type="text/javascript">
+
+
    function show_rut3(s) {
 
       if(s.value == "")
@@ -19,18 +21,54 @@
             inputCodigo.value = data.sag_code;
          });
       }
+      show_pack_type(s.options[s.selectedIndex].value);
    }
+
+   function show_pack_type(sel) //sel= id del productor seleccionado
+   {
+      var selEnv = document.getElementById("Envases3");
+      var x = 1;
+ 
+      selEnv.options.length = 0;
+      selEnv.options[0] = new Option("Seleccione un Envase","","1");      
+         
+      $.get("/pack_types.json", function(data1) {
+         $.each(data1, function(index1, element1){  
+            var flag3 = true;
+              $.get("/receipts.json", function(data) {
+                  $.each(data, function(index, element){ 
+                     if(sel == element.producer_id && flag3){ //id productor seleccionado == id productor de receipt
+                           $.get("/receipts/"+element.id+"/pack_group_receipts.json", function(data) {  
+                              $.each(data, function(i, item){ 
+                                    if(element.id == item.receipt_id && flag3 && item.pack_type_id == element1.id){ // id de receipt == id receipt de pack_group_receipts
+                                             selEnv.options[x] = new Option(element1.name,element1.id,"0");
+                                             x = x+1;
+                                             selEnv.selectedIndex=0;
+                                             flag3 = false;  
+                                    }
+                              });
+                           });
+                     }                 
+                  });
+               }); 
+               
+         });;
+      });
+   
+   }
+
 </script>
 
 <!--Envases Productor-->
 <%= form_tag  do %>
+   <input type="hidden" value="3" name="report_type"></input>
    <div class="line-forme">
       <div class="forme-lab">
          <%= label_tag 'Productor'%>
       </div>
       <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
       <div class="forme-in">
-         <%= select_tag "Productores1", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut3(this)" %>
+         <%= select_tag "Productores3", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut3(this)" %>
       </div>
    </div>
 
@@ -58,7 +96,7 @@
       </div>
       <% @pack_types_array = PackType.all.map { |pack| [pack.name, pack.id] } %>
       <div class="forme-in">
-         <%= select_tag "Envases3", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" %>
+         <%= select_tag "Envases3", "",:prompt => "Seleccione un Envase" %>
       </div>
    </div> 
 
@@ -67,7 +105,7 @@
          <%= label_tag 'Fecha Inicio' %>
       </div>
       <div class="field">
-         <%= select_date %>
+         <%= select_date Date.today, :prefix => :start_date3 %>
       </div>
    </div>   
 
@@ -76,7 +114,7 @@
          <%= label_tag 'Fecha Termino' %>
       </div>
       <div class="field">
-         <%= select_date %>
+         <%= select_date Date.today, :prefix => :end_date3 %>
       </div>
    </div>                                                                    
    <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>
