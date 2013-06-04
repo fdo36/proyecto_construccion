@@ -25,7 +25,7 @@
         ignored by Erubis and should be correctly displayed as linebreaks by
         modern browsers. 
         , :value => f.object.content.gsub("\n", '&#x000A;').gsub("\r",'')%>
-    <p><%=wt 'Contenido:' %><br /><%= f.text_area(:content).html_safe %></p>
+    <p><%=wt 'Contenido:' %><br /><%= f.text_area(:content).html_safe%></p>
     <p><%=wt 'Comentarios de este cambio (opcional):' %><br /><%= f.text_field :comment %></p>
 
     <%= wiki_page_attachments(@page) %>

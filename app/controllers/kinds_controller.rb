@@ -45,6 +45,8 @@ class KindsController < ApplicationController
     @kind = Kind.new(params[:kind])
     @kind.company_id = current_user.company_id
 
+    @kind.company_id = current_user.company_id
+
     respond_to do |format|
       if @kind.save
         format.html { redirect_to '/kinds', notice: "La especie #{@kind.name} fue creada exitosamente." }

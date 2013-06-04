@@ -31,7 +31,7 @@ class Pallet < ActiveRecord::Base
 
   
   validates :gross_weight, :tare, :presence =>true, :numericality => true
-  validates :variety_id,:quality_id,:price_per_unit,:pack_type_id, :quantity, :code, :receipt_id, 
+  validates :variety_id,:quality_id,:price_per_unit,:pack_type_id, :quantity, :code, 
    :presence => true, :numericality => { :only_integer => true }
 
 end

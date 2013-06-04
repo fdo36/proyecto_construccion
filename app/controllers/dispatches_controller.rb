@@ -1,4 +1,5 @@
 class DispatchesController < ApplicationController
+  
   # GET /dispatches
   # GET /dispatches.json
   def index
@@ -41,6 +42,7 @@ class DispatchesController < ApplicationController
   # POST /dispatches.json
   def create
     @dispatch = Dispatch.new(params[:dispatch])
+    @dispatch.company_id = current_user.company_id
 
     respond_to do |format|
       if @dispatch.save

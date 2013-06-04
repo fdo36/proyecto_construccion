@@ -1,5 +1,7 @@
 class PackGroupReceiptsController < ApplicationController
 
+  #load_and_authorize_resource
+
   # GET /pack_group_receipts
   # GET /pack_group_receipts.json
   def index
@@ -45,6 +47,7 @@ class PackGroupReceiptsController < ApplicationController
     @receipt = Receipt.find(params[:receipt_id])
     @pack_group_receipt = PackGroupReceipt.new(params[:pack_group_receipt])
 
+    @pack_group_receipt.company_id = current_user.company_id
     respond_to do |format|
       if @pack_group_receipt.save
         format.html { redirect_to receipt_path(@receipt) }
