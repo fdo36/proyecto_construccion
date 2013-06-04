@@ -181,9 +181,9 @@ class ReportsController < ApplicationController
                     pack_types.id=? and 
                     pack_group_receipts.pack_type_id=pack_types.id",
                     @producer_id,@fecha_inicio, @fecha_termino, @pack_type_id])
-            @datos.each do |pack_group_receipt|
-               fecha = "#{pallet.receipt_datetime.to_datetime.year}-#{pallet.receipt_datetime.to_datetime.month}-#{pallet.receipt_datetime.to_datetime.day}"
-                temp <<  [[fecha] , [pack_group_receipt.quantity]]
+            @datos.each do |pack|
+               fecha = "#{pack.receipt_datetime.to_datetime.year}-#{pack.receipt_datetime.to_datetime.month}-#{pack.receipt_datetime.to_datetime.day}"
+                temp <<  [[fecha] , [pack.quantity]]
             end
             mtrxx << [@pack_type, temp ]
 
@@ -280,7 +280,7 @@ class ReportsController < ApplicationController
                     pack_types.id=? and 
                     pallets.pack_type_id=pack_types.id",
                     @destination_id, @fecha_inicio, @fecha_termino, @pack_type_id])
-            temp = []
+            temp = [] 
 
             @datos.each do |pallet|
                 fecha = "#{pallet.dispatch_datetime.year}-#{pallet.dispatch_datetime.month}-#{pallet.dispatch_datetime.day}"
