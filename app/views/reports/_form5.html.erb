@@ -14,11 +14,11 @@
 
       <div class="line-forme">
          <div class="forme-lab">
-           <%= label_tag 'Envase' %> 
+           <%= label_tag 'Especie' %> 
         </div>
-        <% @pack_types_array = PackType.all.map { |pack| [pack.name, pack.id] } %>
+        <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
         <div class="forme-in">
-            <%= select_tag "Envases5", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" %>
+            <%= select_tag "Especies5", options_for_select(@kinds_array), :prompt => "Seleccione una Especie" %>
          </div>                        
       </div>
 

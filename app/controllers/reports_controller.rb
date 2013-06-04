@@ -477,10 +477,7 @@ class ReportsController < ApplicationController
     end
 
     if @report_type=="5"
-    	pdf = Report5Pdf.new()
-    	send_data pdf.render,
-	    	type: "application/pdf",
-	    	disposition: "inline"
+        
     end
 
     if @report_type=="6"
