@@ -7,14 +7,16 @@ ProyectoConstruccion::Application.routes.draw do
 
   resources :settings
 
-  resources :pack_group_dispatches
-
   resources :receipts
 
   resources :pack_types
 
   resources :receipts do
     resources :pallets    
+  end
+
+  resources :dispatches do
+    resources :pack_group_dispatches
   end
 
   resources :receipts do

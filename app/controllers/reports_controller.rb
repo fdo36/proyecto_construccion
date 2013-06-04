@@ -111,9 +111,6 @@ class ReportsController < ApplicationController
                             =receipts.id and pallets.variety_id=? and qualities.id=pallets.quality_id",@producer_id, 
                             @fecha_inicio, @fecha_termino, kind.id, variety.id])
 
-                        puts "algoooooooooooooooooooooooooooo"
-                        puts @datos.length
-
                         temp = []
                         totalKGS = 0
                         totalPrice = 0
@@ -138,9 +135,6 @@ class ReportsController < ApplicationController
                             receipts.kind_id=? and pack_group_receipts.receipt_id
                             =receipts.id and pack_group_receipts.variety_id=? and qualities.id=pack_group_receipts.quality_id",@producer_id, 
                             @fecha_inicio, @fecha_termino, kind.id, variety.id])
-
-                        puts "algoooooooooooooooooooooooooooo"
-                        puts @datos.length
 
                         @datos.each do |dato|
                             roww = []
@@ -346,9 +340,9 @@ class ReportsController < ApplicationController
                     pack_types.id=? and 
                     pack_group_receipts.pack_type_id=pack_types.id",
                     @producer_id,@fecha_inicio, @fecha_termino, @pack_type_id])
-            @datos.each do |pack_group_receipt|
-               fecha = "#{pallet.receipt_datetime.to_datetime.year}-#{pallet.receipt_datetime.to_datetime.month}-#{pallet.receipt_datetime.to_datetime.day}"
-                temp <<  [[fecha] , [pack_group_receipt.quantity]]
+            @datos.each do |pack|
+               fecha = "#{pack.receipt_datetime.to_datetime.year}-#{pack.receipt_datetime.to_datetime.month}-#{pack.receipt_datetime.to_datetime.day}"
+                temp <<  [[fecha] , [pack.quantity]]
             end
             mtrxx << [@pack_type, temp ]
 
@@ -445,7 +439,7 @@ class ReportsController < ApplicationController
                     pack_types.id=? and 
                     pallets.pack_type_id=pack_types.id",
                     @destination_id, @fecha_inicio, @fecha_termino, @pack_type_id])
-            temp = []
+            temp = [] 
 
             @datos.each do |pallet|
                 fecha = "#{pallet.dispatch_datetime.year}-#{pallet.dispatch_datetime.month}-#{pallet.dispatch_datetime.day}"
