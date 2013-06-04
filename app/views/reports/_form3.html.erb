@@ -1,4 +1,6 @@
 <script type="text/javascript">
+
+
    function show_rut3(s) {
 
       if(s.value == "")
@@ -26,29 +28,34 @@
    {
       var selEnv = document.getElementById("Envases3");
       var x = 1;
+ 
       selEnv.options.length = 0;
       selEnv.options[0] = new Option("Seleccione un Envase","","1");      
-           $.get("/receipts.json", function(data) {
-               $.each(data, function(index, element){          
-                  if(sel == element.producer_id){ //id productor seleccionado == id productor de receipt
-                        $.get("/receipts/"+element.id+"/pack_group_receipts.json", function(data) {  
-                           $.each(data, function(i, item){ 
-                                 if(element.id == item.receipt_id){ // id de receipt == id receipt de pack_group_receipts
-                                       $.get("/pack_types/"+item.id+".json", function(k) {
-                                          selEnv.options[x] = new Option(k.name,k.id,"0");
-                                          x = x+1;
-                                          selEnv.selectedIndex=0;
-                                       }); 
-                                 }
+         
+      $.get("/pack_types.json", function(data1) {
+         $.each(data1, function(index1, element1){  
+            var flag3 = true;
+              $.get("/receipts.json", function(data) {
+                  $.each(data, function(index, element){ 
+                     if(sel == element.producer_id && flag3){ //id productor seleccionado == id productor de receipt
+                           $.get("/receipts/"+element.id+"/pack_group_receipts.json", function(data) {  
+                              $.each(data, function(i, item){ 
+                                    if(element.id == item.receipt_id && flag3 && item.pack_type_id == element1.id){ // id de receipt == id receipt de pack_group_receipts
+                                             selEnv.options[x] = new Option(element1.name,element1.id,"0");
+                                             x = x+1;
+                                             selEnv.selectedIndex=0;
+                                             flag3 = false;  
+                                    }
+                              });
                            });
-                        });
-                  }                  
-               });
-            }); 
+                     }                 
+                  });
+               }); 
+               
+         });;
+      });
+   
    }
-
-
-
 
 </script>
 

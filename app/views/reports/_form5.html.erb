@@ -1,3 +1,43 @@
+<script type="text/javascript">
+
+   function show_pack_type3() //sel= id del productor seleccionado
+   {
+      var selDest = document.getElementById("Destinos5");
+      var selEnv = document.getElementById("Envases5");
+      var idDest = selDest.options[selDest.selectedIndex].value;
+      var x = 1;
+      selEnv.options.length = 0;
+      selEnv.options[0] = new Option("Seleccione un Envase","","1");      
+         
+       $.get("/pack_types.json", function(data1) {
+          $.each(data1, function(index1, element1){  
+             var flag5 = true;
+               $.get("/dispatches.json", function(data) {
+                   $.each(data, function(index, element){ 
+                      if(idDest == element.destination_id && flag5){ //id Destino seleccionado == id destinos
+                            $.get("/dispatches/"+element.id+"/pack_group_dispatches.json", function(data) {  
+                               $.each(data, function(i, item){ 
+                                     if(element.id == item.dispatch_id && flag5 && item.pack_type_id == element1.id){ // id de dispatch == id dispatch de pack_group_dispatches
+                                              selEnv.options[x] = new Option(element1.name,element1.id,"0");
+                                              x = x+1;
+                                              selEnv.selectedIndex=0;
+                                              flag5 = false;  
+                                     }
+                               });
+                            });
+                      }                 
+                   });
+                }); 
+                
+          });;
+       });
+       
+       }
+
+</script>
+
+
+
 <!--Despacho por Destino-->
 
 <%= form_tag  do %>
@@ -8,7 +48,7 @@
         </div>
         <% @destinations_array = Destination.all.map { |desti| [desti.name, desti.id] } %>
         <div class="forme-in">
-            <%= select_tag "Destinos5", options_for_select(@destinations_array), :prompt => "Seleccione un Destino" %>
+            <%= select_tag "Destinos5", options_for_select(@destinations_array), :prompt => "Seleccione un Destino", :onchange => "show_pack_type3()" %>
          </div>                        
       </div>
 
@@ -18,7 +58,7 @@
         </div>
         <% @pack_types_array = PackType.all.map { |pack| [pack.name, pack.id] } %>
         <div class="forme-in">
-            <%= select_tag "Envases5", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" %>
+            <%= select_tag "Envases5", "",:prompt => "Seleccione un Envase" %>
          </div>                        
       </div>
 

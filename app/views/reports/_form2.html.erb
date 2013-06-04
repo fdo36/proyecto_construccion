@@ -31,15 +31,15 @@
 
       $.get("/kinds.json", function(data1) {
          $.each(data1, function(index1, element1){
-            var flag = true;
+            var flag2 = true;
             $.get("/receipts.json", function(data) {
                $.each(data, function(index, element){                  
-                  if(sel == element.producer_id && flag){ //id productor seleccionado == id productor de ingresos         
+                  if(sel == element.producer_id && flag2){ //id productor seleccionado == id productor de ingresos         
                         if(element1.id == element.kind_id){
                            selKin.options[i] = new Option(element1.name,element1.id,"0");
                            i = i+1;
                            selKin.selectedIndex=0;
-                           flag = false;                                                    
+                           flag2 = false;                                                    
                         }                        
                   } 
                });
