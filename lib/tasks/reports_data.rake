@@ -3,14 +3,18 @@ namespace :reports_data do
   task :load => :environment do
   	
   	#Borramos todo
-  	
-  	
+    for p in Producer.all
+      p.kinds.delete_all
+      p.pack_types.delete_all
+    end
+    Pallet.delete_all
   	PackGroupReceipt.delete_all
   	Receipt.delete_all
   	PackGroupDispatch.delete_all
   	Dispatch.delete_all
   	PackType.delete_all
   	Variety.delete_all
+    
   	Kind.delete_all
   	Quality.delete_all
   	Producer.destroy_all
@@ -52,7 +56,7 @@ namespace :reports_data do
   		:email => "contaco@distcau.cl", :phone => "074-2345187", :contact => "Fax: 074-2435621")
   	d2.save(:validate => false)
 
-	d3 = Destination.new(:rut => "7879337-6", :name => "DistTal", :commune_id => 137, :address => "Camino Viejo a Maule 243", 
+    d3 = Destination.new(:rut => "7879337-6", :name => "DistTal", :commune_id => 137, :address => "Camino Viejo a Maule 243", 
   		:email => "contaco@distal.cl", :phone => "071-2345187", :contact => "Fax: 071-2435621")
   	d3.save(:validate => false)
 
@@ -150,6 +154,9 @@ namespace :reports_data do
   		:pack_type_id => e1.id, :variety_id => v1k1.id, :quality_id => q2.id, :receipt_id => r1.id)
   	r1d2.save(:validate => false)
 
+    p1.kinds << k1
+    p1.pack_types << e1
+
   	r2 = Receipt.new(:code => "ING2", :producer_id => p2.id, :kind_id => k2.id,
   					:receipt_datetime => "2013-04-23 05:13:35.433108")
   	r2.save(:validate => false)
@@ -160,7 +167,10 @@ namespace :reports_data do
   		:pack_type_id => e2.id, :variety_id => v1k2.id, :quality_id => q2.id, :receipt_id => r2.id)
   	r2d2.save(:validate => false)
 
-	r3 = Receipt.new(:code => "ING3", :producer_id => p3.id, :kind_id => k3.id,
+    p2.kinds << k2
+    p2.pack_types << e2
+
+    r3 = Receipt.new(:code => "ING3", :producer_id => p3.id, :kind_id => k3.id,
   					:receipt_datetime => "2013-04-25 05:13:35.433108")
   	r3.save(:validate => false)
   	r3d1 = PackGroupReceipt.new(:price_per_unit => 370, :quantity => 150, :gross_weight => 750,
@@ -173,6 +183,9 @@ namespace :reports_data do
   		:pack_type_id => e3.id, :variety_id => v1k3.id, :quality_id => q2.id, :receipt_id => r3.id)
   	r3d3.save(:validate => false)
 
+    p3.kinds << k3
+    p3.pack_types << e3
+
   	r4 = Receipt.new(:code => "ING4", :producer_id => p4.id, :kind_id => k4.id,
   					:receipt_datetime => "2013-04-25 05:13:35.433108")
   	r4.save(:validate => false)
@@ -182,6 +195,9 @@ namespace :reports_data do
   	r4d2 = PackGroupReceipt.new(:price_per_unit => 370, :quantity => 230, :gross_weight => 460,
   		:pack_type_id => e4.id, :variety_id => v1k4.id, :quality_id => q2.id, :receipt_id => r4.id)
   	r4d2.save(:validate => false)
+
+    p4.kinds << k4
+    p4.pack_types << e4
   	
   	r5 = Receipt.new(:code => "ING5", :producer_id => p5.id, :kind_id => k5.id,
   					:receipt_datetime => "2013-04-29 05:13:35.433108")
@@ -192,6 +208,9 @@ namespace :reports_data do
   	r5d2 = PackGroupReceipt.new(:price_per_unit => 390, :quantity => 220, :gross_weight => 330,
   		:pack_type_id => e5.id, :variety_id => v1k5.id, :quality_id => q2.id, :receipt_id => r5.id)
   	r5d2.save(:validate => false)
+
+    p5.kinds << k5
+    p5.pack_types << e5
 
   	#de nuevo lo mismo
 
@@ -205,6 +224,9 @@ namespace :reports_data do
   		:pack_type_id => e2.id, :variety_id => v2k2.id, :quality_id => q3.id, :receipt_id => r1.id)
   	r1d2.save(:validate => false)
 
+    p1.kinds << k2
+    p1.pack_types << e2
+
   	r2 = Receipt.new(:code => "ING7", :producer_id => p2.id, :kind_id => k2.id,
   					:receipt_datetime => "2013-05-23 05:13:35.433108")
   	r2.save(:validate => false)
@@ -215,7 +237,7 @@ namespace :reports_data do
   		:pack_type_id => e2.id, :variety_id => v1k2.id, :quality_id => q3.id, :receipt_id => r2.id)
   	r2d2.save(:validate => false)
 
-	r3 = Receipt.new(:code => "ING8", :producer_id => p3.id, :kind_id => k4.id,
+    r3 = Receipt.new(:code => "ING8", :producer_id => p3.id, :kind_id => k4.id,
   					:receipt_datetime => "2013-05-25 05:13:35.433108")
   	r3.save(:validate => false)
   	r3d1 = PackGroupReceipt.new(:price_per_unit => 620, :quantity => 150, :gross_weight => 300,
@@ -228,6 +250,9 @@ namespace :reports_data do
   		:pack_type_id => e4.id, :variety_id => v3k4.id, :quality_id => q2.id, :receipt_id => r3.id)
   	r3d3.save(:validate => false)
 
+    p3.kinds << k4
+    p3.pack_types << e4
+
   	r4 = Receipt.new(:code => "ING9", :producer_id => p4.id, :kind_id => k4.id,
   					:receipt_datetime => "2013-05-26 05:13:35.433108")
   	r4.save(:validate => false)
@@ -237,7 +262,7 @@ namespace :reports_data do
   	r4d2 = PackGroupReceipt.new(:price_per_unit => 270, :quantity => 230, :gross_weight => 460,
   		:pack_type_id => e4.id, :variety_id => v2k4.id, :quality_id => q2.id, :receipt_id => r4.id)
   	r4d2.save(:validate => false)
-  	
+
   	r5 = Receipt.new(:code => "ING10", :producer_id => p5.id, :kind_id => k2.id,
   					:receipt_datetime => "2013-05-29 05:13:35.433108")
   	r5.save(:validate => false)
@@ -247,6 +272,9 @@ namespace :reports_data do
   	r5d2 = PackGroupReceipt.new(:price_per_unit => 390, :quantity => 220, :gross_weight => 440,
   		:pack_type_id => e2.id, :variety_id => v3k2.id, :quality_id => q2.id, :receipt_id => r5.id)
   	r5d2.save(:validate => false)
+
+    p5.kinds << k2
+    p5.pack_types << e2
 
   	#y otra vez
 
@@ -270,7 +298,7 @@ namespace :reports_data do
   		:pack_type_id => e2.id, :variety_id => v2k2.id, :quality_id => q2.id, :receipt_id => r2.id)
   	r2d2.save(:validate => false)
 
-	r3 = Receipt.new(:code => "ING13", :producer_id => p3.id, :kind_id => k3.id,
+    r3 = Receipt.new(:code => "ING13", :producer_id => p3.id, :kind_id => k3.id,
   					:receipt_datetime => "2013-06-01 05:13:35.433108")
   	r3.save(:validate => false)
   	r3d1 = PackGroupReceipt.new(:price_per_unit => 370, :quantity => 100, :gross_weight => 300,
@@ -292,6 +320,9 @@ namespace :reports_data do
   	r4d2 = PackGroupReceipt.new(:price_per_unit => 370, :quantity => 230, :gross_weight => 460,
   		:pack_type_id => e1.id, :variety_id => v3k1.id, :quality_id => q3.id, :receipt_id => r4.id)
   	r4d2.save(:validate => false)
+
+    p4.kinds << k1
+    p4.pack_types << e1
   	
   	r5 = Receipt.new(:code => "ING15", :producer_id => p5.id, :kind_id => k5.id,
   					:receipt_datetime => "2013-06-02 05:13:35.433108")
@@ -302,6 +333,36 @@ namespace :reports_data do
   	r5d2 = PackGroupReceipt.new(:price_per_unit => 179, :quantity => 220, :gross_weight => 330,
   		:pack_type_id => e5.id, :variety_id => v3k5.id, :quality_id => q3.id, :receipt_id => r5.id)
   	r5d2.save(:validate => false)
+
+
+    #ingresos con pallet
+
+    r1 = Receipt.new(:code => "ING16", :producer_id => p1.id, :kind_id => k1.id,
+            :receipt_datetime => "2013-05-30 05:13:35.433108")
+    r1.save(:validate => false)
+
+    pallet = Pallet.new(:code => 123, :quantity => 80, :price_per_unit => 345, :gross_weight => 160,
+      :tare => 15, :variety_id => v3k1.id, :quality_id => q2.id, :receipt_id => r1.id, :pack_type_id => e1.id)
+    pallet.save(:validate => false)
+
+    r2 = Receipt.new(:code => "ING17", :producer_id => p2.id, :kind_id => k2.id,
+            :receipt_datetime => "2013-05-31 05:13:35.433108")
+    r2.save(:validate => false)
+    pallet = Pallet.new(:code => 124, :quantity => 110, :price_per_unit => 200, :gross_weight => 220,
+      :tare => 15, :variety_id => v2k2.id, :quality_id => q3.id, :receipt_id => r2.id, :pack_type_id => e2.id)
+    pallet.save(:validate => false)
+    
+
+    r3 = Receipt.new(:code => "ING18", :producer_id => p3.id, :kind_id => k3.id,
+            :receipt_datetime => "2013-06-01 05:13:35.433108")
+    r3.save(:validate => false)
+
+    pallet = Pallet.new(:code => 125, :quantity => 50, :price_per_unit => 156, :gross_weight => 150,
+      :tare => 15, :variety_id => v2k3.id, :quality_id => q3.id, :receipt_id => r3.id, :pack_type_id => e3.id)
+    pallet.save(:validate => false)
+    pallet = Pallet.new(:code => 126, :quantity => 60, :price_per_unit => 250, :gross_weight => 180,
+      :tare => 15, :variety_id => v2k3.id, :quality_id => q2.id, :receipt_id => r3.id, :pack_type_id => e3.id)
+    pallet.save(:validate => false)
 
   	#Agregamos los Despachos y sus detalles
 
@@ -454,7 +515,7 @@ namespace :reports_data do
   			:quality_id => q2.id, :dispatch_id => dp4.id, :pack_type_id => e4.id)
   	dp4d2.save(:validate => false)
 
-  	dp5 = Dispatch.new(:destination_id => d5.id, :kind_id => k5.id,
+  	dp5 = Dispatch.new(	:destination_id => d5.id, :kind_id => k5.id,
   		:dispatch_datetime => "2013-06-02 05:13:35.433108")
   	dp5.save(:validate => false)
   	dp5d1 = PackGroupDispatch.new(:gross_weight => 240, :quantity => 120, :variety_id => v2k5.id,
@@ -464,6 +525,29 @@ namespace :reports_data do
   			:quality_id => q2.id, :dispatch_id => dp5.id, :pack_type_id => e5.id)
   	dp5d2.save(:validate => false)
 
+    #despachos con pallets
+
+    dp1 = Dispatch.new(:destination_id => d1.id, :kind_id => k1.id,
+      :dispatch_datetime => "2013-05-30 05:13:35.433108")
+    dp1.save(:validate => false)
+
+    pallet = Pallet.new(:code => 127, :quantity => 50, :price_per_unit => 156, :gross_weight => 150,
+      :tare => 15, :variety_id => v2k1.id, :quality_id => q3.id, :dispatch_id => dp1.id, :pack_type_id => e1.id)
+    pallet.save(:validate => false)
+    pallet = Pallet.new(:code => 128, :quantity => 60, :price_per_unit => 250, :gross_weight => 180,
+      :tare => 15, :variety_id => v2k1.id, :quality_id => q2.id, :dispatch_id => dp1.id, :pack_type_id => e1.id)
+    pallet.save(:validate => false)
+
+    dp2 = Dispatch.new(:destination_id => d2.id, :kind_id => k2.id,
+      :dispatch_datetime => "2013-05-30 05:13:35.433108")
+    dp2.save(:validate => false)
+
+    pallet = Pallet.new(:code => 129, :quantity => 50, :price_per_unit => 156, :gross_weight => 150,
+      :tare => 15, :variety_id => v2k2.id, :quality_id => q3.id, :dispatch_id => dp2.id, :pack_type_id => e2.id)
+    pallet.save(:validate => false)
+    pallet = Pallet.new(:code => 120, :quantity => 60, :price_per_unit => 250, :gross_weight => 180,
+      :tare => 15, :variety_id => v2k2.id, :quality_id => q2.id, :dispatch_id => dp2.id, :pack_type_id => e2.id)
+    pallet.save(:validate => false)
 
   end
 
