@@ -16,39 +16,40 @@ class Report3Pdf < Prawn::Document
 	    marginx3 = marginx2 + 130
 	    
 	    for i in (0 .. (data.length-1))
-	    	@pack_type =data[i][0]
-	    	@mtrxx = data[i][1]
 	    	
-    		stroke_line [0, cursor], [540, cursor]
+	    	if data[i][1].length != 0
+		    	@pack_type =data[i][0]
+		    	@mtrxx = data[i][1]
 
-			move_down 10
-			y_current = cursor
-			text "ENVASE", :size => 13
-			text_box ": #{@pack_type.name}", :at => [marginx1, y_current], :style => :bold #TIPO DE EMVASE
-			stroke_line [marginx1, cursor], [540, cursor]
+				move_down 10
+				y_current = cursor
+				text "ENVASE", :size => 13
+				text_box ": #{@pack_type.name}", :at => [marginx1, y_current], :style => :bold #TIPO DE EMVASE
+				stroke_line [marginx1, cursor], [540, cursor]
 
-			move_down 20
+				move_down 20
 
-			# CODIGO CORRECTO
-			suma = 0
-			bounding_box([270, cursor], :width => 200) do
-				datos =  [["Fecha", "Cantidad de Envases"]]#dejar como está y llenar las siguientes filas
-				for i in (0 .. (@mtrxx.length-1))
-					suma = suma + @mtrxx[i][1][0]
-					datos <<  ["#{@mtrxx[i][0][0]}", "#{@mtrxx[i][1][0]}"] 
+				# CODIGO CORRECTO
+				suma = 0
+				bounding_box([270, cursor], :width => 200) do
+					datos =  [["Fecha", "Cantidad de Envases"]]#dejar como está y llenar las siguientes filas
+					for i in (0 .. (@mtrxx.length-1))
+						suma = suma + @mtrxx[i][1][0]
+						datos <<  ["#{@mtrxx[i][0][0]}", "#{@mtrxx[i][1][0]}"] 
+					end
+					table(datos , :width =>270)
 				end
-				table(datos , :width =>270)
-			end
-		
-
-			move_down 20
-			y_current = cursor
-			text_box "Total Envases", :at => [marginx2, y_current], :style => :bold
-			text_box ":", :at => [marginx3, y_current], :style => :bold
-			text_box "#{suma}", :at => [marginx3, y_current], :style => :bold, :align => :right #SUMA DE LOS EMBASES QUE TIENE/FALTA
 			
-			move_down 20
-			stroke_line [0, cursor], [540, cursor]
+
+				move_down 20
+				y_current = cursor
+				text_box "Total Envases", :at => [marginx2, y_current], :style => :bold
+				text_box ":", :at => [marginx3, y_current], :style => :bold
+				text_box "#{suma}", :at => [marginx3, y_current], :style => :bold, :align => :right #SUMA DE LOS EMBASES QUE TIENE/FALTA
+				
+				move_down 20
+				stroke_line [0, cursor], [540, cursor]
+			end
 		end
 
 		
@@ -84,6 +85,7 @@ class Report3Pdf < Prawn::Document
 			text "<u>Codigo SAG</u>", :inline_format => true
 		end
 		text_box ": #{@producer.sag_code}", :at => [marginx3, y_current]#CODIGO SAG
+		stroke_line [0, cursor], [540, cursor]
 	end
 
 	def report_foot()
