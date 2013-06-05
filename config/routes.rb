@@ -60,7 +60,7 @@ ProyectoConstruccion::Application.routes.draw do
     resources :users
   end
 
-  devise_for :users, :path => "admin/users"
+  devise_for :users
 
   root :to => 'start#index'
   # See how all your routes lay out with "rake routes"

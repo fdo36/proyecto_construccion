@@ -211,6 +211,7 @@ es:
       destination: "Destino"
       dispatch: "Despacho"
       grouping: "Agrupación"
+      groupings_producer: "Agrupación de productores"
       kind: "Tipo"
       locality: "Localidad"
       pack_group_dispatch: "Despacho de envases"
@@ -225,6 +226,8 @@ es:
       setting: "Configuración"
       user: "Usuario"
       variety: "Variedad"
+      wiki_page: "Página Wiki"
+      wiki_page_version: "Versión de Wiki"
     attributes:
       company:
         name: "Nombre de la Compañía"
