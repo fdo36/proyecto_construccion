@@ -39,6 +39,8 @@ ProyectoConstruccion::Application.routes.draw do
     resources :pack_group_dispatches
   end
 
+  resources :products
+
   resources :varieties
 
   resources :kinds
