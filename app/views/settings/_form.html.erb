@@ -1,3 +1,27 @@
+<script type="text/javascript">
+  function selection(value) {
+    if(value==1)
+    {
+      $('#option').val("pack");
+      $('#state').val("true");
+    }
+    else if(value==2)
+    {
+      $('#option').val("pallet");
+      $('#state').val("true");
+
+    }
+    else
+    {
+      $('#option').val("pack_pallet");
+      $('#state').val("true");
+    }
+    
+  }
+
+</script>
+
+
 <%= form_for(@setting) do |f| %>
   <% if @setting.errors.any? %>
     <div id="error_explanation">
@@ -11,19 +35,47 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :key %><br />
-    <%= f.text_field :key %>
+  
+
+  <div class="headContent">
+  <h1>General</h1>
+
+</div>
+<div class="box">
+  <div class="configBox">
+   <fieldset>
+        <legend>Manejo Materia Prima</legend>
+        <p> A continuacón se presentan los esquemas para el manejo de productos dentro del sistema.</p>
+    <p>Escoja el esquema que más se adecue a sus necesidades:</p>
+    <form class="configForm">
+      <div class ="boxOption">
+        <input type="radio" name="option" value="1" onclick="selection(1)"><label>Sólo Bandejas</label>
+        <p>Si escoge este esquema el sistema completo manipulará los productos únicamente en bandejas.</p>
+        <p>Las opciones para el trabajo con pallets estarán deshabilitadas</p>
+      </div>
+      <div class ="boxOption">
+        <input type="radio" name="option" value="2" onclick = "selection(2)"><label>Sólo Pallets</label>
+        <p>Si escoge este esquema el sistema completo manipulará obligatoriamente los productos en pallets.</p>
+        <p>Las opciones para el tratamiento de envases sueltos estarán deshabilitadas.</p>
+      </div>
+      <div class ="boxOption">
+        <input type="radio" name="option" value="3" = onclick = "selection(3)"><label>Esquema Mixto</label>
+        <p>Si escoge este esquema el sistema completo manipulará los productos de manera libre, es decir, el usuario tendrá la opción de escoger si desea palletizar o no los envases.</p>
+        <p>Las opciones para el tratamiento tanto de envases sueltos como palletizados, están habilitadas.</p>
+      </div>
+    </form>    
+    </fieldset>
+
+    
+    <%= f.text_field(:key, :id => 'option', :value => "-")%>
+    <%= f.text_field(:value, :id => 'state', :value => "-")%>    
+    <%= f.hidden_field :company_id, :value => 1 %>
+
   </div>
-  <div class="field">
-    <%= f.label :value %><br />
-    <%= f.text_field :value %>
-  </div>
-  <div class="field">
-    <%= f.label :company_id %><br />
-    <%= f.number_field :company_id %>
-  </div>
+</div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'Cancelar', settings_path , :class => "button silver alignright" %>
+    <%= f.submit :Guardar , :class => "button green alignright" %>
   </div>
 <% end %>

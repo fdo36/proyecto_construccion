@@ -115,11 +115,11 @@
 					</ul>
 					<%else%>
 					
-						<% namesIO = {'Season' => 'Temporada', 'Report' => 'Informes', 'Dispatche' => 'Despachos'}%>
+						<% namesIO = {'Receipt' => 'Ingresos', 'Season' => 'Temporada', 'Dispatch' => 'Despachos', 'Report' => 'Informes' }%>
 
 						<% namesResource = {'Producer' => 'Productor', 'Pack_type' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Especies', 'Variety' => 'Variedades', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación' } %>
 
-						<% links = {'Season'=>'/seasons', 'Report' => '/reports', 'Producer'=>'/producers', 'Pack_type' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/kinds', 'Variety' => '/varieties', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatche' => '/dispatches' } %>
+						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'Pack_type' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/kinds', 'Variety' => '/varieties', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches' } %>
 
 						<% models_name_io = [] %>
 						<% models_name_rsrc = [] %>
@@ -194,7 +194,7 @@
 					</div>
 					<ul class="toolsMenu">
 						<li> <p><%= link_to('Cuentas', company_users_path(current_user.company)) %></p> </li>
-						<li> <p>Configuración</p> </li>
+						<li> <p><%= link_to('Configuración', settings_path) %> </p> </li>
 					</ul>
 				</div>
 				<% end %>
