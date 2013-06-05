@@ -1,39 +1,49 @@
-
 <% if @kind_or_variety == "kind" %>
-<div class="box">
-  <%= form_for(@kind) do |f| %>
-    <% if @kind.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= @kind.errors.count > 1 ? "#{@kind.errors.count} errores." : "#{@kind.errors.count} error." %> no se puede guardar la especie:</h2>
+  <div class="box">
+    <%= form_for(@kind) do |f| %>
+      <% if @kind.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= @kind.errors.count > 1 ? "#{@kind.errors.count} errores." : "#{@kind.errors.count} error." %> no se puede guardar la especie:</h2>
 
-        <ul>
-        <% @kind.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+          <ul>
+          <% @kind.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-    <div class="line-forme">
-      <div class="forme-lab">
-        <label> 
-          Nombre                
-          <em class="formee-req">*</em>
-        </label>  
+      <div class="line-forme">
+        <div class="forme-lab">
+          <label> 
+            Nombre                
+            <em class="formee-req">*</em>
+          </label>  
+        </div>
+        <div class="forme-in">
+          <%= f.text_field :name %>
+        </div>
       </div>
-      <div class="forme-in">
-        <%= f.text_field :name %>
+
+      <!-- Div creado "aproposito" para alinear-->
+      <div class="line-forme">
+        <div class="forme-lab">
+          <label> 
+          </label>  
+        </div>
+        <div class="forme-in">
+        </div>
       </div>
-    </div>
-    <label> (
-      <em class="formee-req">*</em>
-    </label> ) Campos obligatorios.
-</div>
-<div class="foot-box">
-  <%= link_to 'Cancelar', products_path , :class => "button silver alignright" %>
-  <%= f.submit :Guardar , :class => "button green alignright" %>
-</div>
-<% end %>
+
+      <label> (
+        <em class="formee-req">*</em>
+      </label> ) Campos obligatorios.
+  </div>
+  <div class="foot-auxiliaryBox">
+    <%= link_to 'Cancelar', products_path , :class => "button silver alignright" %>
+    <%= f.submit :Guardar , :class => "button green alignright" %>
+  </div>
+  <% end %>
 <% end %>
 
 <% if @kind_or_variety == "variety" %>
@@ -78,7 +88,7 @@
       <em class="formee-req">*</em>
     </label> ) Campos obligatorios.
 </div>
-<div class="foot-box">
+<div class="foot-auxiliaryBox">
   <%= link_to 'Cancelar', products_path , :class => "button silver alignright" %>
   <%= f.submit :Guardar , :class => "button green alignright" %>
 </div>
