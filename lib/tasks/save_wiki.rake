@@ -8,6 +8,7 @@ namespace :save_wiki do
     		file.write("namespace :init_wiki do\n")
     		file.write("	desc 'inicializa la wiki'\n")
     		file.write("	task :load => :environment do\n")
+            file.write("        WikiPage.delete_all\n")
     		wikis.each do |wiki|
     			file.write("		WikiPage.create(:creator_id => 1, :updator_id => 1, 
     				:path=> '#{wiki.path}', :title => '#{wiki.title}', :content => '#{wiki.content}')\n")
