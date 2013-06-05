@@ -21,23 +21,20 @@
 
 </script>
 
-
 <%= form_for(@setting) do |f| %>
   <% if @setting.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
+    <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
 
-      <ul>
-      <% @setting.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+    <ul>
+  <% @setting.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
   <% end %>
+  </ul>
+  </div>
+<% end %>
 
-  
-
-  <div class="headContent">
+<div class="headContent">
   <h1>General</h1>
 
 </div>
@@ -67,15 +64,19 @@
     </fieldset>
 
     
-    <%= f.text_field(:key, :id => 'option', :value => "-")%>
-    <%= f.text_field(:value, :id => 'state', :value => "-")%>    
+    <%= f.hidden_field(:key, :id => 'option')%>
+    <%= f.hidden_field(:value, :id => 'state')%>    
     <%= f.hidden_field :company_id, :value => 1 %>
+
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+    <% end %>
 
   </div>
 </div>
 
-  <div class="actions">
-    <%= link_to 'Cancelar', settings_path , :class => "button silver alignright" %>
-    <%= f.submit :Guardar , :class => "button green alignright" %>
-  </div>
-<% end %>
+
+
+

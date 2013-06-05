@@ -1,4 +1,5 @@
 class SettingsController < ApplicationController
+  
   # GET /settings
   # GET /settings.json
   def index
@@ -41,6 +42,8 @@ class SettingsController < ApplicationController
   # POST /settings.json
   def create
     @setting = Setting.new(params[:setting])
+
+    @setting.company_id = current_user.company_id
 
     respond_to do |format|
       if @setting.save
