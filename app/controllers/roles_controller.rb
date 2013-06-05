@@ -104,7 +104,21 @@ class RolesController < ApplicationController
   def destroy
     @company = Company.find(params[:company_id])
     @role = Role.find(params[:id])
-    @role.destroy
+    @users = User.where(:company_id => @company.id)
+
+    exist_rol_in_user = false
+    for u in @users 
+      for r in u.roles
+        if r==@role
+          #no se puede eliminar
+          exist_rol_in_user = true
+        end
+      end 
+    end
+
+    if !exist_rol_in_user
+      @role.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to company_roles_path(@company) }
