@@ -70,7 +70,7 @@ class CompaniesController < ApplicationController
     end
   end
 
-    def disable
+ def disable
     @company = Company.find(params[:id])
     @company.update_attribute(:active, false)
   
@@ -85,7 +85,7 @@ class CompaniesController < ApplicationController
     @company.update_attribute(:active, true)
 
     respond_to do |format|
-      format.html { redirect_to  }
+      format.html { redirect_to companies_url  }
       format.json { head :no_content }
     end
   end
