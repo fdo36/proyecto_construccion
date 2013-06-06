@@ -1,12 +1,53 @@
-<%= form_tag  do %>
+<script type="text/javascript">
 
+   function show_pack_type2() //sel= id del productor seleccionado
+   {
+      var selDest = document.getElementById("Destinos4");
+      var selEnv = document.getElementById("Envases4");
+      var idDest = selDest.options[selDest.selectedIndex].value;
+      var x = 1;
+      selEnv.options.length = 0;
+      selEnv.options[0] = new Option("Seleccione un Envase","","1");      
+         
+       $.get("/pack_types.json", function(data1) {
+          $.each(data1, function(index1, element1){  
+             var flag4 = true;
+               $.get("/dispatches.json", function(data) {
+                   $.each(data, function(index, element){ 
+                      if(idDest == element.destination_id && flag4){ //id Destino seleccionado == id destinos
+                            $.get("/dispatches/"+element.id+"/pack_group_dispatches.json", function(data) {  
+                               $.each(data, function(i, item){ 
+                                     if(element.id == item.dispatch_id && flag4 && item.pack_type_id == element1.id){ // id de dispatch == id dispatch de pack_group_dispatches
+                                              selEnv.options[x] = new Option(element1.name,element1.id,"0");
+                                              x = x+1;
+                                              selEnv.selectedIndex=0;
+                                              flag4 = false;  
+                                     }
+                               });
+                            });
+                      }                 
+                   });
+                }); 
+                
+          });;
+       });
+       
+       }
+
+</script>
+
+
+
+<!--Envases Destino-->
+<%= form_tag  do %>
+  <input type="hidden" value="4" name="report_type"></input>
       <div class="line-forme">
          <div class="forme-lab">
            <%= label_tag 'Destino' %> 
         </div>
-        <% @destinations_array = Destination.all.map { |desti| [desti.address, desti.id] } %>
+        <% @destinations_array = Destination.all.map { |desti| [desti.name, desti.id] } %>
         <div class="forme-in">
-            <%= select_tag "Destinos4", options_for_select(@destinations_array), :prompt => "Seleccione un Destino" %>
+            <%= select_tag "Destinos4", options_for_select(@destinations_array), :prompt => "Seleccione un Destino", :onchange => "show_pack_type2()" %>
          </div>                        
       </div>
 
@@ -16,7 +57,7 @@
         </div>
         <% @pack_types_array = PackType.all.map { |pack| [pack.name, pack.id] } %>
         <div class="forme-in">
-            <%= select_tag "Envases4", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" %>
+            <%= select_tag "Envases4", "",:prompt => "Seleccione un Envase" %>
          </div>                        
       </div> 
 
@@ -25,7 +66,7 @@
            <%= label_tag 'Fecha Inicio' %> 
         </div>
         <div class="field">
-            <%= select_date %>
+            <%= select_date Date.today, :prefix => :start_date4 %>
          </div>                        
       </div>   
 
@@ -34,7 +75,7 @@
            <%= label_tag 'Fecha Termino' %> 
         </div>
         <div class="field">
-            <%= select_date %>
+            <%= select_date Date.today, :prefix => :end_date4 %>
          </div>                        
       </div>                                                                    
       <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>

@@ -1,11 +1,11 @@
 #encoding: utf-8
 require 'validators.rb'
 class Destination < ActiveRecord::Base
-  attr_accessible :active, :address, :commune_id, :name, :contact, :email, :phone, :rut, :is_deleted
+  attr_accessible :code, :active, :address, :commune_id, :name, :contact, :email, :phone, :rut, :is_deleted
 
-  validates :address, :commune_id, :name, :contact, :phone, :rut, :presence => true
+  validates :code, :address, :commune_id, :name, :contact, :phone, :rut, :presence => true
 
-
+  validates :code, :uniqueness => true
   #:presence => true
   validates :email, :format => { :with => /\A(([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,}))?\z/i,
     :message => "debe seguir el formato ejemplo@midominio.com" }

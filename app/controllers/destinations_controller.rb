@@ -63,6 +63,8 @@ class DestinationsController < ApplicationController
   def update
     @destination = Destination.find(params[:id])
 
+    @destination.company_id = current_user.company_id    
+
     respond_to do |format|
       if @destination.update_attributes(params[:destination])
         format.html { redirect_to '/destinations', notice: "El destino #{@destination.name} fue editado exitosamente." }

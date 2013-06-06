@@ -18,18 +18,48 @@
       var inputCodigo = document.getElementById('codigo2');
       inputCodigo.value = data.sag_code;
     });
+
+    show_kind2(s.options[s.selectedIndex].value);
   }
+
+   function show_kind2(sel) //sel= id del productor seleccionado
+   {
+      var selKin = document.getElementById("Especies2");
+      var i = 1;
+      selKin.options.length = 0;
+      selKin.options[0] = new Option("Seleccione una Especie","","1");  
+
+      $.get("/kinds.json", function(data1) {
+         $.each(data1, function(index1, element1){
+            var flag2 = true;
+            $.get("/receipts.json", function(data) {
+               $.each(data, function(index, element){                  
+                  if(sel == element.producer_id && flag2){ //id productor seleccionado == id productor de ingresos         
+                        if(element1.id == element.kind_id){
+                           selKin.options[i] = new Option(element1.name,element1.id,"0");
+                           i = i+1;
+                           selKin.selectedIndex=0;
+                           flag2 = false;                                                    
+                        }                        
+                  } 
+               });
+            }); 
+         });
+      });    
+   }
+
 </script>
 
-
+<!--Facturación a Productores-->
 <%= form_tag  do |f| %>
+  <input type="hidden" value="2" name="report_type"></input>
       <div class="line-forme">
          <div class="forme-lab">
             <%= label_tag 'Productor'%> 
          </div>
          <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
          <div class="forme-in">
-            <%= select_tag "Productores1", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut2(this)" %>
+            <%= select_tag "Productores2", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut2(this)" %>
          </div>
       </div>
 
@@ -57,7 +87,7 @@
          </div>
          <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
          <div class="forme-in">
-            <%= select_tag "Especies1", options_for_select(@kinds_array), :prompt => "Seleccione una Especie" %>
+            <%= select_tag "Especies2", "",:prompt => "Seleccione una Especie" %>
          </div>
       </div>
 
@@ -66,7 +96,7 @@
            <%= label_tag 'Fecha Inicio' %> 
         </div>
         <div class="field">
-            <%= select_date %>
+            <%= select_date Date.today, :prefix => :start_date2 %>
          </div>                        
       </div>   
 
@@ -75,7 +105,7 @@
            <%= label_tag 'Fecha Termino' %> 
         </div>
         <div class="field">
-            <%= select_date %>
+            <%= select_date Date.today, :prefix => :end_date2 %>
          </div>                        
       </div>                                                                    
       <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>

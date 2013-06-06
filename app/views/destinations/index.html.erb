@@ -17,6 +17,7 @@
             <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
                 <thead>
                   <tr>
+                    <th style="width:20% !important;">Código Destino</th>
                     <th style="width:20% !important;">Nombre</th>
                     <th>Teléfono</th>
                     <th>Email</th>
@@ -27,6 +28,7 @@
             <% @destinations.each do |destination| %>
               <% if ((destination.active == true) and (destination.is_deleted == false))%>
                 <tr>
+                  <td><%= destination.code %></td>
                   <td><%= destination.name %></td>
                   <td><%= destination.phone %></td>
                   <td><%= destination.email %></td>
@@ -51,6 +53,7 @@
             <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
                 <thead>
                   <tr>
+                    <th>Código Destino</th>
                     <th style="width:20% !important;">Nombre</th>
                     <th>Teléfono</th>
                     <th>Email</th>

@@ -1,6 +1,7 @@
 #encoding: utf-8
 class ReceiptsController < ApplicationController
   #load_and_authorize_resource
+
   # GET /receipts
   # GET /receipts.json
   def index
