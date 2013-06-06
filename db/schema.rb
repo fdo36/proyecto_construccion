@@ -31,16 +31,16 @@ ActiveRecord::Schema.define(:version => 20130529101120) do
 
   create_table "companies", :force => true do |t|
     t.string   "name",             :default => "", :null => false
-    t.integer  "rut",                              :null => false
     t.string   "address"
     t.string   "commune_id"
     t.string   "line_of_business"
-    t.integer  "phone"
     t.string   "email",            :default => "", :null => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
     t.boolean  "active"
     t.integer  "region_id"
+    t.string   "rut"
+    t.string   "phone"
   end
 
   create_table "containers", :force => true do |t|

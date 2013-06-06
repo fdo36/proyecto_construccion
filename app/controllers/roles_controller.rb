@@ -17,18 +17,33 @@ class RolesController < ApplicationController
   def show
     @company = Company.find(params[:company_id])
     @role = Role.find(params[:id])
-    @supported_models = Astrotils::get_models_name.map { |model_name|
-      begin
-        c = Object.const_get(model_name)  
-        [c.model_name.human, model_name]
-      rescue
-        nil
+    if current_user.super_admin == true
+      @supported_models = Astrotils::get_models_name.map{ |model_name|
+        begin
+          c = Object.const_get(model_name)  
+          [c.model_name.human, model_name]
+        rescue
+          nil
+        end
+      }
+      @supported_models.reject! {|pair| pair == nil}
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @role }
       end
-    }
-    @supported_models.reject! {|pair| pair == nil}
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @role }
+    else
+      @supported_models = []
+      @supported_access_right = []
+      Role.where(:company_id => @company.id).map{ |r|
+      #for r in current_user.roles
+        #if r.company_id == @company.id
+          r.access_rights.each do |ar|
+            @supported_models << [ar.model_name , ar.action]
+            @supported_access_right << ar.action
+          end
+        #end
+      #end
+      }
     end
   end
 
@@ -89,7 +104,21 @@ class RolesController < ApplicationController
   def destroy
     @company = Company.find(params[:company_id])
     @role = Role.find(params[:id])
-    @role.destroy
+    @users = User.where(:company_id => @company.id)
+
+    exist_rol_in_user = false
+    for u in @users 
+      for r in u.roles
+        if r==@role
+          #no se puede eliminar
+          exist_rol_in_user = true
+        end
+      end 
+    end
+
+    if !exist_rol_in_user
+      @role.destroy
+    end
 
     respond_to do |format|
       format.html { redirect_to company_roles_path(@company) }

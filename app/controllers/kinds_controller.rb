@@ -1,6 +1,6 @@
 #encoding: utf-8
 class KindsController < ApplicationController
-#  load_and_authorize_resource
+
   # GET /kinds
   # GET /kinds.json
   def index
@@ -43,6 +43,7 @@ class KindsController < ApplicationController
   # POST /kinds.json
   def create
     @kind = Kind.new(params[:kind])
+    @kind.company_id = current_user.company_id
 
     @kind.company_id = current_user.company_id
 
