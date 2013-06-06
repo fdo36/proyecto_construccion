@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  company_id: 1
+  destination_id: 1
+  pack_type_id: 1
+  quantity: 1
+  pack_option: MyString
+
+two:
+  company_id: 1
+  destination_id: 1
+  pack_type_id: 1
+  quantity: 1
+  pack_option: MyString
