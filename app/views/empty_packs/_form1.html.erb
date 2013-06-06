@@ -1,0 +1,382 @@
+<script type="text/javascript">
+var total = new Array();
+/*Agrega el rut y codigo sag del productor ademas cuenta los tipos de envases que le perteneces y los agrega a la tabla */
+function show_rut1(s){
+	//Busqueda del codigo sag y rut del productor
+	if(s.value == "")
+	{
+	 var inputRut = document.getElementById('rut1');
+	 inputRut.value = "-";
+
+	 var inputCodigo = document.getElementById('codigo1');
+	 inputCodigo.value = "-";
+	}
+	else
+	{
+	 $.get("/producers/"+s.value+".json", function(data) {
+	    var inputRut = document.getElementById('rut1');
+	    inputRut.value = data.rut;
+
+	    var inputCodigo = document.getElementById('codigo1');
+	    inputCodigo.value = data.sag_code;
+	 });
+	}
+	//Calculo de envases del productor
+	$.get("/pack_types.json", function(data){
+		$.each(data, function(index, value){
+			var pack_type_id=value.id;
+			//alert("Tipo de Envase="+pack_type_id);
+			var quantity=0;
+			$.get("/producers/"+s.value+"/empty_packs_producer_moves.json", function(data){
+		  $.each(data, function(index, value){
+				
+				if(value.pack_type_id==pack_type_id)
+				{	
+					if(value.pack_option=="ingreso")
+						{
+							quantity = quantity + value.quantity;
+						}
+						else
+						{
+							quantity = quantity - value.quantity;
+						}
+		 		}
+
+			});
+			//Insertamos la cantidad en la celda
+			var table2 = document.getElementById('table2');
+			for(var i=1; i<table2.rows.length; i+=1){
+				if(pack_type_id==table2.rows[i].cells[0].innerHTML)
+				{
+			  	table2.rows[i].cells[2].innerHTML=quantity;
+				}
+			}  
+			});
+		});		
+	});
+}
+
+function displayResult(){
+	//Validar las opciones de ingreso de despacho
+	var radio1 =document.getElementById('radio1');
+	var radio2 =document.getElementById('radio2');
+	var selectp = document.getElementById("Productores1").value;
+
+	var quantityValidate =document.getElementById('quantity').value;
+	var producerValidate = document.getElementById("mySelect").value;
+
+
+	if(selectp.length==0)
+	{
+		alert("Debes selecionar un productor");
+	}
+	else if(!radio1.checked && !radio2.checked)
+	{
+		alert("Debes selecionar una opcion");
+	}
+	else if(quantityValidate.length==0)
+	{
+		alert("Debes ingresar una cantidad");
+	}
+	else if(producerValidate.length==0)
+	{
+		alert("Debes selecionar un tipo de envace");
+
+	}
+	else
+	{
+
+
+	var selectp = document.getElementById("Productores1");
+	var select = document.getElementById("mySelect");
+	var table = document.getElementById("myTable");
+	var tBody = document.getElementById("tBody");
+	var quantity = document.getElementById("quantity");
+
+	var row = table.insertRow(table.rows.length);
+	var cell0 = row.insertCell(0);
+	var cell1 = row.insertCell(1);
+	var cell2 = row.insertCell(2);
+	var cell3 = row.insertCell(3);
+
+	cell0.innerHTML = selectp.options[selectp.selectedIndex].text;
+	cell1.innerHTML = select.options[select.selectedIndex].text;
+	cell2.innerHTML = quantity.value;
+
+	var button = document.createElement('button');
+	var text = document.createTextNode("Eliminar");
+	button.appendChild(text);
+
+	//boton eliminar
+	cell3.appendChild(button);
+	tr.appendChild(cell3);
+
+	tBody.appendChild(tr);
+
+	
+
+	button.onclick = function (){
+		var parent=this.parentNode;
+		while(parent.nodeName.toLowerCase()!='tr'){
+		parent = parent.parentNode;
+	}
+	table.deleteRow(parent.rowIndex);
+	};
+
+
+
+	//table.appendChild(row);
+/*
+	var tr = document.createElement("tr");
+	tr.setAttribute("class","odd");
+	var td0 = document.createElement("td");//id productor
+	var td1 = document.createElement("td");//name productor
+	td1.setAttribute("class","sorting_1");
+	var td2 = document.createElement("td");//id envase
+	var td3 = document.createElement("td");//name envase
+	var td4 = document.createElement("td");//cantidad
+	var td5 = document.createElement("td");//boton eliminar
+
+	//id productor
+	td0.style.display="none";
+
+	tr.appendChild(td0);
+
+	//name productor
+	td1.innerHTML = selectp.options[selectp.selectedIndex].text;
+
+	tr.appendChild(td1);
+
+	//id envase
+	td2.style.display="none";
+	tr.appendChild(td2);
+
+	//name envase
+	td3.innerHTML = select.options[select.selectedIndex].text;
+	tr.appendChild(td3);
+
+	//cantidad
+	td4.innerHTML = quantity.value;
+	tr.appendChild(td4);
+
+	var button = document.createElement('button');
+	var text = document.createTextNode("Eliminar");
+	button.appendChild(text);
+
+	//boton eliminar
+	td5.appendChild(button);
+	tr.appendChild(td5);
+
+	tBody.appendChild(tr);
+
+	
+
+	button.onclick = function (){
+		var parent=this.parentNode;
+		while(parent.nodeName.toLowerCase()!='tr'){
+		parent = parent.parentNode;
+	}
+	table.deleteRow(parent.rowIndex);
+	};
+}
+	*/
+}
+}
+/*Agrega los datos de la tabla2 a la base de datos empty_packs_producer_moves*/
+function add_db()
+{
+	var table = document.getElementById('myTable');
+	var rowLength = table.rows.length;
+	for(var i=1; i<rowLength; i+=1){
+	  var row = table.rows[i];
+	  var values=new Array(); 
+	  var cellLength = row.cells.length;
+	  for(var y=0; y<cellLength-1; y+=1){
+	    var cell = row.cells[y];
+	    if(cell.firstChild!=null)
+	    {
+		    var value = cell.firstChild.data
+		    values.push(value);
+	    }
+	  }
+	 	for(var p=0; p<values.length ; p++)
+	 	{
+	 		alert(values[p]);
+	  }
+	  	  // $.ajax({
+	     //   url: "empty_pack_producer_moves",
+	     //    type: "POST",
+	     //    data: {empty_pack_producer_move:{producer_id: values[0],pack_type_id: values[1],quantity: values[2],pack_option: values[3]}},
+	    	// });
+	}
+}
+
+function show_stock(s)
+{
+	total = new Array();
+	$.when(stock_pack_type(s)).then(count());
+}
+		
+/*Cuenta la cantidad de envases del tipo especificado de la compañia*/
+function stock_pack_type(s)
+{
+	var stock = 0;
+	/*Cantidad de envases de productor*/
+	$.get("/producers.json", function(data){
+		$.each(data, function(index, value){
+	  		$.get("/producers/"+value.id+"/empty_packs_producer_moves.json", function(data){
+					$.each(data, function(index, value){
+						if(value.pack_type_id==s.value)
+						{
+							if(value.pack_option=="ingreso"){
+								total.push(value.quantity);
+								//stock= stock+value.quantity;
+							}
+							else{
+								//stock= stock-value.quantity;	
+								total.push(-1*value.quantity);
+							}
+						}
+						
+  				});
+	  		});	
+	  });
+	});
+
+}
+function count()
+{
+
+	var x =0;
+	
+	
+	for(var i=0; i<total.length; i+=1)
+	{
+		x = x+total[i];
+				
+	}
+	var inputStock = document.getElementById('stock');
+	inputStock.value = x;
+
+}
+
+
+</script>  
+<!--Selector de productores-->
+<div class="line-forme">
+	<div class="forme-lab">
+ 		<%= label_tag 'Productor'%> 
+	</div>
+	<% @producers_array = Producer.where(:company_id => current_user.company_id).map { |producer| [producer.name, producer.id] } %>
+	<div class="forme-in">
+		<%= select_tag "Productores1", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut1(this)" %>
+	</div>
+</div>
+<!--Rut de productor seleccionado-->
+<div class="line-forme">
+	<div class="forme-lab">
+	 <%= label_tag "rut"  %>
+	</div>
+	<div class="forme-in ">
+	 <input id="rut1" value="-" disabled="true"></input>
+	</div>
+</div>
+<!--Codigo sag del productores selecionado-->
+<div class="line-forme">
+	<div class="forme-lab">
+		<%= label_tag "Cod. Productor"%>
+	</div>
+	<div class="forme-in">
+	 <input id="codigo1" value="-" disabled="true"></input>
+	</div>
+</div>
+<!--RadioButton ingreso/despacho-->
+<div class="line-forme">
+	<div class="forme-lab">
+		<label>Opcion</label><br />
+	</div>
+	<div class="forme-in">
+		<input id="radio1"type="radio" name="option" value="ingreso">Ingreso
+		<input id="radio2"type="radio" name="option" value="despacho">Despacho
+	</div>
+</div> 
+<!--Selector de envases-->
+<div class="line-forme">
+	<div class="forme-lab">
+	 <%= label_tag 'Envase'%> 
+	</div>
+	<% @pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+	<div class="forme-in">
+	 <%= select_tag "mySelect", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" %>
+	</div>
+</div>
+<!--Stock del envase selecionado-->
+<div class="line-forme">
+	<div class="forme-lab">
+	 <%= label_tag 'Stock'%> 
+	</div>    
+	<div class="forme-in">
+		<input id="stock" value="-" disabled="true"></input>
+	</div>  
+</div>
+<!--Cantidad del envase selecionado-->
+<div class="line-forme">
+	<div class="forme-lab">
+	 <%= label_tag 'Cantidad'%> 
+	 </div>    
+	<div class="forme-in">
+		<input id="quantity" type="text"><br>
+	</div>  
+</div>
+<!--Selector de la fecha-->
+<div class="line-forme">
+	<div class="forme-lab">
+		 <%= label_tag 'Fecha'%> 
+	</div>
+	<%=select_date%>
+</div>
+<!--Tabla que muestra la cuenta del productor selecionado-->
+<table id="table2" cellpadding="0" cellspacing="0" border="0" class="display datatable">
+	<thead>
+    <tr>
+    	<th >Id</th>
+    	<th>Envantce</th>
+      <th>Cantidad</th>
+    </tr>
+  </thead>
+	<tbody>
+		<% @packtypes = PackType.all%>
+		<% @packtypes.each do |packtype| %>
+    <tr>
+	    <td ><%= packtype.id%></td>
+      <td><%= packtype.name%></td>
+			<td>0</td>
+		</tr>
+		<%end%>
+  </tbody>
+</table>
+<!--Boton que agregar los datos a la tabla-->
+<button type="button" onclick="displayResult()" class="button blue alignright">Agregar</button>
+<!--Tabla que muestra los datos agregados a la tabla-->
+<table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="myTable">
+	<thead>
+    <tr>
+  		<th>Productor</th>
+      <th>Envase</th>
+      <th>Cantidad</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+	<tbody id="tBody">
+		<tr style="display:none">
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td></td>
+		</tr>
+  </tbody>
+</table>
+<!--Boton que termina el proceso y agrega todos los datos a la base de datos-->
+<a class = "button blue alignright" data-role="button" onclick="add_db()">Aceptar</a>
+
+

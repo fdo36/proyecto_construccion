@@ -1,4 +1,11 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :empty_packs_destination_moves
+
+
+  resources :empty_packs_producer_moves
+
+  resources :empty_packs
+
   wiki_root '/wiki'
   
   resources :reports
@@ -27,7 +34,9 @@ ProyectoConstruccion::Application.routes.draw do
 
   resources :seasons
 
-  resources :destinations
+  resources :destinations do
+    resources :empty_packs_destination_moves
+  end  
 
   resources :dispatches do
     resources :pallets    
@@ -45,8 +54,9 @@ ProyectoConstruccion::Application.routes.draw do
 
   resources :groupings
 
-  resources :producers
-
+  resources :producers do 
+    resources :empty_packs_producer_moves
+  end  
   resources :regions do
      resources :communes
   end
@@ -82,7 +92,9 @@ ProyectoConstruccion::Application.routes.draw do
   match 'producers/:id/enable' => 'producers#enable', :as => 'producers_enable'
   match 'producers/:id/disable' => 'producers#disable', :as => 'producers_disable'
   match 'producers/:id/delete_producer' => 'producers#delete_producer', :as => 'producer_delete'
-  
+    
+
+
   match '/help/css/jquery-ui.css', :to => redirect('/css/jquery-ui.css')
   match '/help/css/styles.css', :to => redirect('/css/styles.css')
   match '/help/css/default_buttons.css', :to => redirect('/css/default_buttons.css')

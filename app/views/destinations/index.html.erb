@@ -32,6 +32,7 @@
                   <td><%= destination.email %></td>
                   <td><%= link_to 'Ver', destination %>
                   <%= link_to 'Editar', edit_destination_path(destination) %>
+                  <%= link_to 'Envases vacios',destination_empty_packs_destination_moves_path(destination) %>
                   <%= link_to 'Deshabilitar', destinations_disable_path(destination) %></td>
                 </tr>
               <% end %>

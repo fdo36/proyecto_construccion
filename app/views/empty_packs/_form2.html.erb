@@ -1,0 +1,158 @@
+<script type="text/javascript">
+/*Busca el rut del destino seleccionado y calculo de envases*/
+function show_rut_destination(s)
+{
+	if(s.value == "")
+	{
+ 		var inputRut = document.getElementById('rut_destination');
+		inputRut.value = "-";
+	}
+	else
+	{
+	 	$.get("/destinations.json", function(data) {
+			$.each(data, function(index, value){
+				if(s.value==value.id)
+				{
+ 					var inputRut = document.getElementById('rut_destination');
+ 					inputRut.value = value.rut;
+				}		
+	  	});
+		});
+	}
+	//Calculo de envases del destino
+	$.get("/pack_types.json", function(data){
+		$.each(data, function(index, value){
+			var pack_type_id=value.id;
+			var quantity=0;
+			$.get("/destinations/"+s.value+"/empty_packs_destination_moves.json", function(data){
+		  $.each(data, function(index, value){
+				
+				if(value.pack_type_id==pack_type_id)
+				{	
+					if(value.pack_option=="ingreso")
+						{
+							quantity = quantity + value.quantity;
+						}
+						else
+						{
+							quantity = quantity - value.quantity;
+
+						}
+		 		}
+			});
+			//Insertamos la cantidad en la celda
+			var table2 = document.getElementById('tableDestination');
+			for(var i=1; i<table2.rows.length; i+=1){
+				if(pack_type_id==table2.rows[i].cells[0].innerHTML)
+				{
+			  	table2.rows[i].cells[2].innerHTML=quantity;
+				}
+			}  
+			});
+		});		
+	});
+}
+</script>
+
+<!-- Selector de Destinos -->
+<div class="line-forme">
+	<div class="forme-lab">
+	 <%= label_tag 'Destino'%> 
+	</div>
+	<% @destinations_array = Destination.where(:company_id => current_user.company_id).map { |destination| [destination.name, destination.id] } %>
+	<div class="forme-in">
+	 <%= select_tag "Destination", options_for_select(@destinations_array), :prompt => "Seleccione un Destino", :onchange => "show_rut_destination(this)"%>
+	</div>
+</div>
+<!-- Rut de Destino -->
+<div class="line-forme">
+	<div class="forme-lab">
+	 <%= label_tag "rut"  %>
+	</div>
+	<div class="forme-in ">
+	 <input id="rut_destination" value="-" disabled="true"></input>
+	</div>
+</div>
+<!-- RadioButton ingreso/despacho -->
+<div class="line-forme">
+	<div class="forme-lab">
+		<label>Opcion</label><br />
+	</div>
+	<div class="forme-in">
+		<input id="radioDestination1"type="radio" name="option" value="ingreso">Ingreso
+		<input id="radioDestination2"type="radio" name="option" value="despacho">Despacho
+	</div>
+</div>	
+<!-- Selector de envases -->
+<div class="line-forme">
+	<div class="forme-lab">
+		<%= label_tag 'Envase'%> 
+	</div>
+	<% @pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+	<div class="forme-in">
+	 <%= select_tag "PackTypeDestination", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" %>
+	</div>
+</div>
+<!-- Stock de los envases-->
+<div class="line-forme">
+	<div class="forme-lab">
+	 <%= label_tag 'Stock'%> 
+	</div>    
+	<div class="forme-in">
+		<input id="stock" value="-" disabled="true"></input>
+	</div>  
+</div>
+<!--Cantidad del envese selectionado-->
+<div class="line-forme">
+	<div class="forme-lab">
+	<%= label_tag 'Cantidad'%> 
+	</div>    
+	<div class="forme-in">
+		<input id="quantity" type="text"><br>
+	</div>  
+</div>	
+<!--Tabla que contiene cuenta de envases del destino-->
+<table id="tableDestination" cellpadding="0" cellspacing="0" border="0" class="display datatable">
+	<thead>
+	  <tr>
+	  	<th style="display:none">Id</th>
+	  	<th>Envace</th>
+	    <th>Cantidad</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @packtypes = PackType.all%>
+		<% @packtypes.each do |packtype| %>
+	  <tr>
+    	<td style="display:none"><%= packtype.id%></td>
+      <td><%= packtype.name%></td>
+			<td>0</td>
+		</tr>
+		<%end%>
+  </tbody>
+</table>
+<!--Boton para agregar datos a la tabla -->
+<button type="button" onclick="displayResult()" class="button blue alignright">Agregar</button>
+<!--Tabla que muestra los datos agregados a la tabla-->
+<table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="myTable">
+	<thead>
+    <tr>
+  		<th>Productor</th>
+      <th>Envase</th>
+      <th>Cantidad</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+	<tbody id="tBody">
+		<tr style="display:none">
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td></td>
+		</tr>
+  </tbody>
+</table>
+<!--Boton que termina el proceso y agrega todos los datos a la base de datos-->
+<a class = "button blue alignright" data-role="button" onclick="show_table()">Aceptar</a>
+
+

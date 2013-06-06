@@ -1,0 +1,31 @@
+<h1>Listing empty_packs_destination_moves</h1>
+
+<table>
+  <tr>
+    <th>Company</th>
+    <th>Destination</th>
+    <th>Pack type</th>
+    <th>Quantity</th>
+    <th>Pack option</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @empty_packs_destination_moves.each do |empty_packs_destination_move| %>
+  <tr>
+    <td><%= empty_packs_destination_move.company_id %></td>
+    <td><%= empty_packs_destination_move.destination_id %></td>
+    <td><%= empty_packs_destination_move.pack_type_id %></td>
+    <td><%= empty_packs_destination_move.quantity %></td>
+    <td><%= empty_packs_destination_move.pack_option %></td>
+    <td><%= link_to 'Show', empty_packs_destination_move %></td>
+    <td><%= link_to 'Edit', edit_empty_packs_destination_move_path(empty_packs_destination_move) %></td>
+    <td><%= link_to 'Destroy', empty_packs_destination_move, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Empty packs destination move', new_empty_packs_destination_move_path %>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Company:</b>
+  <%= @empty_packs_producer_move.company_id %>
+</p>
+
+<p>
+  <b>Producer:</b>
+  <%= @empty_packs_producer_move.producer_id %>
+</p>
+
+<p>
+  <b>Pack type:</b>
+  <%= @empty_packs_producer_move.pack_type_id %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @empty_packs_producer_move.quantity %>
+</p>
+
+<p>
+  <b>Pack option:</b>
+  <%= @empty_packs_producer_move.pack_option %>
+</p>
+
+
+<%= link_to 'Edit', edit_empty_packs_producer_move_path(@empty_packs_producer_move) %> |
+<%= link_to 'Back', empty_packs_producer_moves_path %>
