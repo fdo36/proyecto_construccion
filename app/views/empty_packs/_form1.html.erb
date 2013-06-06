@@ -85,103 +85,30 @@ function displayResult(){
 	}
 	else
 	{
+		var selectp = document.getElementById("Productores1");
+		var select = document.getElementById("mySelect");
+		var quantity = document.getElementById("quantity");
 
+		var button = '<button type="button" id="bDelete" align="center" onclick="borrarFila(this)">Eliminar</button>';
 
-	var selectp = document.getElementById("Productores1");
-	var select = document.getElementById("mySelect");
+		$('#myTable').dataTable().fnAddData(
+			[selectp.options[selectp.selectedIndex].text,
+			 select.options[select.selectedIndex].text,
+			 quantity.value,
+			 button
+			]);
+	}
+}
+
+function borrarFila(b){
 	var table = document.getElementById("myTable");
-	var tBody = document.getElementById("tBody");
-	var quantity = document.getElementById("quantity");
-
-	var row = table.insertRow(table.rows.length);
-	var cell0 = row.insertCell(0);
-	var cell1 = row.insertCell(1);
-	var cell2 = row.insertCell(2);
-	var cell3 = row.insertCell(3);
-
-	cell0.innerHTML = selectp.options[selectp.selectedIndex].text;
-	cell1.innerHTML = select.options[select.selectedIndex].text;
-	cell2.innerHTML = quantity.value;
-
-	var button = document.createElement('button');
-	var text = document.createTextNode("Eliminar");
-	button.appendChild(text);
-
-	//boton eliminar
-	cell3.appendChild(button);
-	tr.appendChild(cell3);
-
-	tBody.appendChild(tr);
-
-	
-
-	button.onclick = function (){
-		var parent=this.parentNode;
-		while(parent.nodeName.toLowerCase()!='tr'){
+	var parent= b.parentNode;
+	while(parent.nodeName.toLowerCase()!='tr'){
 		parent = parent.parentNode;
 	}
-	table.deleteRow(parent.rowIndex);
-	};
-
-
-
-	//table.appendChild(row);
-/*
-	var tr = document.createElement("tr");
-	tr.setAttribute("class","odd");
-	var td0 = document.createElement("td");//id productor
-	var td1 = document.createElement("td");//name productor
-	td1.setAttribute("class","sorting_1");
-	var td2 = document.createElement("td");//id envase
-	var td3 = document.createElement("td");//name envase
-	var td4 = document.createElement("td");//cantidad
-	var td5 = document.createElement("td");//boton eliminar
-
-	//id productor
-	td0.style.display="none";
-
-	tr.appendChild(td0);
-
-	//name productor
-	td1.innerHTML = selectp.options[selectp.selectedIndex].text;
-
-	tr.appendChild(td1);
-
-	//id envase
-	td2.style.display="none";
-	tr.appendChild(td2);
-
-	//name envase
-	td3.innerHTML = select.options[select.selectedIndex].text;
-	tr.appendChild(td3);
-
-	//cantidad
-	td4.innerHTML = quantity.value;
-	tr.appendChild(td4);
-
-	var button = document.createElement('button');
-	var text = document.createTextNode("Eliminar");
-	button.appendChild(text);
-
-	//boton eliminar
-	td5.appendChild(button);
-	tr.appendChild(td5);
-
-	tBody.appendChild(tr);
-
-	
-
-	button.onclick = function (){
-		var parent=this.parentNode;
-		while(parent.nodeName.toLowerCase()!='tr'){
-		parent = parent.parentNode;
-	}
-	table.deleteRow(parent.rowIndex);
-	};
+	$('#myTable').dataTable().fnDeleteRow(parent);
 }
-	*/
-}
-}
+
 /*Agrega los datos de la tabla2 a la base de datos empty_packs_producer_moves*/
 function add_db()
 {
