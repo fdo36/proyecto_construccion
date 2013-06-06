@@ -11,10 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
 ActiveRecord::Schema.define(:version => 20130604003231) do
-
-
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -62,7 +59,6 @@ ActiveRecord::Schema.define(:version => 20130604003231) do
   add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
 
   create_table "destinations", :force => true do |t|
-    t.string   "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
