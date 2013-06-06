@@ -100,8 +100,8 @@ class UsersController < ApplicationController
       raise CanCan::AccessDenied.new("Usted no puede administrar otra compañia", :manage, @company)
     end
     @user = User.find(params[:id])
+    @roles = Role.all
     if !params.has_key?(:password_only)
-      @roles = Role.all
       role_ids = params[:role_ids] if params[:role_ids]
       role_ids ||= []
       @user.role_ids = role_ids
@@ -112,7 +112,12 @@ class UsersController < ApplicationController
         format.html { redirect_to company_user_path(@company, @user), notice: 'El usuario fue editado exitosamente.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        if !params.has_key?(:password_only)
+            format.html { render action: "edit" }
+        else
+            format.html { render action: "edit_password" }
+        end
+        
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -135,7 +140,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
     if ((!@user.super_admin && @user.company_id == @current_user.company_id && can?(:manage, User)) ||
-      @user.super_admin)
+      current_user.super_admin)
         @user.update_attribute(:active, false)
     end
 
@@ -153,7 +158,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
     if ((!@user.super_admin && @user.company_id == @current_user.company_id && can?(:manage, User)) ||
-      @user.super_admin)
+      current_user.super_admin)
         @user.update_attribute(:active, true)
     end
 

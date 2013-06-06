@@ -4,7 +4,15 @@ class RolesControllerTest < ActionController::TestCase
   setup do
     @role = roles(:one)
   end
-
+  
+  test "should create role" do
+    assert_difference('Role.count') do
+    role :create, :role => { :name => 'Role', :description => 'This is my first role.'}
+  end
+    assert_redirected_to role_path(assigns(:role))
+    assert_equal 'Role was successfully created.', flash[:notice]
+  end
+  
   test "should get index" do
     get :index
     assert_response :success
@@ -16,13 +24,6 @@ class RolesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create role" do
-    assert_difference('Role.count') do
-      post :create, role: { description: @role.description, name: @role.name }
-    end
-
-    assert_redirected_to role_path(assigns(:role))
-  end
 
   test "should show role" do
     get :show, id: @role

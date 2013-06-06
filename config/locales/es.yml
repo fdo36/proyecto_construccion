@@ -205,6 +205,8 @@ es:
       <<: *errors
     models:
       access_right: "Permiso"
+
+      user: "Usuario"
       commune: "Comuna"
       company: "Compañía"
       container: "Contenedor"
@@ -235,6 +237,7 @@ es:
         email: "Correo electrónico"
         commune_id: "Comuna"
         region_id: "Región"
+        phone: "Teléfono"
       user:
         email: "Correo electrónico"
         password: "Contraseña"
@@ -298,7 +301,9 @@ es:
         variety_id: "Variedad"
         tare: "Destare Pallet"
         pallet_code: "El pallet código"
-
+      role:
+        name: "Nombre"
+        description: "Descripción"
 
 
 

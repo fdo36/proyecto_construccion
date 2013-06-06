@@ -1,6 +1,6 @@
 #encoding: utf-8
 class KindsController < ApplicationController
-  load_and_authorize_resource
+
   # GET /kinds
   # GET /kinds.json
   def index
@@ -43,13 +43,14 @@ class KindsController < ApplicationController
   # POST /kinds.json
   def create
     @kind = Kind.new(params[:kind])
+    @kind.company_id = current_user.company_id
 
     @kind.company_id = current_user.company_id
 
     respond_to do |format|
       if @kind.save
-        format.html { redirect_to '/kinds', notice: "La especie #{@kind.name} fue creada exitosamente." }
-        format.json { render json: @kind, status: :created, location: @kind }
+        format.html { redirect_to '/products', notice: "#{@kind.name} fue creada exitosamente." }
+        format.json { render json: @product, status: :created, location: @product }
       else
         format.html { render action: "new" }
         format.json { render json: @kind.errors, status: :unprocessable_entity }
@@ -64,7 +65,7 @@ class KindsController < ApplicationController
 
     respond_to do |format|
       if @kind.update_attributes(params[:kind])
-        format.html { redirect_to '/kinds', notice: "La especie #{@kind.name} fue editada exitosamente." }
+        format.html { redirect_to '/products', notice: "#{@kind.name} fue editada exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -80,8 +81,9 @@ class KindsController < ApplicationController
     @kind.destroy
 
     respond_to do |format|
-      format.html { redirect_to kinds_url }
+      format.html { redirect_to products_url }
       format.json { head :no_content }
     end
   end
+
 end

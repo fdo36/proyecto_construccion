@@ -2,6 +2,7 @@
 namespace :chile_data do
   desc "fills table regions and communes"
   task :load => :environment do
+  	Region.delete_all
   	Region.create(:name => 'Región de Tarapacá')
   	Region.create(:name => 'Región de Antofagasta')
   	Region.create(:name => 'Región de Atacama')
@@ -18,6 +19,7 @@ namespace :chile_data do
   	Region.create(:name => 'Región de Los Ríos')
   	Region.create(:name => 'Región de Arica y Parinacota')
 
+  	Commune.delete_all
   	Commune.create(:name => 'ALTO HOSPICIO', :region_id => 1)
 	Commune.create(:name => 'CAMINA', :region_id => 1)
 	Commune.create(:name => 'COLCHANE', :region_id => 1)

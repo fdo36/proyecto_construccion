@@ -19,6 +19,33 @@
             inputCodigo.value = data.sag_code;
          });
       }
+      show_kind1(s.options[s.selectedIndex].value);
+   }
+
+   function show_kind1(sel) //sel= id del productor seleccionado
+   {
+      var selKin = document.getElementById("Especies1");
+      var i = 1;
+      selKin.options.length = 0;
+      selKin.options[0] = new Option("Seleccione una Especie","","1");  
+
+      $.get("/kinds.json", function(data1) {
+         $.each(data1, function(index1, element1){
+            var flag1 = true;
+            $.get("/receipts.json", function(data) {
+               $.each(data, function(index, element){                  
+                  if(sel == element.producer_id && flag1){ //id productor seleccionado == id productor de ingresos         
+                        if(element1.id == element.kind_id){
+                           selKin.options[i] = new Option(element1.name,element1.id,"0");
+                           i = i+1;
+                           selKin.selectedIndex=0;
+                           flag1 = false;                                                    
+                        }                        
+                  } 
+               });
+            }); 
+         });
+      });      
    }
 
    function myfunction(event)
@@ -117,7 +144,7 @@
       </div>
       <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
       <div class="forme-in">
-         <%= select_tag "Especies1", options_for_select(@kinds_array), :prompt => "Seleccione una Especie" %>
+         <%= select_tag "Especies1", "",:prompt => "Seleccione una Especie" %>
       </div>
    </div>
 
