@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :roles
 
-  belongs_to :company
+  belongs_to :company , :dependent => :destroy
   has_many :dispatches
   has_many :receipts
   
