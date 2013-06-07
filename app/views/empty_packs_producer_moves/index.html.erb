@@ -1,31 +1,34 @@
-<h1>Listing empty_packs_producer_moves</h1>
+<div class="headContent">
+<h1>Movimiento de envases</h1>
+</div>
+<div class="box"> 
+    <table  cellpadding="0" cellspacing="0" border="0" class="display datatable" >
+        <thead>    
+            <tr>
+                <th>Tipo de envase</th>
+                <th>Cantidad</th>
+                <th>Opción</th>
+                <th></th>
+                
+            </tr>
+        </thead> 
+        <tbody> 
+        <% @empty_packs_producer_moves.each do |empty_packs_producer_move| %>
+            <tr>
+                <% @pack_types.each do |pack_type| %>
+                    <% if pack_type.id == empty_packs_producer_move.pack_type_id%>
+                        <td><%= pack_type.name %></td>
+                    <%end%>
+                <%end%>
+                <td><%= empty_packs_producer_move.quantity %></td>
+                <td><%= empty_packs_producer_move.pack_option %></td>
+                
+                <td>
+                <%= link_to 'Eliminar', producer_empty_packs_producer_move_path(@producer,empty_packs_producer_move), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+</div>
 
-<table>
-  <tr>
-    <th>Company</th>
-    <th>Producer</th>
-    <th>Pack type</th>
-    <th>Quantity</th>
-    <th>Pack option</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @empty_packs_producer_moves.each do |empty_packs_producer_move| %>
-  <tr>
-    <td><%= empty_packs_producer_move.company_id %></td>
-    <td><%= empty_packs_producer_move.producer_id %></td>
-    <td><%= empty_packs_producer_move.pack_type_id %></td>
-    <td><%= empty_packs_producer_move.quantity %></td>
-    <td><%= empty_packs_producer_move.pack_option %></td>
-    <td><%= link_to 'Show', empty_packs_producer_move %></td>
-    <td><%= link_to 'Edit', edit_empty_packs_producer_move_path(empty_packs_producer_move) %></td>
-    <td><%= link_to 'Destroy', empty_packs_producer_move, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Empty packs producer move', new_producer_empty_packs_producer_move_path %>

@@ -3,7 +3,8 @@ class EmptyPacksDestinationMovesController < ApplicationController
   # GET /empty_packs_destination_moves.json
   def index
     @empty_packs_destination_moves = EmptyPacksDestinationMove.where(:destination_id => params[:destination_id] )
-
+    @destination = Destination.find(params[:destination_id])
+    @pack_types = PackType.all
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @empty_packs_destination_moves }
@@ -14,7 +15,7 @@ class EmptyPacksDestinationMovesController < ApplicationController
   # GET /empty_packs_destination_moves/1.json
   def show
     @empty_packs_destination_move = EmptyPacksDestinationMove.find(params[:id])
-
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @empty_packs_destination_move }
@@ -41,7 +42,7 @@ class EmptyPacksDestinationMovesController < ApplicationController
   # POST /empty_packs_destination_moves.json
   def create
     @empty_packs_destination_move = EmptyPacksDestinationMove.new(params[:empty_packs_destination_move])
-
+    @empty_packs_destination_move.company_id = current_user.company_id
     respond_to do |format|
       if @empty_packs_destination_move.save
         format.html { redirect_to @empty_packs_destination_move, notice: 'Empty packs destination move was successfully created.' }
@@ -72,11 +73,12 @@ class EmptyPacksDestinationMovesController < ApplicationController
   # DELETE /empty_packs_destination_moves/1
   # DELETE /empty_packs_destination_moves/1.json
   def destroy
+    @destination = Destination.find(params[:destination_id])
     @empty_packs_destination_move = EmptyPacksDestinationMove.find(params[:id])
     @empty_packs_destination_move.destroy
 
     respond_to do |format|
-      format.html { redirect_to empty_packs_destination_moves_url }
+      format.html { redirect_to destination_empty_packs_destination_moves_path(@destination) }
       format.json { head :no_content }
     end
   end

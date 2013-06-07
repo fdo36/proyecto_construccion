@@ -29,5 +29,6 @@ class Producer < ActiveRecord::Base
   has_and_belongs_to_many :groupings
   has_and_belongs_to_many :kinds
   has_and_belongs_to_many :pack_types
-  has_many :empty_packs_producer_moves
+  has_many :empty_packs_producer_moves 
+
 end

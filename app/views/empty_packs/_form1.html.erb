@@ -1,19 +1,5 @@
 <script type="text/javascript">
-pack_types = new Array();
-/*Al cargar la paginas llamamos a la funcion searchPacktype*/
-$(document).ready(function(){
-	searchPackType();
-});
-/*Busca los tipos de envases que existen en la compañia*/
-function searchPackType()
-{
-	$.get("/pack_types.json", function(data){
-		$.each(data, function(index, value){	
-			var packtype = new pack_type(value.id,0)
-			pack_types.push(packtype);
-		});
-	});
-}
+/***Funciones relacionadas con modificar los input del html***************/
 /*Agrega el rut y codigo sag del productor ademas cuenta los tipos de envases que le perteneces y los agrega a la tabla */
 function show_rut1(s)
 {
@@ -70,12 +56,33 @@ function show_rut1(s)
 	});
 	stock_pack_type();
 }
-/*Creamos un objeto tipo de envase*/
-function pack_type(id,quantity)
+/*Cuenta la cantidad de envases del tipo especificado de la compañia*/
+function show_stock(s)
 {
-	this.pack_id = id;
-	this.quantity = quantity;
+	for(var i=0;i<pack_types.length;i++)
+	{
+		if(s.value==pack_types[i].pack_id)
+		{	var inputStock = document.getElementById('stock');
+			inputStock.value =pack_types[i].quantity;
+		}
+	}
 }
+/*Modifica el stock cuando es cambiado*/
+function show_stock2()
+{
+	var selectP = document.getElementById("mySelect").value;
+	for(var i=0;i<pack_types.length;i++)
+	{
+		if(selectP==pack_types[i].pack_id)
+		{	var inputStock = document.getElementById('stock');
+			inputStock.value =pack_types[i].quantity;
+		}
+	}
+}
+/****************************************************************************/
+
+/*************Funciones relacionada con la tabla de ingresos*********************/
+/*Agregar un movimiento de envases a la tabla*/
 function displayResult()
 {
 	//Validar las opciones de ingreso de despacho
@@ -153,23 +160,7 @@ function displayResult()
 		
 	}
 }
-function addPack_type(id,quantity,option)
-{
-	for(var i=0;i<pack_types.length;i++)
-	{
-		if(pack_types[i].pack_id==id)
-		 {
-		 	if(option==1)
-		 	{
-		 		pack_types[i].quantity=pack_types[i].quantity+quantity;
-		 	}
-			else
-			{
-			 	pack_types[i].quantity=pack_types[i].quantity-quantity;
-			}
-		 }
-	}
-}
+/*Borrar la fila selecionada de la tabla*/
 function borrarFila(b)
 {
 	var table = document.getElementById("myTable");
@@ -179,7 +170,10 @@ function borrarFila(b)
 	}
 	$('#myTable').dataTable().fnDeleteRow(parent);
 }
-/*Agrega los datos de la tabla2 a la base de datos empty_packs_producer_moves*/
+/*****************************************************************************/
+
+/*****************Funcion relacionada con la base de datos********************/
+/*Agrega los datos de la myTable a la base de datos empty_packs_producer_moves*/
 function add_db()
 {
 	var table = document.getElementById('myTable');
@@ -196,86 +190,18 @@ function add_db()
 		    values.push(value);
 	    }
 	  	}
-	  	
- 		$.ajax({
-	   	url: "producers/"+values[1]+"/empty_packs_producer_moves",
+
+	  	$.ajax({
+			url: "producers/"+values[1]+"/empty_packs_producer_moves",
 	 		type: "POST",
 	    	data: {empty_packs_producer_move:{producer_id: values[1],pack_type_id: values[0],quantity: values[4],pack_option: values[5]}},
 	 	});
 		
 	}
 }
-/*Cuenta la cantidad de envases del tipo especificado de la compañia*/
-function stock_pack_type()
-{	
-	/*Cantidad de envases de productor*/
-	$.get("/producers.json", function(data){
-		$.each(data, function(index, value){
-	  		$.get("/producers/"+value.id+"/empty_packs_producer_moves.json", function(data){
-					$.each(data, function(index, s){
-						if(s.value==null)
-						{	
-							if(s.pack_option=="ingreso"){
-							//total.push(value.quantity);
-							//stock= stock+value.quantity;
-							addPack_type(s.pack_type_id,s.quantity,1);
-							}
-							else{
-							//stock= stock-value.quantity;	
-							//total.push(-1*value.quantity);
-							addPack_type(s.pack_type_id,s.quantity,2);
-							}
-						}
-
-					});
-	  		});	
-	  });
-	});
-	$.get("/destinations.json", function(data){
-		$.each(data, function(index, value){
-	  		$.get("/destinations/"+value.id+"/empty_packs_destination_moves.json", function(data){
-					$.each(data, function(index, s){
-						if(s.value==null)
-						{
-							if(value.pack_option=="ingreso"){
-								//total.push(value.quantity);
-								//stock= stock+value.quantity;
-								addPack_type(s.pack_type_id,s.quantity,1);
-							}
-							else{
-								//stock= stock-value.quantity;	
-								//total.push(-1*value.quantity);
-								addPack_type(s.pack_type_id,s.quantity,2);
-							}
-						}
-					});
-	  		});	
-	  });
-	});
-}
-
-function show_stock(s)
-{
-	for(var i=0;i<pack_types.length;i++)
-	{
-		if(s.value==pack_types[i].pack_id)
-		{	var inputStock = document.getElementById('stock');
-			inputStock.value =pack_types[i].quantity;
-		}
-	}
-}
-function show_stock2()
-{
-	var selectP = document.getElementById("mySelect").value;
-	for(var i=0;i<pack_types.length;i++)
-	{
-		if(selectP==pack_types[i].pack_id)
-		{	var inputStock = document.getElementById('stock');
-			inputStock.value =pack_types[i].quantity;
-		}
-	}
-}
+/******************************************************************************/
 </script>  
+
 <!--Selector de productores-->
 <div class="line-forme">
 	<div class="forme-lab">
@@ -342,13 +268,7 @@ function show_stock2()
 		<input id="quantity" type="text"><br>
 	</div>  
 </div>
-<!--Selector de la fecha>
-<div class="line-forme">
-	<div class="forme-lab">
-		 <%= label_tag 'Fecha'%> 
-	</div>
-	<%=select_date%>
-</div>-->
+
 <!--Tabla que muestra la cuenta del productor selecionado-->
 <table id="table2" cellpadding="0" cellspacing="0" border="0" class="display datatable">
 	<thead>
@@ -374,15 +294,15 @@ function show_stock2()
 <!--Tabla que muestra los datos agregados a la tabla-->
 <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="myTable">
 	<thead>
-    <tr>
-    	<th >Envase1</th>
-    	<th >Productor1</th>
-    	<th>Productor</th>
-      <th>Envase</th>
-      <th>Cantidad</th>
-      <th>Opcion</th>
-      <th>Acción</th>
-    </tr>
+   	<tr>
+	    	<th>Envase1</th>
+	    	<th>Productor1</th>
+	    	<th>Productor</th>
+	      <th>Envase</th>
+	      <th>Cantidad</th>
+	      <th>Opcion</th>
+	      <th>Acción</th>
+    	</tr>
   </thead>
 	<tbody id="tBody">
 		<tr style="display:none">
