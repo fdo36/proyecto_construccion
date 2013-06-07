@@ -41,7 +41,7 @@ class EmptyPacksProducerMovesController < ApplicationController
   # POST /empty_packs_producer_moves.json
   def create
     @empty_packs_producer_move = EmptyPacksProducerMove.new(params[:empty_packs_producer_move])
-
+    @empty_packs_producer_move.company_id = current_user.company_id
     respond_to do |format|
       if @empty_packs_producer_move.save
         format.html { redirect_to @empty_packs_producer_move, notice: 'Empty packs producer move was successfully created.' }
