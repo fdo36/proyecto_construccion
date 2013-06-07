@@ -7,7 +7,7 @@ es:
          not_found_in_database: Combinación de Correo electrónico/Contraseña errónea
          unauthenticated: Debe identificarse antes de continuar
          invalid:   Correo electrónico incorrecto
-         
+         inactive: Su cuenta se encuentra deshabilitada
     confirmations:
       new:
         resend_confirmation_instructions: Reenviar instrucciones de confirmación
