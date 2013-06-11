@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  function show_rut(s) {
+    function show_rut(s) {
     if(s.value == "")
     {      
       $('#rut').val(""); 
@@ -211,6 +211,51 @@
 </script>
 
 <script type="text/javascript">
+  function show_variety(s)
+  { 
+      
+    if (s.value != '')
+    {
+      $.get("/varieties.json", function(data) {         
+        var options = '<option value>- Seleccione variedad -</option>';
+        $.each(data, function(i, item){ 
+          if(item.kind_id == s.value){
+            options += '<option value="' + item.id + '">' + item.name + '</option>';
+          }
+        });
+        $("#select_variety").html(options);
+      });
+    }
+    
+  }
+
+  function show_kind(s)
+  {
+    /*
+       
+    if (s.value != '')
+    {
+      $.get("/kinds.json", function(data) {         
+        var options = '<option value>- Seleccione especie -</option>';
+        $.each(data, function(i, item){ 
+          $.get("/varieties/"+s.value+".json", function(variety)
+            {
+              if(item.id == variety.kind_id){
+                options += '<option value="' + item.id + '" selected>' + item.name + '</option>';
+              }
+              $("#select_kind").html(options);
+            });
+            
+        });
+        
+      });
+    }
+    */
+  }
+
+</script>
+
+<script type="text/javascript">
   function search_code(s) {   
       
     if(s.value=="")
@@ -363,8 +408,8 @@
       </div>
     
       <div class="forme-in">
-        <% kinds_array = Kind.all.map { |kind| [kind.name, kind.id] }%>
-        <%= f.select(:kind_id, kinds_array, :selected => :prompt, :prompt => '- Seleccione especie -') %>      
+        <% @options_kinds = Kind.all.map { |kind| [kind.name, kind.id] } %>
+        <%= f.select(:kind_id, options_for_select(@options_kinds), {:selected => :prompt, :prompt => '- Seleccione especie - '} , :id => 'select_kind',:onchange => "show_variety(this)") %>        
       </div>
     </div>
 
@@ -411,8 +456,9 @@
           <label>Variedad</label>
         </div>
         <div class="forme-in">
-          <% varieties_array = Variety.all.map { |variety| [variety.name, variety.id] } %>
-          <%= f.select(:variety_id, varieties_array, :selected => :prompt, :prompt => '- Seleccione variedad -') %>
+          <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
+          <%= f.select(:variety_id, options_for_select(@options_varieties), {:selected => :prompt, :prompt => '- Seleccione variedad - '} , :id => 'select_variety',:onchange => "show_kind(this)") %> 
+
         </div>
       </div>
 
