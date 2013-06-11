@@ -4,7 +4,6 @@ namespace :init_wiki_fernando do
 	task :load, [:delete] => :environment do |t, args|
         if :delete != false
         	WikiPage.delete_all
-        	puts "FALSOOOO"
         end
 		WikiPage.create(:creator_id => 2, :updator_id => 2, 
     				:path=> '', :title => 'Ayuda sistema centros de acopio', :content => '<div class="textContent"> Seleccione alguno de los elementos para obtener ayuda detallada al respecto.</div>

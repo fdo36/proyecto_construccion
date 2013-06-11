@@ -1,3 +1,4 @@
+#encoding: utf-8
 class SettingsController < ApplicationController
   
   # GET /settings
@@ -43,11 +44,12 @@ class SettingsController < ApplicationController
   def create
     @setting = Setting.new(params[:setting])
 
+
     @setting.company_id = current_user.company_id
 
     respond_to do |format|
       if @setting.save
-        format.html { redirect_to @setting, notice: 'Setting was successfully created.' }
+        format.html { redirect_to @setting, notice: 'Se ha guardado la configuración.' }
         format.json { render json: @setting, status: :created, location: @setting }
       else
         format.html { render action: "new" }
