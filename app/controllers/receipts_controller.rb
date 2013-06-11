@@ -49,7 +49,7 @@ class ReceiptsController < ApplicationController
 
     @receipt.company_id = current_user.company_id
 
-    Receipt.generate_pdf
+    #Receipt.generate_pdf
 
     respond_to do |format|
       if @receipt.save

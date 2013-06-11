@@ -9,7 +9,7 @@ ProyectoConstruccion::Application.routes.draw do
   
   resources :pack_group_dispatches
 
-  resource  :pack_group_receipts
+  resources :pack_group_receipts
 
   resources :receipts
 
