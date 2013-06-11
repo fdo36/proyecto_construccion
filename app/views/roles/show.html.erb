@@ -20,7 +20,8 @@
 	<% @role.access_rights.each do |access_right| %>
 		<li>
       <% a = {'create' => 'crear', 'read' => 'leer', 'update' => 'actualizar', 'delete' => 'eliminar', 'manage' => 'administrar'} %>
-	  <strong><%= access_right.model_name  %></strong>: <%= a[access_right.action] %> <%= link_to 'Eliminar', company_role_access_right_path(@company, @role, access_right), :method => :delete %>
+      <% b = {'User' => 'Usuario', 'Company' => 'Compañia', 'AccessRight' => 'Permiso', 'Commune' => 'Comuna', 'Destination' => 'Destino', 'Dispatch' => 'Despacho', 'Grouping' => 'Agrupacion', 'Kind' => 'Especie', 'Locality' => 'Localidad', 'PackType' => 'Tipo de envase', 'Pallet' => 'Pallet', 'Producer' => 'Productor', 'Quality' => 'Calidad', 'Receipt' => 'Ingreso', 'Region' => 'Región', 'Season' => 'Temporada', 'Variety' => 'Variedad', 'Role' => 'Rol', 'PackGroupDispatch' => 'PackGroupDispatch', 'PackGroupReceipt' => 'PackGroupReceipt'} %>
+	  <strong><%= b[access_right.model_name]  %></strong>: <%= a[access_right.action] %> <%= link_to 'Eliminar', company_role_access_right_path(@company, @role, access_right), :method => :delete %>
 		</li>
 	<% end %>
     </ul>
@@ -35,7 +36,7 @@
         <%= f.label :Caracteristica %><br />
       </div>
       <div class="forme-in">
-        <%= f.select :model_name, options_for_select(@supported_models) %>
+        <%= select_tag(:model_name, options_for_select(@supported_models), :onchange => "f(this, 'access_right_action')") %>
       </div>
     </div>
     <div class="line-forme">
@@ -43,16 +44,41 @@
         <%= f.label :Permiso_para %><br />
       </div>
       <div class="forme-in">
-        <%= f.select :action, options_for_select([["Crear", "create"], ["Leer", "read"], ["Actualizar", "update"], ["Eliminar","delete"], ["Todo", "manage"]]) %>
+        <% if current_user.super_admin == true%>
+          <%= f.select :action, options_for_select([["Crear", "create"], ["Leer", "read"], ["Actualizar", "update"], ["Eliminar","delete"], ["Todo", "manage"]]) %>
+        <% else %>
+            <%= f.select :action, options_for_select("") %>
+        <% end %>
       </div>
     </div>
 
       <%= f.submit :Agregar %>
-
-    
-  <% end %>
-
+ <% end %>
 </div>
+
+<script>
+      function f(action, select_access_right_action) {
+
+        var options;
+        if(action.value == "manage"){
+          options = '<option value="create">Crear</option><option value="read">Leer</option><option value="update">Actualizar</option><option value="delete">Eliminar</option><option value="manage">Todo</option>';
+        }
+        else if(action.value == "create"){
+          options = '<option value="create">Crear</option>';
+        }
+        else if(action.value == "read"){
+          options = '<option value="read">Leer</option>';
+        }
+        else if(action.value == "update"){
+          options = '<option value="update">Actualizar</option>';
+        }
+        else if(action.value == "delete"){
+          options = '<option value="delete">Eliminar</option>'; 
+        }
+        $("#"+select_access_right_action).html(options);
+      }
+</script>
+
 <div class="foot-box">
   <%= link_to 'Editar', edit_company_role_path(@company, @role) , :class => "button green alignright" %>
 </div>

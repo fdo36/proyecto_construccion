@@ -6,7 +6,7 @@ ProyectoConstruccion::Application.routes.draw do
   resources :localities
 
   resources :settings
-
+  
   resources :pack_group_dispatches
 
   resource  :pack_group_receipts
@@ -17,6 +17,10 @@ ProyectoConstruccion::Application.routes.draw do
 
   resources :receipts do
     resources :pallets    
+  end
+
+  resources :dispatches do
+    resources :pack_group_dispatches
   end
 
   resources :receipts do
@@ -38,6 +42,8 @@ ProyectoConstruccion::Application.routes.draw do
   resources :dispatches do
     resources :pack_group_dispatches
   end
+
+  resources :products
 
   resources :varieties
 
@@ -62,7 +68,7 @@ ProyectoConstruccion::Application.routes.draw do
     resources :users
   end
 
-  devise_for :users, :path => "admin/users"
+  devise_for :users
 
   root :to => 'start#index'
   # See how all your routes lay out with "rake routes"
@@ -88,5 +94,7 @@ ProyectoConstruccion::Application.routes.draw do
   match '/help/css/jquery-ui.css', :to => redirect('/css/jquery-ui.css')
   match '/help/css/styles.css', :to => redirect('/css/styles.css')
   match '/help/css/default_buttons.css', :to => redirect('/css/default_buttons.css')
+
+  match 'receipts/generate_pdf' => 'receipts#generate_pdf', :as => 'receipts_generate_pdf'
   
 end

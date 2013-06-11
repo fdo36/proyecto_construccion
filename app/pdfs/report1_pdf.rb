@@ -1,3 +1,4 @@
+#<!--Precio por Productor-->
 class Report1Pdf < Prawn::Document
 
 	def initialize(producer, data, view)

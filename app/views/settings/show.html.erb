@@ -1,20 +1,27 @@
 <p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Configuración</h1>
+</div>
+<div class="box">
+	<%= link_to 'Volver', new_setting_path , :class => "button blue alignright" %>
 
-<p>
-  <b>Key:</b>
-  <%= @setting.key %>
-</p>
+	<div class="line-forme">
+      <div class="forme-lab">
+        <label><b>Esquema de trabajo:</b></label>
+      </div>
+        
+      <div class="forme-in">
+      	<% settings_array = Setting.all.map { |setting| [setting.key] }%>
+        <% last = (settings_array[settings_array.size - 1][0]).to_s %>
+        <% if (last == 'pack') %>
+        	<label>Sólo Bandejas</label>        
+        <% elsif (last == 'pallet')%>
+        	<label>Sólo Pallets</label>
+        <% else %>
+        	<label>Esquema Mixto</label>
+        <%end%>
+        
+      </div>
+    </div>
+</div>
 
-<p>
-  <b>Value:</b>
-  <%= @setting.value %>
-</p>
-
-<p>
-  <b>Company:</b>
-  <%= @setting.company_id %>
-</p>
-
-
-<%= link_to 'Edit', edit_setting_path(@setting) %> |
-<%= link_to 'Back', settings_path %>

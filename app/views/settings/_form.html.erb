@@ -1,29 +1,111 @@
+<script type="text/javascript">
+  function selection(value) {
+    
+    if(value==1)
+    {
+      $('#option').val("pack");
+      $('#state').val("true");
+    }
+    else if(value==2)
+    {
+      $('#option').val("pallet");
+      $('#state').val("true");
+
+    }
+    else
+    {
+      $('#option').val("pack_pallet");
+      $('#state').val("true");
+    }
+    
+  }
+
+</script>
+
+<script type="text/javascript">
+  function init() {
+    $('#option_pack').prop('checked',true);    
+  }
+
+</script>
+
 <%= form_for(@setting) do |f| %>
   <% if @setting.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
+    <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
 
-      <ul>
-      <% @setting.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+    <ul>
+  <% @setting.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
   <% end %>
-
-  <div class="field">
-    <%= f.label :key %><br />
-    <%= f.text_field :key %>
-  </div>
-  <div class="field">
-    <%= f.label :value %><br />
-    <%= f.text_field :value %>
-  </div>
-  <div class="field">
-    <%= f.label :company_id %><br />
-    <%= f.number_field :company_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  </ul>
   </div>
 <% end %>
+
+<div class="headContent">
+  <h1>General</h1>
+
+</div>
+<div class="box">
+  <div class="configBox">
+      <% settings_array = Setting.all.map { |setting| [setting.key] }%>
+      
+      <% if (settings_array.size != 0)%>
+        <% last = (settings_array[settings_array.size - 1][0]).to_s %>
+        <% status = (settings_array[settings_array.size - 1][1]).to_s %>
+      <% else %>
+        <% last = 'pack' %>
+        <% status = 'true' %>
+      <% end %>
+    
+
+
+   <fieldset>
+        <legend>Manejo Materia Prima</legend>
+        <p> A continuacón se presentan los esquemas para el manejo de productos dentro del sistema.</p>
+    <p>Escoja el esquema que más se adecue a sus necesidades:</p>
+    <form class="configForm">
+      <div class ="boxOption">
+        <%= radio_button_tag(:option, "pack", (settings_array.size==0 || last =="pack"), :onclick => 'selection(1)') %>
+        <label>Sólo Bandejas</label>
+        <p>Si escoge este esquema el sistema completo manipulará los productos únicamente en bandejas.</p>
+        <p>Las opciones para el trabajo con pallets estarán deshabilitadas</p>
+      </div>
+      <div class ="boxOption">
+        <%= radio_button_tag(:option, "pallet", last =="pallet", :onclick => 'selection(2)') %>
+        <label>Sólo Pallets</label>
+        <p>Si escoge este esquema el sistema completo manipulará obligatoriamente los productos en pallets.</p>
+        <p>Las opciones para el tratamiento de envases sueltos estarán deshabilitadas.</p>
+      </div>
+      <div class ="boxOption">
+        <%= radio_button_tag(:option, "pack_pallet", last == "pack_pallet", :onclick => 'selection(3)') %>
+        <label>Esquema Mixto</label>
+        <p>Si escoge este esquema el sistema completo manipulará los productos de manera libre, es decir, el usuario tendrá la opción de escoger si desea palletizar o no los envases.</p>
+        <p>Las opciones para el tratamiento tanto de envases sueltos como palletizados, están habilitadas.</p>
+      </div>
+    </form>    
+    </fieldset>
+
+    <% if (settings_array.size != 0)%>
+
+      <%= f.hidden_field(:key, :id => 'option', :value => last)%>
+      <%= f.hidden_field(:value, :id => 'state', :value => status)%>    
+      <%= f.hidden_field :company_id %>
+    <% else %>
+      <%= f.hidden_field(:key, :id => 'option')%>
+      <%= f.hidden_field(:value, :id => 'state')%>    
+      <%= f.hidden_field :company_id %>
+    <% end %>
+
+
+    <div class="actions">
+      <%= f.submit :Guardar , :class => "button green alignright" %>
+    </div>
+    <% end %>
+
+  </div>
+</div>
+
+
+
+
