@@ -26,7 +26,9 @@
     <td><%= pack_group_receipt.receipt_id %></td>
     <td><%= pack_group_receipt.company_id %></td>
     <td><%= link_to 'Show', pack_group_receipt %></td>
-    <td><%= link_to 'Edit', edit_pack_group_receipt_path(pack_group_receipt) %></td>
+    <td>  resources :receipts do
+    resources :pack_group_receipts
+  end<%= link_to 'Edit', edit_pack_group_receipt_path(pack_group_receipt) %></td>
     <td><%= link_to 'Destroy', pack_group_receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
