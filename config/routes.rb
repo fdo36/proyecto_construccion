@@ -1,4 +1,25 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :transit_chamber_ios
+
+
+  resources :packing_pallets
+
+
+  resources :turns
+
+
+  resources :workers
+
+
+  resources :packing_processes
+
+
+  resources :subprocesses
+
+
+  resources :subprocess_ios
+
+
   resources :empty_packs_destination_moves
 
 

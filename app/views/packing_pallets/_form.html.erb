@@ -1,0 +1,17 @@
+<%= form_for(@packing_pallet) do |f| %>
+  <% if @packing_pallet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@packing_pallet.errors.count, "error") %> prohibited this packing_pallet from being saved:</h2>
+
+      <ul>
+      <% @packing_pallet.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
