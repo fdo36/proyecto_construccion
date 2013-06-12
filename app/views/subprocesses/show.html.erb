@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @subprocess.name %>
+</p>
+
+<p>
+  <b>Process:</b>
+  <%= @subprocess.process_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_subprocess_path(@subprocess) %> |
+<%= link_to 'Back', subprocesses_path %>

@@ -32,6 +32,7 @@
                           <td><%= producer.email %></td>
                           <td><%= link_to 'Ver', producer %>
                           <%= link_to 'Editar', edit_producer_path(producer) %>
+                          <%= link_to 'Envases Vacios', producer_empty_packs_producer_moves_path(producer) %>
                           <%= link_to 'Deshabilitar', producers_disable_path(producer) %></td>
                         </tr>
                     <% end %>

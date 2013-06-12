@@ -1,0 +1,31 @@
+<h1>Listing subprocess_ios</h1>
+
+<table>
+  <tr>
+    <th>Packing pallet</th>
+    <th>Io datetime</th>
+    <th>Direction</th>
+    <th>Worker</th>
+    <th>Subprocess</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @subprocess_ios.each do |subprocess_io| %>
+  <tr>
+    <td><%= subprocess_io.packing_pallet_id %></td>
+    <td><%= subprocess_io.io_datetime %></td>
+    <td><%= subprocess_io.direction %></td>
+    <td><%= subprocess_io.worker_id %></td>
+    <td><%= subprocess_io.subprocess_id %></td>
+    <td><%= link_to 'Show', subprocess_io %></td>
+    <td><%= link_to 'Edit', edit_subprocess_io_path(subprocess_io) %></td>
+    <td><%= link_to 'Destroy', subprocess_io, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Subprocess io', new_subprocess_io_path %>

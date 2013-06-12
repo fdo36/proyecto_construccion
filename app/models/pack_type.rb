@@ -13,4 +13,7 @@ class PackType < ActiveRecord::Base
   has_many :pack_group_dispatches
   has_many :pallets
   has_and_belongs_to_many :producers
+  has_many :empty_packs_producer_moves
+  has_many :empty_packs_destination_moves
+
 end

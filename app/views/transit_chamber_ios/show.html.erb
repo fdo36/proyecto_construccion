@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Temperature:</b>
+  <%= @transit_chamber_io.temperature %>
+</p>
+
+<p>
+  <b>Order number:</b>
+  <%= @transit_chamber_io.order_number %>
+</p>
+
+
+<%= link_to 'Edit', edit_transit_chamber_io_path(@transit_chamber_io) %> |
+<%= link_to 'Back', transit_chamber_ios_path %>

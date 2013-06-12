@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529101120) do
+ActiveRecord::Schema.define(:version => 20130604003231) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(:version => 20130529101120) do
   add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
 
   create_table "destinations", :force => true do |t|
-    t.string   "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -94,6 +93,26 @@ ActiveRecord::Schema.define(:version => 20130529101120) do
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  create_table "empty_packs_destination_moves", :force => true do |t|
+    t.integer  "company_id"
+    t.integer  "destination_id"
+    t.integer  "pack_type_id"
+    t.integer  "quantity"
+    t.string   "pack_option"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "empty_packs_producer_moves", :force => true do |t|
+    t.integer  "company_id"
+    t.integer  "producer_id"
+    t.integer  "pack_type_id"
+    t.integer  "quantity"
+    t.string   "pack_option"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "groupings", :force => true do |t|

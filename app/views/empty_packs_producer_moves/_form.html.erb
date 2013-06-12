@@ -1,0 +1,39 @@
+<div class="box">
+<%= form_for(@empty_packs_producer_move) do |f| %>
+  <% if @empty_packs_producer_move.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@empty_packs_producer_move.errors.count, "error") %> prohibited this empty_packs_producer_move from being saved:</h2>
+
+      <ul>
+      <% @empty_packs_producer_move.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :company_id %><br />
+    <%= f.number_field :company_id %>
+  </div>
+  <div class="field">
+    <%= f.label :producer_id %><br />
+    <%= f.number_field :producer_id %>
+  </div>
+  <div class="field">
+    <%= f.label :pack_type_id %><br />
+    <%= f.number_field :pack_type_id %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br />
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :pack_option %><br />
+    <%= f.text_field :pack_option %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>

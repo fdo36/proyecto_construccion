@@ -1,0 +1,127 @@
+<script type="text/javascript">
+/*****Funciones que se ejecutan cuando el documentos esta listo*****************/
+pack_types = new Array();
+$(document).ready(function() {
+  //Accion por defecto
+  $(".tab_content").hide(); 
+  $("ul.tabs li:first").addClass("active").show(); 
+  $(".tab_content:first").show(); 
+  //evento (onClick)
+  $("ul.tabs li").click(function() {
+    $("ul.tabs li").removeClass("active"); 
+    $(this).addClass("active"); 
+    $(".tab_content").hide(); 
+    var activeTab = $(this).find("a").attr("href");
+    $(activeTab).fadeIn(); 
+    return false;
+    
+  });
+  searchPackType();
+});
+
+/******************************************************************************/
+
+/*Busca los tipos de envases que existen en la compañia*/
+function searchPackType()
+{
+  $.get("/pack_types.json", function(data){
+    $.each(data, function(index, value){  
+      var packtype = new pack_type(value.id,0)
+      pack_types.push(packtype);
+    });
+  });
+}
+function pack_type(id,quantity)
+{
+  this.pack_id = id;
+  this.quantity = quantity;
+}
+/*Modifica el stock*/
+function addPack_type(id,quantity,option)
+{
+  for(var i=0;i<pack_types.length;i++)
+  {
+    if(pack_types[i].pack_id==id)
+     {
+      if(option==1)
+      {
+        pack_types[i].quantity=pack_types[i].quantity+quantity;
+      }
+      else
+      {
+        pack_types[i].quantity=pack_types[i].quantity-quantity;
+      }
+     }
+  }
+}
+/*Busca stock para los envases*/
+function stock_pack_type()
+{ 
+  /*Cantidad de envases de productor*/
+  $.get("/producers.json", function(data){
+    $.each(data, function(index, value){
+        $.get("/producers/"+value.id+"/empty_packs_producer_moves.json", function(data){
+          $.each(data, function(index, s){
+            if(s.value==null)
+            { 
+              if(s.pack_option=="ingreso"){
+                addPack_type(s.pack_type_id,s.quantity,1);
+              }
+              else{
+                addPack_type(s.pack_type_id,s.quantity,2);
+              }
+            }
+          });
+        }); 
+    });
+  });
+  $.get("/destinations.json", function(data){
+    $.each(data, function(index, value){
+        $.get("/destinations/"+value.id+"/empty_packs_destination_moves.json", function(data){
+          $.each(data, function(index, s){
+            if(s.value==null)
+            {
+              if(value.pack_option=="ingreso"){
+                addPack_type(s.pack_type_id,s.quantity,1);
+              }
+              else{
+                addPack_type(s.pack_type_id,s.quantity,2);
+              }
+            }
+          });
+        }); 
+    });
+  });
+}
+</script>
+
+<div class="headContent">
+  <h1>Envases vacios</h1>
+</div>
+<ul class="tabs">
+ <li><a href="#tab1">Productor</a></li>
+ <li><a href="#tab2">Destino</a></li>
+</ul>
+<div class="tab_container">
+<!--Precio por Productor-->
+  <div id="tab1" class="tab_content">
+    <div class="contentSubPanel">
+        <div class="headContent">
+          <h1>Cuenta corriente productor</h1>
+        </div>
+        <div class="box">
+          <%= render 'form1' %>  
+        </div>
+    </div>
+  </div>
+  <div id="tab2" class="tab_content">
+    <div class="contentSubPanel">
+      <div class="headContent">
+        <h1>Cuenta corriente destino</h1>
+      </div>
+      <div class="box">
+        <%= render 'form2' %>                                 	
+      </div>
+    </div>
+  </div>
+</div>   
