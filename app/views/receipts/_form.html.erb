@@ -27,8 +27,21 @@
     };
   }
 
+
+
   var registers = new Array();
   var id_count = 1;
+  var modified = false;
+
+  window.onbeforeunload = function () {    
+    if (modified) {
+      return "Los cambios no guardados se perderan";
+    }
+  }
+
+  function set_modified (argument) {
+    modified = argument;
+  }
 
   function register (variety_id, quality_id, price_kg, pack_type_id, quantity, gross_weight, code, tare, is_pallet, id) {
     this.variety_id = variety_id;
@@ -47,7 +60,7 @@
     if(registers.length > 0)
     {
       //obtener datos de ingreso
-      var kind_id = $("#receipt_kind_id").val();
+      var kind_id = $("#select_kind").val();
       var producer_id = $("#select_producer").val();
 
       //crear datetime
@@ -95,15 +108,7 @@
           type: "POST", 
           dataType: "json",
           async: false,
-          data: { pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, receipt_id: receipt_id, tare: tare, variety_id: variety_id} },
-          success: function(data){            
-            console.log(register);
-            console.log(data);
-          },  
-          error: function(data){
-            console.log("error " + data);
-          }  
-        }); 
+          data: { pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, receipt_id: receipt_id, tare: tare, variety_id: variety_id} } }); 
       }
       else
       {
@@ -112,16 +117,10 @@
           type: "POST", 
           dataType: "json",
           async: false,
-          data: { pack_group_receipt : {gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, receipt_id: receipt_id, variety_id: variety_id} },
-          success: function(data){            
-            console.log("ingreso correcto de " + register);
-          },  
-          error: function(){  
-            console.log("Error al registrar ingreso " + register);  
-          }  
-        }); 
+          data: { pack_group_receipt : {gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, receipt_id: receipt_id, variety_id: variety_id} } }); 
       }
     };
+    set_modified(false);
   }
 
   function get_pack_type_tare (pack_type_id) {
@@ -144,7 +143,7 @@
   //variety_id, quality_id, price_kg, container_id, quantity, gross_weight, code, tare
   function add_register()
   {
-    var variety_id = $("#pallet_variety_id").val();
+    var variety_id = $("#select_variety").val();
     var variety_name = $("#pallet_variety_id option[value='"+variety_id+"']").text();
     var quality_id = $("#pallet_quality_id").val();
     var quality_name = $("#pallet_quality_id option[value='"+quality_id+"']").text();
@@ -168,6 +167,7 @@
 
     var row = new Array(code, quantity, net_weight, variety_name, quality_name, price_kg, "<a href='#'>eliminar</a>");
     $('#tablealone').dataTable().fnAddData(row);
+    set_modified(true);
   }
 </script>
 
