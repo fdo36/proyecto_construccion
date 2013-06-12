@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130612005550) do
+ActiveRecord::Schema.define(:version => 20130611200657) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(:version => 20130612005550) do
   add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
 
   create_table "destinations", :force => true do |t|
-    t.string   "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -72,7 +71,6 @@ ActiveRecord::Schema.define(:version => 20130612005550) do
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
-    t.integer  "code"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -95,8 +93,7 @@ ActiveRecord::Schema.define(:version => 20130612005550) do
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.string   "code" 
- end
+  end
 
   create_table "empty_packs_destination_moves", :force => true do |t|
     t.integer  "company_id"
@@ -197,6 +194,17 @@ ActiveRecord::Schema.define(:version => 20130612005550) do
 
   add_index "pack_types_producers", ["pack_type_id", "producer_id"], :name => "index_pack_types_producers_on_pack_type_id_and_producer_id"
   add_index "pack_types_producers", ["producer_id", "pack_type_id"], :name => "index_pack_types_producers_on_producer_id_and_pack_type_id"
+
+  create_table "packing_pallets", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "packing_processes", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "pallets", :force => true do |t|
     t.integer  "code"
@@ -303,6 +311,39 @@ ActiveRecord::Schema.define(:version => 20130612005550) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "subprocess_ios", :force => true do |t|
+    t.integer  "packing_pallet_id"
+    t.datetime "io_datetime"
+    t.boolean  "direction"
+    t.integer  "worker_id"
+    t.integer  "subprocess_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "subprocesses", :force => true do |t|
+    t.string   "name"
+    t.integer  "process_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "transit_chamber_ios", :force => true do |t|
+    t.float    "temperature"
+    t.integer  "order_number"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "turns", :force => true do |t|
+    t.string   "name"
+    t.integer  "subprocess_id"
+    t.datetime "start_datetime"
+    t.datetime "end_datetime"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -367,6 +408,15 @@ ActiveRecord::Schema.define(:version => 20130612005550) do
 
   add_index "wiki_pages", ["creator_id"], :name => "index_wiki_pages_on_creator_id"
   add_index "wiki_pages", ["path"], :name => "index_wiki_pages_on_path", :unique => true
+
+  create_table "workers", :force => true do |t|
+    t.integer  "rut"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "phone"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
 
