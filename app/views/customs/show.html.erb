@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Agencia de Aduana</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', customs_path , :class => "button blue alignright" %>
+<p>
+  <b>Rut:</b>
+  <%= @custom.rut %>
+</p>
+
+<p>
+  <b>Código:</b>
+  <%= @custom.code %>
+</p>
+
+<p>
+  <b>Razón Social:</b>
+  <%= @custom.line_of_business %>
+</p>
+
+<p>
+  <b>Dirección:</b>
+  <%= @custom.address %>
+</p>
+
+<p>
+  <b>Ciudad/Localidad:</b>
+  <%= @custom.location %>
+</p>
+
+<p>
+  <b>Teléfono:</b>
+  <%= @custom.phone %>
+</p>
+
+<p>
+  <b>Fax:</b>
+  <%= @custom.fax %>
+</p>
+
+<p>
+  <b>E-Mail:</b>
+  <%= @custom.email %>
+</p>
+
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_custom_path(@custom) , :class => "button green alignright" %>
+</div>

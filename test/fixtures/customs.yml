@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  rut: MyString
+  code: MyString
+  line_of_business: MyString
+  address: MyString
+  location: MyString
+  phone: MyString
+  fax: MyString
+  email: MyString
+
+two:
+  rut: MyString
+  code: MyString
+  line_of_business: MyString
+  address: MyString
+  location: MyString
+  phone: MyString
+  fax: MyString
+  email: MyString
