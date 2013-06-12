@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130602051903) do
+ActiveRecord::Schema.define(:version => 20130529101120) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -71,7 +71,6 @@ ActiveRecord::Schema.define(:version => 20130602051903) do
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
-    t.integer  "code"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -86,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20130602051903) do
   end
 
   create_table "dispatches", :force => true do |t|
+    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
@@ -93,7 +93,6 @@ ActiveRecord::Schema.define(:version => 20130602051903) do
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.string   "code"
   end
 
   create_table "groupings", :force => true do |t|

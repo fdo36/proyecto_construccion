@@ -33,6 +33,12 @@
        });
        
        }
+    function validate(){
+      var destinationID = document.getElementById('Destinos4');
+      if(destinationID.value == ""){
+          alert('Debes seleccionar un destino');
+      }
+    }
 
 </script>
 
@@ -78,6 +84,6 @@
             <%= select_date Date.today, :prefix => :end_date4 %>
          </div>                        
       </div>                                                                    
-      <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>
+      <%= submit_tag "Generar Informe", :class => "button blue alignleft", :onclick => "validate()" %>
                        
 <% end %> 

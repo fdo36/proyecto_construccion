@@ -9,6 +9,10 @@ class ReportsController < ApplicationController
 
     if @report_type=="1"
     	@producer_id = params[:Productores1]
+        if @producer_id == ""
+            redirect_to reports_path
+            return
+        end
     	@kind_id = params[:Especies1]
     	
     	@year_inicio = params[:start_date1]['year']
@@ -23,6 +27,7 @@ class ReportsController < ApplicationController
 
 
     	@producer = Producer.find(@producer_id)
+
 
     	if @kind_id==""
     		#todos
@@ -73,6 +78,10 @@ class ReportsController < ApplicationController
     if @report_type=="2"
 
         @producer_id = params[:Productores2]
+        if @producer_id == ""
+            redirect_to reports_path
+            return
+        end
         @kind_id = params[:Especies2]
 
         @year_inicio = params[:start_date2]['year']
@@ -239,6 +248,10 @@ class ReportsController < ApplicationController
 
     if @report_type=="3"
     	@producer_id = params[:Productores3]
+        if @producer_id == ""
+            redirect_to reports_path
+            return
+        end
     	@pack_type_id = params[:Envases3]
 
     	@year_inicio = params[:start_date3]['year']
@@ -357,6 +370,10 @@ class ReportsController < ApplicationController
     if @report_type=="4"
 
         @destination_id = params[:Destinos4]
+        if @destination_id == ""
+            redirect_to reports_path
+            return
+        end
         @pack_type_id = params[:Envases4]
 
         @year_inicio = params[:start_date4]['year']
@@ -472,6 +489,10 @@ class ReportsController < ApplicationController
 
     if @report_type=="5"
         @destino_id = params[:Destinos5]
+        if @destino_id == ""
+            redirect_to reports_path
+            return
+        end
         @kind_id = params[:Especies5]
 
         @year_inicio = params[:start_date5]['year']
