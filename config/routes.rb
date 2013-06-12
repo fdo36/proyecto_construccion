@@ -1,4 +1,7 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :customs
+
+
   resources :transit_chamber_ios
 
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130611200657) do
+ActiveRecord::Schema.define(:version => 20130612152619) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -58,8 +58,20 @@ ActiveRecord::Schema.define(:version => 20130611200657) do
   add_index "containers_producers", ["container_id", "producer_id"], :name => "index_containers_producers_on_container_id_and_producer_id"
   add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
 
-  create_table "destinations", :force => true do |t|
+  create_table "customs", :force => true do |t|
+    t.string   "rut"
     t.string   "code"
+    t.string   "line_of_business"
+    t.string   "address"
+    t.string   "location"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "email"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "destinations", :force => true do |t|
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -72,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20130611200657) do
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
+    t.integer  "code"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -86,7 +99,6 @@ ActiveRecord::Schema.define(:version => 20130611200657) do
   end
 
   create_table "dispatches", :force => true do |t|
-    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
@@ -94,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20130611200657) do
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "code"
   end
 
   create_table "empty_packs_destination_moves", :force => true do |t|
