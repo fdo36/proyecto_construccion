@@ -18,7 +18,7 @@ class Company < ActiveRecord::Base
   
   attr_accessible :address, :commune_id, :email, :line_of_business, :name, :phone, :rut , :active, :region_id
   
-  has_many :users
+  has_many :users , :dependent => :destroy
   belongs_to :commune
   belongs_to :region
   has_many :receipts

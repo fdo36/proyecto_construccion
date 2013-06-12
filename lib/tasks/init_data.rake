@@ -12,9 +12,9 @@ namespace :init_data do
 	end
 	Role.delete_all
 	
-	user = User.new(:email => "superadmin@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => true)
+	user = User.new(:email => "superadmin@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => true, :active => true)
 	user.save(:validate => false)
-	company = Company.new(:rut => "1111111-1", :name => "Dope Enterprise")
+	company = Company.new(:rut => "1111111-1", :name => "Dope Enterprise", :active => true)
 	company.save(:validate => false)
 	role = Role.new(:name => "Rol de prueba", :description => "Usado para realizar pruebas", :company_id => company.id)
 	role.save
@@ -61,7 +61,7 @@ namespace :init_data do
         a=AccessRight.create(:model_name => "Role", :action => "manage")
         role.access_rights << a
 
-	user = User.new(:email => "admin@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => false, :company_id => company.id)
+	user = User.new(:email => "admin@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => false, :company_id => company.id, :active => true)
 	user.save(:validate => false)
 	user.roles << role
   end

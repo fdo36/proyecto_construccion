@@ -12,39 +12,12 @@
       </div>
     <% end %>
 
-    
-
-    <div class="line-forme">
+     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :Correo_electrónico %><br />
-      </div>
-      <div class="forme-in">
-         <%= f.text_field :email %>
-      </div>
-    </div>      
-
-    <div class="line-forme">
-      <div class="forme-lab">
-        <%= f.label :Activo %><br />
-      </div>  
-      <div class="forme-in">
-        <%= f.check_box :active %>
-      </div>
-    </div>  
-
-
-    <div class="line-forme">
-      <div class="forme-lab">
-        <%= f.label :Teléfono %><br />
-      </div>  
-      <div class="forme-in">
-        <%= f.number_field :phone %>
-      </div>
-    </div>    
-    
-    <div class="line-forme">
-      <div class="forme-lab">
-        <%= f.label :Nombre %><br />
+        <label> 
+        Nombre             
+        <em class="formee-req">*</em>
+      </label> 
       </div>    
       <div class="forme-in">
         <%= f.text_field :name %>
@@ -53,12 +26,48 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <%= f.label :Apellido %><br />
+        <label> 
+        Apellido             
+        <em class="formee-req">*</em>
+      </label> 
       </div>  
       <div class="forme-in">
         <%= f.text_field :lastname %>    
       </div>
+
     </div>
+        <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Activo %><br />
+      </div>  
+      <div class="forme-in">
+        <%= f.check_box :active %>
+      </div>
+    </div>  
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+        Teléfono                
+        <em class="formee-req">*</em>
+        </label> 
+      </div>  
+      <div class="forme-in">
+        <%= f.number_field :phone %>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+        Correo Electrónico                
+        <em class="formee-req">*</em>
+      </label> 
+      </div>
+      <div class="forme-in">
+         <%= f.text_field :email %>
+      </div>
+    </div>   
 
     <div class="line-forme">
       <div class="forme-lab">
@@ -113,6 +122,9 @@
       <% end %>
       </div>
     </div>
+    <label> (
+      <em class="formee-req">*</em>
+    </label> ) Campos obligatorios.
 </div>
 
 <div class="foot-box">

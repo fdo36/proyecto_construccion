@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @turn.name %>
+</p>
+
+<p>
+  <b>Subprocess:</b>
+  <%= @turn.subprocess_id %>
+</p>
+
+<p>
+  <b>Start datetime:</b>
+  <%= @turn.start_datetime %>
+</p>
+
+<p>
+  <b>End datetime:</b>
+  <%= @turn.end_datetime %>
+</p>
+
+
+<%= link_to 'Edit', edit_turn_path(@turn) %> |
+<%= link_to 'Back', turns_path %>

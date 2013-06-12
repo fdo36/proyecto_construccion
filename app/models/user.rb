@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :roles
 
-  belongs_to :company
+  belongs_to :company , :dependent => :destroy
   has_many :dispatches
   has_many :receipts
   
@@ -32,7 +32,15 @@ class User < ActiveRecord::Base
     self.super_admin
   end
 
-  def active?
-      active
+  def active_for_authentication?
+    if self.super_admin
+      self.active
+    else
+      if self.company != nil
+        self.company.active & self.active
+      else
+        false
+      end
+    end
   end
 end

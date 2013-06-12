@@ -125,11 +125,9 @@
 						<% models_name_rsrc = [] %>
 						<% for r in current_user.roles %>
 							<% r.access_rights.each do |ar| %> 
-								<!%= ar.model_name%>
-								<!%= ar.action%>
-								<% if namesIO.has_key?(ar.model_name) %>
+								<% if namesIO.has_key?(ar.model_name) and !models_name_io.include?(ar.model_name)%>
 									<% models_name_io << ar.model_name%>
-								<% elsif namesResource.has_key?(ar.model_name)%>
+								<% elsif namesResource.has_key?(ar.model_name) and !models_name_rsrc.include?(ar.model_name)%>
 									<% models_name_rsrc << ar.model_name%>
 								<% end %>
 							<% end %>
