@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529101120) do
+ActiveRecord::Schema.define(:version => 20130612005550) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(:version => 20130529101120) do
   add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
 
   create_table "destinations", :force => true do |t|
-    t.string   "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -72,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20130529101120) do
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
+    t.integer  "code"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -86,7 +86,6 @@ ActiveRecord::Schema.define(:version => 20130529101120) do
   end
 
   create_table "dispatches", :force => true do |t|
-    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
@@ -94,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20130529101120) do
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "code"
   end
 
   create_table "groupings", :force => true do |t|
@@ -177,7 +177,6 @@ ActiveRecord::Schema.define(:version => 20130529101120) do
   add_index "pack_types_producers", ["producer_id", "pack_type_id"], :name => "index_pack_types_producers_on_producer_id_and_pack_type_id"
 
   create_table "pallets", :force => true do |t|
-    t.integer  "code"
     t.integer  "quantity"
     t.integer  "price_per_unit"
     t.integer  "gross_weight"
@@ -190,6 +189,7 @@ ActiveRecord::Schema.define(:version => 20130529101120) do
     t.integer  "dispatch_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "code"
   end
 
   create_table "producers", :force => true do |t|
