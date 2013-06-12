@@ -29,9 +29,9 @@ class Pallet < ActiveRecord::Base
   belongs_to :company
   belongs_to :dispatch
 
-  
+  validates :code, :presence => true
   validates :gross_weight, :tare, :presence =>true, :numericality => true
-  validates :variety_id,:quality_id,:price_per_unit,:pack_type_id, :quantity, :code, 
+  validates :variety_id,:quality_id,:price_per_unit,:pack_type_id, :quantity, 
    :presence => true, :numericality => { :only_integer => true }
 
 end
