@@ -27,8 +27,21 @@
     };
   }
 
+
+
   var registers = new Array();
   var id_count = 1;
+  var modified = false;
+
+  window.onbeforeunload = function () {    
+    if (modified) {
+      return "Los cambios no guardados se perderan";
+    }
+  }
+
+  function set_modified (argument) {
+    modified = argument;
+  }
 
   function register (variety_id, quality_id, price_kg, pack_type_id, quantity, gross_weight, code, tare, is_pallet, id) {
     this.variety_id = variety_id;
@@ -107,6 +120,7 @@
           data: { pack_group_receipt : {gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, receipt_id: receipt_id, variety_id: variety_id} } }); 
       }
     };
+    set_modified(false);
   }
 
   function get_pack_type_tare (pack_type_id) {
@@ -153,6 +167,7 @@
 
     var row = new Array(code, quantity, net_weight, variety_name, quality_name, price_kg, "<a href='#'>eliminar</a>");
     $('#tablealone').dataTable().fnAddData(row);
+    set_modified(true);
   }
 </script>
 
