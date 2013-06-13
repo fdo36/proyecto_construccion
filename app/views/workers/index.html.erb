@@ -1,29 +1,39 @@
-<h1>Listing workers</h1>
+<div class="headContent">
+  <h1>Lista de Trabajadores</h1>
+</div>
+<div class="box">
+  <div class="newTopBanner">
+    <%= link_to 'Nuevo Trabajador', new_worker_path, :class => "button blue alignright" %>
+  </div>
 
-<table>
-  <tr>
-    <th>Rut</th>
-    <th>First name</th>
-    <th>Last name</th>
-    <th>Phone</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th style="width:20% !important;">Rut</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Teléfono</th>
+        <th style="width:20% !important;">Acciones</th>
+        
+        
+      </tr>
+    </thead>
+  <tbody>
 
-<% @workers.each do |worker| %>
-  <tr>
-    <td><%= worker.rut %></td>
-    <td><%= worker.first_name %></td>
-    <td><%= worker.last_name %></td>
-    <td><%= worker.phone %></td>
-    <td><%= link_to 'Show', worker %></td>
-    <td><%= link_to 'Edit', edit_worker_path(worker) %></td>
-    <td><%= link_to 'Destroy', worker, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+  <% @workers.each do |worker| %>
+    
+      <tr>
+        <td><%= worker.rut %></td>
+        <td><%= worker.first_name %></td>
+        <td><%= worker.last_name %></td>
+        <td><%= worker.phone %></td>
+        <td><%= link_to 'Ver', worker %>
+        <%= link_to 'Editar', edit_worker_path(worker) %>
+        <%= link_to 'Eliminar', worker, method: :delete, data: { confirm: '¿Está seguro de eliminar este Trabajador?' } %></td>
+      </tr>
+    
+  <% end %>
+    </tbody>
+  </table>
 
-<br />
-
-<%= link_to 'New Worker', new_worker_path %>
+</div>

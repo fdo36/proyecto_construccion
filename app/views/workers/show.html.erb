@@ -1,25 +1,31 @@
 <p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Usuario</h1>
+</div>
+<div class="box">
+  <%= link_to 'Volver', workers_path , :class => "button blue alignright" %>
 
-<p>
-  <b>Rut:</b>
-  <%= @worker.rut %>
-</p>
+	<p>
+	  <b>Rut:</b>
+	  <%= @worker.rut %>
+	</p>
 
-<p>
-  <b>First name:</b>
-  <%= @worker.first_name %>
-</p>
+	<p>
+	  <b>First name:</b>
+	  <%= @worker.first_name %>
+	</p>
 
-<p>
-  <b>Last name:</b>
-  <%= @worker.last_name %>
-</p>
+	<p>
+	  <b>Last name:</b>
+	  <%= @worker.last_name %>
+	</p>
 
-<p>
-  <b>Phone:</b>
-  <%= @worker.phone %>
-</p>
+	<p>
+	  <b>Phone:</b>
+	  <%= @worker.phone %>
+	</p>
 
-
-<%= link_to 'Edit', edit_worker_path(@worker) %> |
-<%= link_to 'Back', workers_path %>
+</div>  
+<div class="foot-box">
+  <%= link_to 'Editar', edit_worker_path(@worker) , :class => "button green alignright" %>
+</div>
