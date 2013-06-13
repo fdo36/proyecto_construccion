@@ -1,3 +1,4 @@
+#encoding: utf-8
 class TransitChamberIosController < ApplicationController
   # GET /transit_chamber_ios
   # GET /transit_chamber_ios.json
@@ -44,7 +45,7 @@ class TransitChamberIosController < ApplicationController
 
     respond_to do |format|
       if @transit_chamber_io.save
-        format.html { redirect_to @transit_chamber_io, notice: 'Transit chamber io was successfully created.' }
+        format.html { redirect_to "/transit_chamber_ios", notice: 'La Cámara de Producto en Tránsito fue creada exitosamente.' }
         format.json { render json: @transit_chamber_io, status: :created, location: @transit_chamber_io }
       else
         format.html { render action: "new" }
@@ -60,7 +61,7 @@ class TransitChamberIosController < ApplicationController
 
     respond_to do |format|
       if @transit_chamber_io.update_attributes(params[:transit_chamber_io])
-        format.html { redirect_to @transit_chamber_io, notice: 'Transit chamber io was successfully updated.' }
+        format.html { redirect_to "/transit_chamber_ios", notice: 'La Cámara de Producto en Tránsito fue editada exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
