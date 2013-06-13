@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20130613153011) do
   end
 
   create_table "destinations", :force => true do |t|
+    t.string   "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -84,7 +85,6 @@ ActiveRecord::Schema.define(:version => 20130613153011) do
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
-    t.integer  "code"
   end
 
   create_table "dispatch_containers", :force => true do |t|

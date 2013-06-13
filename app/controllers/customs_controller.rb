@@ -44,7 +44,7 @@ class CustomsController < ApplicationController
 
     respond_to do |format|
       if @custom.save
-        format.html { redirect_to "/customs", notice: 'La Agencia de Aduana fue creado exitosamente.' }
+        format.html { redirect_to "/customs", notice: 'La Agencia de Aduana fue creada exitosamente.' }
         format.json { render json: @custom, status: :created, location: @custom }
       else
         format.html { render action: "new" }

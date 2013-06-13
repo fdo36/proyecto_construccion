@@ -1,15 +1,21 @@
 <p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Cámara de Producto en Tránsito</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', transit_chamber_ios_path , :class => "button blue alignright" %>
 
 <p>
-  <b>Temperature:</b>
+  <b>Temperatura:</b>
   <%= @transit_chamber_io.temperature %>
 </p>
 
 <p>
-  <b>Order number:</b>
+  <b>Número de Orden:</b>
   <%= @transit_chamber_io.order_number %>
 </p>
 
-
-<%= link_to 'Edit', edit_transit_chamber_io_path(@transit_chamber_io) %> |
-<%= link_to 'Back', transit_chamber_ios_path %>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_transit_chamber_io_path(@custom) , :class => "button green alignright" %>
+</div>
