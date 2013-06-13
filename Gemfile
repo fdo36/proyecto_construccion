@@ -12,7 +12,7 @@ gem 'jquery-ui-rails'
 gem 'foreigner'
 gem 'devise-i18n-views'
 gem 'railroady'
-gem 'heritage'
+gem 'heritage', :git => 'git://github.com/astroza/Heritage.git'
 
 # Gems used only for assets and not required
 # in production environments by default.

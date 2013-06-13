@@ -2,7 +2,7 @@
 class RutValidator < ActiveModel::Validator
   def validate(record)
     if record.rut.empty?
-      record.errors[:base] << "debe ingresar un RUT"
+      record.errors[:base] << "Debe ingresar un RUT"
     else
     	invalid = true
     	t = (record.rut[0, record.rut.length - 2].delete(".")).to_i
