@@ -1,4 +1,10 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :remove_add_code_to_dispatches
+
+
+  resources :add_code_to_dispatches
+
+
   resources :add_company_name_to_customs
 
 
