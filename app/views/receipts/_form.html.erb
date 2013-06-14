@@ -226,6 +226,17 @@
         $("#select_variety").html(options);
       });
     }
+    else
+    {
+      $.get("/varieties.json", function(data) {         
+        var options = '<option value>- Seleccione variedad -</option>';
+        $.each(data, function(i, item){           
+          options += '<option value="' + item.id + '">' + item.name + '</option>';        
+        });
+        $("#select_variety").html(options);
+      });
+
+    }
     
   }
 
@@ -427,14 +438,12 @@
      
   
   </div>  
-  <label> (
-    <em class="formee-req">*</em>
-  </label> ) Campos obligatorios.
+  
 
     <!-- Panel de Pallets y Envases -->
   <div class = "contentSubPanel">
     <div class="headContent">
-      <h1>Agregar Registros</h1>
+      <h1>Agregar Registro</h1>
     </div>
     <div class="box">
     <%= form_for([@pallet], :url => pallets_path) do |f| %>
@@ -475,6 +484,7 @@
       <div class="line-forme">
         <div class="forme-lab">
           <label>Precio por Kg ($)</label>
+          <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
           <%= f.text_field :price_per_unit %>
@@ -494,6 +504,7 @@
       <div class="line-forme">
         <div class="forme-lab">
           <label>Cantidad Envases</label>
+          <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
           <%= f.text_field :quantity %>
@@ -503,6 +514,7 @@
       <div class="line-forme">
         <div class="forme-lab">
           <label>Peso Bruto (Kg)</label>
+          <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
           <%= f.text_field :gross_weight %>
@@ -516,6 +528,7 @@
         <div class="line-forme">
           <div class="forme-lab">
             <label>Código Pallet</label>
+            <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
             <%= f.text_field :code, :id=>"code"%>
@@ -525,6 +538,7 @@
         <div class="line-forme">
           <div class="forme-lab">
             <label>Destare Pallet</label>
+            <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
             <%= f.text_field :tare, :id=>"destare"%>
@@ -547,6 +561,7 @@
         <div class="line-forme">
           <div class="forme-lab">
             <label>Código Pallet</label>
+            <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
             <%= f.text_field :code, :id=>"code"%>
@@ -556,6 +571,7 @@
         <div class="line-forme">
           <div class="forme-lab">
             <label>Destare Pallet</label>
+            <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
             <%= f.text_field :tare, :id=>"destare"%>
@@ -567,12 +583,17 @@
 
 
     </div> 
+
+
   </div>  
+
 
   <div class = "newTopBanner">
     <input type="button" value="Agregar" id="agregar" name="agregar" language="javascript" onClick='add_register();'>
     <input type="button" value="Guardar" id="guardar" name="guardar" language="javascript" onClick='post();'>
   </div>
+  
+  
 
   <div class = "contentSubPanel">
     <div class="headContent">
@@ -599,8 +620,15 @@
       </table>
     </div>
   </div>
+  <br>
+  <label> (
+  <em class="formee-req">*</em>
+</label> ) Campos obligatorios.
 
 </div>
+
+
+
 <%end%>
 
 

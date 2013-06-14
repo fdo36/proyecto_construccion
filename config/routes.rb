@@ -1,4 +1,7 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :add_company_name_to_customs
+
+
   resources :customs
 
 
