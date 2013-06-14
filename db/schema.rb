@@ -106,7 +106,6 @@ ActiveRecord::Schema.define(:version => 20130612152619) do
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.string   "code"
   end
 
   create_table "empty_packs_destination_moves", :force => true do |t|
