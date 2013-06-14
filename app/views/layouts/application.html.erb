@@ -117,9 +117,9 @@
 					
 						<% namesIO = {'Receipt' => 'Ingresos', 'Season' => 'Temporada', 'Dispatch' => 'Despachos', 'Report' => 'Informes' }%>
 
-						<% namesResource = {'Producer' => 'Productor', 'Pack_type' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Producto', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduanas' } %>
+						<% namesResource = {'Producer' => 'Productor', 'Pack_type' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Producto', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduanas' , 'Transit_chamber_io' => 'Cámara de Producto en Tránsito'} %>
 
-						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'Pack_type' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/products', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs' } %>
+						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'Pack_type' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/products', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs' , 'Transit_chamber_io' => '/transit_chamber_ios'} %>
 
 						<% models_name_io = [] %>
 						<% models_name_rsrc = [] %>
@@ -182,9 +182,12 @@
 					
 					<ul class="toolsMenu">
 						<li><p>Perfil</p></li>
+						<li><p><%= link_to('Ayuda', "/wiki") %></p></li>
 						<li><p><%= link_to('Cerrar sesión', destroy_user_session_path, :method => :delete) %></p> </li>
 					</ul>
+
 				</div>
+
 				<% if current_user.super_admin != true and can?(:manage, User) %>
 				<div class="tools first-tool">
 					<div class="toolsCompressed">
@@ -193,6 +196,7 @@
 					<ul class="toolsMenu">
 						<li> <p><%= link_to('Cuentas', company_users_path(current_user.company)) %></p> </li>
 						<li> <p><%= link_to('Configuración', new_setting_path) %> </p> </li>
+						
 					</ul>
 				</div>
 				<% end %>

@@ -1,8 +1,9 @@
 <%= form_for(@transit_chamber_io) do |f| %>
+
+<div class="box">
   <% if @transit_chamber_io.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@transit_chamber_io.errors.count, "error") %> prohibited this transit_chamber_io from being saved:</h2>
-
+      <h2><%= @transit_chamber_io.errors.count > 1 ? "#{@transit_chamber_io.errors.count} errores." : "#{@transit_chamber_io.errors.count} error." %> no se puede guardar la cámara de producto en tránsito:</h2>
       <ul>
       <% @transit_chamber_io.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -11,15 +12,70 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :temperature %><br />
-    <%= f.text_field :temperature %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Temperatura
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :temperature %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :order_number %><br />
-    <%= f.number_field :order_number %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Número de Orden
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :order_number %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Pallet
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :packing_pallet_id %>
+    </div>
   </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Encargado
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :worker_id %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Tipo
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.radio_button(:direction, true) %>
+        <%= label_tag(:label1, "Entrada") %>
+        <%= f.radio_button(:direction,false) %>
+        <%= label_tag(:label1, "Salida") %>
+    </div>
+  </div>
+
+</div>
+
+  <div class="foot-box">
+    <%= link_to 'Cancelar', transit_chamber_ios_path , :class => "button silver alignright" %>
+    <%= f.submit :Guardar , :class => "button green alignright" %>
+  </div>
+
 <% end %>
