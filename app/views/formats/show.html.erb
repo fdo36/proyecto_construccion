@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @format.name %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @format.quantity %>
+</p>
+
+<p>
+  <b>Weight:</b>
+  <%= @format.weight %>
+</p>
+
+
+<%= link_to 'Edit', edit_format_path(@format) %> |
+<%= link_to 'Back', formats_path %>

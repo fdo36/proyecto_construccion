@@ -1,0 +1,23 @@
+<h1>Listing pack_packings</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pack_packings.each do |pack_packing| %>
+  <tr>
+    <td><%= pack_packing.name %></td>
+    <td><%= link_to 'Show', pack_packing %></td>
+    <td><%= link_to 'Edit', edit_pack_packing_path(pack_packing) %></td>
+    <td><%= link_to 'Destroy', pack_packing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Pack packing', new_pack_packing_path %>
