@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Formato</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', format_packings_path , :class => "button blue alignright" %>
+
+<p>
+  <b>Nombre:</b>
+  <%= @format_packing.name %>
+</p>
+
+<p>
+  <b>Cantidad:</b>
+  <%= @format_packing.quantity %>
+</p>
+
+<p>
+  <b>Peso:</b>
+  <%= @format_packing.weight %>
+</p>
+
+
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_format_packing_path(@format_packing) , :class => "button green alignright" %>
+</div>

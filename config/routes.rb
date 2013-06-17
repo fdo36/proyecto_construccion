@@ -1,4 +1,7 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :format_packings
+
+
   resources :providers
 
 
@@ -6,9 +9,6 @@ ProyectoConstruccion::Application.routes.draw do
 
 
   resources :pack_packings
-
-
-  resources :formats
 
 
   resources :empty_packs_destination_moves
