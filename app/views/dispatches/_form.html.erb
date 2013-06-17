@@ -12,6 +12,157 @@
      $('#codigo').val(data.code);
    });
   }
+
+  function add_register()
+  {
+
+    var work_model = get_work_model();
+
+    var variety_id = $("#select_variety").val();    
+    var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
+
+    //show_kind(document.getElementById("select_variety"));
+
+    var quality_id = $("#select_quality").val();
+    var quality_name = $("#select_quality option[value='"+quality_id+"']").text();
+  
+    //La tabla se llena sólo si el esquema de trabajo incluye pallets.
+    if((work_model == 'pallet') || (work_model == 'pack_pallet'))
+    {
+      if((variety_id != '') && (quality_id != ''))
+      {
+        $.get("/pallets.json", function(data) { 
+          var variety_id = $("#select_variety").val(); 
+          var quality_id = $("#select_quality").val();          
+          var encontrado = false;
+         for (var i = data.length - 1; i >= 0; i--) {
+          if((data[i]["variety_id"]==variety_id) && (data[i]["variety_id"]==quality_id)){  
+            //Validar que no esté en la tabla
+          
+
+
+            //Si no, agregar
+            var pack_type_tare = get_pack_type_tare(data[i]["pack_type_id"]);          
+            var net_weight = data[i]["gross_weight"] - (pack_type_tare * data[i]["quantity"]) - data[i]["tare"];                   
+            var row = new Array(data[i]["code"], data[i]["quantity"], net_weight, "<a href='#'>Eliminar</a>"); 
+
+        
+
+            $('#table_register').dataTable().fnAddData(row);    
+            encontrado = true;                     
+          }
+         };
+         if(encontrado == false)
+         {
+            $('#table_register').dataTable().fnClearTable();
+         }
+
+        }); 
+      }
+    }
+    
+  }
+
+  function get_pack_type_tare (pack_type_id) {
+    $.ajax({
+      url: "/pack_types.json",
+      dataType: 'json',
+      async: false,
+      success: function(data){
+          $.each(data,function(index, value){
+            if(value.id == pack_type_id)
+            {
+              tare = value.tare;
+            }
+          });
+      }
+    });
+    return tare;
+  }
+
+  //Obtiene el modelo de trabajo
+  function get_work_model () {
+    $.ajax({
+      url: "/settings.json",
+      dataType: 'json',
+      async: false,
+      success: function(data){
+        work_model = data[data.length -1]["key"];
+      }
+    });
+    return work_model;
+  }
+
+  function show_variety(s)
+  { 
+      
+    if (s.value != '')
+    {
+      $.get("/varieties.json", function(data) {         
+        var options = '<option value>- Seleccione variedad -</option>';
+        $.each(data, function(i, item){ 
+          if(item.kind_id == s.value){
+            options += '<option value="' + item.id + '">' + item.name + '</option>';
+          }
+        });
+        $("#select_variety").html(options);
+      });
+    }
+    else
+    {
+      $.get("/varieties.json", function(data) {         
+        var options = '<option value>- Seleccione variedad -</option>';
+        $.each(data, function(i, item){           
+          options += '<option value="' + item.id + '">' + item.name + '</option>';        
+        });
+        $("#select_variety").html(options);
+      });
+
+    }
+    
+  }
+
+  function show_kind(s)
+  {   
+       
+    if (s.value != '')
+    {
+      $.get("/kinds.json", function(data) {         
+        var options = '<option value>- Seleccione especie -</option>';
+        $.each(data, function(i, item){ 
+          $.get("/varieties/"+s.value+".json", function(variety)
+            {
+              if(item.id == variety.kind_id){
+                options += '<option value="' + item.id + '" selected>' + item.name + '</option>';
+              }
+              else
+              {
+                options += '<option value="' + item.id + '">' + item.name + '</option>';
+              }
+              $("#select_kind").html(options);
+            });
+            
+        });
+        
+      });
+    }
+    else
+    {
+      $.get("/kinds.json", function(data) {         
+        var options = '<option value>- Seleccione especie -</option>';
+        $.each(data, function(i, item){          
+          options += '<option value="' + item.id + '">' + item.name + '</option>';
+        
+        });
+        $("#select_kind").html(options);
+        
+      });
+    }
+    
+  }
+
+
+
   
 </script>
 
@@ -144,7 +295,7 @@
       </div>    
       <div class="forme-in">
         <% @options = Kind.all.map { |k| [k.name, k.id] } %>
-        <%= f.select(:kind_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione especie - '} , :onchange => "show_rut(this)") %>
+        <%= f.select(:kind_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione especie - '} , :id => "select_kind", :onchange => "show_variety(this); add_register();") %>
       </div>    
     </div>
 
@@ -158,7 +309,138 @@
       </div>    
     </div>
 
-  </div>  
+  </div> 
+
+  <div class = "contentSubPanel">
+    <div class="headContent">
+      <h1>Registrar</h1>
+    </div>
+    <div class="box">
+    
+      <div class="line-forme">
+        <div class="forme-lab">
+          <label>Variedad</label>
+          <em class="formee-req">*</em>
+        </div>
+        <div class="forme-in">
+          <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
+
+          <%= select_tag "select_variety", options_for_select(@options_varieties), :prompt => '- Seleccione variedad - ', :id => "select_variety", :onchange => "add_register(); show_kind(this);"%>         
+          
+
+        </div>
+      </div>
+
+      <div class="line-forme">
+        <div class="forme-lab">
+          <label>Calidad</label>
+          <em class="formee-req">*</em>
+        </div>
+        <div class="forme-in">
+          <% @options_quality = Quality.all.map { |quality| [quality.name, quality.id] } %>
+          <%= select_tag "select_quality", options_for_select(@options_quality), :prompt => '- Seleccione calidad - ', :onchange => "add_register()"%>
+          
+        </div>
+      </div>
+
+      <table cellpadding="0" cellspacing="0" border="0" id="table_register" class="display datatable">
+        <thead>
+          <tr>
+            <th style="width:20% !important;">Código Pallet</th>
+            <th>N° Envases</th>
+            <th>Peso Neto (Kg)</th>
+            <th style="width:20% !important;">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- Llenar tabla solamente si el esquema seleccionado incluye pallets-->
+          
+        </tbody>
+      </table>
+
+      <input type="button" value="Agregar" id="agregar" name="agregar" language="javascript">  
+
+    
+
+      <div class="line-forme">
+        <div class="forme-lab">
+          <label>Tipo Envase:</label>
+        </div>
+        <div class="forme-in">
+          <% @options_pack_type = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+          <%= select_tag "quality", options_for_select(@options_pack_type), :prompt => '- Seleccione envase - ' %>
+        </div>
+      </div>
+
+      <div class="line-forme">
+        <div class="forme-lab">
+          <label>Envases en Stock:</label>
+        </div>
+        <div class="forme-in">
+          <%= text_field_tag 'packs_in_stock'%>          
+        </div>
+      </div>
+
+      <div class="line-forme">
+        <div class="forme-lab">
+          <label>Envases a Despachar:</label>
+        </div>
+        <div class="forme-in">
+          <%= text_field_tag 'packs_to_dispatch'%>
+        </div>
+      </div>
+
+      <div class="line-forme">
+        <div class="forme-lab">
+          <label>Peso Bruto (Kg):</label>
+        </div>
+        <div class="forme-in">
+          <%= text_field_tag 'gross_weight'%>
+        </div>
+      </div>
+
+      <input type="button" value="Agregar" id="agregar" name="agregar" language="javascript"> 
+
+      
+
+    </div>
+  </div>
+
+  <!-- Detalle -->
+    <div class = "contentSubPanel">
+    <div class="headContent">
+      <h1>Detalle</h1>
+    </div>
+    <div class="box">
+    
+      <table cellpadding="0" cellspacing="0" border="0" id="tablealone" class="display datatable">
+        <thead>
+          <tr>
+            <th>Variedad</th>
+            <th>Calidad</th>
+            <th style="width:20% !important;">Código Pallet</th>
+            <th>N° Envases</th>
+            <th>Peso Neto (Kg)</th>
+            <th style="width:20% !important;">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          
+          
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+
+  <br>
+  <label> (
+  <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
+
 </div>
 
 <div class="foot-box">
