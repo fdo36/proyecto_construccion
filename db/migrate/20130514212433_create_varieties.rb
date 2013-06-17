@@ -4,7 +4,7 @@ class CreateVarieties < ActiveRecord::Migration
       t.string :name
       t.integer :kind_id
       t.foreign_key :kinds
-      t.foreign_key :final_packing_pallets
+      
       t.timestamps
     end
   end

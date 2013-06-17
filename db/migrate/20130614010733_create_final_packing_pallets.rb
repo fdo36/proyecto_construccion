@@ -9,6 +9,10 @@ class CreateFinalPackingPallets < ActiveRecord::Migration
       t.integer :quantity
       t.float :net_weight
 
+      t.foreign_key :kinds
+      t.foreign_key :varieties
+      t.foreign_key :qualities
+
       t.timestamps
     end
   end
