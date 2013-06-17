@@ -1,20 +1,26 @@
 <p id="notice"><%= notice %></p>
-
+<div class="headContent">
+	<h1> Ver formato </h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', formats_path , :class => "button blue alignright" %>
 <p>
-  <b>Name:</b>
+  <b>Nombre:</b>
   <%= @format.name %>
 </p>
 
 <p>
-  <b>Quantity:</b>
+  <b>Cantidad:</b>
   <%= @format.quantity %>
 </p>
 
 <p>
-  <b>Weight:</b>
+  <b>Peso:</b>
   <%= @format.weight %>
 </p>
+</div>
 
+<div class="foot-box">
+  <%= link_to 'Editar', edit_format_path(@format) , :class => "button green alignright" %>
+</div>
 
-<%= link_to 'Edit', edit_format_path(@format) %> |
-<%= link_to 'Back', formats_path %>
