@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130614202935) do
+ActiveRecord::Schema.define(:version => 20130614201540) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -75,9 +75,12 @@ ActiveRecord::Schema.define(:version => 20130614202935) do
     t.string   "email"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.integer  "company_id"
+    t.integer  "user_id"
   end
 
   create_table "destinations", :force => true do |t|
+    t.string   "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -105,6 +108,7 @@ ActiveRecord::Schema.define(:version => 20130614202935) do
   end
 
   create_table "dispatches", :force => true do |t|
+    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
@@ -112,7 +116,7 @@ ActiveRecord::Schema.define(:version => 20130614202935) do
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.string   "code"
+    
   end
 
   create_table "empty_packs_destination_moves", :force => true do |t|
@@ -133,6 +137,18 @@ ActiveRecord::Schema.define(:version => 20130614202935) do
     t.string   "pack_option"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "final_packing_pallets", :force => true do |t|
+    t.integer  "kind_id"
+    t.integer  "variety_id"
+    t.integer  "quality_id"
+    t.integer  "pack_packing_id"
+    t.integer  "format_id"
+    t.integer  "quantity"
+    t.float    "net_weight"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "groupings", :force => true do |t|
@@ -216,8 +232,14 @@ ActiveRecord::Schema.define(:version => 20130614202935) do
   add_index "pack_types_producers", ["producer_id", "pack_type_id"], :name => "index_pack_types_producers_on_producer_id_and_pack_type_id"
 
   create_table "packing_pallets", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "pack_type"
+    t.integer  "quantity"
+    t.float    "tare"
+    t.float    "temperature"
+    t.integer  "gross_weight"
+    t.integer  "unit_price"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -460,6 +482,10 @@ ActiveRecord::Schema.define(:version => 20130614202935) do
 
   add_foreign_key "dispatches", "destinations", :name => "dispatches_destination_id_fk"
   add_foreign_key "dispatches", "kinds", :name => "dispatches_kind_id_fk"
+
+  add_foreign_key "final_packing_pallets", "kinds", :name => "final_packing_pallets_kind_id_fk"
+  add_foreign_key "final_packing_pallets", "qualities", :name => "final_packing_pallets_quality_id_fk"
+  add_foreign_key "final_packing_pallets", "varieties", :name => "final_packing_pallets_variety_id_fk"
 
   add_foreign_key "groupings_producers", "groupings", :name => "groupings_producers_grouping_id_fk"
   add_foreign_key "groupings_producers", "producers", :name => "groupings_producers_producer_id_fk"

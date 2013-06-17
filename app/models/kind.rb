@@ -8,4 +8,6 @@ class Kind < ActiveRecord::Base
   has_many :seasons
   has_many :dispatches
   has_many :receipts
+
+  belongs_to :final_packing_pallets
 end

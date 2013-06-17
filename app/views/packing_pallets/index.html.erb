@@ -1,21 +1,40 @@
-<h1>Listing packing_pallets</h1>
+<div class="headContent">
+  <h1>Lista de Packing Pallets</h1>
+</div>
+<div class="box">
+  <div class="newTopBanner">
+    <%= link_to 'Nuevo Packing Pallet', new_packing_pallet_path , :class => "button blue alignright" %>
+  </div>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <p id="notice" class="alignleft"><%= notice %> </p>
 
-<% @packing_pallets.each do |packing_pallet| %>
-  <tr>
-    <td><%= link_to 'Show', packing_pallet %></td>
-    <td><%= link_to 'Edit', edit_packing_pallet_path(packing_pallet) %></td>
-    <td><%= link_to 'Destroy', packing_pallet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th>Tipo de Pack</th>
+        <th>Cantidad</th>
+        <th>Tara</th>
+        <th>Temperatura</th>
+        <th>Peso Bruto</th>
+        <th>Precio Por Unidad</th>
+        <th style="width:20% !important;">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @packing_pallets.each do |packing_pallet| %>
+        <tr>
+          <td><%= packing_pallet.pack_type %></td>
+          <td><%= packing_pallet.quantity %></td>
+          <td><%= packing_pallet.tare %></td>
+          <td><%= packing_pallet.temperature %></td>
+          <td><%= packing_pallet.gross_weight %></td>
+          <td><%= packing_pallet.unit_price %></td>
+          <td><%= link_to 'Ver', packing_pallet %>
+              <%= link_to 'Editar', edit_packing_pallet_path(packing_pallet) %>
+              <%= link_to 'Eliminar', packing_pallet, method: :delete, data: { confirm: 'Está seguro que desea eliminar el Packing Pallet?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<br />
-
-<%= link_to 'New Packing pallet', new_packing_pallet_path %>
+</div>

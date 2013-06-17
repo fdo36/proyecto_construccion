@@ -1,8 +1,8 @@
+<div class="box">
 <%= form_for(@packing_pallet) do |f| %>
   <% if @packing_pallet.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@packing_pallet.errors.count, "error") %> prohibited this packing_pallet from being saved:</h2>
-
+      <h2><%= @packing_pallet.errors.count > 1 ? "#{@packing_pallet.errors.count} errores." : "#{@packing_pallet.errors.count} error." %> no se puede guardar el Packing Pallet:</h2>
       <ul>
       <% @packing_pallet.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -11,7 +11,79 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Tipo de Pack                
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :pack_type%>
+    </div>
   </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Cantidad               
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :quantity%>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Tara               
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :tare, :oninput => "replace_comma_with_dot(this)"%>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Temperatura               
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :temperature, :oninput => "replace_comma_with_dot(this)"%>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Peso Bruto               
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :gross_weight, :oninput => "replace_comma_with_dot(this)"%>
+    </div>
+  </div>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Precio por Unidad              
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :unit_price, :oninput => "replace_comma_with_dot(this)"%>
+    </div>
+  </div>
+
+  <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', packing_pallets_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
 <% end %>

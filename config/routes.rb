@@ -1,20 +1,14 @@
 ProyectoConstruccion::Application.routes.draw do
-  resources :remove_add_code_to_dispatches
 
+  resources :packing_pallets
 
-  resources :add_code_to_dispatches
-
-
-  resources :add_company_name_to_customs
+  resources :final_packing_pallets
 
 
   resources :customs
 
 
   resources :transit_chamber_ios
-
-
-  resources :packing_pallets
 
 
   resources :turns
