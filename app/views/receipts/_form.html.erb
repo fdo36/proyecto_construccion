@@ -226,12 +226,23 @@
         $("#select_variety").html(options);
       });
     }
+    else
+    {
+      $.get("/varieties.json", function(data) {         
+        var options = '<option value>- Seleccione variedad -</option>';
+        $.each(data, function(i, item){           
+          options += '<option value="' + item.id + '">' + item.name + '</option>';        
+        });
+        $("#select_variety").html(options);
+      });
+
+    }
     
   }
 
   function show_kind(s)
   {
-    /*
+    
        
     if (s.value != '')
     {
@@ -243,6 +254,10 @@
               if(item.id == variety.kind_id){
                 options += '<option value="' + item.id + '" selected>' + item.name + '</option>';
               }
+              else
+              {
+                options += '<option value="' + item.id + '">' + item.name + '</option>';
+              }
               $("#select_kind").html(options);
             });
             
@@ -250,7 +265,19 @@
         
       });
     }
-    */
+    else
+    {
+      $.get("/kinds.json", function(data) {         
+        var options = '<option value>- Seleccione especie -</option>';
+        $.each(data, function(i, item){          
+          options += '<option value="' + item.id + '">' + item.name + '</option>';
+        
+        });
+        $("#select_kind").html(options);
+        
+      });
+    }
+    
   }
 
 </script>
@@ -416,7 +443,7 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <label>Fecha </label>
+        <label>Fecha/Hora </label>
         <em class="formee-req">*</em>
       </div> 
       <%= f.datetime_select :receipt_datetime %>         
@@ -427,14 +454,12 @@
      
   
   </div>  
-  <label> (
-    <em class="formee-req">*</em>
-  </label> ) Campos obligatorios.
+  
 
     <!-- Panel de Pallets y Envases -->
   <div class = "contentSubPanel">
     <div class="headContent">
-      <h1>Agregar Registros</h1>
+      <h1>Agregar Registro</h1>
     </div>
     <div class="box">
     <%= form_for([@pallet], :url => pallets_path) do |f| %>
@@ -454,6 +479,7 @@
       <div class="line-forme">
         <div class="forme-lab">
           <label>Variedad</label>
+          <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
           <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
@@ -465,6 +491,7 @@
       <div class="line-forme">
         <div class="forme-lab">
           <label>Calidad</label>
+          <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
           <% quality_array = Quality.all.map { |quality| [quality.name, quality.id] } %>
@@ -475,6 +502,7 @@
       <div class="line-forme">
         <div class="forme-lab">
           <label>Precio por Kg ($)</label>
+          <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
           <%= f.text_field :price_per_unit %>
@@ -484,6 +512,7 @@
       <div class="line-forme">
         <div class="forme-lab">
           <label>Tipo Envase</label>
+          <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
           <% pack_type_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
@@ -494,6 +523,7 @@
       <div class="line-forme">
         <div class="forme-lab">
           <label>Cantidad Envases</label>
+          <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
           <%= f.text_field :quantity %>
@@ -503,6 +533,7 @@
       <div class="line-forme">
         <div class="forme-lab">
           <label>Peso Bruto (Kg)</label>
+          <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
           <%= f.text_field :gross_weight %>
@@ -516,6 +547,7 @@
         <div class="line-forme">
           <div class="forme-lab">
             <label>Código Pallet</label>
+            <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
             <%= f.text_field :code, :id=>"code"%>
@@ -525,6 +557,7 @@
         <div class="line-forme">
           <div class="forme-lab">
             <label>Destare Pallet</label>
+            <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
             <%= f.text_field :tare, :id=>"destare"%>
@@ -547,6 +580,7 @@
         <div class="line-forme">
           <div class="forme-lab">
             <label>Código Pallet</label>
+            <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
             <%= f.text_field :code, :id=>"code"%>
@@ -556,6 +590,7 @@
         <div class="line-forme">
           <div class="forme-lab">
             <label>Destare Pallet</label>
+            <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
             <%= f.text_field :tare, :id=>"destare"%>
@@ -567,12 +602,17 @@
 
 
     </div> 
+
+
   </div>  
+
 
   <div class = "newTopBanner">
     <input type="button" value="Agregar" id="agregar" name="agregar" language="javascript" onClick='add_register();'>
     <input type="button" value="Guardar" id="guardar" name="guardar" language="javascript" onClick='post();'>
   </div>
+  
+  
 
   <div class = "contentSubPanel">
     <div class="headContent">
@@ -599,8 +639,15 @@
       </table>
     </div>
   </div>
+  <br>
+  <label> (
+  <em class="formee-req">*</em>
+</label> ) Campos obligatorios.
 
 </div>
+
+
+
 <%end%>
 
 

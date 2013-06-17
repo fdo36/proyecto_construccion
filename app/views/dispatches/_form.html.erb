@@ -122,7 +122,7 @@
         <em class="formee-req">*</em>
       </div>    
       <div class="forme-in">
-        <%= f.text_field(:rut, :id => 'rut', :value => "-", :onblur => "search_rut(this)")%>
+        <input type="text" value="-" id="rut" onblur="search_rut(this)">
       </div>
     </div>
 
@@ -133,7 +133,7 @@
       </div>
     
       <div class="forme-in">
-        <%= f.text_field(:code, :id => 'codigo', :value => "-", :onblur => "search_code(this)")%>
+        <input type="text" value="-" id="codigo" onblur="search_code(this)">
       </div>
     </div>
 
@@ -150,7 +150,7 @@
 
     <div class="line-forme">
       <div class="forme-lab">
-        <label>Fecha de Despacho </label>
+        <label>Fecha/Hora </label>
         <em class="formee-req">*</em>
       </div>    
       <div>

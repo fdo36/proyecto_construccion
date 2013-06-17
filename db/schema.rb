@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130614010732) do
+=======
+ActiveRecord::Schema.define(:version => 20130614201540) do
+>>>>>>> a88fe4e86396eedbacac47cde33ea6100819914f
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -20,6 +24,12 @@ ActiveRecord::Schema.define(:version => 20130614010732) do
     t.integer  "role_id"
     t.string   "action"
     t.integer  "company_id"
+  end
+
+  create_table "add_code_to_dispatches", :force => true do |t|
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "communes", :force => true do |t|
@@ -307,6 +317,12 @@ ActiveRecord::Schema.define(:version => 20130614010732) do
 
   create_table "regions", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "remove_add_code_to_dispatches", :force => true do |t|
+    t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

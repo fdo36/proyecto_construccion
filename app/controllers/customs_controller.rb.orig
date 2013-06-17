@@ -45,7 +45,11 @@ class CustomsController < ApplicationController
 
     respond_to do |format|
       if @custom.save
+<<<<<<< HEAD
         format.html { redirect_to "/customs", notice: "La agencia de aduana #{@custom.line_of_business} fue creado exitosamente." }
+=======
+        format.html { redirect_to "/customs", notice: 'La Agencia de Aduana fue creada exitosamente.' }
+>>>>>>> a42210beb948571f07481591170826a781efe4ee
         format.json { render json: @custom, status: :created, location: @custom }
       else
         format.html { render action: "new" }

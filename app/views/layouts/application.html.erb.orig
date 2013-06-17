@@ -117,7 +117,11 @@
 					
 						<% namesIO = {'Receipt' => 'Ingresos', 'Season' => 'Temporada', 'Dispatch' => 'Despachos', 'Report' => 'Informes' }%>
 
-						<% namesResource = {'Producer' => 'Productor', 'Pack_type' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Producto', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduanas' , 'Transit_chamber_io' => 'Cámara de Producto en Tránsito'} %>
+<<<<<<< HEAD
+						<% namesResource = {'Producer' => 'Productor', 'Pack_type' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Producto', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduanas' } %>
+=======
+						<% namesResource = {'Producer' => 'Productor', 'Pack_type' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Producto', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduana' , 'Transit_chamber_io' => 'Cámara de Producto en Tránsito'} %>
+>>>>>>> a42210beb948571f07481591170826a781efe4ee
 
 						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'Pack_type' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/products', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs' , 'Transit_chamber_io' => '/transit_chamber_ios'} %>
 

@@ -1,25 +1,33 @@
-<h1>Listing transit_chamber_ios</h1>
+<div class="headContent">
+    <h1>Lista de Cámara de Producto en Tránsito</h1>
+</div>
+<div class="box">
+    <div class="newTopBanner">
+        <%= link_to 'Nueva Cámara de Producto en Tránsito', new_transit_chamber_io_path , :class => "button blue alignright" %>
+    </div>
 
-<table>
-  <tr>
-    <th>Temperature</th>
-    <th>Order number</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+    <p id="notice" class="alignleft"><%= notice %> </p>
 
-<% @transit_chamber_ios.each do |transit_chamber_io| %>
-  <tr>
-    <td><%= transit_chamber_io.temperature %></td>
-    <td><%= transit_chamber_io.order_number %></td>
-    <td><%= link_to 'Show', transit_chamber_io %></td>
-    <td><%= link_to 'Edit', edit_transit_chamber_io_path(transit_chamber_io) %></td>
-    <td><%= link_to 'Destroy', transit_chamber_io, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+    <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+      <thead>
+          <tr>
+            <th>Temperatura</th>
+            <th>Número de Orden</th>
+            <th>Acciones</th>  
+          </tr>
+      </thead>
+      <tbody>
+        <% @transit_chamber_ios.each do |transit_chamber_io| %>
+            <tr>
+                <td><%= transit_chamber_io.temperature %></td>
+                <td><%= transit_chamber_io.order_number %></td>
+                <td><%= link_to 'Ver', transit_chamber_io %>
+                  <%= link_to 'Editar', edit_transit_chamber_io_path(transit_chamber_io) %>
+                  <%= link_to 'Eliminar', transit_chamber_io, method: :delete, data: { confirm: '¿Está seguro de eliminar esta Cámara de Producto en Tránsito?' } %></td>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<br />
+</div>
 
-<%= link_to 'New Transit chamber io', new_transit_chamber_io_path %>
