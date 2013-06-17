@@ -1,19 +1,6 @@
 ProyectoConstruccion::Application.routes.draw do
-<<<<<<< HEAD
+
   resources :packing_pallets
-=======
-  resources :remove_add_code_to_dispatches
-
-
-  resources :add_code_to_dispatches
-
-
-  resources :add_company_name_to_customs
-
-
-  resources :customs
->>>>>>> a88fe4e86396eedbacac47cde33ea6100819914f
-
 
   resources :final_packing_pallets
 
