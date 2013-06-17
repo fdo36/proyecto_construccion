@@ -2,9 +2,9 @@
 require 'validators.rb'
 
 class Custom < ActiveRecord::Base
-  attr_accessible :address, :code, :email, :fax, :line_of_business, :location, :phone, :rut
+  attr_accessible :address, :code, :email, :fax, :line_of_business, :location, :phone, :rut, :company_id, :user_id
 
-  validates :line_of_business, :rut, :presence => true
+  validates :line_of_business, :rut, :company_id, :user_id, :presence => true
 
   validates :code, :uniqueness => true
 

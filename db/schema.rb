@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130613153011) do
+ActiveRecord::Schema.define(:version => 20130614010732) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(:version => 20130613153011) do
     t.string   "email"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.integer  "company_id"
+    t.integer  "user_id"
   end
 
   create_table "destinations", :force => true do |t|
@@ -127,6 +129,18 @@ ActiveRecord::Schema.define(:version => 20130613153011) do
     t.string   "pack_option"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "final_packing_pallets", :force => true do |t|
+    t.integer  "kind_id"
+    t.integer  "variety_id"
+    t.integer  "quality_id"
+    t.integer  "pack_packing_id"
+    t.integer  "format_id"
+    t.integer  "quantity"
+    t.float    "net_weight"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "groupings", :force => true do |t|
@@ -210,8 +224,14 @@ ActiveRecord::Schema.define(:version => 20130613153011) do
   add_index "pack_types_producers", ["producer_id", "pack_type_id"], :name => "index_pack_types_producers_on_producer_id_and_pack_type_id"
 
   create_table "packing_pallets", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "pack_type"
+    t.integer  "quantity"
+    t.float    "tare"
+    t.float    "temperature"
+    t.integer  "gross_weight"
+    t.integer  "unit_price"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "packing_processes", :force => true do |t|

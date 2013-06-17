@@ -1,11 +1,14 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :packing_pallets
+
+
+  resources :final_packing_pallets
+
+
   resources :customs
 
 
   resources :transit_chamber_ios
-
-
-  resources :packing_pallets
 
 
   resources :turns
