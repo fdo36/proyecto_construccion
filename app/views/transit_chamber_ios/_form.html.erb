@@ -1,6 +1,76 @@
-<%= form_for(@transit_chamber_io) do |f| %>
+<script type="text/javascript">
+function delete_row(button)
+{
+  var currentRow = $(button).closest('tr');
+  $("#chamber_table").dataTable().fnDeleteRow(currentRow[0]);
+}
 
+$(document).ready(function(){
+
+  $('#id_pallet').keydown(function (e){
+      if(e.keyCode == 13){
+          add_pallet();
+      }
+  });
+  
+
+  function add_pallet (){
+    var id_pallet = $("#id_pallet").val();
+
+    $.get("/packing_pallets/"+id_pallet+".json", function(pallet) {
+      $('#chamber_table').dataTable().fnAddData([
+      id_pallet,
+      pallet.pack_type,
+      pallet.gross_weight,
+      "<a onclick='delete_row(this);'>Eliminar</a>"
+      ]);
+
+      $("#id_pallet").val("");
+    });  
+  }
+});
+
+
+</script>
 <div class="box">
+
+  <div class="headContent">
+    <h1>Agregar Pallet</h1>
+  </div>
+  <div class="box">
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Pallet
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= text_field(:id, :pallet)%>
+      </div>
+    </div>
+
+    <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="chamber_table">
+      <thead>
+        <tr>    
+          <th>Código de Pallet</th>
+          <th>Tipo de Pack</th>
+          <th>Peso Bruto</th>  
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="foot-box">
+  <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallet();"%>
+  </div>
+<br>
+
+<%= form_for(@transit_chamber_io) do |f| %>
   <% if @transit_chamber_io.errors.any? %>
     <div id="error_explanation">
       <h2><%= @transit_chamber_io.errors.count > 1 ? "#{@transit_chamber_io.errors.count} errores." : "#{@transit_chamber_io.errors.count} error." %> no se puede guardar la cámara de producto en tránsito:</h2>
