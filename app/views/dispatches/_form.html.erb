@@ -37,18 +37,32 @@
           var encontrado = false;
          for (var i = data.length - 1; i >= 0; i--) {
           if((data[i]["variety_id"]==variety_id) && (data[i]["variety_id"]==quality_id)){  
-            //Validar que no esté en la tabla
-          
-
-
-            //Si no, agregar
+      
             var pack_type_tare = get_pack_type_tare(data[i]["pack_type_id"]);          
             var net_weight = data[i]["gross_weight"] - (pack_type_tare * data[i]["quantity"]) - data[i]["tare"];                   
             var row = new Array(data[i]["code"], data[i]["quantity"], net_weight, "<a href='#'>Eliminar</a>"); 
 
-        
+            //Validar que no esté en la tabla
+            
+            var nNodes = $('#table_register').dataTable().fnGetNodes( );
 
-            $('#table_register').dataTable().fnAddData(row);    
+            /*
+            for (var i = nNodes.length - 1; i >= 0; i--) {
+              var val = nNodes[i].cells[0].innerHTML;
+              if(val != row[0])
+              {
+                $('#table_register').dataTable().fnAddData(row);
+              }
+            }; 
+            
+            if(nNodes.length == 0 )
+            {
+              $('#table_register').dataTable().fnAddData(row);
+            } 
+            */ 
+
+            $('#table_register').dataTable().fnAddData(row);
+
             encontrado = true;                     
           }
          };
@@ -95,7 +109,7 @@
 
   function show_variety(s)
   { 
-      
+    $('#table_register').dataTable().fnClearTable();  
     if (s.value != '')
     {
       $.get("/varieties.json", function(data) {         
@@ -124,7 +138,7 @@
 
   function show_kind(s)
   {   
-       
+    $('#table_register').dataTable().fnClearTable(); 
     if (s.value != '')
     {
       $.get("/kinds.json", function(data) {         
@@ -340,7 +354,7 @@
           <% @options_quality = Quality.all.map { |quality| [quality.name, quality.id] } %>
           <%= select_tag "select_quality", options_for_select(@options_quality), :prompt => '- Seleccione calidad - ', :onchange => "add_register()"%>
           
-        </div>
+        </div>      
       </div>
 
       <table cellpadding="0" cellspacing="0" border="0" id="table_register" class="display datatable">
