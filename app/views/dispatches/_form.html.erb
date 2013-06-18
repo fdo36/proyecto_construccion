@@ -40,7 +40,7 @@
       
             var pack_type_tare = get_pack_type_tare(data[i]["pack_type_id"]);          
             var net_weight = data[i]["gross_weight"] - (pack_type_tare * data[i]["quantity"]) - data[i]["tare"];                   
-            var row = new Array(data[i]["code"], data[i]["quantity"], net_weight, "<a href='#'>Eliminar</a>"); 
+            var row = new Array(data[i]["code"], data[i]["quantity"], net_weight, "<a onclick='delete_row(this);'>Eliminar</a>"); 
 
             //Validar que no esté en la tabla
             
@@ -105,6 +105,12 @@
       }
     });
     return work_model;
+  }
+
+  function delete_row(button)
+  {
+    var currentRow = $(button).closest('tr');
+    $('#table_register').dataTable().fnDeleteRow(currentRow[0]);
   }
 
   function show_variety(s)
