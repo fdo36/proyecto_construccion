@@ -21,8 +21,6 @@
     var variety_id = $("#select_variety").val();    
     var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
 
-    //show_kind(document.getElementById("select_variety"));
-
     var quality_id = $("#select_quality").val();
     var quality_name = $("#select_quality option[value='"+quality_id+"']").text();
   
@@ -36,30 +34,11 @@
           var quality_id = $("#select_quality").val();          
           var encontrado = false;
          for (var i = data.length - 1; i >= 0; i--) {
-          if((data[i]["variety_id"]==variety_id) && (data[i]["variety_id"]==quality_id)){  
+          if((data[i]["variety_id"]==variety_id) && (data[i]["quality_id"]==quality_id)){  
       
             var pack_type_tare = get_pack_type_tare(data[i]["pack_type_id"]);          
             var net_weight = data[i]["gross_weight"] - (pack_type_tare * data[i]["quantity"]) - data[i]["tare"];                   
-            var row = new Array(data[i]["code"], data[i]["quantity"], net_weight, "<a onclick='delete_row(this);'>Eliminar</a>"); 
-
-            //Validar que no esté en la tabla
-            
-            var nNodes = $('#table_register').dataTable().fnGetNodes( );
-
-            /*
-            for (var i = nNodes.length - 1; i >= 0; i--) {
-              var val = nNodes[i].cells[0].innerHTML;
-              if(val != row[0])
-              {
-                $('#table_register').dataTable().fnAddData(row);
-              }
-            }; 
-            
-            if(nNodes.length == 0 )
-            {
-              $('#table_register').dataTable().fnAddData(row);
-            } 
-            */ 
+            var row = new Array(data[i]["code"], data[i]["quantity"], net_weight, "<a onclick='delete_row(this);'>Eliminar</a>");       
 
             $('#table_register').dataTable().fnAddData(row);
 
@@ -75,6 +54,58 @@
       }
     }
     
+  }
+
+  function add_detail(){
+    var nNodes = $('#table_register').dataTable().fnGetNodes( );
+    for (var i = nNodes.length - 1; i >= 0; i--) {
+      
+      var pallet_code = nNodes[i].cells[0].innerHTML;
+      var variety_id = get_pallet_variety(pallet_code);
+      var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
+      var quality_id = get_pallet_quality(pallet_code);
+      var quality_name = $("#select_quality option[value='"+quality_id+"']").text();
+
+      pack_quantity = nNodes[i].cells[1].innerHTML;
+      net_weight = nNodes[i].cells[2].innerHTML;
+
+      var row = new Array(variety_name, quality_name, pallet_code, pack_quantity, net_weight, "<a onclick='delete_row(this);'>Eliminar</a>");
+      $('#table_detail').dataTable().fnAddData(row);
+    };
+  }
+
+  function get_pallet_quality (pallet_code) {
+    $.ajax({
+      url: "/pallets.json",
+      dataType: 'json',
+      async: false,
+      success: function(data){
+          $.each(data,function(index, value){
+            if(value.code == pallet_code)
+            {
+              quality = value.quality_id;
+            }
+          });
+      }
+    });
+    return quality;
+  }
+
+  function get_pallet_variety (pallet_code) {
+    $.ajax({
+      url: "/pallets.json",
+      dataType: 'json',
+      async: false,
+      success: function(data){
+          $.each(data,function(index, value){
+            if(value.code == pallet_code)
+            {
+              variety = value.variety_id;
+            }
+          });
+      }
+    });
+    return variety;
   }
 
   function get_pack_type_tare (pack_type_id) {
@@ -379,7 +410,7 @@
         </tbody>
       </table>
 
-      <input type="button" value="Agregar" id="agregar" name="agregar" language="javascript">  
+      <input type="button" value="Agregar" id="agregar" name="agregar" language="javascript" onclick="add_detail();">  
 
     
 
@@ -434,7 +465,7 @@
     </div>
     <div class="box">
     
-      <table cellpadding="0" cellspacing="0" border="0" id="tablealone" class="display datatable">
+      <table cellpadding="0" cellspacing="0" border="0" id="table_detail" class="display datatable">
         <thead>
           <tr>
             <th>Variedad</th>
