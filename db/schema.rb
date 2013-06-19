@@ -22,6 +22,12 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
     t.integer  "company_id"
   end
 
+  create_table "add_code_to_dispatches", :force => true do |t|
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "communes", :force => true do |t|
     t.string   "name"
     t.integer  "region_id"
@@ -74,7 +80,6 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
   end
 
   create_table "destinations", :force => true do |t|
-    t.string   "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -87,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
+    t.integer  "code"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -101,7 +107,6 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
   end
 
   create_table "dispatches", :force => true do |t|
-    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
@@ -109,6 +114,7 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "code"
   end
 
   create_table "empty_packs_destination_moves", :force => true do |t|
@@ -224,14 +230,8 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
   add_index "pack_types_producers", ["producer_id", "pack_type_id"], :name => "index_pack_types_producers_on_producer_id_and_pack_type_id"
 
   create_table "packing_pallets", :force => true do |t|
-    t.string   "pack_type"
-    t.integer  "quantity"
-    t.float    "tare"
-    t.float    "temperature"
-    t.integer  "gross_weight"
-    t.integer  "unit_price"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "pallet_code"
   end
 
@@ -308,6 +308,12 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
 
   create_table "regions", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "remove_add_code_to_dispatches", :force => true do |t|
+    t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

@@ -42,8 +42,8 @@ class SettingsController < ApplicationController
   # POST /settings
   # POST /settings.json
   def create
+    Setting.delete_all
     @setting = Setting.new(params[:setting])
-
 
     @setting.company_id = current_user.company_id
 

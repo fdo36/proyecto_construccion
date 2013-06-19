@@ -1,7 +1,5 @@
-<script type="text/javascript">
 
-
-
+<script type="text/javascript" charset="UTF-8">
 
   function show_rut(s) {
 
@@ -20,15 +18,13 @@
   function add_register()
   {
 
-    var work_model = get_work_model();
+    
     var variety_id = $("#select_variety").val();    
     var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
     var quality_id = $("#select_quality").val();          
     var quality_name = $("#select_quality option[value='"+quality_id+"']").text();
   
-    //La tabla se llena sólo si el esquema de trabajo incluye pallets.
-    if((work_model == 'pallet') || (work_model == 'pack_pallet'))
-    {
+    
       if((variety_id != '') && (quality_id != ''))
       {
         $.get("/pallets.json", function(data) { 
@@ -63,7 +59,7 @@
 
         }); 
       }
-    }
+    
     
   }
 
@@ -106,6 +102,46 @@
     };
 
     $('#table_register').dataTable().fnClearTable();
+  }
+
+  function add_pack_detail(){
+    
+      var work_model = get_work_model();
+      var plus = "1";
+      if(work_model == 'pack')
+      {
+        plus = "2";
+      }
+      var pallet_id = 'No aplica';
+      var pallet_code = 'No aplica';
+      var variety_id = $("#select_variety").val();  
+      var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
+      var quality_id = $("#select_quality").val();          
+      var quality_name = $("#select_quality option[value='"+quality_id+"']").text();     
+      
+      var pack_type_id = $("#select_pack_type"+plus).val(); 
+      var pack_quantity = $('#packs_to_dispatch'+plus).val();      
+      var gross_weight =  $('#gross_weight'+plus).val();
+      
+      var items_selected = ((variety_id != '') && (quality_id != '') && (pack_type_id != ''));
+      var textfield_numeric = ((pack_quantity != '') && (gross_weight != ''));
+      if(items_selected && textfield_numeric)
+      {
+        var pack_type_tare = get_pack_type_tare(pack_type_id);
+        var net_weight = gross_weight - (pack_type_tare * pack_quantity) ;
+        var row = new Array(pallet_id, variety_name, quality_name, pallet_code, pack_quantity, net_weight, "<a onclick='delete_detail(this);'>Eliminar</a>");
+        $('#table_detail').dataTable().fnAddData(row);
+      }
+      else
+      {
+        alert("Error");
+      }
+      
+      $('#table_detail').dataTable().fnSetColumnVis(0, false);
+      $('#select_pack_type'+plus).val("");
+      $('#packs_to_dispatch'+plus).val("");
+      $('#gross_weight'+plus).val("");
+
   }
 
   function get_pallet_quality (pallet_code) {
@@ -470,38 +506,38 @@
           </div>
           <div class="forme-in">
             <% @options_pack_type = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
-            <%= select_tag "quality", options_for_select(@options_pack_type), :prompt => '- Seleccione envase - ' %>
+            <%= select_tag "select_pack_type1", options_for_select(@options_pack_type), :prompt => '- Seleccione envase - ' %>
           </div>
         </div>
 
         <div class="line-forme">
           <div class="forme-lab">
-            <label>Envases en Stock:</label>
+            <label>Envases en Stock</label>
           </div>
           <div class="forme-in">
-            <%= text_field_tag 'packs_in_stock'%>          
+            <%= text_field_tag 'packs_in_stock1', 250, :style => "text-align: Right", :disabled => true %>          
           </div>
         </div>
 
         <div class="line-forme">
           <div class="forme-lab">
-            <label>Envases a Despachar:</label>
+            <label>Envases a Despachar</label>
           </div>
           <div class="forme-in">
-            <%= text_field_tag 'packs_to_dispatch'%>
+            <%= text_field_tag 'packs_to_dispatch1', nil, :style => "text-align: Right" %>
           </div>
         </div>
 
         <div class="line-forme">
           <div class="forme-lab">
-            <label>Peso Bruto (Kg):</label>
+            <label>Peso Bruto (Kg)</label>
           </div>
           <div class="forme-in">
-            <%= text_field_tag 'gross_weight'%>
+            <%= text_field_tag 'gross_weight1', nil, :style => "text-align: Right" %>
           </div>
         </div>
 
-        <input type="button" value="Agregar Envases" id="agregar" name="agregar" language="javascript">          
+        <input type="button" value="Agregar Envases" id="agregar" name="agregar" language="javascript" onclick="add_pack_detail();">          
 
   
     <% end %>
@@ -511,7 +547,34 @@
 
 
   <% else %>
-       <!--Envases sueltos-->
+       <!--Envases sueltos solamente-->
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Variedad</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
+
+            <%= select_tag "select_variety", options_for_select(@options_varieties), :prompt => '- Seleccione variedad - ', :id => "select_variety", :onchange => "add_register(); show_kind(this);"%>         
+            
+
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Calidad</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <% @options_quality = Quality.all.map { |quality| [quality.name, quality.id] } %>
+            <%= select_tag "select_quality", options_for_select(@options_quality), :prompt => '- Seleccione calidad - ', :onchange => "add_register()"%>
+            
+          </div>      
+        </div>
+
 
         <div class="line-forme">
           <div class="forme-lab">
@@ -520,40 +583,40 @@
           </div>
           <div class="forme-in">
             <% @options_pack_type = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
-            <%= select_tag "quality", options_for_select(@options_pack_type), :prompt => '- Seleccione envase - ' %>
+            <%= select_tag "select_pack_type2", options_for_select(@options_pack_type), :prompt => '- Seleccione envase - ' %>
           </div>
         </div>
 
         <div class="line-forme">
           <div class="forme-lab">
-            <label>Envases en Stock:</label>
+            <label>Envases en Stock</label>
           </div>
           <div class="forme-in">
-            <%= text_field_tag 'packs_in_stock'%>          
+            <%= text_field_tag 'packs_in_stock2', 250, :style => "text-align: Right", :disabled => true %>          
           </div>
         </div>
 
         <div class="line-forme">
           <div class="forme-lab">
-            <label>Envases a Despachar:</label>
+            <label>Envases a Despachar</label>
             <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
-            <%= text_field_tag 'packs_to_dispatch'%>
+            <%= text_field_tag 'packs_to_dispatch2', nil, :style => "text-align: Right"%>
           </div>
         </div>
 
         <div class="line-forme">
           <div class="forme-lab">
-            <label>Peso Bruto (Kg):</label>
+            <label>Peso Bruto (Kg)</label>
             <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
-            <%= text_field_tag 'gross_weight'%>
+            <%= text_field_tag 'gross_weight2', nil, :style => "text-align: Right"%>
           </div>
         </div>
 
-        <input type="button" value="Agregar Envases" id="agregar" name="agregar" language="javascript">          
+        <input type="button" value="Agregar Envases" id="agregar" name="agregar" language="javascript" onclick="add_pack_detail();">          
 
       </div>
     </div>
