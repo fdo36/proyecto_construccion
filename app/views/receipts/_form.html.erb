@@ -434,7 +434,7 @@
     <!-- Panel de Pallets y Envases -->
   <div class = "contentSubPanel">
     <div class="headContent">
-      <h1>Registrar</h1>
+      <h1>Agregar Registros</h1>
     </div>
     <div class="box">
     <%= form_for([@pallet], :url => pallets_path) do |f| %>
@@ -509,37 +509,68 @@
         </div>
       </div>
 
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>¿Trabajar con Pallet?</label>
-        </div>
-        <div class="forme-in">
-          <input type="checkbox" id="check" class="check" value="¿Trabajar con Pallet?" checked onClick="checkedPallet()" />
-        </div>
-      </div>
-      
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Código Pallet</label>
-        </div>
-        <div class="forme-in">
-          <%= f.text_field :code, :id=>"code"%>
-        </div>
-      </div>
+      <% settings_array = Setting.all.map { |setting| [setting.key] }%>
+      <% last = (settings_array[settings_array.size - 1][0]).to_s %>
+      <% if (last == 'pallet') %>
 
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Destare Pallet</label>
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Código Pallet</label>
+          </div>
+          <div class="forme-in">
+            <%= f.text_field :code, :id=>"code"%>
+          </div>
         </div>
-        <div class="forme-in">
-          <%= f.text_field :tare, :id=>"destare"%>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Destare Pallet</label>
+          </div>
+          <div class="forme-in">
+            <%= f.text_field :tare, :id=>"destare"%>
+          </div>
         </div>
-      </div>
+
+      <% end%>
+
+      <% if (last == 'pack_pallet')%>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>¿Trabajar con Pallet?</label>
+          </div>
+          <div class="forme-in">
+            <input type="checkbox" id="check" class="check" value="¿Trabajar con Pallet?" checked onClick="checkedPallet()" />
+          </div>
+        </div>
+        
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Código Pallet</label>
+          </div>
+          <div class="forme-in">
+            <%= f.text_field :code, :id=>"code"%>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Destare Pallet</label>
+          </div>
+          <div class="forme-in">
+            <%= f.text_field :tare, :id=>"destare"%>
+          </div>
+        </div>
+
+      <%end%>
+
+
+
     </div> 
   </div>  
 
   <div class = "newTopBanner">
-    <input type="button" value="Agregar Pallet" id="agregar" name="agregar" language="javascript" onClick='add_register();'>
+    <input type="button" value="Agregar" id="agregar" name="agregar" language="javascript" onClick='add_register();'>
     <input type="button" value="Guardar" id="guardar" name="guardar" language="javascript" onClick='post();'>
   </div>
 

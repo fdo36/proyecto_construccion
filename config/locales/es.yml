@@ -230,7 +230,6 @@ es:
       variety: "Variedad"
       wiki_page: "Página Wiki"
       wiki_page_version: "Versión de Wiki"
-      worker: "Trabajador"
     attributes:
       company:
         name: "Nombre de la Compañía"
@@ -305,11 +304,9 @@ es:
       role:
         name: "Nombre"
         description: "Descripción"
-      worker:
-        first_name: "Nombre"
-        last_name: "Apellido"
-        phone: "Teléfono"
+      custom:
+        line_of_business: "Razón Social"
+        code: "Código"
         rut: "Rut"
-
-
-
+        email: "E-Mail"
+        phone: "Teléfono"

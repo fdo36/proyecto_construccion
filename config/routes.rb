@@ -1,23 +1,18 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :customs
+
+
   resources :transit_chamber_ios
+  resources :format_packings
 
 
-  resources :packing_pallets
+  resources :providers
 
 
-  resources :turns
+  resources :supplies
 
 
-  resources :workers
-
-
-  resources :packing_processes
-
-
-  resources :subprocesses
-
-
-  resources :subprocess_ios
+  resources :pack_packings
 
 
   resources :empty_packs_destination_moves

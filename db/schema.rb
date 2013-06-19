@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604003231) do
+ActiveRecord::Schema.define(:version => 20130529101120)
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -57,6 +57,19 @@ ActiveRecord::Schema.define(:version => 20130604003231) do
 
   add_index "containers_producers", ["container_id", "producer_id"], :name => "index_containers_producers_on_container_id_and_producer_id"
   add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
+
+  create_table "customs", :force => true do |t|
+    t.string   "rut"
+    t.string   "code"
+    t.string   "line_of_business"
+    t.string   "address"
+    t.string   "location"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "email"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "destinations", :force => true do |t|
     t.string   "rut"
@@ -179,6 +192,12 @@ ActiveRecord::Schema.define(:version => 20130604003231) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "pack_packings", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "pack_types", :force => true do |t|
     t.string   "name"
     t.integer  "company_id"
@@ -195,8 +214,18 @@ ActiveRecord::Schema.define(:version => 20130604003231) do
   add_index "pack_types_producers", ["pack_type_id", "producer_id"], :name => "index_pack_types_producers_on_pack_type_id_and_producer_id"
   add_index "pack_types_producers", ["producer_id", "pack_type_id"], :name => "index_pack_types_producers_on_producer_id_and_pack_type_id"
 
+  create_table "packing_pallets", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "packing_processes", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "pallets", :force => true do |t|
-    t.integer  "code"
     t.integer  "quantity"
     t.integer  "price_per_unit"
     t.integer  "gross_weight"
@@ -209,6 +238,7 @@ ActiveRecord::Schema.define(:version => 20130604003231) do
     t.integer  "dispatch_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "code"
   end
 
   create_table "producers", :force => true do |t|
@@ -228,6 +258,19 @@ ActiveRecord::Schema.define(:version => 20130604003231) do
     t.integer  "locality_id"
     t.integer  "code"
     t.integer  "company_id"
+  end
+
+  create_table "providers", :force => true do |t|
+    t.string   "name"
+    t.string   "rut"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "address"
+    t.string   "commune"
+    t.string   "contacto"
+    t.boolean  "active"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "qualities", :force => true do |t|
@@ -300,6 +343,47 @@ ActiveRecord::Schema.define(:version => 20130604003231) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "subprocess_ios", :force => true do |t|
+    t.integer  "packing_pallet_id"
+    t.datetime "io_datetime"
+    t.boolean  "direction"
+    t.integer  "worker_id"
+    t.integer  "subprocess_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "subprocesses", :force => true do |t|
+    t.string   "name"
+    t.integer  "process_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "transit_chamber_ios", :force => true do |t|
+    t.float    "temperature"
+    t.integer  "order_number"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "turns", :force => true do |t|
+    t.string   "name"
+    t.integer  "subprocess_id"
+    t.datetime "start_datetime"
+    t.datetime "end_datetime"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "supplies", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "minimum_stock"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -364,6 +448,15 @@ ActiveRecord::Schema.define(:version => 20130604003231) do
 
   add_index "wiki_pages", ["creator_id"], :name => "index_wiki_pages_on_creator_id"
   add_index "wiki_pages", ["path"], :name => "index_wiki_pages_on_path", :unique => true
+
+  create_table "workers", :force => true do |t|
+    t.integer  "rut"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "phone"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
 

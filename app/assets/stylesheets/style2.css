@@ -1,0 +1,21 @@
+fieldset{
+	background: #fff;
+}
+legend{
+	font-size: 20px;
+	color: #464646;
+}
+.configBox{
+	font-size: 13px;
+}
+
+.boxOption{
+	margin-bottom: 18px;
+}
+
+.boxOption label{
+	font-weight: bold;
+}
+.boxOption p{
+	margin: 0 0 0 20px;
+}

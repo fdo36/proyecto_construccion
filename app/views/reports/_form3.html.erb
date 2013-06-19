@@ -56,6 +56,12 @@
       });
    
    }
+   function validate(){
+      var producerID = document.getElementById('Productores3');
+      if(producerID.value == ""){
+         alert('Debes seleccionar un productor');
+      }
+   }
 
 </script>
 
@@ -117,6 +123,6 @@
          <%= select_date Date.today, :prefix => :end_date3 %>
       </div>
    </div>                                                                    
-   <%= submit_tag "Generar Informe", :class => "button blue alignleft" %>
+   <%= submit_tag "Generar Informe", :class => "button blue alignleft", :onclick => "validate()" %>
                        
 <% end %>               	
