@@ -205,12 +205,15 @@ es:
       <<: *errors
     models:
       access_right: "Permiso"
+
+      user: "Usuario"
       commune: "Comuna"
       company: "Compañía"
       container: "Contenedor"
       destination: "Destino"
       dispatch: "Despacho"
       grouping: "Agrupación"
+      groupings_producer: "Agrupación de productores"
       kind: "Tipo"
       locality: "Localidad"
       pack_group_dispatch: "Despacho de envases"
@@ -225,6 +228,8 @@ es:
       setting: "Configuración"
       user: "Usuario"
       variety: "Variedad"
+      wiki_page: "Página Wiki"
+      wiki_page_version: "Versión de Wiki"
     attributes:
       company:
         name: "Nombre de la Compañía"
@@ -232,6 +237,7 @@ es:
         email: "Correo electrónico"
         commune_id: "Comuna"
         region_id: "Región"
+        phone: "Teléfono"
       user:
         email: "Correo electrónico"
         password: "Contraseña"
@@ -295,6 +301,15 @@ es:
         variety_id: "Variedad"
         tare: "Destare Pallet"
         pallet_code: "El pallet código"
+      role:
+        name: "Nombre"
+        description: "Descripción"
+      custom:
+        line_of_business: "Razón Social"
+        code: "Código"
+        rut: "Rut"
+        email: "E-Mail"
+        phone: "Teléfono"
 
 
 

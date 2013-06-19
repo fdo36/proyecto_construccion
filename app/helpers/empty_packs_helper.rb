@@ -1,0 +1,2 @@
+module EmptyPacksHelper
+end

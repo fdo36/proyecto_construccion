@@ -42,6 +42,9 @@ class CompaniesController < ApplicationController
   # POST /companies.json
   def create
     @company = Company.new(params[:company])
+    if company.active == nil
+       company.active = false
+    end
 
     respond_to do |format|
       if @company.save
@@ -70,9 +73,17 @@ class CompaniesController < ApplicationController
     end
   end
 
-    def disable
-    @company = Company.find(params[:id])
-    @company.update_attribute(:active, false)
+  def disable
+    if current_user.super_admin == true
+      @company = Company.find(params[:id])
+      @company.update_attribute(:active, false)
+      
+      User.where(:company_id => params[:id]).each{ |u|
+        u.active = false
+        u.save
+      }
+    end
+    
   
     respond_to do |format|
       format.html { redirect_to companies_url }
@@ -81,11 +92,19 @@ class CompaniesController < ApplicationController
   end
 
   def enable
-    @company = Company.find(params[:id])
-    @company.update_attribute(:active, true)
-
+   if current_user.super_admin == true
+      @company = Company.find(params[:id])
+      @company.update_attribute(:active, true)
+      
+      User.where(:company_id => params[:id]).each{ |u|
+        u.active = true
+        u.save
+      }
+    end
+    
+  
     respond_to do |format|
-      format.html { redirect_to  }
+      format.html { redirect_to companies_url }
       format.json { head :no_content }
     end
   end
@@ -93,12 +112,16 @@ class CompaniesController < ApplicationController
   # DELETE /companies/1
   # DELETE /companies/1.json
   def destroy
-    @company = Company.find(params[:id])
-    @company.destroy
-
+   if current_user.super_admin == true
+      @company = Company.find(params[:id])
+      @company.destroy
+    end
+    
     respond_to do |format|
       format.html { redirect_to companies_url }
       format.json { head :no_content }
     end
   end
+
+
 end

@@ -24,4 +24,5 @@ class Destination < ActiveRecord::Base
   has_many :dispatches
   has_many :producers
   has_many :receipts
+  has_many :empty_packs_destination_moves
 end

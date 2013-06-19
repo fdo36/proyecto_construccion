@@ -1,0 +1,322 @@
+<script type="text/javascript">
+/***Funciones relacionadas con modificar los input del html***************/
+/*Agrega el rut y codigo sag del productor ademas cuenta los tipos de envases que le perteneces y los agrega a la tabla */
+function show_rut1(s)
+{
+	//Busqueda del codigo sag y rut del productor
+	if(s.value == "")
+	{
+	 var inputRut = document.getElementById('rut1');
+	 inputRut.value = "-";
+
+	 var inputCodigo = document.getElementById('codigo1');
+	 inputCodigo.value = "-";
+	}
+	else
+	{
+	 $.get("/producers/"+s.value+".json", function(data) {
+	    var inputRut = document.getElementById('rut1');
+	    inputRut.value = data.rut;
+
+	    var inputCodigo = document.getElementById('codigo1');
+	    inputCodigo.value = data.sag_code;
+	 });
+	}
+	//Calculo de envases del productor
+	$.get("/pack_types.json", function(data){
+		$.each(data, function(index, value){
+			var pack_type_id=value.id;
+			//alert("Tipo de Envase="+pack_type_id);
+			var quantity=0;
+			$.get("/producers/"+s.value+"/empty_packs_producer_moves.json", function(data){
+		  	$.each(data, function(index, value){
+				if(value.pack_type_id==pack_type_id)
+				{	
+					if(value.pack_option=="ingreso")
+						{
+							quantity = quantity + value.quantity;
+						}
+						else
+						{
+							quantity = quantity - value.quantity;
+						}
+		 		}
+
+			});
+			//Insertamos la cantidad en la celda
+			var table2 = document.getElementById('table2');
+			for(var i=0; i<table2.rows.length; i+=1){
+				if(pack_type_id==table2.rows[i].cells[0].innerHTML)
+				{
+			  		table2.rows[i].cells[2].innerHTML=quantity;
+				}
+			}  
+			});
+		});		
+	});
+	stock_pack_type();
+}
+/*Cuenta la cantidad de envases del tipo especificado de la compañia*/
+function show_stock(s)
+{
+	for(var i=0;i<pack_types.length;i++)
+	{
+		if(s.value==pack_types[i].pack_id)
+		{	var inputStock = document.getElementById('stock');
+			inputStock.value =pack_types[i].quantity;
+		}
+	}
+}
+/*Modifica el stock cuando es cambiado*/
+function show_stock2()
+{
+	var selectP = document.getElementById("mySelect").value;
+	for(var i=0;i<pack_types.length;i++)
+	{
+		if(selectP==pack_types[i].pack_id)
+		{	var inputStock = document.getElementById('stock');
+			inputStock.value =pack_types[i].quantity;
+		}
+	}
+}
+/****************************************************************************/
+
+/*************Funciones relacionada con la tabla de ingresos*********************/
+/*Agregar un movimiento de envases a la tabla*/
+function displayResult()
+{
+	//Validar las opciones de ingreso de despacho
+	var radio1 =document.getElementById('radio1');
+	var radio2 =document.getElementById('radio2');
+	var selectp = document.getElementById("Productores1").value;
+	var stock = document.getElementById("stock").value
+
+	var quantityValidate =document.getElementById('quantity').value;
+	var producerValidate = document.getElementById("mySelect").value;
+
+
+	if(stock=="Sin Stock")
+	{
+		alert("No hay stock disponible");
+	}
+	else if(selectp.length==0)
+	{
+		alert("Debes selecionar un productor");
+	}
+	else if(!radio1.checked && !radio2.checked)
+	{
+		alert("Debes selecionar una opcion");
+	}
+	else if(quantityValidate.length==0)
+	{
+		alert("Debes ingresar una cantidad");
+	}
+	else if(producerValidate.length==0)
+	{
+		alert("Debes selecionar un tipo de envace");
+
+	}
+	else if(radio2.checked && stock-quantityValidate<0)
+	{
+		alert("Solo puedes despachar: "+(stock));
+	}	
+	
+	else
+	{
+		if(selectp.length!=0)
+		{
+			var deshabilitarP = document.getElementById("Productores1")
+			deshabilitarP.disabled=true;
+		}
+		var radio1 = document.getElementById("radio1");
+		var selectp = document.getElementById("Productores1");
+		var select = document.getElementById("mySelect");
+		var quantity = document.getElementById("quantity");
+		var button = '<button type="button" id="bDelete" align="center" onclick="borrarFila(this)">Eliminar</button>';
+
+		if(radio1.checked)
+		{
+		$('#myTable').dataTable().fnAddData(
+			[select.value,selectp.value,selectp.options[selectp.selectedIndex].text,
+			 select.options[select.selectedIndex].text,
+			 quantity.value,"ingreso",
+			 button
+			]);
+	   }
+	   else
+	   {
+	   	$('#myTable').dataTable().fnAddData(
+			[select.value,selectp.value,selectp.options[selectp.selectedIndex].text,
+			 select.options[select.selectedIndex].text,
+			 quantity.value,"despacho",
+			 button
+			]);
+	   }
+
+		if(radio2.checked)
+		{
+			addPack_type(parseInt(select.value),parseInt(quantity.value),2);
+		}
+		
+	}
+}
+/*Borrar la fila selecionada de la tabla*/
+function borrarFila(b)
+{
+	var table = document.getElementById("myTable");
+	var parent= b.parentNode;
+	while(parent.nodeName.toLowerCase()!='tr'){
+		parent = parent.parentNode;
+	}
+	$('#myTable').dataTable().fnDeleteRow(parent);
+}
+/*****************************************************************************/
+
+/*****************Funcion relacionada con la base de datos********************/
+/*Agrega los datos de la myTable a la base de datos empty_packs_producer_moves*/
+function add_db()
+{
+	var table = document.getElementById('myTable');
+	var rowLength = table.rows.length;
+	for(var i=2; i<rowLength; i+=1){
+	  var row = table.rows[i];
+	  var values=new Array(); 
+	  var cellLength = row.cells.length;
+	  for(var y=0; y<cellLength-1; y+=1){
+	    var cell = row.cells[y];
+	    if(cell.firstChild!=null)
+	    {
+		    var value = cell.firstChild.data
+		    values.push(value);
+	    }
+	  	}
+
+	  	$.ajax({
+			url: "producers/"+values[1]+"/empty_packs_producer_moves",
+	 		type: "POST",
+	    	data: {empty_packs_producer_move:{producer_id: values[1],pack_type_id: values[0],quantity: values[4],pack_option: values[5]}},
+	 	});
+		
+	}
+}
+/******************************************************************************/
+</script>  
+
+<!--Selector de productores-->
+<div class="line-forme">
+	<div class="forme-lab">
+ 		<%= label_tag 'Productor'%> 
+	</div>
+	<% @producers_array = Producer.where(:company_id => current_user.company_id).map { |producer| [producer.name, producer.id] } %>
+	<div class="forme-in">
+		<%= select_tag "Productores1", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut1(this)" %>
+	</div>
+</div>
+<!--Rut de productor seleccionado-->
+<div class="line-forme">
+	<div class="forme-lab">
+	 <%= label_tag "rut"  %>
+	</div>
+	<div class="forme-in ">
+	 <input id="rut1" value="-" disabled="true"></input>
+	</div>
+</div>
+<!--Codigo sag del productores selecionado-->
+<div class="line-forme">
+	<div class="forme-lab">
+		<%= label_tag "Cod. Productor"%>
+	</div>
+	<div class="forme-in">
+	 <input id="codigo1" value="-" disabled="true"></input>
+	</div>
+</div>
+<!--RadioButton ingreso/despacho-->
+<div class="line-forme">
+	<div class="forme-lab">
+		<label>Opcion</label><br />
+	</div>
+	<div class="forme-in">
+		<input id="radio1" type="radio" name="option" value="ingreso">Ingreso
+		<input id="radio2" type="radio" name="option" value="despacho">Despacho
+	</div>
+</div> 
+<!--Selector de envases-->
+<div class="line-forme">
+	<div class="forme-lab">
+	 <%= label_tag 'Envase'%> 
+	</div>
+	<% @pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+	<div class="forme-in">
+	 <%= select_tag "mySelect", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" ,:onchange => "show_stock(this)"%>
+	</div>
+</div>
+<!--Stock del envase selecionado-->
+<div class="line-forme">
+	<div class="forme-lab">
+	 <%= label_tag 'Stock'%> 
+	</div>    
+	<div class="forme-in">
+		<input id="stock" value="-" disabled="true"></input>
+	</div>  
+</div>
+<!--Cantidad del envase selecionado-->
+<div class="line-forme">
+	<div class="forme-lab">
+	 <%= label_tag 'Cantidad'%> 
+	 </div>    
+	<div class="forme-in">
+		<input id="quantity" type="text"><br>
+	</div>  
+</div>
+
+<!--Tabla que muestra la cuenta del productor selecionado-->
+<table id="table2" cellpadding="0" cellspacing="0" border="0" class="display datatable">
+	<thead>
+    <tr>
+    	<th style="display:none">Id</th>
+    	<th>Envantce</th>
+      <th>Cantidad</th>
+    </tr>
+  </thead>
+	<tbody>
+		<% @packtypes = PackType.all%>
+		<% @packtypes.each do |packtype| %>
+    <tr>
+    	<td style="display:none"><%= packtype.id%></td>
+      <td><%= packtype.name%></td>
+		<td>0</td>
+		</tr>
+		<%end%>
+  </tbody>
+</table>
+<!--Boton que agregar los datos a la tabla-->
+<button type="button" onclick="displayResult(),show_stock2()" class="button blue alignright">Agregar</button>
+<!--Tabla que muestra los datos agregados a la tabla-->
+<table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="myTable">
+	<thead>
+   	<tr>
+	    	<th>Envase1</th>
+	    	<th>Productor1</th>
+	    	<th>Productor</th>
+	      <th>Envase</th>
+	      <th>Cantidad</th>
+	      <th>Opcion</th>
+	      <th>Acción</th>
+    	</tr>
+  </thead>
+	<tbody id="tBody">
+		<tr style="display:none">
+			<td>1</td>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+  </tbody>
+</table>
+<!--Boton que termina el proceso y agrega todos los datos a la base de datos-->
+<a hrtf href="/empty_packs"class = "button blue alignright" data-role="button" onclick="add_db()">Aceptar</a>
+
+

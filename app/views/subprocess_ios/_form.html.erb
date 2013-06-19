@@ -1,0 +1,37 @@
+<%= form_for(@subprocess_io) do |f| %>
+  <% if @subprocess_io.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subprocess_io.errors.count, "error") %> prohibited this subprocess_io from being saved:</h2>
+
+      <ul>
+      <% @subprocess_io.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :packing_pallet_id %><br />
+    <%= f.number_field :packing_pallet_id %>
+  </div>
+  <div class="field">
+    <%= f.label :io_datetime %><br />
+    <%= f.datetime_select :io_datetime %>
+  </div>
+  <div class="field">
+    <%= f.label :direction %><br />
+    <%= f.check_box :direction %>
+  </div>
+  <div class="field">
+    <%= f.label :worker_id %><br />
+    <%= f.number_field :worker_id %>
+  </div>
+  <div class="field">
+    <%= f.label :subprocess_id %><br />
+    <%= f.number_field :subprocess_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

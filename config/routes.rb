@@ -1,4 +1,35 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :customs
+
+
+  resources :transit_chamber_ios
+
+
+  resources :packing_pallets
+
+
+  resources :turns
+
+
+  resources :workers
+
+
+  resources :packing_processes
+
+
+  resources :subprocesses
+
+
+  resources :subprocess_ios
+
+
+  resources :empty_packs_destination_moves
+
+
+  resources :empty_packs_producer_moves
+
+  resources :empty_packs
+
   wiki_root '/wiki'
   
   resources :reports
@@ -6,6 +37,10 @@ ProyectoConstruccion::Application.routes.draw do
   resources :localities
 
   resources :settings
+  
+  resources :pack_group_dispatches
+
+  resources :pack_group_receipts
 
   resources :receipts
 
@@ -29,7 +64,9 @@ ProyectoConstruccion::Application.routes.draw do
 
   resources :seasons
 
-  resources :destinations
+  resources :destinations do
+    resources :empty_packs_destination_moves
+  end  
 
   resources :dispatches do
     resources :pallets    
@@ -39,6 +76,8 @@ ProyectoConstruccion::Application.routes.draw do
     resources :pack_group_dispatches
   end
 
+  resources :products
+
   resources :varieties
 
   resources :kinds
@@ -47,8 +86,9 @@ ProyectoConstruccion::Application.routes.draw do
 
   resources :groupings
 
-  resources :producers
-
+  resources :producers do 
+    resources :empty_packs_producer_moves
+  end  
   resources :regions do
      resources :communes
   end
@@ -62,7 +102,7 @@ ProyectoConstruccion::Application.routes.draw do
     resources :users
   end
 
-  devise_for :users, :path => "admin/users"
+  devise_for :users
 
   root :to => 'start#index'
   # See how all your routes lay out with "rake routes"
@@ -84,9 +124,13 @@ ProyectoConstruccion::Application.routes.draw do
   match 'producers/:id/enable' => 'producers#enable', :as => 'producers_enable'
   match 'producers/:id/disable' => 'producers#disable', :as => 'producers_disable'
   match 'producers/:id/delete_producer' => 'producers#delete_producer', :as => 'producer_delete'
-  
+    
+
+
   match '/help/css/jquery-ui.css', :to => redirect('/css/jquery-ui.css')
   match '/help/css/styles.css', :to => redirect('/css/styles.css')
   match '/help/css/default_buttons.css', :to => redirect('/css/default_buttons.css')
+
+  match 'receipts/generate_pdf' => 'receipts#generate_pdf', :as => 'receipts_generate_pdf'
   
 end

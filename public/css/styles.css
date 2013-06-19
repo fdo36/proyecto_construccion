@@ -234,6 +234,15 @@ section#content{
 	border-top: 1px solid #fff;
 	background: #f2f2f2;
 }
+
+.auxiliaryBox{
+	padding: 10px;
+	border: 1px solid #6d6d6d;
+	border-top: 1px solid #fff;
+	background: #f2f2f2;
+	overflow: hidden;
+}
+
 .foot-box{
 	padding-top: 5px;
 	padding-left: 10px;
@@ -243,8 +252,29 @@ section#content{
 	border-top: 0;
 }
 
+.foot-auxiliaryBox{
+	padding-top: 5px;
+	padding-left: 10px;
+	height: 30px;
+	background: #f2f2f2;
+	border: none;
+	border-top: 0;
+}
+
 .contentSubPanel{
 	margin-top: 20px;
+}
+
+.contentAuxiliarySubPanel1{
+	float: left;
+	margin-top: none;
+	width: 545px;
+}
+
+.contentAuxiliarySubPanel2{
+	float: right;
+	margin-top: none;
+	width: 545px;
 }
 
 .contentSubPanel .headContent {
@@ -386,6 +416,7 @@ margin-right: -.3em;
 .box a {
 	color: #0645ad;
 }
+
 .contentPanelHelp .box{
 	padding: 20px;
 	background: #fff;

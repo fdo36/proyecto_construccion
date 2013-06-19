@@ -8,24 +8,25 @@
   <b>Nombre:</b>
   <%= @role.name %>
 </p>
-
+ 
 <p>
   <b>Descripción:</b>
   <%= @role.description %>
 </p>
-
+ 
 <p>
-	<h2>Permisos</h2>
-	<ul>
-	<% @role.access_rights.each do |access_right| %>
-		<li>
+        <h2>Permisos</h2>
+        <ul>
+        <% @role.access_rights.each do |access_right| %>
+                <li>
       <% a = {'create' => 'crear', 'read' => 'leer', 'update' => 'actualizar', 'delete' => 'eliminar', 'manage' => 'administrar'} %>
-	  <strong><%= access_right.model_name  %></strong>: <%= a[access_right.action] %> <%= link_to 'Eliminar', company_role_access_right_path(@company, @role, access_right), :method => :delete %>
-		</li>
-	<% end %>
+      <% b = {'User' => 'Usuario', 'Company' => 'Compañia', 'AccessRight' => 'Permiso', 'Commune' => 'Comuna', 'Destination' => 'Destino', 'Dispatch' => 'Despacho', 'Grouping' => 'Agrupacion', 'Kind' => 'Especie', 'Locality' => 'Localidad', 'PackType' => 'Tipo de envase', 'Pallet' => 'Pallet', 'Producer' => 'Productor', 'Quality' => 'Calidad', 'Receipt' => 'Ingreso', 'Region' => 'Región', 'Season' => 'Temporada', 'Variety' => 'Variedad', 'Role' => 'Rol', 'PackGroupDispatch' => 'PackGroupDispatch', 'PackGroupReceipt' => 'PackGroupReceipt'} %>
+          <strong><%= b[access_right.model_name]  %></strong>: <%= a[access_right.action] %> <%= link_to 'Eliminar', company_role_access_right_path(@company, @role, access_right), :method => :delete %>
+                </li>
+        <% end %>
     </ul>
 </p>
-
+ 
   <div class="line-forme">
     <h2>Agregar permiso</h2>
   </div>
@@ -46,12 +47,12 @@
         <%= f.select :action, options_for_select([["Crear", "create"], ["Leer", "read"], ["Actualizar", "update"], ["Eliminar","delete"], ["Todo", "manage"]]) %>
       </div>
     </div>
-
+ 
       <%= f.submit :Agregar %>
-
-    
+ 
+   
   <% end %>
-
+ 
 </div>
 <div class="foot-box">
   <%= link_to 'Editar', edit_company_role_path(@company, @role) , :class => "button green alignright" %>

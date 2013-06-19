@@ -1,0 +1,23 @@
+<div class="headContent">
+<h1>Movimientos de envases</h1>
+</div>
+<div class="box">
+    <table>
+        <tr>
+            <th>Tipo de envase</th>
+            <th>Cantidad</th>
+            <th>Opción</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <% @empty_packs_destination_moves.each do |empty_packs_destination_move| %>
+        <tr>
+            <td><%= empty_packs_destination_move.quantity %></td>
+            <td><%= empty_packs_destination_move.pack_option %></td>
+            <td><%= link_to 'Ver', empty_packs_destination_move %></td>
+            <td><%=destination_empty_packs_destination_move_path(@producer,empty_packs_destination_move), method: :delete, data: { confirm: '¿Está seguro de eliminar este movimiento?' } %></td>
+        </tr>
+        <% end %>
+
+</div>

@@ -1,0 +1,117 @@
+<%= form_for(@custom) do |f| %>
+
+<div class="box">
+  <% if @custom.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @custom.errors.count > 1 ? "#{@custom.errors.count} errores." : "#{@custom.errors.count} error." %> no se puede guardar la aduana:</h2>
+      <ul>
+      <% @custom.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Rut                
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :rut, :class => 'rut' %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Código               
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :code %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Razón Social              
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :line_of_business %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Dirección             
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :address %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Ciudad/Localidad
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :location %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Télefono
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :phone %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Fax
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :fax %>
+    </div>
+  </div>  
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        E-Mail
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :email %>
+    </div>
+  </div>
+
+  <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
+  
+</div>
+
+  <div class="foot-box">
+    <%= link_to 'Cancelar', customs_path , :class => "button silver alignright" %>
+    <%= f.submit :Guardar , :class => "button green alignright" %>
+  </div>
+
+<% end %>

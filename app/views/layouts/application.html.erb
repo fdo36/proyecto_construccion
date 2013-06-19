@@ -60,7 +60,6 @@
 		      	$.each(data, function(i, item){	
 		            options += '<option value="' + item.id + '">' + item.name + '</option>';
 		        });
-
 		        $("#"+commune_selector_id).html(options);
 	        });
         }
@@ -115,23 +114,43 @@
 						<li><%= link_to('Compañias', companies_path)%></li>
 					</ul>
 					<%else%>
-					<p>Entradas/Salidas</p>
-					<ul>
-						<li> <%= link_to "Ingresos", "/receipts" %></li>
-						<li> <%= link_to "Temporadas", "/seasons" %></li>
-						<li> <%= link_to "Despachos", "/dispatches" %></li>
-						<li> <%= link_to "Informes", "/reports" %></li>
-					</ul>
-					<p>Recursos</p>
-					<ul>
-						<li> <%= link_to "Productores", "/producers" %></li>
-						<li> <%= link_to "Envases", "/pack_types" %></li>
-						<li> <%= link_to "Destinos", "/destinations" %></li>
-						<li> <%= link_to "Especies", "/kinds" %></li>
-						<li> <%= link_to "Variedades", "/varieties" %></li>
-						<li> <%= link_to "Calidades", "/qualities" %></li>
-						<li> <%= link_to "Agrupaciones", "/groupings" %></li>
-					</ul>
+					
+						<% namesIO = {'Receipt' => 'Ingresos', 'Season' => 'Temporada', 'Dispatch' => 'Despachos', 'Report' => 'Informes' }%>
+
+						<% namesResource = {'Producer' => 'Productor', 'Pack_type' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Producto', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduana' } %>
+
+						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'Pack_type' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/products', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs' } %>
+
+						<% models_name_io = [] %>
+						<% models_name_rsrc = [] %>
+						<% for r in current_user.roles %>
+							<% r.access_rights.each do |ar| %> 
+								<% if namesIO.has_key?(ar.model_name) and !models_name_io.include?(ar.model_name)%>
+									<% models_name_io << ar.model_name%>
+								<% elsif namesResource.has_key?(ar.model_name) and !models_name_rsrc.include?(ar.model_name)%>
+									<% models_name_rsrc << ar.model_name%>
+								<% end %>
+							<% end %>
+						<% end %>
+
+						<%if !models_name_io.empty? %>
+							<p>Entradas/Salidas</p>
+							<ul>
+							<% for m in models_name_io%>
+								<li> <%= link_to namesIO[m], links[m] %></li>
+							<% end %>
+							</ul>
+						<% end %>
+
+						<%if !models_name_rsrc.empty? %>
+							<p>Recursos</p>
+							<ul>
+							<% for m in models_name_rsrc%>
+								<li> <%= link_to namesResource[m], links[m] %></li>
+							<% end %>
+							</ul>
+						<% end %>
+
 					<%end%>
 				</ul>
 				</div>
@@ -173,7 +192,7 @@
 					</div>
 					<ul class="toolsMenu">
 						<li> <p><%= link_to('Cuentas', company_users_path(current_user.company)) %></p> </li>
-						<li> <p>Configuración</p> </li>
+						<li> <p><%= link_to('Configuración', new_setting_path) %> </p> </li>
 					</ul>
 				</div>
 				<% end %>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Packing pallet:</b>
+  <%= @subprocess_io.packing_pallet_id %>
+</p>
+
+<p>
+  <b>Io datetime:</b>
+  <%= @subprocess_io.io_datetime %>
+</p>
+
+<p>
+  <b>Direction:</b>
+  <%= @subprocess_io.direction %>
+</p>
+
+<p>
+  <b>Worker:</b>
+  <%= @subprocess_io.worker_id %>
+</p>
+
+<p>
+  <b>Subprocess:</b>
+  <%= @subprocess_io.subprocess_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_subprocess_io_path(@subprocess_io) %> |
+<%= link_to 'Back', subprocess_ios_path %>

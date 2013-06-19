@@ -1,0 +1,37 @@
+<div class="headContent">
+    <h1>Lista de Agencias de Aduanas</h1>
+</div>
+<div class="box">
+    <div class="newTopBanner">
+        <%= link_to 'Nueva Aduana', new_custom_path , :class => "button blue alignright" %>
+    </div>
+
+    <p id="notice" class="alignleft"><%= notice %> </p>
+
+    <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+                <thead>
+                  <tr>
+                    <th style="width:20% !important;">Razón Social</th>
+                    <th>Rut</th>
+                    <th>Teléfono</th>
+                    <th>E-Mail</th>
+                    <th colspan="3" style="width:20% !important;">Acciones</th>
+                  </tr>
+                </thead>
+              <tbody>
+                  <% @customs.each do |custom| %>
+                    <tr>
+                        <td><%= custom.line_of_business %></td>
+                        <td><%= custom.rut %></td>
+                        <td><%= custom.phone %></td>
+                        <td><%= custom.email %></td>
+                        <td><%= link_to 'Ver', custom %>
+                        <%= link_to 'Editar', edit_custom_path(custom) %>
+                        <%= link_to 'Eliminar', custom, method: :delete, data: { confirm: '¿Está seguro de eliminar esta Aduana?' } %>
+                        </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+
+</div>
