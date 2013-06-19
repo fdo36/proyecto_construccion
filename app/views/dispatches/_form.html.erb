@@ -407,98 +407,159 @@
     </div>
     <div class="box">
     
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Variedad</label>
-          <em class="formee-req">*</em>
+      <!-- Pallets -->
+      <% settings_array = Setting.all.map { |setting| [setting.key] }%>
+      <% last = (settings_array[settings_array.size - 1][0]).to_s %>
+      <% if ((last == 'pallet') || (last == 'pack_pallet')) %>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Variedad</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
+
+            <%= select_tag "select_variety", options_for_select(@options_varieties), :prompt => '- Seleccione variedad - ', :id => "select_variety", :onchange => "add_register(); show_kind(this);"%>         
+            
+
+          </div>
         </div>
-        <div class="forme-in">
-          <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
 
-          <%= select_tag "select_variety", options_for_select(@options_varieties), :prompt => '- Seleccione variedad - ', :id => "select_variety", :onchange => "add_register(); show_kind(this);"%>         
-          
-
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Calidad</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <% @options_quality = Quality.all.map { |quality| [quality.name, quality.id] } %>
+            <%= select_tag "select_quality", options_for_select(@options_quality), :prompt => '- Seleccione calidad - ', :onchange => "add_register()"%>
+            
+          </div>      
         </div>
-      </div>
 
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Calidad</label>
-          <em class="formee-req">*</em>
-        </div>
-        <div class="forme-in">
-          <% @options_quality = Quality.all.map { |quality| [quality.name, quality.id] } %>
-          <%= select_tag "select_quality", options_for_select(@options_quality), :prompt => '- Seleccione calidad - ', :onchange => "add_register()"%>
-          
-        </div>      
-      </div>
+        <table cellpadding="0" cellspacing="0" border="0" id="table_register" class="display datatable">
+          <thead>
+            <tr>
+              <th style="display:none;" >id_pallet</th>
+              <th style="width:20% !important;">Código Pallet</th>
+              <th>N° Envases</th>
+              <th>Peso Neto (Kg)</th>
+              <th style="width:20% !important;">Acciones</th>
+            </tr>
+          </thead>
 
-      <table cellpadding="0" cellspacing="0" border="0" id="table_register" class="display datatable">
-        <thead>
-          <tr>
-            <th style="display:none;" >id_pallet</th>
-            <th style="width:20% !important;">Código Pallet</th>
-            <th>N° Envases</th>
-            <th>Peso Neto (Kg)</th>
-            <th style="width:20% !important;">Acciones</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <!-- Llenar tabla solamente si el esquema seleccionado incluye pallets-->
-          
-        </tbody>
+          <tbody>
+            <!-- Llenar tabla solamente si el esquema seleccionado incluye pallets-->
+            
+          </tbody>
 
 
-      </table>
+        </table>
 
-      <input type="button" value="Agregar" id="agregar" name="agregar" language="javascript" onclick="add_detail();">  
-
-    
-
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Tipo Envase:</label>
-        </div>
-        <div class="forme-in">
-          <% @options_pack_type = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
-          <%= select_tag "quality", options_for_select(@options_pack_type), :prompt => '- Seleccione envase - ' %>
-        </div>
-      </div>
-
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Envases en Stock:</label>
-        </div>
-        <div class="forme-in">
-          <%= text_field_tag 'packs_in_stock'%>          
-        </div>
-      </div>
-
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Envases a Despachar:</label>
-        </div>
-        <div class="forme-in">
-          <%= text_field_tag 'packs_to_dispatch'%>
-        </div>
-      </div>
-
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Peso Bruto (Kg):</label>
-        </div>
-        <div class="forme-in">
-          <%= text_field_tag 'gross_weight'%>
-        </div>
-      </div>
-
-      <input type="button" value="Agregar" id="agregar" name="agregar" language="javascript"> 
+        <input type="button" value="Agregar Pallets" id="agregar" name="agregar" language="javascript" onclick="add_detail();">  
 
       
 
+      <% if (last == 'pack_pallet') %>
+       <!--Envases sueltos-->
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Tipo Envase:</label>
+          </div>
+          <div class="forme-in">
+            <% @options_pack_type = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+            <%= select_tag "quality", options_for_select(@options_pack_type), :prompt => '- Seleccione envase - ' %>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Envases en Stock:</label>
+          </div>
+          <div class="forme-in">
+            <%= text_field_tag 'packs_in_stock'%>          
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Envases a Despachar:</label>
+          </div>
+          <div class="forme-in">
+            <%= text_field_tag 'packs_to_dispatch'%>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Peso Bruto (Kg):</label>
+          </div>
+          <div class="forme-in">
+            <%= text_field_tag 'gross_weight'%>
+          </div>
+        </div>
+
+        <input type="button" value="Agregar Envases" id="agregar" name="agregar" language="javascript">          
+
+  
+    <% end %>
+
+        </div>
     </div>
-  </div>
+
+
+  <% else %>
+       <!--Envases sueltos-->
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Tipo Envase:</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <% @options_pack_type = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+            <%= select_tag "quality", options_for_select(@options_pack_type), :prompt => '- Seleccione envase - ' %>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Envases en Stock:</label>
+          </div>
+          <div class="forme-in">
+            <%= text_field_tag 'packs_in_stock'%>          
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Envases a Despachar:</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <%= text_field_tag 'packs_to_dispatch'%>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Peso Bruto (Kg):</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <%= text_field_tag 'gross_weight'%>
+          </div>
+        </div>
+
+        <input type="button" value="Agregar Envases" id="agregar" name="agregar" language="javascript">          
+
+      </div>
+    </div>
+
+
+  <% end%>
 
   <!-- Detalle -->
     <div class = "contentSubPanel">
