@@ -1,4 +1,8 @@
 <script type="text/javascript">
+
+
+
+
   function show_rut(s) {
 
     if(s.value == "")
@@ -17,11 +21,9 @@
   {
 
     var work_model = get_work_model();
-
     var variety_id = $("#select_variety").val();    
     var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
-
-    var quality_id = $("#select_quality").val();
+    var quality_id = $("#select_quality").val();          
     var quality_name = $("#select_quality option[value='"+quality_id+"']").text();
   
     //La tabla se llena sólo si el esquema de trabajo incluye pallets.
@@ -30,19 +32,28 @@
       if((variety_id != '') && (quality_id != ''))
       {
         $.get("/pallets.json", function(data) { 
+
           var variety_id = $("#select_variety").val(); 
           var quality_id = $("#select_quality").val();          
           var encontrado = false;
+
          for (var i = data.length - 1; i >= 0; i--) {
+          //Cargar con pallets de la variedad y calidad seleccionada si no han sido agregados ya.
+          
           if((data[i]["variety_id"]==variety_id) && (data[i]["quality_id"]==quality_id)){  
-      
-            var pack_type_tare = get_pack_type_tare(data[i]["pack_type_id"]);          
-            var net_weight = data[i]["gross_weight"] - (pack_type_tare * data[i]["quantity"]) - data[i]["tare"];                   
-            var row = new Array(data[i]["code"], data[i]["quantity"], net_weight, "<a onclick='delete_row(this);'>Eliminar</a>");       
+            var added = isInDetails(data[i]["id"]);
+            if(!added)
+            {
 
-            $('#table_register').dataTable().fnAddData(row);
+              var pack_type_tare = get_pack_type_tare(data[i]["pack_type_id"]);          
+              var net_weight = data[i]["gross_weight"] - (pack_type_tare * data[i]["quantity"]) - data[i]["tare"];                   
+              var row = new Array(data[i]["id"], data[i]["code"], data[i]["quantity"], net_weight, "<a onclick='delete_row(this);'>Eliminar</a>");     
+              $('#table_register').dataTable().fnAddData(row);
+              //Oculta la columna de ids_pallet
+              $('#table_register').dataTable().fnSetColumnVis(0, false);
+              encontrado = true;        
+            }
 
-            encontrado = true;                     
           }
          };
          if(encontrado == false)
@@ -56,10 +67,29 @@
     
   }
 
+  function isInDetails(pallet_id){
+    var nNodes = $('#table_detail').dataTable().fnGetNodes( );
+
+    for (var i = nNodes.length - 1; i >= 0; i--) {
+      var id =  $('#table_detail').dataTable().fnGetData(i);
+      id = id[0];
+      
+      if(id == pallet_id)
+      {
+        return true;
+      }     
+
+    };
+    return false;
+
+  }
+
   function add_detail(){
     var nNodes = $('#table_register').dataTable().fnGetNodes( );
     for (var i = nNodes.length - 1; i >= 0; i--) {
-      
+
+      var pallet_id =  $('#table_register').dataTable().fnGetData(i);
+      pallet_id = pallet_id[0];
       var pallet_code = nNodes[i].cells[0].innerHTML;
       var variety_id = get_pallet_variety(pallet_code);
       var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
@@ -69,9 +99,13 @@
       pack_quantity = nNodes[i].cells[1].innerHTML;
       net_weight = nNodes[i].cells[2].innerHTML;
 
-      var row = new Array(variety_name, quality_name, pallet_code, pack_quantity, net_weight, "<a onclick='delete_row(this);'>Eliminar</a>");
+      var row = new Array(pallet_id, variety_name, quality_name, pallet_code, pack_quantity, net_weight, "<a onclick='delete_detail(this);'>Eliminar</a>");
       $('#table_detail').dataTable().fnAddData(row);
+      $('#table_detail').dataTable().fnSetColumnVis(0, false);
+
     };
+
+    $('#table_register').dataTable().fnClearTable();
   }
 
   function get_pallet_quality (pallet_code) {
@@ -142,6 +176,11 @@
   {
     var currentRow = $(button).closest('tr');
     $('#table_register').dataTable().fnDeleteRow(currentRow[0]);
+  }
+  function delete_detail(button)
+  {
+    var currentRow = $(button).closest('tr');
+    $('#table_detail').dataTable().fnDeleteRow(currentRow[0]);
   }
 
   function show_variety(s)
@@ -397,6 +436,7 @@
       <table cellpadding="0" cellspacing="0" border="0" id="table_register" class="display datatable">
         <thead>
           <tr>
+            <th style="display:none;" >id_pallet</th>
             <th style="width:20% !important;">Código Pallet</th>
             <th>N° Envases</th>
             <th>Peso Neto (Kg)</th>
@@ -408,6 +448,8 @@
           <!-- Llenar tabla solamente si el esquema seleccionado incluye pallets-->
           
         </tbody>
+
+
       </table>
 
       <input type="button" value="Agregar" id="agregar" name="agregar" language="javascript" onclick="add_detail();">  
@@ -468,6 +510,7 @@
       <table cellpadding="0" cellspacing="0" border="0" id="table_detail" class="display datatable">
         <thead>
           <tr>
+            <th style="display:none;" >id_pallet</th>
             <th>Variedad</th>
             <th>Calidad</th>
             <th style="width:20% !important;">Código Pallet</th>
