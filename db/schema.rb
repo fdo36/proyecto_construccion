@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604003231) do
+ActiveRecord::Schema.define(:version => 20130613160702) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -115,6 +115,14 @@ ActiveRecord::Schema.define(:version => 20130604003231) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "formats", :force => true do |t|
+    t.string   "name"
+    t.integer  "quantity"
+    t.float    "weight"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "groupings", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -179,6 +187,12 @@ ActiveRecord::Schema.define(:version => 20130604003231) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "pack_packings", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "pack_types", :force => true do |t|
     t.string   "name"
     t.integer  "company_id"
@@ -228,6 +242,19 @@ ActiveRecord::Schema.define(:version => 20130604003231) do
     t.integer  "locality_id"
     t.integer  "code"
     t.integer  "company_id"
+  end
+
+  create_table "providers", :force => true do |t|
+    t.string   "name"
+    t.string   "rut"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "address"
+    t.string   "commune"
+    t.string   "contacto"
+    t.boolean  "active"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "qualities", :force => true do |t|
@@ -298,6 +325,14 @@ ActiveRecord::Schema.define(:version => 20130604003231) do
     t.integer  "company_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "supplies", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "minimum_stock"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|

@@ -1,0 +1,62 @@
+<div class="box">
+<%= form_for(@format_packing) do |f| %>
+   <% if @format_packing.errors.any? %>
+    <div id="error_explanation">
+      <h2>Se han encontrado los siguientes errores:</h2>
+
+      <ul>
+      <% @format_packing.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Nombre                
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+
+   <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Cantidad              
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.number_field :quantity %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Peso              
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :weight %>
+    </div>
+  </div>
+
+
+
+    <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
+</div>
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', format_packings_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+<% end %>
