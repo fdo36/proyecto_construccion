@@ -36,13 +36,14 @@ class TransitChamberIosController < ApplicationController
   # GET /transit_chamber_ios/1/edit
   def edit
     @transit_chamber_io = TransitChamberIo.find(params[:id])
+
   end
 
   # POST /transit_chamber_ios
   # POST /transit_chamber_ios.json
   def create
     @transit_chamber_io = TransitChamberIo.new(params[:transit_chamber_io])
-
+    
     respond_to do |format|
       if @transit_chamber_io.save
         format.html { redirect_to "/transit_chamber_ios", notice: 'La Cámara de Producto en Tránsito fue creada exitosamente.' }

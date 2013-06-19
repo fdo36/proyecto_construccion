@@ -93,7 +93,6 @@ ActiveRecord::Schema.define(:version => 20130614201540) do
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
-    t.integer  "code"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -116,7 +115,10 @@ ActiveRecord::Schema.define(:version => 20130614201540) do
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+<<<<<<< HEAD
     
+=======
+>>>>>>> 84af0432da40a2bf01823a167aab13d718606cea
   end
 
   create_table "empty_packs_destination_moves", :force => true do |t|
