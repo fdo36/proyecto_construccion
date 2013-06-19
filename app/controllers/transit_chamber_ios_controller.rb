@@ -43,7 +43,7 @@ class TransitChamberIosController < ApplicationController
   # POST /transit_chamber_ios.json
   def create
     @transit_chamber_io = TransitChamberIo.new(params[:transit_chamber_io])
-    
+    @transit_chamber_io.io_datetime = DateTime.current();
     respond_to do |format|
       if @transit_chamber_io.save
         format.html { redirect_to "/transit_chamber_ios", notice: 'La Cámara de Producto en Tránsito fue creada exitosamente.' }

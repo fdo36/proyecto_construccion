@@ -5,6 +5,10 @@
 <div class="box">
 <%= link_to 'Volver', packing_pallets_path , :class => "button blue alignright" %>
   <p>
+    <b>Código de pallet:</b>
+    <%= @packing_pallet.pallet_code %>
+  </p>
+  <p>
     <b>Tipo de Pack:</b>
     <%= @packing_pallet.pack_type %>
   </p>

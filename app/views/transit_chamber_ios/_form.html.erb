@@ -1,4 +1,38 @@
 <script type="text/javascript">
+
+function add_pallets(){
+  var p_temperature = $("#transit_chamber_io_temperature").val();
+  var p_order_number = $("#transit_chamber_io_order_number").val();
+  var p_worker_id = $("#transit_chamber_io_worker_id").val();
+  var p_direction = $('input[name="transit_chamber_io[direction]"]:checked').val();
+  
+  $('#chamber_table tbody tr').each(function(index){
+     var code = $(this).find("td").eq(0).text();
+     $.get("/packing_pallets.json", function(pallets) {
+       $.each(pallets, function(index, pallet){
+        if (pallet.pallet_code == code) {
+          p_packing_pallet_id = pallet.id;
+          $.ajax({
+              url: "/transit_chamber_ios/",
+              type: "POST",
+                data: {transit_chamber_io:{ temperature: p_temperature,
+                                            order_number: p_order_number,
+                                            direction: p_direction,
+                                            worker_id: p_worker_id,
+                                            packing_pallet_id: p_packing_pallet_id}
+                      }                      
+            }).done(function(){
+              window.location = "/transit_chamber_ios"
+            });
+        }
+       });
+     });
+  });
+
+  
+
+}
+
 function delete_row(button)
 {
   var currentRow = $(button).closest('tr');
@@ -7,7 +41,7 @@ function delete_row(button)
 
 $(document).ready(function(){
 
-  $('#id_pallet').keydown(function (e){
+  $('#code_pallet').keydown(function (e){
       if(e.keyCode == 13){
           add_pallet();
       }
@@ -15,18 +49,26 @@ $(document).ready(function(){
   
 
   function add_pallet (){
-    var id_pallet = $("#id_pallet").val();
-
-    $.get("/packing_pallets/"+id_pallet+".json", function(pallet) {
-      $('#chamber_table').dataTable().fnAddData([
-      id_pallet,
-      pallet.pack_type,
-      pallet.gross_weight,
-      "<a onclick='delete_row(this);'>Eliminar</a>"
-      ]);
-
-      $("#id_pallet").val("");
-    });  
+    $("#error_label").text("");
+    $.get("/packing_pallets.json", function(pallets) {
+      flag = false;
+      $.each(pallets, function(index, pallet){
+        if (pallet.pallet_code == $("#code_pallet").val()) {
+          flag = true;
+          $('#chamber_table').dataTable().fnAddData([
+             pallet.pallet_code,
+             pallet.pack_type,
+             pallet.gross_weight,
+             "<a onclick='delete_row(this);'>Eliminar</a>"
+          ]);   
+        }
+      });
+      if (!flag){
+        $("#error_label").text("Ingrese un código válido");
+      }
+       
+      $("#code_pallet").val("");
+    });
   }
 });
 
@@ -46,7 +88,11 @@ $(document).ready(function(){
         </label>  
       </div>
       <div class="forme-in">
-        <%= text_field(:id, :pallet)%>
+        <%= text_field(:code, :pallet)%>
+      </div>
+      <div class="forme-in">
+        <label id="error_label">
+        </label>
       </div>
     </div>
 
@@ -108,17 +154,6 @@ $(document).ready(function(){
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Pallet
-      </label>  
-    </div>
-    <div class="forme-in">
-      <%= f.text_field :packing_pallet_id %>
-    </div>
-  </div>
-
-  <div class="line-forme">
-    <div class="forme-lab">
-      <label> 
         Encargado
       </label>  
     </div>
@@ -142,10 +177,8 @@ $(document).ready(function(){
   </div>
 
 </div>
-
-  <div class="foot-box">
-    <%= link_to 'Cancelar', transit_chamber_ios_path , :class => "button silver alignright" %>
-    <%= f.submit :Guardar , :class => "button green alignright" %>
-  </div>
-
 <% end %>
+<div class="foot-box">
+    <%= link_to 'Cancelar', transit_chamber_ios_path , :class => "button silver alignright" %>
+    <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallets();"%>
+  </div>
