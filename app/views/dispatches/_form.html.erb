@@ -1,4 +1,8 @@
 <script type="text/javascript">
+
+
+
+
   function show_rut(s) {
 
     if(s.value == "")
@@ -17,13 +21,9 @@
   {
 
     var work_model = get_work_model();
-
     var variety_id = $("#select_variety").val();    
     var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
-
-    //show_kind(document.getElementById("select_variety"));
-
-    var quality_id = $("#select_quality").val();
+    var quality_id = $("#select_quality").val();          
     var quality_name = $("#select_quality option[value='"+quality_id+"']").text();
   
     //La tabla se llena sólo si el esquema de trabajo incluye pallets.
@@ -32,24 +32,28 @@
       if((variety_id != '') && (quality_id != ''))
       {
         $.get("/pallets.json", function(data) { 
+
           var variety_id = $("#select_variety").val(); 
           var quality_id = $("#select_quality").val();          
           var encontrado = false;
+
          for (var i = data.length - 1; i >= 0; i--) {
-          if((data[i]["variety_id"]==variety_id) && (data[i]["variety_id"]==quality_id)){  
-            //Validar que no esté en la tabla
+          //Cargar con pallets de la variedad y calidad seleccionada si no han sido agregados ya.
           
+          if((data[i]["variety_id"]==variety_id) && (data[i]["quality_id"]==quality_id)){  
+            var added = isInDetails(data[i]["id"]);
+            if(!added)
+            {
 
+              var pack_type_tare = get_pack_type_tare(data[i]["pack_type_id"]);          
+              var net_weight = data[i]["gross_weight"] - (pack_type_tare * data[i]["quantity"]) - data[i]["tare"];                   
+              var row = new Array(data[i]["id"], data[i]["code"], data[i]["quantity"], net_weight, "<a onclick='delete_row(this);'>Eliminar</a>");     
+              $('#table_register').dataTable().fnAddData(row);
+              //Oculta la columna de ids_pallet
+              $('#table_register').dataTable().fnSetColumnVis(0, false);
+              encontrado = true;        
+            }
 
-            //Si no, agregar
-            var pack_type_tare = get_pack_type_tare(data[i]["pack_type_id"]);          
-            var net_weight = data[i]["gross_weight"] - (pack_type_tare * data[i]["quantity"]) - data[i]["tare"];                   
-            var row = new Array(data[i]["code"], data[i]["quantity"], net_weight, "<a href='#'>Eliminar</a>"); 
-
-        
-
-            $('#table_register').dataTable().fnAddData(row);    
-            encontrado = true;                     
           }
          };
          if(encontrado == false)
@@ -61,6 +65,81 @@
       }
     }
     
+  }
+
+  function isInDetails(pallet_id){
+    var nNodes = $('#table_detail').dataTable().fnGetNodes( );
+
+    for (var i = nNodes.length - 1; i >= 0; i--) {
+      var id =  $('#table_detail').dataTable().fnGetData(i);
+      id = id[0];
+      
+      if(id == pallet_id)
+      {
+        return true;
+      }     
+
+    };
+    return false;
+
+  }
+
+  function add_detail(){
+    var nNodes = $('#table_register').dataTable().fnGetNodes( );
+    for (var i = nNodes.length - 1; i >= 0; i--) {
+
+      var pallet_id =  $('#table_register').dataTable().fnGetData(i);
+      pallet_id = pallet_id[0];
+      var pallet_code = nNodes[i].cells[0].innerHTML;
+      var variety_id = get_pallet_variety(pallet_code);
+      var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
+      var quality_id = get_pallet_quality(pallet_code);
+      var quality_name = $("#select_quality option[value='"+quality_id+"']").text();
+
+      pack_quantity = nNodes[i].cells[1].innerHTML;
+      net_weight = nNodes[i].cells[2].innerHTML;
+
+      var row = new Array(pallet_id, variety_name, quality_name, pallet_code, pack_quantity, net_weight, "<a onclick='delete_detail(this);'>Eliminar</a>");
+      $('#table_detail').dataTable().fnAddData(row);
+      $('#table_detail').dataTable().fnSetColumnVis(0, false);
+
+    };
+
+    $('#table_register').dataTable().fnClearTable();
+  }
+
+  function get_pallet_quality (pallet_code) {
+    $.ajax({
+      url: "/pallets.json",
+      dataType: 'json',
+      async: false,
+      success: function(data){
+          $.each(data,function(index, value){
+            if(value.code == pallet_code)
+            {
+              quality = value.quality_id;
+            }
+          });
+      }
+    });
+    return quality;
+  }
+
+  function get_pallet_variety (pallet_code) {
+    $.ajax({
+      url: "/pallets.json",
+      dataType: 'json',
+      async: false,
+      success: function(data){
+          $.each(data,function(index, value){
+            if(value.code == pallet_code)
+            {
+              variety = value.variety_id;
+            }
+          });
+      }
+    });
+    return variety;
   }
 
   function get_pack_type_tare (pack_type_id) {
@@ -93,9 +172,20 @@
     return work_model;
   }
 
+  function delete_row(button)
+  {
+    var currentRow = $(button).closest('tr');
+    $('#table_register').dataTable().fnDeleteRow(currentRow[0]);
+  }
+  function delete_detail(button)
+  {
+    var currentRow = $(button).closest('tr');
+    $('#table_detail').dataTable().fnDeleteRow(currentRow[0]);
+  }
+
   function show_variety(s)
   { 
-      
+    $('#table_register').dataTable().fnClearTable();  
     if (s.value != '')
     {
       $.get("/varieties.json", function(data) {         
@@ -124,7 +214,7 @@
 
   function show_kind(s)
   {   
-       
+    $('#table_register').dataTable().fnClearTable(); 
     if (s.value != '')
     {
       $.get("/kinds.json", function(data) {         
@@ -317,95 +407,159 @@
     </div>
     <div class="box">
     
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Variedad</label>
-          <em class="formee-req">*</em>
-        </div>
-        <div class="forme-in">
-          <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
+      <!-- Pallets -->
+      <% settings_array = Setting.all.map { |setting| [setting.key] }%>
+      <% last = (settings_array[settings_array.size - 1][0]).to_s %>
+      <% if ((last == 'pallet') || (last == 'pack_pallet')) %>
 
-          <%= select_tag "select_variety", options_for_select(@options_varieties), :prompt => '- Seleccione variedad - ', :id => "select_variety", :onchange => "add_register(); show_kind(this);"%>         
-          
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Variedad</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
 
-        </div>
-      </div>
+            <%= select_tag "select_variety", options_for_select(@options_varieties), :prompt => '- Seleccione variedad - ', :id => "select_variety", :onchange => "add_register(); show_kind(this);"%>         
+            
 
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Calidad</label>
-          <em class="formee-req">*</em>
+          </div>
         </div>
-        <div class="forme-in">
-          <% @options_quality = Quality.all.map { |quality| [quality.name, quality.id] } %>
-          <%= select_tag "select_quality", options_for_select(@options_quality), :prompt => '- Seleccione calidad - ', :onchange => "add_register()"%>
-          
-        </div>
-      </div>
 
-      <table cellpadding="0" cellspacing="0" border="0" id="table_register" class="display datatable">
-        <thead>
-          <tr>
-            <th style="width:20% !important;">Código Pallet</th>
-            <th>N° Envases</th>
-            <th>Peso Neto (Kg)</th>
-            <th style="width:20% !important;">Acciones</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <!-- Llenar tabla solamente si el esquema seleccionado incluye pallets-->
-          
-        </tbody>
-      </table>
-
-      <input type="button" value="Agregar" id="agregar" name="agregar" language="javascript">  
-
-    
-
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Tipo Envase:</label>
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Calidad</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <% @options_quality = Quality.all.map { |quality| [quality.name, quality.id] } %>
+            <%= select_tag "select_quality", options_for_select(@options_quality), :prompt => '- Seleccione calidad - ', :onchange => "add_register()"%>
+            
+          </div>      
         </div>
-        <div class="forme-in">
-          <% @options_pack_type = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
-          <%= select_tag "quality", options_for_select(@options_pack_type), :prompt => '- Seleccione envase - ' %>
-        </div>
-      </div>
 
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Envases en Stock:</label>
-        </div>
-        <div class="forme-in">
-          <%= text_field_tag 'packs_in_stock'%>          
-        </div>
-      </div>
+        <table cellpadding="0" cellspacing="0" border="0" id="table_register" class="display datatable">
+          <thead>
+            <tr>
+              <th style="display:none;" >id_pallet</th>
+              <th style="width:20% !important;">Código Pallet</th>
+              <th>N° Envases</th>
+              <th>Peso Neto (Kg)</th>
+              <th style="width:20% !important;">Acciones</th>
+            </tr>
+          </thead>
 
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Envases a Despachar:</label>
-        </div>
-        <div class="forme-in">
-          <%= text_field_tag 'packs_to_dispatch'%>
-        </div>
-      </div>
+          <tbody>
+            <!-- Llenar tabla solamente si el esquema seleccionado incluye pallets-->
+            
+          </tbody>
 
-      <div class="line-forme">
-        <div class="forme-lab">
-          <label>Peso Bruto (Kg):</label>
-        </div>
-        <div class="forme-in">
-          <%= text_field_tag 'gross_weight'%>
-        </div>
-      </div>
 
-      <input type="button" value="Agregar" id="agregar" name="agregar" language="javascript"> 
+        </table>
+
+        <input type="button" value="Agregar Pallets" id="agregar" name="agregar" language="javascript" onclick="add_detail();">  
 
       
 
+      <% if (last == 'pack_pallet') %>
+       <!--Envases sueltos-->
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Tipo Envase:</label>
+          </div>
+          <div class="forme-in">
+            <% @options_pack_type = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+            <%= select_tag "quality", options_for_select(@options_pack_type), :prompt => '- Seleccione envase - ' %>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Envases en Stock:</label>
+          </div>
+          <div class="forme-in">
+            <%= text_field_tag 'packs_in_stock'%>          
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Envases a Despachar:</label>
+          </div>
+          <div class="forme-in">
+            <%= text_field_tag 'packs_to_dispatch'%>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Peso Bruto (Kg):</label>
+          </div>
+          <div class="forme-in">
+            <%= text_field_tag 'gross_weight'%>
+          </div>
+        </div>
+
+        <input type="button" value="Agregar Envases" id="agregar" name="agregar" language="javascript">          
+
+  
+    <% end %>
+
+        </div>
     </div>
-  </div>
+
+
+  <% else %>
+       <!--Envases sueltos-->
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Tipo Envase:</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <% @options_pack_type = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+            <%= select_tag "quality", options_for_select(@options_pack_type), :prompt => '- Seleccione envase - ' %>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Envases en Stock:</label>
+          </div>
+          <div class="forme-in">
+            <%= text_field_tag 'packs_in_stock'%>          
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Envases a Despachar:</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <%= text_field_tag 'packs_to_dispatch'%>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Peso Bruto (Kg):</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <%= text_field_tag 'gross_weight'%>
+          </div>
+        </div>
+
+        <input type="button" value="Agregar Envases" id="agregar" name="agregar" language="javascript">          
+
+      </div>
+    </div>
+
+
+  <% end%>
 
   <!-- Detalle -->
     <div class = "contentSubPanel">
@@ -414,9 +568,10 @@
     </div>
     <div class="box">
     
-      <table cellpadding="0" cellspacing="0" border="0" id="tablealone" class="display datatable">
+      <table cellpadding="0" cellspacing="0" border="0" id="table_detail" class="display datatable">
         <thead>
           <tr>
+            <th style="display:none;" >id_pallet</th>
             <th>Variedad</th>
             <th>Calidad</th>
             <th style="width:20% !important;">Código Pallet</th>
