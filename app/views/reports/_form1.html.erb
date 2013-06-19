@@ -80,7 +80,7 @@
 
       if(producerID.value=="")
       {
-         //Hacer una consulta mas general
+         alert('Seleccione un productor');
       }
       else
       {
@@ -105,6 +105,15 @@
          });
       }
    }
+   function validate(){
+      var producerID = document.getElementById('Productores1');
+      if(producerID.value == ""){
+         alert('Debes seleccionar un productor');
+      }
+   }
+
+
+
 </script>
 
 <!--Precio por Productor-->
@@ -165,5 +174,5 @@
          <%= select_date Date.today, :prefix => :end_date1%>
       </div>
    </div>
-   <button class="button blue alignleft" onclick="get_parameters1()">Generar Informe</button>
+   <button class="button blue alignleft" onclick="validate()">Generar Informe</button>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529101120)
+ActiveRecord::Schema.define(:version => 20130611200657) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -58,19 +58,6 @@ ActiveRecord::Schema.define(:version => 20130529101120)
   add_index "containers_producers", ["container_id", "producer_id"], :name => "index_containers_producers_on_container_id_and_producer_id"
   add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
 
-  create_table "customs", :force => true do |t|
-    t.string   "rut"
-    t.string   "code"
-    t.string   "line_of_business"
-    t.string   "address"
-    t.string   "location"
-    t.string   "phone"
-    t.string   "fax"
-    t.string   "email"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
   create_table "destinations", :force => true do |t|
     t.string   "rut"
     t.string   "name"
@@ -98,7 +85,6 @@ ActiveRecord::Schema.define(:version => 20130529101120)
   end
 
   create_table "dispatches", :force => true do |t|
-    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
@@ -106,6 +92,10 @@ ActiveRecord::Schema.define(:version => 20130529101120)
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+<<<<<<< HEAD
+    t.string   "code"
+=======
+>>>>>>> b373858c2a0a22e7b4eba62e6f2ae6edfbfa5612
   end
 
   create_table "empty_packs_destination_moves", :force => true do |t|
@@ -192,12 +182,6 @@ ActiveRecord::Schema.define(:version => 20130529101120)
     t.datetime "updated_at",     :null => false
   end
 
-  create_table "pack_packings", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "pack_types", :force => true do |t|
     t.string   "name"
     t.integer  "company_id"
@@ -258,19 +242,6 @@ ActiveRecord::Schema.define(:version => 20130529101120)
     t.integer  "locality_id"
     t.integer  "code"
     t.integer  "company_id"
-  end
-
-  create_table "providers", :force => true do |t|
-    t.string   "name"
-    t.string   "rut"
-    t.string   "phone"
-    t.string   "email"
-    t.string   "address"
-    t.string   "commune"
-    t.string   "contacto"
-    t.boolean  "active"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "qualities", :force => true do |t|
@@ -374,14 +345,6 @@ ActiveRecord::Schema.define(:version => 20130529101120)
     t.datetime "end_datetime"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-  end
-
-  create_table "supplies", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.integer  "minimum_stock"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|

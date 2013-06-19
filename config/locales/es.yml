@@ -304,6 +304,13 @@ es:
       role:
         name: "Nombre"
         description: "Descripción"
+      custom:
+        line_of_business: "Razón Social"
+        code: "Código"
+        rut: "Rut"
+        email: "E-Mail"
+        phone: "Teléfono"
+
 
 
 

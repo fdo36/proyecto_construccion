@@ -1,4 +1,8 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :customs
+
+
+  resources :transit_chamber_ios
   resources :format_packings
 
 
@@ -25,6 +29,10 @@ ProyectoConstruccion::Application.routes.draw do
   resources :localities
 
   resources :settings
+  
+  resources :pack_group_dispatches
+
+  resources :pack_group_receipts
 
   resources :receipts
 

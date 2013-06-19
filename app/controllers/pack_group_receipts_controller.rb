@@ -44,13 +44,12 @@ class PackGroupReceiptsController < ApplicationController
   # POST /pack_group_receipts
   # POST /pack_group_receipts.json
   def create
-    @receipt = Receipt.find(params[:receipt_id])
     @pack_group_receipt = PackGroupReceipt.new(params[:pack_group_receipt])
 
     @pack_group_receipt.company_id = current_user.company_id
     respond_to do |format|
       if @pack_group_receipt.save
-        format.html { redirect_to receipt_path(@receipt) }
+        format.html { redirect_to '/pack_group_receipts' }
         format.json { render json: @pack_group_receipt, status: :created, location: @pack_group_receipt }
       else
         format.html { render action: "new" }

@@ -47,6 +47,7 @@ class PalletsController < ApplicationController
     end
   end
 
+
   # GET /pallets/1/edit
   def edit
     @pallet = Pallet.find(params[:id])
@@ -55,41 +56,53 @@ class PalletsController < ApplicationController
   # POST /pallets
   # POST /pallets.json
   def create
-    @receipt = nil
-    if params.has_key?(:receipt_id)
-      @receipt = Receipt.find(params[:receipt_id])
-    else
-      @dispatch = Dispatch.find(params[:dispatch_id])
-    end
-
-    if @receipt == nil
-      @pallet = @dispatch.pallets.create(params[:pallet])
-    else
-      @pallet = @receipt.pallets.create(params[:pallet])
-    end
+    @pallet = Pallet.new(params[:pallet])
 
     @pallet.company_id = current_user.company_id
     respond_to do |format|
-      if @pallet.save
-        format.html { 
-          if @receipt == nil
-            redirect_to dispatch_path(@dispatch) 
-          else
-            redirect_to receipt_path(@receipt)   
-          end
-        } 
-        format.json { render json: @pallet, status: :created, location: @pallet }
-      else
-        format.html { 
-          if @receipt == nil
-            render action: "newD"
-          else
-            render action: "new"
-          end
-          }
-        format.json { render json: @pallets.errors, status: :unprocessable_entity }
-      end
+    if @pallet.save
+      format.html { redirect_to '/pallets'}
+      format.json { render json: @pallet, status: :created, location: @pallet }
+    else
+      format.html { render action: "new" }
+      format.json { render json: @pallet.errors, status: :unprocessable_entity }
     end
+  end
+    # @receipt = nil
+    # if params.has_key?(:receipt_id)
+    #   @receipt = Receipt.find(params[:receipt_id])
+    # else
+    #   @dispatch = Dispatch.find(params[:dispatch_id])
+    # end
+
+    # if @receipt == nil
+    #   @pallet = @dispatch.pallets.create(params[:pallet])
+    # else
+    #   @pallet = @receipt.pallets.create(params[:pallet])
+    # end
+
+    # @pallet.company_id = current_user.company_id
+    # respond_to do |format|
+    #   if @pallet.save
+    #     format.html { 
+    #       if @receipt == nil
+    #         redirect_to dispatch_path(@dispatch) 
+    #       else
+    #         redirect_to receipt_path(@receipt)   
+    #       end
+    #     } 
+    #     format.json { render json: @pallet, status: :created, location: @pallet }
+    #   else
+    #     format.html { 
+    #       if @receipt == nil
+    #         render action: "newD"
+    #       else
+    #         render action: "new"
+    #       end
+    #       }
+    #     format.json { render json: @pallets.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PUT /pallets/1
