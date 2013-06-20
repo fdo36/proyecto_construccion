@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529101120)
+ActiveRecord::Schema.define(:version => 20130617204531) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20130529101120)
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
+    t.integer  "code"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -98,7 +99,6 @@ ActiveRecord::Schema.define(:version => 20130529101120)
   end
 
   create_table "dispatches", :force => true do |t|
-    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20130529101120)
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "code"
   end
 
   create_table "empty_packs_destination_moves", :force => true do |t|
@@ -126,6 +127,14 @@ ActiveRecord::Schema.define(:version => 20130529101120)
     t.string   "pack_option"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "format_packings", :force => true do |t|
+    t.string   "name"
+    t.integer  "quantity"
+    t.float    "weight"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "groupings", :force => true do |t|
@@ -360,6 +369,14 @@ ActiveRecord::Schema.define(:version => 20130529101120)
     t.datetime "updated_at", :null => false
   end
 
+  create_table "supplies", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "minimum_stock"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "transit_chamber_ios", :force => true do |t|
     t.float    "temperature"
     t.integer  "order_number"
@@ -374,14 +391,6 @@ ActiveRecord::Schema.define(:version => 20130529101120)
     t.datetime "end_datetime"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-  end
-
-  create_table "supplies", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.integer  "minimum_stock"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
   end
 
   create_table "users", :force => true do |t|
