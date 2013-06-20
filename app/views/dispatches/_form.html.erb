@@ -124,7 +124,8 @@
       var gross_weight =  $('#gross_weight'+plus).val();
       
       var items_selected = ((variety_id != '') && (quality_id != '') && (pack_type_id != ''));
-      var textfield_numeric = ((pack_quantity != '') && (gross_weight != ''));
+      
+      var textfield_numeric = (validate_integer(pack_quantity) && check_decimal(gross_weight));
       if(items_selected && textfield_numeric)
       {
         var pack_type_tare = get_pack_type_tare(pack_type_id);
@@ -138,7 +139,7 @@
       }
       
       $('#table_detail').dataTable().fnSetColumnVis(0, false);
-      $('#select_pack_type'+plus).val("");
+      //$('#select_pack_type'+plus).val("");
       $('#packs_to_dispatch'+plus).val("");
       $('#gross_weight'+plus).val("");
 
@@ -221,7 +222,12 @@
 
   function show_variety(s)
   { 
+    var work_model = get_work_model();
+    if(work_model!="pack")
+    {
+
     $('#table_register').dataTable().fnClearTable();  
+    }
     if (s.value != '')
     {
       $.get("/varieties.json", function(data) {         
@@ -250,7 +256,11 @@
 
   function show_kind(s)
   {   
-    $('#table_register').dataTable().fnClearTable(); 
+    var work_model = get_work_model();
+    if(work_model!="pack")
+    {
+      $('#table_register').dataTable().fnClearTable();  
+    }
     if (s.value != '')
     {
       $.get("/kinds.json", function(data) {         
@@ -287,6 +297,34 @@
     
   }
 
+  function validate_integer(strValue)
+  {
+      
+      
+      var objRegExp  = /(^-?\d\d*$)/;  
+      var result = objRegExp.test(strValue);
+      if(result)
+      {
+        return true;
+      }
+      return false;
+
+  }
+
+  function check_decimal(inputtxt)   
+  {   
+    var decimal=  /^[-+]?[0-9]+\.[0-9]+$/; 
+    if(inputtxt.match(decimal) || validate_integer(inputtxt))   
+    {   
+      alert('Correct, try another...')  
+      return true;  
+    }  
+    else  
+    {   
+      alert('Wrong...!')  
+      return false;  
+    }  
+  } 
 
 
   
@@ -524,7 +562,7 @@
             <label>Envases a Despachar</label>
           </div>
           <div class="forme-in">
-            <%= text_field_tag 'packs_to_dispatch1', nil, :style => "text-align: Right" %>
+            <%= text_field_tag 'packs_to_dispatch1', nil, :style => "text-align: Right"%>
           </div>
         </div>
 
@@ -557,7 +595,7 @@
           <div class="forme-in">
             <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
 
-            <%= select_tag "select_variety", options_for_select(@options_varieties), :prompt => '- Seleccione variedad - ', :id => "select_variety", :onchange => "add_register(); show_kind(this);"%>         
+            <%= select_tag "select_variety", options_for_select(@options_varieties), :prompt => '- Seleccione variedad - ', :id => "select_variety", :onchange => "show_kind(this);"%>         
             
 
           </div>
@@ -570,7 +608,7 @@
           </div>
           <div class="forme-in">
             <% @options_quality = Quality.all.map { |quality| [quality.name, quality.id] } %>
-            <%= select_tag "select_quality", options_for_select(@options_quality), :prompt => '- Seleccione calidad - ', :onchange => "add_register()"%>
+            <%= select_tag "select_quality", options_for_select(@options_quality), :prompt => '- Seleccione calidad - '%>
             
           </div>      
         </div>
