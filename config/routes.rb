@@ -1,4 +1,16 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :pallet_finished_products
+
+
+  resources :production_process_ios
+
+
+  resources :receipt_packing_ios
+
+
+  resources :stabilization_chamber_ios
+
+
   resources :customs
 
 

@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Kind:</b>
+  <%= @pallet_finished_product.kind_id %>
+</p>
+
+<p>
+  <b>Variety:</b>
+  <%= @pallet_finished_product.variety %>
+</p>
+
+<p>
+  <b>Quality:</b>
+  <%= @pallet_finished_product.quality %>
+</p>
+
+<p>
+  <b>Pack packing:</b>
+  <%= @pallet_finished_product.pack_packing_id %>
+</p>
+
+<p>
+  <b>Format packing:</b>
+  <%= @pallet_finished_product.format_packing_id %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @pallet_finished_product.quantity %>
+</p>
+
+<p>
+  <b>Net weight:</b>
+  <%= @pallet_finished_product.net_weight %>
+</p>
+
+
+<%= link_to 'Edit', edit_pallet_finished_product_path(@pallet_finished_product) %> |
+<%= link_to 'Back', pallet_finished_products_path %>

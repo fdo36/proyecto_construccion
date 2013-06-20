@@ -1,0 +1,35 @@
+<h1>Listing pallet_finished_products</h1>
+
+<table>
+  <tr>
+    <th>Kind</th>
+    <th>Variety</th>
+    <th>Quality</th>
+    <th>Pack packing</th>
+    <th>Format packing</th>
+    <th>Quantity</th>
+    <th>Net weight</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pallet_finished_products.each do |pallet_finished_product| %>
+  <tr>
+    <td><%= pallet_finished_product.kind_id %></td>
+    <td><%= pallet_finished_product.variety %></td>
+    <td><%= pallet_finished_product.quality %></td>
+    <td><%= pallet_finished_product.pack_packing_id %></td>
+    <td><%= pallet_finished_product.format_packing_id %></td>
+    <td><%= pallet_finished_product.quantity %></td>
+    <td><%= pallet_finished_product.net_weight %></td>
+    <td><%= link_to 'Show', pallet_finished_product %></td>
+    <td><%= link_to 'Edit', edit_pallet_finished_product_path(pallet_finished_product) %></td>
+    <td><%= link_to 'Destroy', pallet_finished_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Pallet finished product', new_pallet_finished_product_path %>
