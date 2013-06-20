@@ -15,6 +15,7 @@ class DispatchesController < ApplicationController
   # GET /dispatches/1.json
   def show
     @dispatch = Dispatch.find(params[:id])
+    @pallet = Pallet.new
 
     respond_to do |format|
       format.html # show.html.erb
@@ -26,6 +27,8 @@ class DispatchesController < ApplicationController
   # GET /dispatches/new.json
   def new
     @dispatch = Dispatch.new
+    @pallet = Pallet.new
+    
 
     respond_to do |format|
       format.html # new.html.erb
