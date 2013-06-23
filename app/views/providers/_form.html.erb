@@ -1,49 +1,126 @@
+<div class="box">
 <%= form_for(@provider) do |f| %>
-  <% if @provider.errors.any? %>
+    <% if @provider.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@provider.errors.count, "error") %> prohibited this provider from being saved:</h2>
+      <h2>Se han encontrado los siguientes errores:</h2>
 
       <ul>
-      <% @provider.errors.full_messages.each do |msg| %>
+        <% @provider.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Nombre                
+        <em class="formee-req">*</em>
+      </label> 
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :name %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :rut %><br />
-    <%= f.text_field :rut %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Rut                
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :rut, :class => 'rut' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+      Teléfono                
+      <em class="formee-req">*</em>
+    </label> 
+    </div>  
+    <div class="forme-in">
+      <%= f.number_field :phone %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+      Correo Electrónico                
+      <em class="formee-req">*</em>
+      </label> 
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :email %>
+    </div>
+  </div>  
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= f.label :Dirección %><br />
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :address %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Región                
+      </label>  
+    </div>
+    <div class="forme-in">
+      <% @regions = Region.all.map { |region| [region.name, region.id] } %>
+      <%= select_tag('regions', options_for_select(@regions),
+          :onchange => "show_communes(this, 'company_commune_id')", :selected => :prompt, :prompt => '- Seleccione región -') %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :commune %><br />
-    <%= f.text_field :commune %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Comuna                
+      </label>  
+    </div>
+    <div class="forme-in">
+
+      <%= f.select(:commune_id, "commune" ,:selected => :prompt, :prompt => '- Seleccione comuna -') %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :contacto %><br />
-    <%= f.text_field :contacto %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Contacto                
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :contact %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :active %><br />
-    <%= f.check_box :active %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Activo %><br />
+      </div>  
+      <div class="forme-in">
+        <%= f.check_box :active %>
+      </div>
+    </div>  
+
+  <label> (
+      <em class="formee-req">*</em>
+  </label> ) Campos obligatorios. 
+</div>
+
+<div class="foot-box">
+  <%= link_to 'Cancelar', providers_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
 <% end %>

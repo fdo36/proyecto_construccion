@@ -1,27 +1,34 @@
-<h1>Listing supplies</h1>
+<div class="headContent">
+  <h1>Lista de Insumos</h1>
+</div>
+<div class="box">
+  <div class="newTopBanner">
+    <%= link_to 'Nuevo Insumo', new_supply_path , :class => "button blue alignright" %>
+  </div>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Minimum stock</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <p id="notice" class="alignleft"><%= notice %> </p>
 
-<% @supplies.each do |supply| %>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Stock Minimo</th>
+        <th style="width:20% !important;">Acciones</th>
+      </tr>
+    </thead>
+  <tbody>
+  <% @supplies.each do |supply| %>
   <tr>
     <td><%= supply.name %></td>
     <td><%= supply.description %></td>
     <td><%= supply.minimum_stock %></td>
-    <td><%= link_to 'Show', supply %></td>
-    <td><%= link_to 'Edit', edit_supply_path(supply) %></td>
-    <td><%= link_to 'Destroy', supply, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Ver', supply %></td>
+    <td><%= link_to 'Editar', edit_supply_path(supply) %></td>
+    <td><%= link_to 'Eliminar', supply, method: :delete, data: { confirm: '¿Esta seguro que desea elimnar este insumo?' } %></td>
   </tr>
 <% end %>
-</table>
+    </tbody>
+  </table>
 
-<br />
-
-<%= link_to 'New Supply', new_supply_path %>
+</div>
