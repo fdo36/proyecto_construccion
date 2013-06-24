@@ -42,8 +42,8 @@ class CompaniesController < ApplicationController
   # POST /companies.json
   def create
     @company = Company.new(params[:company])
-    if company.active == nil
-       company.active = false
+    if @company.active == nil
+       @company.active = false
     end
 
     respond_to do |format|

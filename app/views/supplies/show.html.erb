@@ -1,20 +1,24 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
+<div class="headContent">
+  <h1>Ver Insumo</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver',supplies_path , :class => "button blue alignright" %>
+p>
+  <b>Nombre:</b>
   <%= @supply.name %>
 </p>
 
 <p>
-  <b>Description:</b>
+  <b>Descripcion:</b>
   <%= @supply.description %>
 </p>
 
 <p>
-  <b>Minimum stock:</b>
+  <b>Stock Minimo:</b>
   <%= @supply.minimum_stock %>
 </p>
-
-
-<%= link_to 'Edit', edit_supply_path(@supply) %> |
-<%= link_to 'Back', supplies_path %>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_supply_path(@supply) , :class => "button green alignright" %>
+</div>
