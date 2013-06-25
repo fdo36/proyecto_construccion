@@ -13,6 +13,7 @@ gem 'foreigner'
 gem 'devise-i18n-views'
 gem 'railroady'
 gem 'heritage'
+gem 'sqlite3'
 
 # Gems used only for assets and not required
 # in production environments by default.

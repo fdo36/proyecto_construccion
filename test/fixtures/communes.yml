@@ -1,9 +1,2065 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  name: MyString
-  region_id: 1
-
-two:
-  name: MyString
-  region_id: 1
+---
+communes_001:
+  id: '1'
+  name: ALTO HOSPICIO
+  region_id: '1'
+  created_at: '2013-06-10 15:50:01.299054'
+  updated_at: '2013-06-10 15:50:01.299054'
+communes_002:
+  id: '2'
+  name: CAMINA
+  region_id: '1'
+  created_at: '2013-06-10 15:50:01.303406'
+  updated_at: '2013-06-10 15:50:01.303406'
+communes_003:
+  id: '3'
+  name: COLCHANE
+  region_id: '1'
+  created_at: '2013-06-10 15:50:01.305907'
+  updated_at: '2013-06-10 15:50:01.305907'
+communes_004:
+  id: '4'
+  name: HUARA
+  region_id: '1'
+  created_at: '2013-06-10 15:50:01.307925'
+  updated_at: '2013-06-10 15:50:01.307925'
+communes_005:
+  id: '5'
+  name: IQUIQUE
+  region_id: '1'
+  created_at: '2013-06-10 15:50:01.309771'
+  updated_at: '2013-06-10 15:50:01.309771'
+communes_006:
+  id: '6'
+  name: PICA
+  region_id: '1'
+  created_at: '2013-06-10 15:50:01.311782'
+  updated_at: '2013-06-10 15:50:01.311782'
+communes_007:
+  id: '7'
+  name: POZO ALMONTE
+  region_id: '1'
+  created_at: '2013-06-10 15:50:01.313732'
+  updated_at: '2013-06-10 15:50:01.313732'
+communes_008:
+  id: '8'
+  name: ANTOFAGASTA
+  region_id: '2'
+  created_at: '2013-06-10 15:50:01.315611'
+  updated_at: '2013-06-10 15:50:01.315611'
+communes_009:
+  id: '9'
+  name: CALAMA
+  region_id: '2'
+  created_at: '2013-06-10 15:50:01.317567'
+  updated_at: '2013-06-10 15:50:01.317567'
+communes_010:
+  id: '10'
+  name: MARIA ELENA
+  region_id: '2'
+  created_at: '2013-06-10 15:50:01.319399'
+  updated_at: '2013-06-10 15:50:01.319399'
+communes_011:
+  id: '11'
+  name: MEJILLONES
+  region_id: '2'
+  created_at: '2013-06-10 15:50:01.321289'
+  updated_at: '2013-06-10 15:50:01.321289'
+communes_012:
+  id: '12'
+  name: OLLAGÜE
+  region_id: '2'
+  created_at: '2013-06-10 15:50:01.323109'
+  updated_at: '2013-06-10 15:50:01.323109'
+communes_013:
+  id: '13'
+  name: SAN PEDRO DE ATACAMA
+  region_id: '2'
+  created_at: '2013-06-10 15:50:01.325014'
+  updated_at: '2013-06-10 15:50:01.325014'
+communes_014:
+  id: '14'
+  name: SIERRA GORDA
+  region_id: '2'
+  created_at: '2013-06-10 15:50:01.349029'
+  updated_at: '2013-06-10 15:50:01.349029'
+communes_015:
+  id: '15'
+  name: TALTAL
+  region_id: '2'
+  created_at: '2013-06-10 15:50:01.350949'
+  updated_at: '2013-06-10 15:50:01.350949'
+communes_016:
+  id: '16'
+  name: TOCOPILLA
+  region_id: '2'
+  created_at: '2013-06-10 15:50:01.352799'
+  updated_at: '2013-06-10 15:50:01.352799'
+communes_017:
+  id: '17'
+  name: ALTO DEL CARMEN
+  region_id: '3'
+  created_at: '2013-06-10 15:50:01.355301'
+  updated_at: '2013-06-10 15:50:01.355301'
+communes_018:
+  id: '18'
+  name: CALDERA
+  region_id: '3'
+  created_at: '2013-06-10 15:50:01.357122'
+  updated_at: '2013-06-10 15:50:01.357122'
+communes_019:
+  id: '19'
+  name: CHAÑARAL
+  region_id: '3'
+  created_at: '2013-06-10 15:50:01.359012'
+  updated_at: '2013-06-10 15:50:01.359012'
+communes_020:
+  id: '20'
+  name: COPIAPO
+  region_id: '3'
+  created_at: '2013-06-10 15:50:01.360862'
+  updated_at: '2013-06-10 15:50:01.360862'
+communes_021:
+  id: '21'
+  name: DIEGO DE ALMAGRO
+  region_id: '3'
+  created_at: '2013-06-10 15:50:01.362909'
+  updated_at: '2013-06-10 15:50:01.362909'
+communes_022:
+  id: '22'
+  name: FREIRINA
+  region_id: '3'
+  created_at: '2013-06-10 15:50:01.364958'
+  updated_at: '2013-06-10 15:50:01.364958'
+communes_023:
+  id: '23'
+  name: HUASCO
+  region_id: '3'
+  created_at: '2013-06-10 15:50:01.36712'
+  updated_at: '2013-06-10 15:50:01.36712'
+communes_024:
+  id: '24'
+  name: TIERRA AMARILLA
+  region_id: '3'
+  created_at: '2013-06-10 15:50:01.368997'
+  updated_at: '2013-06-10 15:50:01.368997'
+communes_025:
+  id: '25'
+  name: VALLENAR
+  region_id: '3'
+  created_at: '2013-06-10 15:50:01.370803'
+  updated_at: '2013-06-10 15:50:01.370803'
+communes_026:
+  id: '26'
+  name: ANDACOLLO
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.372598'
+  updated_at: '2013-06-10 15:50:01.372598'
+communes_027:
+  id: '27'
+  name: CANELA
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.374375'
+  updated_at: '2013-06-10 15:50:01.374375'
+communes_028:
+  id: '28'
+  name: COMBARBALA
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.376376'
+  updated_at: '2013-06-10 15:50:01.376376'
+communes_029:
+  id: '29'
+  name: COQUIMBO
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.378176'
+  updated_at: '2013-06-10 15:50:01.378176'
+communes_030:
+  id: '30'
+  name: ILLAPEL
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.379969'
+  updated_at: '2013-06-10 15:50:01.379969'
+communes_031:
+  id: '31'
+  name: LA HIGUERA
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.381763'
+  updated_at: '2013-06-10 15:50:01.381763'
+communes_032:
+  id: '32'
+  name: LA SERENA
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.383565'
+  updated_at: '2013-06-10 15:50:01.383565'
+communes_033:
+  id: '33'
+  name: LOS VILOS
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.385333'
+  updated_at: '2013-06-10 15:50:01.385333'
+communes_034:
+  id: '34'
+  name: MONTE PATRIA
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.387182'
+  updated_at: '2013-06-10 15:50:01.387182'
+communes_035:
+  id: '35'
+  name: OVALLE
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.389191'
+  updated_at: '2013-06-10 15:50:01.389191'
+communes_036:
+  id: '36'
+  name: PAIHUANO
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.391131'
+  updated_at: '2013-06-10 15:50:01.391131'
+communes_037:
+  id: '37'
+  name: PUNITAQUI
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.393149'
+  updated_at: '2013-06-10 15:50:01.393149'
+communes_038:
+  id: '38'
+  name: RIO HURTADO
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.394976'
+  updated_at: '2013-06-10 15:50:01.394976'
+communes_039:
+  id: '39'
+  name: SALAMANCA
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.396732'
+  updated_at: '2013-06-10 15:50:01.396732'
+communes_040:
+  id: '40'
+  name: VICUÑA
+  region_id: '4'
+  created_at: '2013-06-10 15:50:01.398961'
+  updated_at: '2013-06-10 15:50:01.398961'
+communes_041:
+  id: '41'
+  name: ALGARROBO
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.401059'
+  updated_at: '2013-06-10 15:50:01.401059'
+communes_042:
+  id: '42'
+  name: CABILDO
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.4029'
+  updated_at: '2013-06-10 15:50:01.4029'
+communes_043:
+  id: '43'
+  name: CALLE LARGA
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.404685'
+  updated_at: '2013-06-10 15:50:01.404685'
+communes_044:
+  id: '44'
+  name: CARTAGENA
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.406512'
+  updated_at: '2013-06-10 15:50:01.406512'
+communes_045:
+  id: '45'
+  name: CASABLANCA
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.408305'
+  updated_at: '2013-06-10 15:50:01.408305'
+communes_046:
+  id: '46'
+  name: CATEMU
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.411385'
+  updated_at: '2013-06-10 15:50:01.411385'
+communes_047:
+  id: '47'
+  name: CONCON
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.413467'
+  updated_at: '2013-06-10 15:50:01.413467'
+communes_048:
+  id: '48'
+  name: EL QUISCO
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.415404'
+  updated_at: '2013-06-10 15:50:01.415404'
+communes_049:
+  id: '49'
+  name: EL TABO
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.417322'
+  updated_at: '2013-06-10 15:50:01.417322'
+communes_050:
+  id: '50'
+  name: HIJUELAS
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.419219'
+  updated_at: '2013-06-10 15:50:01.419219'
+communes_051:
+  id: '51'
+  name: ISLA DE PASCUA
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.422007'
+  updated_at: '2013-06-10 15:50:01.422007'
+communes_052:
+  id: '52'
+  name: JUAN FERNANDEZ
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.42409'
+  updated_at: '2013-06-10 15:50:01.42409'
+communes_053:
+  id: '53'
+  name: LA CALERA
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.425899'
+  updated_at: '2013-06-10 15:50:01.425899'
+communes_054:
+  id: '54'
+  name: LA CRUZ
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.427838'
+  updated_at: '2013-06-10 15:50:01.427838'
+communes_055:
+  id: '55'
+  name: LA LIGUA
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.429605'
+  updated_at: '2013-06-10 15:50:01.429605'
+communes_056:
+  id: '56'
+  name: LIMACHE
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.4313'
+  updated_at: '2013-06-10 15:50:01.4313'
+communes_057:
+  id: '57'
+  name: LLAY LLAY
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.433208'
+  updated_at: '2013-06-10 15:50:01.433208'
+communes_058:
+  id: '58'
+  name: LOS ANDES
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.434963'
+  updated_at: '2013-06-10 15:50:01.434963'
+communes_059:
+  id: '59'
+  name: NOGALES
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.436727'
+  updated_at: '2013-06-10 15:50:01.436727'
+communes_060:
+  id: '60'
+  name: OLMUE
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.438477'
+  updated_at: '2013-06-10 15:50:01.438477'
+communes_061:
+  id: '61'
+  name: PANQUEHUE
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.440232'
+  updated_at: '2013-06-10 15:50:01.440232'
+communes_062:
+  id: '62'
+  name: PAPUDO
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.442003'
+  updated_at: '2013-06-10 15:50:01.442003'
+communes_063:
+  id: '63'
+  name: PETORCA
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.444075'
+  updated_at: '2013-06-10 15:50:01.444075'
+communes_064:
+  id: '64'
+  name: PUCHUNCAVI
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.445993'
+  updated_at: '2013-06-10 15:50:01.445993'
+communes_065:
+  id: '65'
+  name: PUTAENDO
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.44782'
+  updated_at: '2013-06-10 15:50:01.44782'
+communes_066:
+  id: '66'
+  name: QUILLOTA
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.449772'
+  updated_at: '2013-06-10 15:50:01.449772'
+communes_067:
+  id: '67'
+  name: QUILPUE
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.451664'
+  updated_at: '2013-06-10 15:50:01.451664'
+communes_068:
+  id: '68'
+  name: QUINTERO
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.453344'
+  updated_at: '2013-06-10 15:50:01.453344'
+communes_069:
+  id: '69'
+  name: RINCONADA
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.455276'
+  updated_at: '2013-06-10 15:50:01.455276'
+communes_070:
+  id: '70'
+  name: SAN ANTONIO
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.457102'
+  updated_at: '2013-06-10 15:50:01.457102'
+communes_071:
+  id: '71'
+  name: SAN ESTEBAN
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.458907'
+  updated_at: '2013-06-10 15:50:01.458907'
+communes_072:
+  id: '72'
+  name: SAN FELIPE
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.460708'
+  updated_at: '2013-06-10 15:50:01.460708'
+communes_073:
+  id: '73'
+  name: SANTA MARIA
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.462518'
+  updated_at: '2013-06-10 15:50:01.462518'
+communes_074:
+  id: '74'
+  name: SANTO DOMINGO
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.464414'
+  updated_at: '2013-06-10 15:50:01.464414'
+communes_075:
+  id: '75'
+  name: VALPARAISO
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.466388'
+  updated_at: '2013-06-10 15:50:01.466388'
+communes_076:
+  id: '76'
+  name: VILLA ALEMANA
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.468277'
+  updated_at: '2013-06-10 15:50:01.468277'
+communes_077:
+  id: '77'
+  name: VIÑA DEL MAR
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.470159'
+  updated_at: '2013-06-10 15:50:01.470159'
+communes_078:
+  id: '78'
+  name: ZAPALLAR
+  region_id: '5'
+  created_at: '2013-06-10 15:50:01.471988'
+  updated_at: '2013-06-10 15:50:01.471988'
+communes_079:
+  id: '79'
+  name: CHEPICA
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.473805'
+  updated_at: '2013-06-10 15:50:01.473805'
+communes_080:
+  id: '80'
+  name: CHIMBARONGO
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.47562'
+  updated_at: '2013-06-10 15:50:01.47562'
+communes_081:
+  id: '81'
+  name: CODEGUA
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.47755'
+  updated_at: '2013-06-10 15:50:01.47755'
+communes_082:
+  id: '82'
+  name: COINCO
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.479505'
+  updated_at: '2013-06-10 15:50:01.479505'
+communes_083:
+  id: '83'
+  name: COLTAUCO
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.481169'
+  updated_at: '2013-06-10 15:50:01.481169'
+communes_084:
+  id: '84'
+  name: DOÑIHUE
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.482985'
+  updated_at: '2013-06-10 15:50:01.482985'
+communes_085:
+  id: '85'
+  name: GRANEROS
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.484737'
+  updated_at: '2013-06-10 15:50:01.484737'
+communes_086:
+  id: '86'
+  name: LA ESTRELLA
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.486455'
+  updated_at: '2013-06-10 15:50:01.486455'
+communes_087:
+  id: '87'
+  name: LAS CABRAS
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.488955'
+  updated_at: '2013-06-10 15:50:01.488955'
+communes_088:
+  id: '88'
+  name: LITUECHE
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.491077'
+  updated_at: '2013-06-10 15:50:01.491077'
+communes_089:
+  id: '89'
+  name: LOLOL
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.49289'
+  updated_at: '2013-06-10 15:50:01.49289'
+communes_090:
+  id: '90'
+  name: MACHALI
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.494649'
+  updated_at: '2013-06-10 15:50:01.494649'
+communes_091:
+  id: '91'
+  name: MALLOA
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.496405'
+  updated_at: '2013-06-10 15:50:01.496405'
+communes_092:
+  id: '92'
+  name: MARCHIGUE
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.498088'
+  updated_at: '2013-06-10 15:50:01.498088'
+communes_093:
+  id: '93'
+  name: NANCAGUA
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.499994'
+  updated_at: '2013-06-10 15:50:01.499994'
+communes_094:
+  id: '94'
+  name: NAVIDAD
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.501797'
+  updated_at: '2013-06-10 15:50:01.501797'
+communes_095:
+  id: '95'
+  name: OLIVAR
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.503548'
+  updated_at: '2013-06-10 15:50:01.503548'
+communes_096:
+  id: '96'
+  name: PALMILLA
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.505282'
+  updated_at: '2013-06-10 15:50:01.505282'
+communes_097:
+  id: '97'
+  name: PAREDONES
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.507069'
+  updated_at: '2013-06-10 15:50:01.507069'
+communes_098:
+  id: '98'
+  name: PERALILLO
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.508814'
+  updated_at: '2013-06-10 15:50:01.508814'
+communes_099:
+  id: '99'
+  name: PEUMO
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.511176'
+  updated_at: '2013-06-10 15:50:01.511176'
+communes_100:
+  id: '100'
+  name: PICHIDEGUA
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.512954'
+  updated_at: '2013-06-10 15:50:01.512954'
+communes_101:
+  id: '101'
+  name: PICHILEMU
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.514852'
+  updated_at: '2013-06-10 15:50:01.514852'
+communes_102:
+  id: '102'
+  name: PLACILLA
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.517223'
+  updated_at: '2013-06-10 15:50:01.517223'
+communes_103:
+  id: '103'
+  name: PUMANQUE
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.519059'
+  updated_at: '2013-06-10 15:50:01.519059'
+communes_104:
+  id: '104'
+  name: QUINTA DE TILCOCO
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.52083'
+  updated_at: '2013-06-10 15:50:01.52083'
+communes_105:
+  id: '105'
+  name: RANCAGUA
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.522583'
+  updated_at: '2013-06-10 15:50:01.522583'
+communes_106:
+  id: '106'
+  name: RENGO
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.524442'
+  updated_at: '2013-06-10 15:50:01.524442'
+communes_107:
+  id: '107'
+  name: REQUINOA
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.526318'
+  updated_at: '2013-06-10 15:50:01.526318'
+communes_108:
+  id: '108'
+  name: SAN FERNANDO
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.528179'
+  updated_at: '2013-06-10 15:50:01.528179'
+communes_109:
+  id: '109'
+  name: SAN FRANCISCO DE MOSTAZAL
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.530108'
+  updated_at: '2013-06-10 15:50:01.530108'
+communes_110:
+  id: '110'
+  name: SAN VICENTE
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.531961'
+  updated_at: '2013-06-10 15:50:01.531961'
+communes_111:
+  id: '111'
+  name: SANTA CRUZ
+  region_id: '6'
+  created_at: '2013-06-10 15:50:01.533864'
+  updated_at: '2013-06-10 15:50:01.533864'
+communes_112:
+  id: '112'
+  name: CAUQUENES
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.535655'
+  updated_at: '2013-06-10 15:50:01.535655'
+communes_113:
+  id: '113'
+  name: CHANCO
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.537637'
+  updated_at: '2013-06-10 15:50:01.537637'
+communes_114:
+  id: '114'
+  name: COLBUN
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.539574'
+  updated_at: '2013-06-10 15:50:01.539574'
+communes_115:
+  id: '115'
+  name: CONSTITUCION
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.541495'
+  updated_at: '2013-06-10 15:50:01.541495'
+communes_116:
+  id: '116'
+  name: CUREPTO
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.543426'
+  updated_at: '2013-06-10 15:50:01.543426'
+communes_117:
+  id: '117'
+  name: CURICO
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.545295'
+  updated_at: '2013-06-10 15:50:01.545295'
+communes_118:
+  id: '118'
+  name: EMPEDRADO
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.547203'
+  updated_at: '2013-06-10 15:50:01.547203'
+communes_119:
+  id: '119'
+  name: HUALAÑE
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.549109'
+  updated_at: '2013-06-10 15:50:01.549109'
+communes_120:
+  id: '120'
+  name: LICANTEN
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.551103'
+  updated_at: '2013-06-10 15:50:01.551103'
+communes_121:
+  id: '121'
+  name: LINARES
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.553041'
+  updated_at: '2013-06-10 15:50:01.553041'
+communes_122:
+  id: '122'
+  name: LONGAVI
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.555693'
+  updated_at: '2013-06-10 15:50:01.555693'
+communes_123:
+  id: '123'
+  name: MAULE
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.557658'
+  updated_at: '2013-06-10 15:50:01.557658'
+communes_124:
+  id: '124'
+  name: MOLINA
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.559498'
+  updated_at: '2013-06-10 15:50:01.559498'
+communes_125:
+  id: '125'
+  name: PARRAL
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.561349'
+  updated_at: '2013-06-10 15:50:01.561349'
+communes_126:
+  id: '126'
+  name: PELARCO
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.563502'
+  updated_at: '2013-06-10 15:50:01.563502'
+communes_127:
+  id: '127'
+  name: PELLUHUE
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.565705'
+  updated_at: '2013-06-10 15:50:01.565705'
+communes_128:
+  id: '128'
+  name: PENCAHUE
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.567562'
+  updated_at: '2013-06-10 15:50:01.567562'
+communes_129:
+  id: '129'
+  name: RAUCO
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.569412'
+  updated_at: '2013-06-10 15:50:01.569412'
+communes_130:
+  id: '130'
+  name: RETIRO
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.571258'
+  updated_at: '2013-06-10 15:50:01.571258'
+communes_131:
+  id: '131'
+  name: RIO CLARO
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.573226'
+  updated_at: '2013-06-10 15:50:01.573226'
+communes_132:
+  id: '132'
+  name: ROMERAL
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.57505'
+  updated_at: '2013-06-10 15:50:01.57505'
+communes_133:
+  id: '133'
+  name: SAGRADA FAMILIA
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.576858'
+  updated_at: '2013-06-10 15:50:01.576858'
+communes_134:
+  id: '134'
+  name: SAN CLEMENTE
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.57877'
+  updated_at: '2013-06-10 15:50:01.57877'
+communes_135:
+  id: '135'
+  name: SAN JAVIER
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.580664'
+  updated_at: '2013-06-10 15:50:01.580664'
+communes_136:
+  id: '136'
+  name: SAN RAFAEL
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.582577'
+  updated_at: '2013-06-10 15:50:01.582577'
+communes_137:
+  id: '137'
+  name: TALCA
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.584581'
+  updated_at: '2013-06-10 15:50:01.584581'
+communes_138:
+  id: '138'
+  name: TENO
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.586484'
+  updated_at: '2013-06-10 15:50:01.586484'
+communes_139:
+  id: '139'
+  name: VICHUQUEN
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.589166'
+  updated_at: '2013-06-10 15:50:01.589166'
+communes_140:
+  id: '140'
+  name: VILLA ALEGRE
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.591048'
+  updated_at: '2013-06-10 15:50:01.591048'
+communes_141:
+  id: '141'
+  name: YERBAS BUENAS
+  region_id: '7'
+  created_at: '2013-06-10 15:50:01.59302'
+  updated_at: '2013-06-10 15:50:01.59302'
+communes_142:
+  id: '142'
+  name: ANTUCO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.595045'
+  updated_at: '2013-06-10 15:50:01.595045'
+communes_143:
+  id: '143'
+  name: ARAUCO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.596924'
+  updated_at: '2013-06-10 15:50:01.596924'
+communes_144:
+  id: '144'
+  name: BULNES
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.599098'
+  updated_at: '2013-06-10 15:50:01.599098'
+communes_145:
+  id: '145'
+  name: CABRERO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.601067'
+  updated_at: '2013-06-10 15:50:01.601067'
+communes_146:
+  id: '146'
+  name: CAÑETE
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.60296'
+  updated_at: '2013-06-10 15:50:01.60296'
+communes_147:
+  id: '147'
+  name: CHIGUAYANTE
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.604811'
+  updated_at: '2013-06-10 15:50:01.604811'
+communes_148:
+  id: '148'
+  name: CHILLAN
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.606682'
+  updated_at: '2013-06-10 15:50:01.606682'
+communes_149:
+  id: '149'
+  name: CHILLAN VIEJO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.608594'
+  updated_at: '2013-06-10 15:50:01.608594'
+communes_150:
+  id: '150'
+  name: COBQUECURA
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.611386'
+  updated_at: '2013-06-10 15:50:01.611386'
+communes_151:
+  id: '151'
+  name: COELEMU
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.61334'
+  updated_at: '2013-06-10 15:50:01.61334'
+communes_152:
+  id: '152'
+  name: COIHUECO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.61518'
+  updated_at: '2013-06-10 15:50:01.61518'
+communes_153:
+  id: '153'
+  name: CONCEPCION
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.617175'
+  updated_at: '2013-06-10 15:50:01.617175'
+communes_154:
+  id: '154'
+  name: CONTULMO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.619514'
+  updated_at: '2013-06-10 15:50:01.619514'
+communes_155:
+  id: '155'
+  name: CORONEL
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.621543'
+  updated_at: '2013-06-10 15:50:01.621543'
+communes_156:
+  id: '156'
+  name: CURANILAHUE
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.623476'
+  updated_at: '2013-06-10 15:50:01.623476'
+communes_157:
+  id: '157'
+  name: EL CARMEN
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.625404'
+  updated_at: '2013-06-10 15:50:01.625404'
+communes_158:
+  id: '158'
+  name: FLORIDA
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.627343'
+  updated_at: '2013-06-10 15:50:01.627343'
+communes_159:
+  id: '159'
+  name: HUALQUI
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.629349'
+  updated_at: '2013-06-10 15:50:01.629349'
+communes_160:
+  id: '160'
+  name: LAJA
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.63115'
+  updated_at: '2013-06-10 15:50:01.63115'
+communes_161:
+  id: '161'
+  name: LEBU
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.633654'
+  updated_at: '2013-06-10 15:50:01.633654'
+communes_162:
+  id: '162'
+  name: LOS ALAMOS
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.635456'
+  updated_at: '2013-06-10 15:50:01.635456'
+communes_163:
+  id: '163'
+  name: LOS ANGELES
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.637252'
+  updated_at: '2013-06-10 15:50:01.637252'
+communes_164:
+  id: '164'
+  name: LOTA
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.639105'
+  updated_at: '2013-06-10 15:50:01.639105'
+communes_165:
+  id: '165'
+  name: MULCHEN
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.641072'
+  updated_at: '2013-06-10 15:50:01.641072'
+communes_166:
+  id: '166'
+  name: NACIMIENTO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.643058'
+  updated_at: '2013-06-10 15:50:01.643058'
+communes_167:
+  id: '167'
+  name: NEGRETE
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.644883'
+  updated_at: '2013-06-10 15:50:01.644883'
+communes_168:
+  id: '168'
+  name: NINHUE
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.646736'
+  updated_at: '2013-06-10 15:50:01.646736'
+communes_169:
+  id: '169'
+  name: PEMUCO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.648443'
+  updated_at: '2013-06-10 15:50:01.648443'
+communes_170:
+  id: '170'
+  name: PENCO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.650352'
+  updated_at: '2013-06-10 15:50:01.650352'
+communes_171:
+  id: '171'
+  name: PINTO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.652326'
+  updated_at: '2013-06-10 15:50:01.652326'
+communes_172:
+  id: '172'
+  name: PORTEZUELO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.654339'
+  updated_at: '2013-06-10 15:50:01.654339'
+communes_173:
+  id: '173'
+  name: QUILACO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.656131'
+  updated_at: '2013-06-10 15:50:01.656131'
+communes_174:
+  id: '174'
+  name: QUILLECO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.657976'
+  updated_at: '2013-06-10 15:50:01.657976'
+communes_175:
+  id: '175'
+  name: QUILLON
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.659897'
+  updated_at: '2013-06-10 15:50:01.659897'
+communes_176:
+  id: '176'
+  name: QUIRIHUE
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.661778'
+  updated_at: '2013-06-10 15:50:01.661778'
+communes_177:
+  id: '177'
+  name: RANQUIL
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.663756'
+  updated_at: '2013-06-10 15:50:01.663756'
+communes_178:
+  id: '178'
+  name: SAN CARLOS
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.667855'
+  updated_at: '2013-06-10 15:50:01.667855'
+communes_179:
+  id: '179'
+  name: SAN FABIAN
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.669983'
+  updated_at: '2013-06-10 15:50:01.669983'
+communes_180:
+  id: '180'
+  name: SAN GREGORIO DE ÑIQUEN
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.671934'
+  updated_at: '2013-06-10 15:50:01.671934'
+communes_181:
+  id: '181'
+  name: SAN IGNACIO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.673776'
+  updated_at: '2013-06-10 15:50:01.673776'
+communes_182:
+  id: '182'
+  name: SAN NICOLAS
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.675665'
+  updated_at: '2013-06-10 15:50:01.675665'
+communes_183:
+  id: '183'
+  name: SAN PEDRO DE LA PAZ
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.678211'
+  updated_at: '2013-06-10 15:50:01.678211'
+communes_184:
+  id: '184'
+  name: SAN ROSENDO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.680098'
+  updated_at: '2013-06-10 15:50:01.680098'
+communes_185:
+  id: '185'
+  name: SANTA BARBARA
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.681821'
+  updated_at: '2013-06-10 15:50:01.681821'
+communes_186:
+  id: '186'
+  name: SANTA JUANA
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.683747'
+  updated_at: '2013-06-10 15:50:01.683747'
+communes_187:
+  id: '187'
+  name: TALCAHUANO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.685763'
+  updated_at: '2013-06-10 15:50:01.685763'
+communes_188:
+  id: '188'
+  name: TIRUA
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.687668'
+  updated_at: '2013-06-10 15:50:01.687668'
+communes_189:
+  id: '189'
+  name: TOME
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.689434'
+  updated_at: '2013-06-10 15:50:01.689434'
+communes_190:
+  id: '190'
+  name: TREHUACO
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.691269'
+  updated_at: '2013-06-10 15:50:01.691269'
+communes_191:
+  id: '191'
+  name: TUCAPEL
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.693053'
+  updated_at: '2013-06-10 15:50:01.693053'
+communes_192:
+  id: '192'
+  name: YUMBEL
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.694916'
+  updated_at: '2013-06-10 15:50:01.694916'
+communes_193:
+  id: '193'
+  name: YUNGAY
+  region_id: '8'
+  created_at: '2013-06-10 15:50:01.696768'
+  updated_at: '2013-06-10 15:50:01.696768'
+communes_194:
+  id: '194'
+  name: ANGOL
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.698487'
+  updated_at: '2013-06-10 15:50:01.698487'
+communes_195:
+  id: '195'
+  name: CARAHUE
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.70054'
+  updated_at: '2013-06-10 15:50:01.70054'
+communes_196:
+  id: '196'
+  name: COLLIPULLI
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.702426'
+  updated_at: '2013-06-10 15:50:01.702426'
+communes_197:
+  id: '197'
+  name: CUNCO
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.704345'
+  updated_at: '2013-06-10 15:50:01.704345'
+communes_198:
+  id: '198'
+  name: CURACAUTIN
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.706312'
+  updated_at: '2013-06-10 15:50:01.706312'
+communes_199:
+  id: '199'
+  name: CURARREHUE
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.70825'
+  updated_at: '2013-06-10 15:50:01.70825'
+communes_200:
+  id: '200'
+  name: ERCILLA
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.710379'
+  updated_at: '2013-06-10 15:50:01.710379'
+communes_201:
+  id: '201'
+  name: FREIRE
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.712213'
+  updated_at: '2013-06-10 15:50:01.712213'
+communes_202:
+  id: '202'
+  name: GALVARINO
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.714042'
+  updated_at: '2013-06-10 15:50:01.714042'
+communes_203:
+  id: '203'
+  name: GORBEA
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.715869'
+  updated_at: '2013-06-10 15:50:01.715869'
+communes_204:
+  id: '204'
+  name: LAUTARO
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.717691'
+  updated_at: '2013-06-10 15:50:01.717691'
+communes_205:
+  id: '205'
+  name: LONCOCHE
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.719525'
+  updated_at: '2013-06-10 15:50:01.719525'
+communes_206:
+  id: '206'
+  name: LONQUIMAY
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.721506'
+  updated_at: '2013-06-10 15:50:01.721506'
+communes_207:
+  id: '207'
+  name: LOS SAUCES
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.723285'
+  updated_at: '2013-06-10 15:50:01.723285'
+communes_208:
+  id: '208'
+  name: LUMACO
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.72508'
+  updated_at: '2013-06-10 15:50:01.72508'
+communes_209:
+  id: '209'
+  name: MELIPEUCO
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.727188'
+  updated_at: '2013-06-10 15:50:01.727188'
+communes_210:
+  id: '210'
+  name: NUEVA IMPERIAL
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.729413'
+  updated_at: '2013-06-10 15:50:01.729413'
+communes_211:
+  id: '211'
+  name: PADRE LAS CASAS
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.731416'
+  updated_at: '2013-06-10 15:50:01.731416'
+communes_212:
+  id: '212'
+  name: PERQUENCO
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.733652'
+  updated_at: '2013-06-10 15:50:01.733652'
+communes_213:
+  id: '213'
+  name: PITRUFQUEN
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.752473'
+  updated_at: '2013-06-10 15:50:01.752473'
+communes_214:
+  id: '214'
+  name: PUCON
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.755139'
+  updated_at: '2013-06-10 15:50:01.755139'
+communes_215:
+  id: '215'
+  name: PUERTO SAAVEDRA
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.757597'
+  updated_at: '2013-06-10 15:50:01.757597'
+communes_216:
+  id: '216'
+  name: PUREN
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.759915'
+  updated_at: '2013-06-10 15:50:01.759915'
+communes_217:
+  id: '217'
+  name: RENAICO
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.762261'
+  updated_at: '2013-06-10 15:50:01.762261'
+communes_218:
+  id: '218'
+  name: TEMUCO
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.764492'
+  updated_at: '2013-06-10 15:50:01.764492'
+communes_219:
+  id: '219'
+  name: TEODORO SCHMIDT
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.767173'
+  updated_at: '2013-06-10 15:50:01.767173'
+communes_220:
+  id: '220'
+  name: TOLTEN
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.76969'
+  updated_at: '2013-06-10 15:50:01.76969'
+communes_221:
+  id: '221'
+  name: TRAIGUEN
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.77209'
+  updated_at: '2013-06-10 15:50:01.77209'
+communes_222:
+  id: '222'
+  name: VICTORIA
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.774379'
+  updated_at: '2013-06-10 15:50:01.774379'
+communes_223:
+  id: '223'
+  name: VILCUN
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.776834'
+  updated_at: '2013-06-10 15:50:01.776834'
+communes_224:
+  id: '224'
+  name: VILLARRICA
+  region_id: '9'
+  created_at: '2013-06-10 15:50:01.779201'
+  updated_at: '2013-06-10 15:50:01.779201'
+communes_225:
+  id: '225'
+  name: ANCUD
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.78154'
+  updated_at: '2013-06-10 15:50:01.78154'
+communes_226:
+  id: '226'
+  name: CALBUCO
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.784052'
+  updated_at: '2013-06-10 15:50:01.784052'
+communes_227:
+  id: '227'
+  name: CASTRO
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.786482'
+  updated_at: '2013-06-10 15:50:01.786482'
+communes_228:
+  id: '228'
+  name: CHAITEN
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.789753'
+  updated_at: '2013-06-10 15:50:01.789753'
+communes_229:
+  id: '229'
+  name: CHONCHI
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.792168'
+  updated_at: '2013-06-10 15:50:01.792168'
+communes_230:
+  id: '230'
+  name: COCHAMO
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.794315'
+  updated_at: '2013-06-10 15:50:01.794315'
+communes_231:
+  id: '231'
+  name: CURACO DE VELEZ
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.796771'
+  updated_at: '2013-06-10 15:50:01.796771'
+communes_232:
+  id: '232'
+  name: DALCAHUE
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.79929'
+  updated_at: '2013-06-10 15:50:01.79929'
+communes_233:
+  id: '233'
+  name: FRESIA
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.801782'
+  updated_at: '2013-06-10 15:50:01.801782'
+communes_234:
+  id: '234'
+  name: FRUTILLAR
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.80438'
+  updated_at: '2013-06-10 15:50:01.80438'
+communes_235:
+  id: '235'
+  name: FUTALEUFU
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.806789'
+  updated_at: '2013-06-10 15:50:01.806789'
+communes_236:
+  id: '236'
+  name: HUALAIHUE
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.809102'
+  updated_at: '2013-06-10 15:50:01.809102'
+communes_237:
+  id: '237'
+  name: LLANQUIHUE
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.812014'
+  updated_at: '2013-06-10 15:50:01.812014'
+communes_238:
+  id: '238'
+  name: LOS MUERMOS
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.814884'
+  updated_at: '2013-06-10 15:50:01.814884'
+communes_239:
+  id: '239'
+  name: MAULLIN
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.817606'
+  updated_at: '2013-06-10 15:50:01.817606'
+communes_240:
+  id: '240'
+  name: OSORNO
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.819963'
+  updated_at: '2013-06-10 15:50:01.819963'
+communes_241:
+  id: '241'
+  name: PALENA
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.823663'
+  updated_at: '2013-06-10 15:50:01.823663'
+communes_242:
+  id: '242'
+  name: PUERTO MONTT
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.826326'
+  updated_at: '2013-06-10 15:50:01.826326'
+communes_243:
+  id: '243'
+  name: PUERTO OCTAY
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.828835'
+  updated_at: '2013-06-10 15:50:01.828835'
+communes_244:
+  id: '244'
+  name: PUERTO VARAS
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.831261'
+  updated_at: '2013-06-10 15:50:01.831261'
+communes_245:
+  id: '245'
+  name: PUQUELDON
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.834086'
+  updated_at: '2013-06-10 15:50:01.834086'
+communes_246:
+  id: '246'
+  name: PURRANQUE
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.836467'
+  updated_at: '2013-06-10 15:50:01.836467'
+communes_247:
+  id: '247'
+  name: PUYEHUE
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.838821'
+  updated_at: '2013-06-10 15:50:01.838821'
+communes_248:
+  id: '248'
+  name: QUEILEN
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.841246'
+  updated_at: '2013-06-10 15:50:01.841246'
+communes_249:
+  id: '249'
+  name: QUELLON
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.843674'
+  updated_at: '2013-06-10 15:50:01.843674'
+communes_250:
+  id: '250'
+  name: QUEMCHI
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.846126'
+  updated_at: '2013-06-10 15:50:01.846126'
+communes_251:
+  id: '251'
+  name: QUINCHAO
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.84848'
+  updated_at: '2013-06-10 15:50:01.84848'
+communes_252:
+  id: '252'
+  name: RIO NEGRO
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.850959'
+  updated_at: '2013-06-10 15:50:01.850959'
+communes_253:
+  id: '253'
+  name: SAN JUAN DE LA COSTA
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.853384'
+  updated_at: '2013-06-10 15:50:01.853384'
+communes_254:
+  id: '254'
+  name: SAN PABLO
+  region_id: '10'
+  created_at: '2013-06-10 15:50:01.856241'
+  updated_at: '2013-06-10 15:50:01.856241'
+communes_255:
+  id: '255'
+  name: AYSEN
+  region_id: '11'
+  created_at: '2013-06-10 15:50:01.858682'
+  updated_at: '2013-06-10 15:50:01.858682'
+communes_256:
+  id: '256'
+  name: CHILE CHICO
+  region_id: '11'
+  created_at: '2013-06-10 15:50:01.861059'
+  updated_at: '2013-06-10 15:50:01.861059'
+communes_257:
+  id: '257'
+  name: CISNES
+  region_id: '11'
+  created_at: '2013-06-10 15:50:01.863563'
+  updated_at: '2013-06-10 15:50:01.863563'
+communes_258:
+  id: '258'
+  name: COCHRANE
+  region_id: '11'
+  created_at: '2013-06-10 15:50:01.86645'
+  updated_at: '2013-06-10 15:50:01.86645'
+communes_259:
+  id: '259'
+  name: COYHAIQUE
+  region_id: '11'
+  created_at: '2013-06-10 15:50:01.868891'
+  updated_at: '2013-06-10 15:50:01.868891'
+communes_260:
+  id: '260'
+  name: GUAITECAS
+  region_id: '11'
+  created_at: '2013-06-10 15:50:01.871687'
+  updated_at: '2013-06-10 15:50:01.871687'
+communes_261:
+  id: '261'
+  name: LAGO VERDE
+  region_id: '11'
+  created_at: '2013-06-10 15:50:01.874254'
+  updated_at: '2013-06-10 15:50:01.874254'
+communes_262:
+  id: '262'
+  name: O´HIGGINS
+  region_id: '11'
+  created_at: '2013-06-10 15:50:01.87656'
+  updated_at: '2013-06-10 15:50:01.87656'
+communes_263:
+  id: '263'
+  name: RIO IBAÑEZ
+  region_id: '11'
+  created_at: '2013-06-10 15:50:01.878862'
+  updated_at: '2013-06-10 15:50:01.878862'
+communes_264:
+  id: '264'
+  name: TORTEL
+  region_id: '11'
+  created_at: '2013-06-10 15:50:01.881132'
+  updated_at: '2013-06-10 15:50:01.881132'
+communes_265:
+  id: '265'
+  name: LAGUNA BLANCA
+  region_id: '12'
+  created_at: '2013-06-10 15:50:01.883412'
+  updated_at: '2013-06-10 15:50:01.883412'
+communes_266:
+  id: '266'
+  name: NAVARINO
+  region_id: '12'
+  created_at: '2013-06-10 15:50:01.885673'
+  updated_at: '2013-06-10 15:50:01.885673'
+communes_267:
+  id: '267'
+  name: PORVENIR
+  region_id: '12'
+  created_at: '2013-06-10 15:50:01.887934'
+  updated_at: '2013-06-10 15:50:01.887934'
+communes_268:
+  id: '268'
+  name: PRIMAVERA
+  region_id: '12'
+  created_at: '2013-06-10 15:50:01.890084'
+  updated_at: '2013-06-10 15:50:01.890084'
+communes_269:
+  id: '269'
+  name: PUERTO NATALES
+  region_id: '12'
+  created_at: '2013-06-10 15:50:01.892428'
+  updated_at: '2013-06-10 15:50:01.892428'
+communes_270:
+  id: '270'
+  name: PUNTA ARENAS
+  region_id: '12'
+  created_at: '2013-06-10 15:50:01.894751'
+  updated_at: '2013-06-10 15:50:01.894751'
+communes_271:
+  id: '271'
+  name: RIO VERDE
+  region_id: '12'
+  created_at: '2013-06-10 15:50:01.896953'
+  updated_at: '2013-06-10 15:50:01.896953'
+communes_272:
+  id: '272'
+  name: SAN GREGORIO
+  region_id: '12'
+  created_at: '2013-06-10 15:50:01.899136'
+  updated_at: '2013-06-10 15:50:01.899136'
+communes_273:
+  id: '273'
+  name: TIMAUKEL
+  region_id: '12'
+  created_at: '2013-06-10 15:50:01.901426'
+  updated_at: '2013-06-10 15:50:01.901426'
+communes_274:
+  id: '274'
+  name: TORRES DEL PAINE
+  region_id: '12'
+  created_at: '2013-06-10 15:50:01.903839'
+  updated_at: '2013-06-10 15:50:01.903839'
+communes_275:
+  id: '275'
+  name: ALHUE
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.90626'
+  updated_at: '2013-06-10 15:50:01.90626'
+communes_276:
+  id: '276'
+  name: BUIN
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.908594'
+  updated_at: '2013-06-10 15:50:01.908594'
+communes_277:
+  id: '277'
+  name: CALERA DE TANGO
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.910889'
+  updated_at: '2013-06-10 15:50:01.910889'
+communes_278:
+  id: '278'
+  name: CERRILLOS
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.913156'
+  updated_at: '2013-06-10 15:50:01.913156'
+communes_279:
+  id: '279'
+  name: CERRO NAVIA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.915427'
+  updated_at: '2013-06-10 15:50:01.915427'
+communes_280:
+  id: '280'
+  name: COLINA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.917723'
+  updated_at: '2013-06-10 15:50:01.917723'
+communes_281:
+  id: '281'
+  name: CONCHALI
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.919983'
+  updated_at: '2013-06-10 15:50:01.919983'
+communes_282:
+  id: '282'
+  name: CURACAVI
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.923293'
+  updated_at: '2013-06-10 15:50:01.923293'
+communes_283:
+  id: '283'
+  name: EL BOSQUE
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.925788'
+  updated_at: '2013-06-10 15:50:01.925788'
+communes_284:
+  id: '284'
+  name: EL MONTE
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.928137'
+  updated_at: '2013-06-10 15:50:01.928137'
+communes_285:
+  id: '285'
+  name: ESTACION CENTRAL
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.930477'
+  updated_at: '2013-06-10 15:50:01.930477'
+communes_286:
+  id: '286'
+  name: HUECHURABA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.932629'
+  updated_at: '2013-06-10 15:50:01.932629'
+communes_287:
+  id: '287'
+  name: INDEPENDENCIA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.934997'
+  updated_at: '2013-06-10 15:50:01.934997'
+communes_288:
+  id: '288'
+  name: ISLA DE MAIPO
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.937512'
+  updated_at: '2013-06-10 15:50:01.937512'
+communes_289:
+  id: '289'
+  name: LA CISTERNA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.940023'
+  updated_at: '2013-06-10 15:50:01.940023'
+communes_290:
+  id: '290'
+  name: LA FLORIDA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.942333'
+  updated_at: '2013-06-10 15:50:01.942333'
+communes_291:
+  id: '291'
+  name: LA GRANJA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.94558'
+  updated_at: '2013-06-10 15:50:01.94558'
+communes_292:
+  id: '292'
+  name: LA PINTANA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.947926'
+  updated_at: '2013-06-10 15:50:01.947926'
+communes_293:
+  id: '293'
+  name: LA REINA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.950373'
+  updated_at: '2013-06-10 15:50:01.950373'
+communes_294:
+  id: '294'
+  name: LAMPA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.952807'
+  updated_at: '2013-06-10 15:50:01.952807'
+communes_295:
+  id: '295'
+  name: LAS CONDES
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.955128'
+  updated_at: '2013-06-10 15:50:01.955128'
+communes_296:
+  id: '296'
+  name: LO BARNECHEA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.957516'
+  updated_at: '2013-06-10 15:50:01.957516'
+communes_297:
+  id: '297'
+  name: LO ESPEJO
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.959954'
+  updated_at: '2013-06-10 15:50:01.959954'
+communes_298:
+  id: '298'
+  name: LO PRADO
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.962106'
+  updated_at: '2013-06-10 15:50:01.962106'
+communes_299:
+  id: '299'
+  name: MACUL
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.964459'
+  updated_at: '2013-06-10 15:50:01.964459'
+communes_300:
+  id: '300'
+  name: MAIPU
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.968209'
+  updated_at: '2013-06-10 15:50:01.968209'
+communes_301:
+  id: '301'
+  name: MARIA PINTO
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.97087'
+  updated_at: '2013-06-10 15:50:01.97087'
+communes_302:
+  id: '302'
+  name: MELIPILLA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.973316'
+  updated_at: '2013-06-10 15:50:01.973316'
+communes_303:
+  id: '303'
+  name: ÑUÑOA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.975766'
+  updated_at: '2013-06-10 15:50:01.975766'
+communes_304:
+  id: '304'
+  name: PADRE HURTADO
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.979008'
+  updated_at: '2013-06-10 15:50:01.979008'
+communes_305:
+  id: '305'
+  name: PAINE
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.981634'
+  updated_at: '2013-06-10 15:50:01.981634'
+communes_306:
+  id: '306'
+  name: PEDRO AGUIRRE CERDA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.984158'
+  updated_at: '2013-06-10 15:50:01.984158'
+communes_307:
+  id: '307'
+  name: PEÑAFLOR
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.986725'
+  updated_at: '2013-06-10 15:50:01.986725'
+communes_308:
+  id: '308'
+  name: PEÑALOLEN
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.990114'
+  updated_at: '2013-06-10 15:50:01.990114'
+communes_309:
+  id: '309'
+  name: PIRQUE
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.992531'
+  updated_at: '2013-06-10 15:50:01.992531'
+communes_310:
+  id: '310'
+  name: PROVIDENCIA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.995028'
+  updated_at: '2013-06-10 15:50:01.995028'
+communes_311:
+  id: '311'
+  name: PUDAHUEL
+  region_id: '13'
+  created_at: '2013-06-10 15:50:01.997508'
+  updated_at: '2013-06-10 15:50:01.997508'
+communes_312:
+  id: '312'
+  name: PUENTE ALTO
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.00002'
+  updated_at: '2013-06-10 15:50:02.00002'
+communes_313:
+  id: '313'
+  name: QUILICURA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.032532'
+  updated_at: '2013-06-10 15:50:02.032532'
+communes_314:
+  id: '314'
+  name: QUINTA NORMAL
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.034935'
+  updated_at: '2013-06-10 15:50:02.034935'
+communes_315:
+  id: '315'
+  name: RECOLETA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.036804'
+  updated_at: '2013-06-10 15:50:02.036804'
+communes_316:
+  id: '316'
+  name: RENCA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.038629'
+  updated_at: '2013-06-10 15:50:02.038629'
+communes_317:
+  id: '317'
+  name: SAN BERNARDO
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.040425'
+  updated_at: '2013-06-10 15:50:02.040425'
+communes_318:
+  id: '318'
+  name: SAN JOAQUIN
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.04226'
+  updated_at: '2013-06-10 15:50:02.04226'
+communes_319:
+  id: '319'
+  name: SAN JOSE DE MAIPO
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.044112'
+  updated_at: '2013-06-10 15:50:02.044112'
+communes_320:
+  id: '320'
+  name: SAN MIGUEL
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.045915'
+  updated_at: '2013-06-10 15:50:02.045915'
+communes_321:
+  id: '321'
+  name: SAN PEDRO
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.047741'
+  updated_at: '2013-06-10 15:50:02.047741'
+communes_322:
+  id: '322'
+  name: SAN RAMON
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.049581'
+  updated_at: '2013-06-10 15:50:02.049581'
+communes_323:
+  id: '323'
+  name: SANTIAGO CENTRO
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.051402'
+  updated_at: '2013-06-10 15:50:02.051402'
+communes_324:
+  id: '324'
+  name: SANTIAGO OESTE
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.053203'
+  updated_at: '2013-06-10 15:50:02.053203'
+communes_325:
+  id: '325'
+  name: SANTIAGO SUR
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.055627'
+  updated_at: '2013-06-10 15:50:02.055627'
+communes_326:
+  id: '326'
+  name: TALAGANTE
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.057718'
+  updated_at: '2013-06-10 15:50:02.057718'
+communes_327:
+  id: '327'
+  name: TIL-TIL
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.059652'
+  updated_at: '2013-06-10 15:50:02.059652'
+communes_328:
+  id: '328'
+  name: VITACURA
+  region_id: '13'
+  created_at: '2013-06-10 15:50:02.061513'
+  updated_at: '2013-06-10 15:50:02.061513'
+communes_329:
+  id: '329'
+  name: CORRAL
+  region_id: '14'
+  created_at: '2013-06-10 15:50:02.063424'
+  updated_at: '2013-06-10 15:50:02.063424'
+communes_330:
+  id: '330'
+  name: FUTRONO
+  region_id: '14'
+  created_at: '2013-06-10 15:50:02.06535'
+  updated_at: '2013-06-10 15:50:02.06535'
+communes_331:
+  id: '331'
+  name: LA UNION
+  region_id: '14'
+  created_at: '2013-06-10 15:50:02.067415'
+  updated_at: '2013-06-10 15:50:02.067415'
+communes_332:
+  id: '332'
+  name: LAGO RANCO
+  region_id: '14'
+  created_at: '2013-06-10 15:50:02.069352'
+  updated_at: '2013-06-10 15:50:02.069352'
+communes_333:
+  id: '333'
+  name: LANCO
+  region_id: '14'
+  created_at: '2013-06-10 15:50:02.071259'
+  updated_at: '2013-06-10 15:50:02.071259'
+communes_334:
+  id: '334'
+  name: LOS LAGOS
+  region_id: '14'
+  created_at: '2013-06-10 15:50:02.072986'
+  updated_at: '2013-06-10 15:50:02.072986'
+communes_335:
+  id: '335'
+  name: MAFIL
+  region_id: '14'
+  created_at: '2013-06-10 15:50:02.075238'
+  updated_at: '2013-06-10 15:50:02.075238'
+communes_336:
+  id: '336'
+  name: MARIQUINA
+  region_id: '14'
+  created_at: '2013-06-10 15:50:02.078102'
+  updated_at: '2013-06-10 15:50:02.078102'
+communes_337:
+  id: '337'
+  name: VALDIVIA
+  region_id: '14'
+  created_at: '2013-06-10 15:50:02.080343'
+  updated_at: '2013-06-10 15:50:02.080343'
+communes_338:
+  id: '338'
+  name: PANGUIPULLI
+  region_id: '14'
+  created_at: '2013-06-10 15:50:02.082242'
+  updated_at: '2013-06-10 15:50:02.082242'
+communes_339:
+  id: '339'
+  name: PAILLACO
+  region_id: '14'
+  created_at: '2013-06-10 15:50:02.084052'
+  updated_at: '2013-06-10 15:50:02.084052'
+communes_340:
+  id: '340'
+  name: RIO BUENO
+  region_id: '14'
+  created_at: '2013-06-10 15:50:02.085833'
+  updated_at: '2013-06-10 15:50:02.085833'
+communes_341:
+  id: '341'
+  name: ARICA
+  region_id: '15'
+  created_at: '2013-06-10 15:50:02.087562'
+  updated_at: '2013-06-10 15:50:02.087562'
+communes_342:
+  id: '342'
+  name: CAMARONES
+  region_id: '15'
+  created_at: '2013-06-10 15:50:02.089638'
+  updated_at: '2013-06-10 15:50:02.089638'
+communes_343:
+  id: '343'
+  name: GENERAL LAGOS
+  region_id: '15'
+  created_at: '2013-06-10 15:50:02.091549'
+  updated_at: '2013-06-10 15:50:02.091549'
+communes_344:
+  id: '344'
+  name: PUTRE
+  region_id: '15'
+  created_at: '2013-06-10 15:50:02.093471'
+  updated_at: '2013-06-10 15:50:02.093471'

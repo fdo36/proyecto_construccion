@@ -1,9 +1,8 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  name: Rol2
-  description: DescripcionRol1
-
-two:
-  name: Rol2
-  description: DescripcionRol2
+---
+roles_001:
+  id: '5'
+  name: Rol de prueba
+  description: Usado para realizar pruebas
+  created_at: '2013-06-25 04:58:12.628066'
+  updated_at: '2013-06-25 04:58:12.628066'
+  company_id: '5'

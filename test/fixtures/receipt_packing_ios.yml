@@ -1,17 +1,1 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  producer_id: 1
-  code: 1
-  pack_type: MyString
-  trazability_code: 1
-  dispatch_guide_number: 1
-  comments: MyString
-
-two:
-  producer_id: 1
-  code: 1
-  pack_type: MyString
-  trazability_code: 1
-  dispatch_guide_number: 1
-  comments: MyString
+--- {}

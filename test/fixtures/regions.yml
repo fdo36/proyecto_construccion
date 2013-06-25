@@ -1,7 +1,76 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  name: MyString
-
-two:
-  name: MyString
+---
+regions_001:
+  id: '1'
+  name: Región de Tarapacá
+  created_at: '2013-06-10 15:50:01.210489'
+  updated_at: '2013-06-10 15:50:01.210489'
+regions_002:
+  id: '2'
+  name: Región de Antofagasta
+  created_at: '2013-06-10 15:50:01.251351'
+  updated_at: '2013-06-10 15:50:01.251351'
+regions_003:
+  id: '3'
+  name: Región de Atacama
+  created_at: '2013-06-10 15:50:01.254928'
+  updated_at: '2013-06-10 15:50:01.254928'
+regions_004:
+  id: '4'
+  name: Región de Coquimbo
+  created_at: '2013-06-10 15:50:01.257712'
+  updated_at: '2013-06-10 15:50:01.257712'
+regions_005:
+  id: '5'
+  name: Región de Valparaiso
+  created_at: '2013-06-10 15:50:01.259968'
+  updated_at: '2013-06-10 15:50:01.259968'
+regions_006:
+  id: '6'
+  name: Región del Libertador General Bernardo O Higgins
+  created_at: '2013-06-10 15:50:01.262048'
+  updated_at: '2013-06-10 15:50:01.262048'
+regions_007:
+  id: '7'
+  name: Región del Maule
+  created_at: '2013-06-10 15:50:01.264389'
+  updated_at: '2013-06-10 15:50:01.264389'
+regions_008:
+  id: '8'
+  name: Región del Bío-Bío
+  created_at: '2013-06-10 15:50:01.266427'
+  updated_at: '2013-06-10 15:50:01.266427'
+regions_009:
+  id: '9'
+  name: Región de la Araucanía
+  created_at: '2013-06-10 15:50:01.268223'
+  updated_at: '2013-06-10 15:50:01.268223'
+regions_010:
+  id: '10'
+  name: Región de Los Lagos
+  created_at: '2013-06-10 15:50:01.269948'
+  updated_at: '2013-06-10 15:50:01.269948'
+regions_011:
+  id: '11'
+  name: Región de Aysén del General Carlos Ibáñez del Campo
+  created_at: '2013-06-10 15:50:01.271626'
+  updated_at: '2013-06-10 15:50:01.271626'
+regions_012:
+  id: '12'
+  name: Región de Magallanes y la Antártica Chilena
+  created_at: '2013-06-10 15:50:01.27339'
+  updated_at: '2013-06-10 15:50:01.27339'
+regions_013:
+  id: '13'
+  name: Región de Metropolitana
+  created_at: '2013-06-10 15:50:01.275113'
+  updated_at: '2013-06-10 15:50:01.275113'
+regions_014:
+  id: '14'
+  name: Región de Los Ríos
+  created_at: '2013-06-10 15:50:01.277272'
+  updated_at: '2013-06-10 15:50:01.277272'
+regions_015:
+  id: '15'
+  name: Región de Arica y Parinacota
+  created_at: '2013-06-10 15:50:01.27898'
+  updated_at: '2013-06-10 15:50:01.27898'
