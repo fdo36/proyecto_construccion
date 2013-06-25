@@ -47,3 +47,4 @@ gem 'RedCloth'
 # To use debugger
 # gem 'debugger'
 gem 'prawn'
+gem 'turn'
