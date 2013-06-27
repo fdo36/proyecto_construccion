@@ -1,4 +1,4 @@
-<%= form_for(@frozen_tunnel) do |f| %>
+<!--<%= form_for(@frozen_tunnel) do |f| %>
   <% if @frozen_tunnel.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@frozen_tunnel.errors.count, "error") %> prohibited this frozen_tunnel from being saved:</h2>
@@ -30,4 +30,115 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+<% end %>-->
+
+
+
+<div class="box">
+
+  <div class="headContent">
+    <h1>Agregar Pallet</h1>
+  </div>
+  <div class="box">
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Pallet
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= text_field(:code, :pallet)%>
+      </div>
+      <div class="forme-in">
+        <label id="error_label">
+        </label>
+      </div>
+    </div>
+
+    <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="chamber_table">
+      <thead>
+        <tr>    
+          <th>Código de Pallet</th>
+          <th>Tipo de Pack</th>
+          <th>Peso Bruto</th>  
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="foot-box">
+  <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallet();"%>
+  </div>
+<br>
+
+<%= form_for(@frozen_tunnel) do |f| %>
+  <% if @frozen_tunnel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @frozen_tunnel.errors.count > 1 ? "#{@frozen_tunnel.errors.count} errores." : "#{@frozen_tunnel.errors.count} error." %> no se puede guardar la cámara de producto en tránsito:</h2>
+      <ul>
+      <% @frozen_tunnel.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Número de Orden
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :order_number %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Tunel
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :tunnel_id %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Encargado
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :worker_id %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Tipo
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.radio_button(:direction, true) %>
+        <%= label_tag(:label1, "Entrada") %>
+        <%= f.radio_button(:direction,false) %>
+        <%= label_tag(:label1, "Salida") %>
+    </div>
+  </div>
+
+</div>
 <% end %>
+<div class="foot-box">
+    <%= link_to 'Cancelar', transit_chamber_ios_path , :class => "button silver alignright" %>
+    <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallets();"%>
+  </div>

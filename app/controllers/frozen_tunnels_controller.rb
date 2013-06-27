@@ -1,3 +1,4 @@
+#encoding: utf-8
 class FrozenTunnelsController < ApplicationController
   # GET /frozen_tunnels
   # GET /frozen_tunnels.json
