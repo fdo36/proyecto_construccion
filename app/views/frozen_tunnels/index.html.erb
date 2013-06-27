@@ -1,0 +1,29 @@
+<h1>Listing frozen_tunnels</h1>
+
+<table>
+  <tr>
+    <th>Order number</th>
+    <th>Tunnel</th>
+    <th>Tunnel temperature</th>
+    <th>Packing pallet temperature</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @frozen_tunnels.each do |frozen_tunnel| %>
+  <tr>
+    <td><%= frozen_tunnel.order_number %></td>
+    <td><%= frozen_tunnel.tunnel_id %></td>
+    <td><%= frozen_tunnel.tunnel_temperature %></td>
+    <td><%= frozen_tunnel.packing_pallet_temperature %></td>
+    <td><%= link_to 'Show', frozen_tunnel %></td>
+    <td><%= link_to 'Edit', edit_frozen_tunnel_path(frozen_tunnel) %></td>
+    <td><%= link_to 'Destroy', frozen_tunnel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Frozen tunnel', new_frozen_tunnel_path %>

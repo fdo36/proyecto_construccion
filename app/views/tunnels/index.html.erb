@@ -1,0 +1,23 @@
+<h1>Listing tunnels</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tunnels.each do |tunnel| %>
+  <tr>
+    <td><%= tunnel.name %></td>
+    <td><%= link_to 'Show', tunnel %></td>
+    <td><%= link_to 'Edit', edit_tunnel_path(tunnel) %></td>
+    <td><%= link_to 'Destroy', tunnel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tunnel', new_tunnel_path %>

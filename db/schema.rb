@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529101120)
+ActiveRecord::Schema.define(:version => 20130612152619) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20130529101120)
   end
 
   create_table "destinations", :force => true do |t|
+    t.string   "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -98,7 +99,6 @@ ActiveRecord::Schema.define(:version => 20130529101120)
   end
 
   create_table "dispatches", :force => true do |t|
-    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20130529101120)
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "code"
   end
 
   create_table "empty_packs_destination_moves", :force => true do |t|

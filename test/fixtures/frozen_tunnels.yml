@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  order_number: 1
+  tunnel_id: 1
+  tunnel_temperature: 
+  packing_pallet_temperature: 
+
+two:
+  order_number: 1
+  tunnel_id: 1
+  tunnel_temperature: 
+  packing_pallet_temperature: 

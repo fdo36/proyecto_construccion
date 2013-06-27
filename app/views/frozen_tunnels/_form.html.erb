@@ -1,0 +1,33 @@
+<%= form_for(@frozen_tunnel) do |f| %>
+  <% if @frozen_tunnel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@frozen_tunnel.errors.count, "error") %> prohibited this frozen_tunnel from being saved:</h2>
+
+      <ul>
+      <% @frozen_tunnel.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :order_number %><br />
+    <%= f.number_field :order_number %>
+  </div>
+  <div class="field">
+    <%= f.label :tunnel_id %><br />
+    <%= f.number_field :tunnel_id %>
+  </div>
+  <div class="field">
+    <%= f.label :tunnel_temperature %><br />
+    <%= f.text_field :tunnel_temperature %>
+  </div>
+  <div class="field">
+    <%= f.label :packing_pallet_temperature %><br />
+    <%= f.text_field :packing_pallet_temperature %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
