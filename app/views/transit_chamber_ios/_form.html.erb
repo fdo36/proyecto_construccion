@@ -47,6 +47,10 @@ $(document).ready(function(){
       }
   });
   
+ $('#code_pallet').focus(function(){
+  alert($('#direction').checked().val());
+  $('#code_pallet').blur();
+ });
 
   function add_pallet (){
     $("#error_label").text("");
@@ -74,47 +78,9 @@ $(document).ready(function(){
 
 
 </script>
+
+
 <div class="box">
-
-  <div class="headContent">
-    <h1>Agregar Pallet</h1>
-  </div>
-  <div class="box">
-
-    <div class="line-forme">
-      <div class="forme-lab">
-        <label> 
-          Pallet
-        </label>  
-      </div>
-      <div class="forme-in">
-        <%= text_field(:code, :pallet)%>
-      </div>
-      <div class="forme-in">
-        <label id="error_label">
-        </label>
-      </div>
-    </div>
-
-    <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="chamber_table">
-      <thead>
-        <tr>    
-          <th>Código de Pallet</th>
-          <th>Tipo de Pack</th>
-          <th>Peso Bruto</th>  
-          <th>Acciones</th>
-        </tr>
-      </thead>
-
-      <tbody>
-      </tbody>
-    </table>
-
-  </div>
-  <div class="foot-box">
-  <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallet();"%>
-  </div>
-<br>
 
 <%= form_for(@transit_chamber_io) do |f| %>
   <% if @transit_chamber_io.errors.any? %>
@@ -173,11 +139,50 @@ $(document).ready(function(){
         <%= label_tag(:label1, "Entrada") %>
         <%= f.radio_button(:direction,false) %>
         <%= label_tag(:label1, "Salida") %>
+        <label id="type_error_label", class="alignright", style="color: red;">este es un errror</label>
     </div>
+    <div class="forme-in">
+        
+      </div>
   </div>
-
-</div>
 <% end %>
+
+<div class="headContent">
+    <h1>Agregar Pallet</h1>
+  </div>
+  <div class="box">
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Pallet
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= text_field(:code, :pallet)%> 
+      </div>
+      <div class="forme-in">
+        <label id="error_label", style="color: red;"></label>
+      </div>
+      <%= button_tag "Agregar Pallet" , :class => "button blue alignright", :onclick => "add_pallet();"%>
+    </div>
+
+    <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="chamber_table">
+      <thead>
+        <tr>    
+          <th>Código de Pallet</th>
+          <th>Tipo de Pack</th>
+          <th>Peso Bruto</th>  
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      </tbody>
+    </table>
+
+  </div>
+</div>
 <div class="foot-box">
     <%= link_to 'Cancelar', transit_chamber_ios_path , :class => "button silver alignright" %>
     <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallets();"%>
