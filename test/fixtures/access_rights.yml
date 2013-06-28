@@ -1,5 +1,5 @@
 ---
-one:
+access_rights_001:
   id: '42'
   model_name: Role
   created_at: '2013-06-06 20:05:09.767677'
