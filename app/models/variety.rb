@@ -4,6 +4,7 @@ class Variety < ActiveRecord::Base
   validates :kind_id, :name, :presence => true
 
   belongs_to :kind
+  belongs_to :final_packing_pallets
   
   has_many :pack_group_receipts
   has_many :pack_group_dispatches

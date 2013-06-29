@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130621024034) do
+ActiveRecord::Schema.define(:version => 20130620162315) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20130621024034) do
   end
 
   create_table "destinations", :force => true do |t|
+    t.integer  "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -84,7 +85,6 @@ ActiveRecord::Schema.define(:version => 20130621024034) do
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
-    t.integer  "code"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -130,14 +130,6 @@ ActiveRecord::Schema.define(:version => 20130621024034) do
   end
 
   create_table "format_packings", :force => true do |t|
-    t.string   "name"
-    t.integer  "quantity"
-    t.float    "weight"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "formats", :force => true do |t|
     t.string   "name"
     t.integer  "quantity"
     t.float    "weight"
@@ -409,8 +401,8 @@ ActiveRecord::Schema.define(:version => 20130621024034) do
     t.integer  "subprocess_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.string   "heir_type"
     t.integer  "heir_id"
+    t.string   "heir_type"
   end
 
   create_table "subprocesses", :force => true do |t|
@@ -532,6 +524,10 @@ ActiveRecord::Schema.define(:version => 20130621024034) do
 
   add_foreign_key "dispatches", "destinations", :name => "dispatches_destination_id_fk"
   add_foreign_key "dispatches", "kinds", :name => "dispatches_kind_id_fk"
+
+  add_foreign_key "final_packing_pallets", "kinds", :name => "final_packing_pallets_kind_id_fk"
+  add_foreign_key "final_packing_pallets", "qualities", :name => "final_packing_pallets_quality_id_fk"
+  add_foreign_key "final_packing_pallets", "varieties", :name => "final_packing_pallets_variety_id_fk"
 
   add_foreign_key "groupings_producers", "groupings", :name => "groupings_producers_grouping_id_fk"
   add_foreign_key "groupings_producers", "producers", :name => "groupings_producers_producer_id_fk"

@@ -5,4 +5,6 @@ class Quality < ActiveRecord::Base
   has_many :pack_group_receipts
   has_many :pack_group_dispatches
   has_many :pallets
+
+  belongs_to :final_packing_pallets
 end
