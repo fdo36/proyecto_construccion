@@ -12,11 +12,13 @@
 	<link rel="stylesheet" type="text/css" href="/plugins/datatables/media/css/data_table.css" />
 	<link  rel="stylesheet" href="/css/styles.css" type="text/css"></style>
 	<link  rel="stylesheet" href="/css/default_buttons.css" type="text/css"></style>
+	<link rel="stylesheet" type="text/css" href="/plugins/chosen/chosen.css" />
 
 	<script src="/js/jquery-ui.js"></script>
 	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTablesES.js"></script>
 	<script type="text/javascript" src="/plugins/jquery.Rut/jquery.Rut.js"></script>
+	<script type="text/javascript" src="/plugins/chosen/chosen.jquery.js"></script>
 <!--	<script type="text/javascript" src="/plugins/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="/plugins/ckeditor/styles.js"></script>
 	<link  rel="stylesheet" href="/plugins/ckeditor/contents.css" type="text/css"></style> -->
@@ -32,6 +34,8 @@
 		      { "bSortable": false, "aTargets": [ -1 ] },
 		      { "bSearchable": false, "aTargets": [ -1 ]}
 		    ] } );
+
+		    $(".chzn-select").chosen();
 
 		    $('.rut').Rut({
 			  on_error: function(){ alert('Rut incorrecto'); },

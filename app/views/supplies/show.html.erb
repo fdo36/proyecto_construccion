@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Insumo</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver',supplies_path , :class => "button blue alignright" %>
+p>
+  <b>Nombre:</b>
+  <%= @supply.name %>
+</p>
+
+<p>
+  <b>Descripcion:</b>
+  <%= @supply.description %>
+</p>
+
+<p>
+  <b>Stock Minimo:</b>
+  <%= @supply.minimum_stock %>
+</p>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_supply_path(@supply) , :class => "button green alignright" %>
+</div>

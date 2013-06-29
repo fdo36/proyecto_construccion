@@ -1,0 +1,82 @@
+<div class="headContent">
+    <h1>Proveedores</h1>
+</div>
+<div class="box">
+  
+    <div class="newTopBanner">
+        <%= link_to 'Nueva Compañia', new_provider_path , :class => "button blue alignright" %>
+    </div>      
+    
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Proveedores Activos</h1>
+        </div>
+        <div class="box">
+
+            <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="tab_tempo_ini">
+                <thead>
+                    <tr>
+                        <th style="width:20% !important;">Nombre</th>
+                        <th>Telefono</th>
+                        <th>Correo Electronico</th>
+                        <th>Contacto</th>
+                        <th style="width:20% !important;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    <% @providers.each do |provider| %>
+                        <% if ((provider.active == true) or (provider.active ==nil)) %>
+                        <tr>
+                            <td><%= provider.name %></td>
+                            <td><%= provider.phone %></td>
+                            <td><%= provider.email %></td>
+                            <td><%= provider.contacto %></td>
+                            <td><%= link_to 'Ver', provider %>
+                            <%= link_to 'Editar', edit_provider_path(provider) %>
+                            <%= link_to 'Deshabilitar', providers_disable_path(provider) %>
+                            </td>
+                        </tr>
+                        <% end %>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Proveedores Desactivados</h1>
+        </div>
+        <div class="box">
+
+            <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="tab_tempo_fin">
+                <thead>
+                   <tr>
+                        <th style="width:20% !important;">Nombre</th>
+                        <th>Telefono</th>
+                        <th>Correo Electronico</th>
+                        <th>Contacto</th>
+                        <th style="width:20% !important;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <% @providers.each do |provider| %>
+                        <% if (provider.active == false)  %>
+                        <tr>
+                            <td><%= provider.name %></td>
+                            <td><%= provider.phone %></td>
+                            <td><%= provider.email %></td>
+                            <td><%= provider.contacto %></td>
+                            <td><%= link_to 'Ver', provider %>
+                            <%= link_to 'Editar', edit_provider_path(provider) %>
+                            <%= link_to 'Habilitar', providers_enable_path(provider) %>
+                            <%= link_to 'Eliminar', provider, method: :delete, data: { confirm: '¿Esta seguro de eliminar este Proveedor?' } %></td>
+                        </tr>
+                        <% end %>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

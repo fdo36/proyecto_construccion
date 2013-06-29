@@ -1,13 +1,1 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  rut: 1
-  first_name: MyString
-  last_name: MyString
-  phone: 1
-
-two:
-  rut: 1
-  first_name: MyString
-  last_name: MyString
-  phone: 1
+--- {}

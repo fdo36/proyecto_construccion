@@ -1,0 +1,2 @@
+module PalletFinishedProductsHelper
+end

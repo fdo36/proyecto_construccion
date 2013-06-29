@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130619153717) do
+ActiveRecord::Schema.define(:version => 20130620162315) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -20,12 +20,6 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
     t.integer  "role_id"
     t.string   "action"
     t.integer  "company_id"
-  end
-
-  create_table "add_code_to_dispatches", :force => true do |t|
-    t.string   "code"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "communes", :force => true do |t|
@@ -80,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
   end
 
   create_table "destinations", :force => true do |t|
+    t.string   "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -92,7 +87,6 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
-    t.integer  "code"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -107,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
   end
 
   create_table "dispatches", :force => true do |t|
+    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
@@ -114,7 +109,6 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.string   "code"
   end
 
   create_table "empty_packs_destination_moves", :force => true do |t|
@@ -147,6 +141,13 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
     t.float    "net_weight"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+  create_table "format_packings", :force => true do |t|
+    t.string   "name"
+    t.integer  "quantity"
+    t.float    "weight"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "groupings", :force => true do |t|
@@ -213,6 +214,12 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "pack_packings", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "pack_types", :force => true do |t|
     t.string   "name"
     t.integer  "company_id"
@@ -230,15 +237,31 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
   add_index "pack_types_producers", ["producer_id", "pack_type_id"], :name => "index_pack_types_producers_on_producer_id_and_pack_type_id"
 
   create_table "packing_pallets", :force => true do |t|
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.string   "pallet_code"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "quantity"
+    t.float    "gross_weight"
+    t.integer  "unit_price"
+    t.float    "tare"
+    t.float    "temperature"
   end
 
   create_table "packing_processes", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "pallet_finished_products", :force => true do |t|
+    t.integer  "kind_id"
+    t.integer  "variety"
+    t.integer  "quality"
+    t.integer  "pack_packing_id"
+    t.integer  "format_packing_id"
+    t.integer  "quantity"
+    t.float    "net_weight"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "pallets", :force => true do |t|
@@ -276,6 +299,26 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
     t.integer  "company_id"
   end
 
+  create_table "production_process_ios", :force => true do |t|
+    t.integer  "order_number"
+    t.float    "production_lines_number"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  create_table "providers", :force => true do |t|
+    t.string   "name"
+    t.string   "rut"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "address"
+    t.string   "commune"
+    t.string   "contacto"
+    t.boolean  "active"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "qualities", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -293,6 +336,17 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
     t.float    "gross_weight"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "receipt_packing_ios", :force => true do |t|
+    t.integer  "producer_id"
+    t.integer  "code"
+    t.string   "pack_type"
+    t.integer  "trazability_code"
+    t.integer  "dispatch_guide_number"
+    t.string   "comments"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "receipts", :force => true do |t|
@@ -352,6 +406,12 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "stabilization_chamber_ios", :force => true do |t|
+    t.float    "temperature"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "subprocess_ios", :force => true do |t|
     t.integer  "packing_pallet_id"
     t.datetime "io_datetime"
@@ -369,6 +429,14 @@ ActiveRecord::Schema.define(:version => 20130619153717) do
     t.integer  "process_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "supplies", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "minimum_stock"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "transit_chamber_ios", :force => true do |t|

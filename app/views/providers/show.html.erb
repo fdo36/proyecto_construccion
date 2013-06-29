@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Proveedor</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', providers_path  , :class => "button blue alignright" %>
+<p>
+  <b>Name:</b>
+  <%= @provider.name %>
+</p>
+
+<p>
+  <b>Rut:</b>
+  <%= @provider.rut %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @provider.phone %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @provider.email %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @provider.address %>
+</p>
+
+<p>
+  <b>Commune:</b>
+  <%= @provider.commune %>
+</p>
+
+<p>
+  <b>Contacto:</b>
+  <%= @provider.contacto %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%= @provider.active %>
+</p>
+
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_provider_path(@provider) , :class => "button green alignright" %>
+</div>
+

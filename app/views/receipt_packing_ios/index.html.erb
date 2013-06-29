@@ -1,0 +1,33 @@
+<h1>Listing receipt_packing_ios</h1>
+
+<table>
+  <tr>
+    <th>Producer</th>
+    <th>Code</th>
+    <th>Pack type</th>
+    <th>Trazability code</th>
+    <th>Dispatch guide number</th>
+    <th>Comments</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @receipt_packing_ios.each do |receipt_packing_io| %>
+  <tr>
+    <td><%= receipt_packing_io.producer_id %></td>
+    <td><%= receipt_packing_io.code %></td>
+    <td><%= receipt_packing_io.pack_type %></td>
+    <td><%= receipt_packing_io.trazability_code %></td>
+    <td><%= receipt_packing_io.dispatch_guide_number %></td>
+    <td><%= receipt_packing_io.comments %></td>
+    <td><%= link_to 'Show', receipt_packing_io %></td>
+    <td><%= link_to 'Edit', edit_receipt_packing_io_path(receipt_packing_io) %></td>
+    <td><%= link_to 'Destroy', receipt_packing_io, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Receipt packing io', new_receipt_packing_io_path %>
