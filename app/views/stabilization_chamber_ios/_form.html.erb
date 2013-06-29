@@ -1,0 +1,21 @@
+<%= form_for(@stabilization_chamber_io) do |f| %>
+  <% if @stabilization_chamber_io.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stabilization_chamber_io.errors.count, "error") %> prohibited this stabilization_chamber_io from being saved:</h2>
+
+      <ul>
+      <% @stabilization_chamber_io.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :temperature %><br />
+    <%= f.text_field :temperature %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

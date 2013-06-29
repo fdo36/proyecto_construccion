@@ -1,5 +1,14 @@
 ProyectoConstruccion::Application.routes.draw do
-  resources :wash_chamber_ios
+  resources :pallet_finished_products
+
+
+  resources :production_process_ios
+
+
+  resources :receipt_packing_ios
+
+
+  resources :stabilization_chamber_ios
 
 
   resources :customs
@@ -11,6 +20,7 @@ ProyectoConstruccion::Application.routes.draw do
 
   resources :providers
   resources :workers
+
 
   resources :supplies
 
@@ -129,4 +139,3 @@ ProyectoConstruccion::Application.routes.draw do
   match 'receipts/generate_pdf' => 'receipts#generate_pdf', :as => 'receipts_generate_pdf'
   
 end
-

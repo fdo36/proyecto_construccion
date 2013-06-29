@@ -1,0 +1,23 @@
+<h1>Listing stabilization_chamber_ios</h1>
+
+<table>
+  <tr>
+    <th>Temperature</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @stabilization_chamber_ios.each do |stabilization_chamber_io| %>
+  <tr>
+    <td><%= stabilization_chamber_io.temperature %></td>
+    <td><%= link_to 'Show', stabilization_chamber_io %></td>
+    <td><%= link_to 'Edit', edit_stabilization_chamber_io_path(stabilization_chamber_io) %></td>
+    <td><%= link_to 'Destroy', stabilization_chamber_io, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Stabilization chamber io', new_stabilization_chamber_io_path %>

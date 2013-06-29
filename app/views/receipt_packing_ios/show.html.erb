@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Producer:</b>
+  <%= @receipt_packing_io.producer_id %>
+</p>
+
+<p>
+  <b>Code:</b>
+  <%= @receipt_packing_io.code %>
+</p>
+
+<p>
+  <b>Pack type:</b>
+  <%= @receipt_packing_io.pack_type %>
+</p>
+
+<p>
+  <b>Trazability code:</b>
+  <%= @receipt_packing_io.trazability_code %>
+</p>
+
+<p>
+  <b>Dispatch guide number:</b>
+  <%= @receipt_packing_io.dispatch_guide_number %>
+</p>
+
+<p>
+  <b>Comments:</b>
+  <%= @receipt_packing_io.comments %>
+</p>
+
+
+<%= link_to 'Edit', edit_receipt_packing_io_path(@receipt_packing_io) %> |
+<%= link_to 'Back', receipt_packing_ios_path %>

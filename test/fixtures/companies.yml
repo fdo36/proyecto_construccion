@@ -1,24 +1,14 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  name: NombrePrueba1
-  rut: 11.111.111-1
-  address: DireccionPrueba1
-  city: MyString
-  line_of_business: line1
-  phone: 12345678
-  email: emailprueba1@prueba.com
-  active: true
-  
-
-
-two:
-  name: NombrePrueba2
-  rut: 22.222.222-2
-  address: DireccionPrueba2
-  city: MyString
-  line_of_business: line2
-  phone: 87654321
-  email: emailprueba2@prueba.com
-  active: true
- 
+---
+companies_001:
+  id: '5'
+  name: Dope Enterprise
+  address: 
+  commune_id: 
+  line_of_business: 
+  email: ''
+  created_at: '2013-06-25 04:58:12.601727'
+  updated_at: '2013-06-25 04:58:12.601727'
+  active: t
+  region_id: 
+  rut: 1111111-1
+  phone: 

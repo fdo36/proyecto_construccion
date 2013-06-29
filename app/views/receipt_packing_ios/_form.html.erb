@@ -1,0 +1,41 @@
+<%= form_for(@receipt_packing_io) do |f| %>
+  <% if @receipt_packing_io.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@receipt_packing_io.errors.count, "error") %> prohibited this receipt_packing_io from being saved:</h2>
+
+      <ul>
+      <% @receipt_packing_io.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :producer_id %><br />
+    <%= f.number_field :producer_id %>
+  </div>
+  <div class="field">
+    <%= f.label :code %><br />
+    <%= f.number_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :pack_type %><br />
+    <%= f.text_field :pack_type %>
+  </div>
+  <div class="field">
+    <%= f.label :trazability_code %><br />
+    <%= f.number_field :trazability_code %>
+  </div>
+  <div class="field">
+    <%= f.label :dispatch_guide_number %><br />
+    <%= f.number_field :dispatch_guide_number %>
+  </div>
+  <div class="field">
+    <%= f.label :comments %><br />
+    <%= f.text_field :comments %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
