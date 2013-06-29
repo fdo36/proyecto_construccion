@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
   end
 
   create_table "destinations", :force => true do |t|
-    t.string   "code"
+    t.integer  "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
   create_table "format_packings", :force => true do |t|
     t.string   "name"
     t.integer  "quantity"
@@ -244,6 +245,7 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.integer  "unit_price"
     t.float    "tare"
     t.float    "temperature"
+    t.string   "pallet_code"
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -366,12 +368,6 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "remove_add_code_to_dispatches", :force => true do |t|
-    t.string   "code"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -444,15 +440,6 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.integer  "order_number"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-  end
-
-  create_table "turns", :force => true do |t|
-    t.string   "name"
-    t.integer  "subprocess_id"
-    t.datetime "start_datetime"
-    t.datetime "end_datetime"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
   end
 
   create_table "users", :force => true do |t|
