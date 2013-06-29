@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620162315) do
+ActiveRecord::Schema.define(:version => 20130621024034) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -72,7 +72,6 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
   end
 
   create_table "destinations", :force => true do |t|
-    t.string   "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -85,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
+    t.integer  "code"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -130,6 +130,14 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
   end
 
   create_table "format_packings", :force => true do |t|
+    t.string   "name"
+    t.integer  "quantity"
+    t.float    "weight"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "formats", :force => true do |t|
     t.string   "name"
     t.integer  "quantity"
     t.float    "weight"
@@ -401,6 +409,8 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.integer  "subprocess_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "heir_type"
+    t.integer  "heir_id"
   end
 
   create_table "subprocesses", :force => true do |t|
@@ -507,5 +517,54 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
+
+  add_foreign_key "containers_producers", "containers", :name => "containers_producers_container_id_fk"
+  add_foreign_key "containers_producers", "producers", :name => "containers_producers_producer_id_fk"
+
+  add_foreign_key "destinations", "communes", :name => "destinations_commune_id_fk"
+
+  add_foreign_key "dispatch_containers", "containers", :name => "dispatch_containers_container_id_fk"
+  add_foreign_key "dispatch_containers", "dispatches", :name => "dispatch_containers_dispatch_id_fk"
+  add_foreign_key "dispatch_containers", "qualities", :name => "dispatch_containers_quality_id_fk"
+  add_foreign_key "dispatch_containers", "varieties", :name => "dispatch_containers_variety_id_fk"
+
+  add_foreign_key "dispatches", "destinations", :name => "dispatches_destination_id_fk"
+  add_foreign_key "dispatches", "kinds", :name => "dispatches_kind_id_fk"
+
+  add_foreign_key "groupings_producers", "groupings", :name => "groupings_producers_grouping_id_fk"
+  add_foreign_key "groupings_producers", "producers", :name => "groupings_producers_producer_id_fk"
+
+  add_foreign_key "kinds_producers", "kinds", :name => "kinds_producers_kind_id_fk"
+  add_foreign_key "kinds_producers", "producers", :name => "kinds_producers_producer_id_fk"
+
+  add_foreign_key "pack_group_receipts", "qualities", :name => "pack_group_receipts_quality_id_fk"
+  add_foreign_key "pack_group_receipts", "receipts", :name => "pack_group_receipts_receipt_id_fk"
+  add_foreign_key "pack_group_receipts", "varieties", :name => "pack_group_receipts_variety_id_fk"
+
+  add_foreign_key "pack_types_producers", "pack_types", :name => "pack_types_producers_pack_type_id_fk"
+  add_foreign_key "pack_types_producers", "producers", :name => "pack_types_producers_producer_id_fk"
+
+  add_foreign_key "pallets", "qualities", :name => "pallets_quality_id_fk"
+  add_foreign_key "pallets", "receipts", :name => "pallets_receipt_id_fk"
+  add_foreign_key "pallets", "varieties", :name => "pallets_variety_id_fk"
+
+  add_foreign_key "producers", "communes", :name => "producers_commune_id_fk"
+
+  add_foreign_key "receipt_containers", "containers", :name => "receipt_containers_container_id_fk"
+  add_foreign_key "receipt_containers", "qualities", :name => "receipt_containers_quality_id_fk"
+  add_foreign_key "receipt_containers", "receipts", :name => "receipt_containers_receipt_id_fk"
+  add_foreign_key "receipt_containers", "varieties", :name => "receipt_containers_variety_id_fk"
+
+  add_foreign_key "receipts", "kinds", :name => "receipts_kind_id_fk"
+  add_foreign_key "receipts", "producers", :name => "receipts_producer_id_fk"
+
+  add_foreign_key "roles_users", "roles", :name => "roles_users_role_id_fk"
+  add_foreign_key "roles_users", "users", :name => "roles_users_user_id_fk"
+
+  add_foreign_key "seasons", "kinds", :name => "seasons_kind_id_fk"
+
+  add_foreign_key "varieties", "kinds", :name => "varieties_kind_id_fk"
 
 end

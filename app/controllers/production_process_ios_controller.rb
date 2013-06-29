@@ -3,6 +3,7 @@ class ProductionProcessIosController < ApplicationController
   # GET /production_process_ios.json
   def index
     @production_process_ios = ProductionProcessIo.all
+    @transit_chamber_ios = TransitChamberIo.all
 
     respond_to do |format|
       format.html # index.html.erb

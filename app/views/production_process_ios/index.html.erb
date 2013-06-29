@@ -1,25 +1,133 @@
-<h1>Listing production_process_ios</h1>
+<script type="text/javascript">
 
-<table>
-  <tr>
-    <th>Order number</th>
-    <th>Production lines number</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+var process_array = new Array();
+$(document).ready(function() {
+  <% @transit_chamber_ios.each do |transit_chamber_io| %>
+    var z ="<%= transit_chamber_io.id %>";
+    var x = "<%= transit_chamber_io.order_number %>";
+    var y = "<%= transit_chamber_io.temperature %>";
+    add_process(z,x,y);
+   <%end%>
+  //view_array();
+});
 
-<% @production_process_ios.each do |production_process_io| %>
-  <tr>
-    <td><%= production_process_io.order_number %></td>
-    <td><%= production_process_io.production_lines_number %></td>
-    <td><%= link_to 'Show', production_process_io %></td>
-    <td><%= link_to 'Edit', edit_production_process_io_path(production_process_io) %></td>
-    <td><%= link_to 'Destroy', production_process_io, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+function add_row(transit_chamber_io) {
+  var order_number = transit_chamber_io.order_number;
+  var temperature = transit_chamber_io.temperature;
+  var button = '<button type="button" id="delete_button" align="center" onclick="delete_row(this)">Agregar</button>';
+  
+  $('#table_transit_chamber_ios').dataTable().fnAddData(
+      [order_number,temperature,button
+      ]);
+}
+function add_row2(x,y) {
 
-<br />
+  var button = '<button type="button" id="delete_button" align="center" onclick="delete_row(this)">Agregar</button>';
+  $('#table_transit_chamber_ios').dataTable().fnAddData(
+      [x,y,button
+      ]);
 
-<%= link_to 'New Production process io', new_production_process_io_path %>
+}
+function add_row_pallet(x,y) {
+  var button = '<button type="button" id="delete_button_pallet" align="center" onclick="delete_row_pallet(this)">Eliminar</button>';
+  $('#table_pallet_final').dataTable().fnAddData(
+      [x,y,button
+      ]);
+}
+
+function delete_row(b) {
+
+  var table = document.getElementById("table_transit_chamber_ios");
+  var parent= b.parentNode;
+  while(parent.nodeName.toLowerCase()!='tr') {
+    parent = parent.parentNode;
+  }
+  
+  $('#table_transit_chamber_ios').dataTable().fnDeleteRow(parent);
+  add_row_pallet(parent.childNodes[0].innerHTML,parent.childNodes[1].innerHTML);
+
+}
+function delete_row_pallet(b)
+{ 
+  var table = document.getElementById("table_pallet_final");
+  var parent= b.parentNode;
+  while(parent.nodeName.toLowerCase()!='tr') {
+    parent = parent.parentNode;
+  }
+  $('#table_pallet_final').dataTable().fnDeleteRow(parent);
+  add_row2(parent.childNodes[0].innerHTML,parent.childNodes[1].innerHTML);  
+
+}
+
+
+function production_process(id,order_number, temperature) {
+  
+  this.process_id = id;
+  this.order_number = order_number;
+  this.temperature = temperature;
+
+}
+
+function add_process(id,order_number, temperature) {
+
+  var process = new production_process(id,order_number,temperature);
+  process_array.push(process);
+  add_row(process);
+
+}
+
+function view_array() {
+
+  for (var i = 0; i < process_array.length; i++) {
+      console.log(process_array[i].order_number);
+  }
+ 
+} 
+
+</script>
+
+<div class="headContent">
+  <h1> Camara de Transición </h1>
+</div>
+
+<div class="box">
+  
+  <table id="table_transit_chamber_ios" cellpadding="0" cellspacing="0" border="0" class="display datatable" id="tab_tempo_ini">
+    <thead>
+      <tr>
+        <th>Numero de Orden</th>
+        <th>Temperatura</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+<div class="headContent">
+  <h1> Pallet Final </h1>
+</div>
+
+  <table id="table_pallet_final" cellpadding="0" cellspacing="0" border="0" class="display datatable" id="tab_tempo_ini">
+    <thead>
+      <tr>
+        <th>Numero de Orden</th>
+        <th>Temperatura</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
