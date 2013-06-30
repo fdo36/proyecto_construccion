@@ -76,6 +76,7 @@
       //obtener datos de despacho
       var kind_id = $("#dispatch_kind_id").val();
       var destination_id = $("#select_destination").val();
+      var code = $("#dispatch_code").val();
 
       //crear datetime
       var year = $("#dispatch_dispatch_datetime_1i").val();
@@ -90,7 +91,7 @@
         type: "POST", 
         dataType: "json",
         async: false,
-        data: { dispatch : {code: "1", kind_id: kind_id, destination_id: destination_id, dispatch_datetime: dispatch_datetime } },
+        data: { dispatch : {code: code, kind_id: kind_id, destination_id: destination_id, dispatch_datetime: dispatch_datetime } },
         success: function(data){ 
           add_registers_to(data.id);
         },  
@@ -135,6 +136,7 @@
       }
     };
     set_modified(false);
+    location.href = "/dispatches";
   }
 
   function get_pack_type_tare (pack_type_id) {

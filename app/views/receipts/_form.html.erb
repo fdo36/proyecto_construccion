@@ -77,6 +77,7 @@
       //obtener datos de ingreso
       var kind_id = $("#select_kind").val();
       var producer_id = $("#select_producer").val();
+      var code = $("#receipt_code").val();
 
       //crear datetime
       var year = $("#receipt_receipt_datetime_1i").val();
@@ -91,7 +92,7 @@
         type: "POST", 
         dataType: "json",
         async: false,
-        data: { receipt : {code: "1", kind_id: kind_id, producer_id: producer_id, receipt_datetime: receipt_datetime } },
+        data: { receipt : {code: code, kind_id: kind_id, producer_id: producer_id, receipt_datetime: receipt_datetime } },
         success: function(data){ 
           add_registers_to(data.id);
         },  
@@ -136,6 +137,7 @@
       }
     };
     set_modified(false);
+    location.href = "/receipts";
   }
 
   function get_pack_type_tare (pack_type_id) {
