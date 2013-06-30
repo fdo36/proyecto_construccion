@@ -3,7 +3,7 @@ class ProductionProcessIosController < ApplicationController
   # GET /production_process_ios.json
   def index
     @production_process_ios = ProductionProcessIo.all
-    @transit_chamber_ios = TransitChamberIo.all
+    
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,7 +26,9 @@ class ProductionProcessIosController < ApplicationController
   # GET /production_process_ios/new.json
   def new
     @production_process_io = ProductionProcessIo.new
-
+    @transit_chamber_ios = TransitChamberIo.all
+    @format_packings = FormatPacking.all
+    @workers = Worker.all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @production_process_io }

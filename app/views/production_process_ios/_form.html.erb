@@ -1,3 +1,121 @@
+<script type="text/javascript">
+var process_array = new Array();
+var format_array = new Array();
+var format_name =new Array();
+
+$(document).ready(function() {
+  <% @transit_chamber_ios.each do |transit_chamber_io| %>
+    var z ="<%= transit_chamber_io.id %>";
+    var x = "<%= transit_chamber_io.order_number %>";
+    var y = "<%= transit_chamber_io.temperature %>";
+    add_process(z,x,y);
+  <%end%>
+  <%@format_packings.each do |format_packing|%>
+    var a = "<%= format_packing.id %>";
+    var b = "<%= format_packing.name %>";
+    var c = "<%= format_packing.quantity %>";
+    var d = "<%= format_packing.weight %>";
+    add_format(a,b,c,d);
+  <%end%>
+  //view_array();
+ });
+function add_format(a,b,c,d) {
+  var formt = new format_packing(a,b,c,d);
+  format_array.push(formt);
+  format_name.push(b);
+}
+function format_packing(a,b,c,d) {
+  this.id = a;
+  this.name = b;
+  this.quantity = c;
+  this.weight = d;
+}
+function add_row(transit_chamber_io) {
+  var order_number = transit_chamber_io.order_number;
+  var temperature = transit_chamber_io.temperature;
+  var button = '<button type="button" id="delete_button" align="center" onclick="delete_row(this)">Agregar</button>';
+ 
+  $('#table_transit_chamber_ios').dataTable().fnAddData(
+      [order_number,temperature,button
+      ]);
+}
+function add_row2(x,y) {
+
+  var button = '<button type="button" id="delete_button" align="center" onclick="delete_row(this)">Agregar</button>';
+  $('#table_transit_chamber_ios').dataTable().fnAddData(
+      [x,y,button
+      ]);
+}
+function add_option(id) {
+  var select = document.getElementById(id);
+  for(i=0;i<format_array.length;i++){
+    opt=document.createElement('option');
+    opt.value = format_array[i].name;
+    opt.value=format_array[i].name;
+    opt.innerHTML=format_array[i].name;
+    select.appendChild(opt);
+  }
+  opt=document.createElement('option');
+  opt.innerHTML="Selecione un formato";
+  opt.setAttribute("selected", "selected");
+  select.appendChild(opt);
+}
+function add_row_pallet(x,y) {
+  var button = '<button type="button" id="delete_button_pallet" align="center" onclick="delete_row_pallet(this)">Eliminar</button>';
+  var select = '<select id='+x+'></select>';
+  
+
+  $('#table_pallet_final').dataTable().fnAddData(
+      [x,y,select,button
+      ]);
+  add_option(x);
+}
+function delete_row(b) {
+
+  var table = document.getElementById("table_transit_chamber_ios");
+  var parent= b.parentNode;
+  while(parent.nodeName.toLowerCase()!='tr') {
+    parent = parent.parentNode;
+  }
+  
+  $('#table_transit_chamber_ios').dataTable().fnDeleteRow(parent);
+  add_row_pallet(parent.childNodes[0].innerHTML,parent.childNodes[1].innerHTML);
+}
+function delete_row_pallet(b) { 
+  var table = document.getElementById("table_pallet_final");
+  var parent= b.parentNode;
+  while(parent.nodeName.toLowerCase()!='tr') {
+    parent = parent.parentNode;
+  }
+  $('#table_pallet_final').dataTable().fnDeleteRow(parent);
+  add_row2(parent.childNodes[0].innerHTML,parent.childNodes[1].innerHTML);  
+}
+function production_process(id,order_number, temperature) {
+  
+  this.process_id = id;
+  this.order_number = order_number;
+  this.temperature = temperature;
+}
+function add_process(id,order_number, temperature) {
+
+  var process = new production_process(id,order_number,temperature);
+  process_array.push(process);
+  add_row(process);
+}
+function view_array() {
+
+  for (var i = 0; i < process_array.length; i++) {
+      console.log(process_array[i].order_number);
+  }
+ } 
+}
+function add_pallet_code() {
+  
+}
+</script>
+
+
+<div class="box">
 <%= form_for(@production_process_io) do |f| %>
   <% if @production_process_io.errors.any? %>
     <div id="error_explanation">
@@ -11,15 +129,100 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :order_number %><br />
-    <%= f.number_field :order_number %>
+  <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Número_de_orden %><br />
+      </div>    
+      <div class="forme-in">
+        <%= f.number_field :order_number %>
+      </div>
   </div>
-  <div class="field">
-    <%= f.label :production_lines_number %><br />
-    <%= f.text_field :production_lines_number %>
+  <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Lineas_de_producción %><br />
+      </div>
+      <div class="forme-in">
+        <%= f.text_field :production_lines_number %>
+      </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Encargado %><br />
+      </div>
+      <div class="forme-in">
+      <% @workers_array= @workers.map { |worker| [worker.first_name+" "+worker.last_name] }%>
+       <%= select_tag "worker", options_for_select(@workers_array) %>
+      </div>
   </div>
+</div>
+ 
+ <div class="headContent">
+  <h1>Lista de Pallet Cámaras de Producto en Tránsito</h1>
+</div>
+<div class="box">
+<table id="table_transit_chamber_ios" cellpadding="0" cellspacing="0" border="0" class="display datatable">
+  <thead>
+    <tr>
+      <th>Número de Orden</th>
+      <th>Temperatura</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+
+  </tbody>
+</table>
+</div>
+
+
+<div class="headContent">
+  <h1>Pallet Final</h1>
+</div>
+<div class="box">
+<div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Pallet
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= text_field(:code, :pallet)%> 
+      </div>
+      <div class="forme-in">
+        <label id="error_label", style="color: red;"></label>
+      </div>
+      <%= button_tag "Agregar Pallet" , :class => "button blue alignright", :onclick => "add_pallet_code();"%>
+    </div>
+<table id="table_pallet_final" cellpadding="0" cellspacing="0" border="0" class="display datatable">
+  <thead>
+    <tr>
+      <th>Número de Orden</th>
+      <th>Temperatura</th>
+      <th>Formato</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+            
+    </tr>
+
+  </tbody>
+</table>
+
+
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', production_process_ios_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
 <% end %>
