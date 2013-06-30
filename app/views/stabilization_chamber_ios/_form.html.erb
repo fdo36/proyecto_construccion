@@ -52,29 +52,7 @@ $(document).ready(function(){
   $('#code_pallet').blur();
  });
 
-function add_pallet (){
-    $("#error_label").text("");
-    $.get("/packing_pallets.json", function(pallets) {
-      flag = false;
-      $.each(pallets, function(index, pallet){
-        if (pallet.pallet_code == $("#code_pallet").val()) {
-          flag = true;
-          $('#chamber_table').dataTable().fnAddData([
-             pallet.pallet_code,
-             pallet.pack_type,
-             pallet.gross_weight,
-             "<a onclick='delete_row(this);'>Eliminar</a>"
-          ]);   
-        }
-      });
-      if (!flag){
-        $("#error_label").text("Ingrese un código de pallet válido");
-      }
-       
-      $("#code_pallet").val("");
-    });
-  }
-  });
+
 
 </script>
 
@@ -121,7 +99,8 @@ function add_pallet (){
       </label>  
     </div>
     <div class="forme-in">
-      <%= f.text_field :worker_id %>
+      <% workers_array = Worker.all.map { |worker| [worker.first_name + " " + worker.last_name, worker.id] } %>
+                        <%= f.select(:worker_id, workers_array ,:selected => :prompt, :prompt => '- Seleccione el Encargado-') %>
     </div>
   </div>
 
