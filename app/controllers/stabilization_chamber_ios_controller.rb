@@ -1,3 +1,4 @@
+#encoding: utf-8
 class StabilizationChamberIosController < ApplicationController
   # GET /stabilization_chamber_ios
   # GET /stabilization_chamber_ios.json
@@ -44,7 +45,7 @@ class StabilizationChamberIosController < ApplicationController
 
     respond_to do |format|
       if @stabilization_chamber_io.save
-        format.html { redirect_to @stabilization_chamber_io, notice: 'Stabilization chamber io was successfully created.' }
+        format.html { redirect_to "/stabilization_chamber_ios", notice: 'La Cámara de Estabilización fue creada exitosamente.' }
         format.json { render json: @stabilization_chamber_io, status: :created, location: @stabilization_chamber_io }
       else
         format.html { render action: "new" }
@@ -60,7 +61,7 @@ class StabilizationChamberIosController < ApplicationController
 
     respond_to do |format|
       if @stabilization_chamber_io.update_attributes(params[:stabilization_chamber_io])
-        format.html { redirect_to @stabilization_chamber_io, notice: 'Stabilization chamber io was successfully updated.' }
+        format.html { redirect_to "/stabilization_chamber_ios", notice: 'La Cámara de Estabilización fue editada exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.string   "email"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.integer  "company_id"
+    t.integer  "user_id"
   end
 
   create_table "destinations", :force => true do |t|
@@ -99,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
   end
 
   create_table "dispatches", :force => true do |t|
+    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
@@ -106,7 +109,6 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.integer  "company_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.string   "code"
   end
 
   create_table "empty_packs_destination_moves", :force => true do |t|
@@ -127,6 +129,18 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.string   "pack_option"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "final_packing_pallets", :force => true do |t|
+    t.integer  "kind_id"
+    t.integer  "variety_id"
+    t.integer  "quality_id"
+    t.integer  "pack_packing_id"
+    t.integer  "format_id"
+    t.integer  "quantity"
+    t.float    "net_weight"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "format_packings", :force => true do |t|
@@ -231,6 +245,7 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.integer  "unit_price"
     t.float    "tare"
     t.float    "temperature"
+    t.string   "pallet_code"
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -389,8 +404,11 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
 
   create_table "stabilization_chamber_ios", :force => true do |t|
     t.float    "temperature"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "order_number"
+    t.integer  "heir_id"
+    t.string   "heir_type"
   end
 
   create_table "subprocess_ios", :force => true do |t|
@@ -425,15 +443,6 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.integer  "order_number"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-  end
-
-  create_table "turns", :force => true do |t|
-    t.string   "name"
-    t.integer  "subprocess_id"
-    t.datetime "start_datetime"
-    t.datetime "end_datetime"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
   end
 
   create_table "users", :force => true do |t|
