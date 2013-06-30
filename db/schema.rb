@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620162315) do
+ActiveRecord::Schema.define(:version => 20130630032306) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -404,8 +404,11 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
 
   create_table "stabilization_chamber_ios", :force => true do |t|
     t.float    "temperature"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "order_number"
+    t.integer  "heir_id"
+    t.string   "heir_type"
   end
 
   create_table "subprocess_ios", :force => true do |t|
