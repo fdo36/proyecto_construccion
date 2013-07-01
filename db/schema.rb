@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130627062519) do
+ActiveRecord::Schema.define(:version => 20130627203228) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -362,6 +362,7 @@ ActiveRecord::Schema.define(:version => 20130627062519) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "is_delete"
   end
 
   create_table "turns", :force => true do |t|
