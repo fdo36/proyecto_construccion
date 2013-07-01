@@ -1,33 +1,107 @@
-<%= form_for(@supplies_return) do |f| %>
-  <% if @supplies_return.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@supplies_return.errors.count, "error") %> prohibited this supplies_return from being saved:</h2>
+<script type="text/javascript">
 
-      <ul>
-      <% @supplies_return.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+function show_rut(s)
+{
+  if(s.value == "")
+  {
+   var inputRut = document.getElementById('rut1');
+   inputRut.value = " - ";
+  }
+  else
+  {
+   $.get("/workers/"+s.value+".json", function(data) {
+      var inputRut = document.getElementById('rut1');
+      inputRut.value = data.rut;
+   });
+  }
+}
+function show_stock(s)
+  {
+    if (s.value == "")
+    {
+      var inputStock = document.getElementById('stock1');
+      inputStock.value = " - "
+    }
+    else
+    {
+      $.get("/supplies/"+s.value+".json", function(data) {
+      var inputStock = document.getElementById('stock1');
+      inputStock.value = data.stock_ini;
+      });
+    }
+  }
 
-  <div class="field">
-    <%= f.label :worker_id %><br />
-    <%= f.number_field :worker_id %>
+</script>  
+
+<div class="headContent">
+    <h1>Agregar devolucion de insumo</h1>
   </div>
-  <div class="field">
-    <%= f.label :supply_id %><br />
-    <%= f.number_field :supply_id %>
+  <div class="box">
+
+    <div class="line-forme">
+  <div class="forme-lab">
+    <%= label_tag 'Trabajador'%> 
   </div>
-  <div class="field">
-    <%= f.label :company_id %><br />
-    <%= f.number_field :company_id %>
+  <% @workers_array = Worker.all.map { |worker| [worker.first_name+ " " + worker.last_name, worker.id] } %>
+  <div class="forme-in">
+    <%= select_tag "Trabajadores1", options_for_select(@workers_array), :prompt => " -Seleccione un Trabajador - ", :onchange => "show_rut(this)" %>
   </div>
-  <div class="field">
-    <%= f.label :quantity %><br />
-    <%= f.number_field :quantity %>
+</div>
+
+<div class="line-forme">
+  <div class="forme-lab">
+   <%= label_tag "rut"  %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="forme-in ">
+   <input id="rut1" value="-" disabled="true"></input>
   </div>
-<% end %>
+</div>
+
+<div class="line-forme">
+  <div class="forme-lab">
+   <%= label_tag 'Insumo'%> 
+  </div>
+  <% @supplies_array = Supply.all.map { |supply| [supply.name, supply.id] } %>
+  <div class="forme-in">
+   <%= select_tag "mySelect", options_for_select(@supplies_array), :prompt => " - Seleccione un Insumo - " ,:onchange => "show_stock(this)"%>
+  </div>
+</div>
+
+<div class="line-forme">
+  <div class="forme-lab">
+   <%= label_tag 'Stock'%> 
+  </div>    
+  <div class="forme-in">
+    <input id="stock1" value="-" disabled="true"></input>
+  </div>  
+</div>
+
+<div class="line-forme">
+  <div class="forme-lab">
+   <%= label_tag 'Cantidad'%> 
+   </div>    
+  <div class="forme-in">
+    <input id="quantity" type="text"><br>
+  </div>  
+</div>
+<button type="button" onclick="displayResult(),show_stock2()" class="button blue alignright">Agregar devolucion</button>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="chamber_table">
+    <thead>
+      <tr>    
+        <th>Trabajador</th>
+        <th>Insumo</th>
+        <th>Cantidad</th>  
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    </tbody>
+  </table>
+
+  </div>
+</div>
+<div class="foot-box">
+    <%= link_to 'Cancelar', supplies_returns_path , :class => "button silver alignright" %>
+    <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallets();"%>
+</div>
