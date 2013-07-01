@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130612152619) do
+ActiveRecord::Schema.define(:version => 20130627203228) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -127,6 +127,15 @@ ActiveRecord::Schema.define(:version => 20130612152619) do
     t.string   "pack_option"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "frozen_tunnels", :force => true do |t|
+    t.integer  "order_number"
+    t.integer  "tunnel_id"
+    t.float    "tunnel_temperature"
+    t.float    "packing_pallet_temperature"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "groupings", :force => true do |t|
@@ -347,6 +356,13 @@ ActiveRecord::Schema.define(:version => 20130612152619) do
     t.integer  "order_number"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "tunnels", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "is_delete"
   end
 
   create_table "turns", :force => true do |t|

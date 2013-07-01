@@ -1,0 +1,30 @@
+<div class="headContent">
+  <h1>Lista de Túneles</h1>
+</div>
+<div class="box">
+  <div class="newTopBanner">
+    <%= link_to 'Nuevo Túnel', new_tunnel_path , :class => "button blue alignright" %>
+  </div>
+
+  <p id="notice" class="alignleft"><%= notice %> </p>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th style="width:20% !important;">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tunnels.each do |tunnel| %>
+        <% if (tunnel.is_delete == 0) %>
+        <tr>
+          <td><%= tunnel.name %></td>
+          <td><%= link_to 'Ver', tunnel %>
+          <%= link_to 'Editar', edit_tunnel_path(tunnel) %>
+          <%= link_to 'Eliminar', tunnel_delete_path(tunnel), data: { confirm: '¿Está seguro de eliminar el túnel?' } %> </td>
+        </tr>
+        <%end%>
+      <% end %>
+    </tbody>
+  </table>
+</div>

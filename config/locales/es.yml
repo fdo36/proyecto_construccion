@@ -230,6 +230,7 @@ es:
       variety: "Variedad"
       wiki_page: "Página Wiki"
       wiki_page_version: "Versión de Wiki"
+      tunnel: "Túnel"
     attributes:
       company:
         name: "Nombre de la Compañía"
@@ -310,6 +311,8 @@ es:
         rut: "Rut"
         email: "E-Mail"
         phone: "Teléfono"
+      tunnel:
+        name: "Nombre"
 
 
 
