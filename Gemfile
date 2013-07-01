@@ -14,6 +14,9 @@ gem 'devise-i18n-views'
 gem 'railroady'
 gem 'heritage', :git => 'git://github.com/astroza/Heritage.git'
 
+gem 'metrical', :require => false
+gem 'sqlite3'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -46,3 +49,4 @@ gem 'RedCloth'
 # To use debugger
 # gem 'debugger'
 gem 'prawn'
+gem 'turn'

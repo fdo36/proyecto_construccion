@@ -1,5 +1,43 @@
 <p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Packing Pallet</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', packing_pallets_path , :class => "button blue alignright" %>
+  <p>
+    <b>Código de pallet:</b>
+    <%= @packing_pallet.pallet_code %>
+  </p>
+  <p>
+    <b>Tipo de Pack:</b>
+    <%= @packing_pallet.pack_type_id %>
+  </p>
 
+  <p>
+    <b>Cantidad:</b>
+    <%= @packing_pallet.quantity %>
+  </p>
 
-<%= link_to 'Edit', edit_packing_pallet_path(@packing_pallet) %> |
-<%= link_to 'Back', packing_pallets_path %>
+  <p>
+    <b>Tara:</b>
+    <%= @packing_pallet.tare %>
+  </p>
+
+  <p>
+    <b>Temperatura:</b>
+    <%= @packing_pallet.temperature %>
+  </p>
+
+  <p>
+    <b>Peso Bruto:</b>
+    <%= @packing_pallet.gross_weight %>
+  </p>
+
+  <p>
+    <b>Precio Por Unidad:</b>
+    <%= @packing_pallet.unit_price %>
+  </p>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_packing_pallet_path(@packing_pallet) , :class => "button green alignright" %>
+</div>

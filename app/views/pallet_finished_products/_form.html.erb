@@ -1,0 +1,45 @@
+<%= form_for(@pallet_finished_product) do |f| %>
+  <% if @pallet_finished_product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pallet_finished_product.errors.count, "error") %> prohibited this pallet_finished_product from being saved:</h2>
+
+      <ul>
+      <% @pallet_finished_product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :kind_id %><br />
+    <%= f.number_field :kind_id %>
+  </div>
+  <div class="field">
+    <%= f.label :variety %><br />
+    <%= f.number_field :variety %>
+  </div>
+  <div class="field">
+    <%= f.label :quality %><br />
+    <%= f.number_field :quality %>
+  </div>
+  <div class="field">
+    <%= f.label :pack_packing_id %><br />
+    <%= f.number_field :pack_packing_id %>
+  </div>
+  <div class="field">
+    <%= f.label :format_packing_id %><br />
+    <%= f.number_field :format_packing_id %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br />
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :net_weight %><br />
+    <%= f.text_field :net_weight %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

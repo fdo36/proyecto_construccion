@@ -18,7 +18,7 @@ class PackingPalletsControllerTest < ActionController::TestCase
 
   test "should create packing_pallet" do
     assert_difference('PackingPallet.count') do
-      post :create, packing_pallet: {  }
+      post :create, packing_pallet: { gross_weight: @packing_pallet.gross_weight, pack_type: @packing_pallet.pack_type, quantity: @packing_pallet.quantity, tare: @packing_pallet.tare, temperature: @packing_pallet.temperature, unit_price: @packing_pallet.unit_price }
     end
 
     assert_redirected_to packing_pallet_path(assigns(:packing_pallet))
@@ -35,7 +35,7 @@ class PackingPalletsControllerTest < ActionController::TestCase
   end
 
   test "should update packing_pallet" do
-    put :update, id: @packing_pallet, packing_pallet: {  }
+    put :update, id: @packing_pallet, packing_pallet: { gross_weight: @packing_pallet.gross_weight, pack_type: @packing_pallet.pack_type, quantity: @packing_pallet.quantity, tare: @packing_pallet.tare, temperature: @packing_pallet.temperature, unit_price: @packing_pallet.unit_price }
     assert_redirected_to packing_pallet_path(assigns(:packing_pallet))
   end
 

@@ -1,3 +1,4 @@
+#encoding: utf-8
 class CustomsController < ApplicationController
   # GET /customs
   # GET /customs.json
@@ -44,7 +45,7 @@ class CustomsController < ApplicationController
 
     respond_to do |format|
       if @custom.save
-        format.html { redirect_to "/customs", notice: 'La Agencia de Aduana fue creado exitosamente.' }
+        format.html { redirect_to "/customs", notice: "La agencia de aduana #{@custom.line_of_business} fue creado exitosamente." }
         format.json { render json: @custom, status: :created, location: @custom }
       else
         format.html { render action: "new" }
@@ -60,7 +61,7 @@ class CustomsController < ApplicationController
 
     respond_to do |format|
       if @custom.update_attributes(params[:custom])
-        format.html { redirect_to "/customs", notice: 'La Agencia de Aduana fue editada exitosamente.' }
+        format.html { redirect_to "/customs", notice: "La agencia de aduana #{@custom.line_of_business} fue editada exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

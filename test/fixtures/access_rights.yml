@@ -1,0 +1,841 @@
+---
+access_rights_001:
+  id: '42'
+  model_name: Role
+  created_at: '2013-06-06 20:05:09.767677'
+  updated_at: '2013-06-06 20:05:09.769479'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_002:
+  id: '22'
+  model_name: User
+  created_at: '2013-06-06 20:05:09.69083'
+  updated_at: '2013-06-06 20:05:09.694523'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_003:
+  id: '23'
+  model_name: Company
+  created_at: '2013-06-06 20:05:09.697441'
+  updated_at: '2013-06-06 20:05:09.699542'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_004:
+  id: '24'
+  model_name: AccessRight
+  created_at: '2013-06-06 20:05:09.702536'
+  updated_at: '2013-06-06 20:05:09.704471'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_005:
+  id: '25'
+  model_name: Commune
+  created_at: '2013-06-06 20:05:09.706118'
+  updated_at: '2013-06-06 20:05:09.707965'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_006:
+  id: '26'
+  model_name: Destination
+  created_at: '2013-06-06 20:05:09.70957'
+  updated_at: '2013-06-06 20:05:09.711345'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_007:
+  id: '27'
+  model_name: Dispatch
+  created_at: '2013-06-06 20:05:09.713457'
+  updated_at: '2013-06-06 20:05:09.715375'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_008:
+  id: '28'
+  model_name: Grouping
+  created_at: '2013-06-06 20:05:09.717065'
+  updated_at: '2013-06-06 20:05:09.718839'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_009:
+  id: '29'
+  model_name: Kind
+  created_at: '2013-06-06 20:05:09.720466'
+  updated_at: '2013-06-06 20:05:09.722155'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_010:
+  id: '30'
+  model_name: Locality
+  created_at: '2013-06-06 20:05:09.724379'
+  updated_at: '2013-06-06 20:05:09.726165'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_011:
+  id: '31'
+  model_name: PackGroupDispatch
+  created_at: '2013-06-06 20:05:09.727802'
+  updated_at: '2013-06-06 20:05:09.729609'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_012:
+  id: '32'
+  model_name: PackGroupReceipt
+  created_at: '2013-06-06 20:05:09.731386'
+  updated_at: '2013-06-06 20:05:09.733191'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_013:
+  id: '33'
+  model_name: PackType
+  created_at: '2013-06-06 20:05:09.735578'
+  updated_at: '2013-06-06 20:05:09.737408'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_014:
+  id: '34'
+  model_name: Pallet
+  created_at: '2013-06-06 20:05:09.73911'
+  updated_at: '2013-06-06 20:05:09.740865'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_015:
+  id: '35'
+  model_name: Producer
+  created_at: '2013-06-06 20:05:09.742489'
+  updated_at: '2013-06-06 20:05:09.74432'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_016:
+  id: '36'
+  model_name: Quality
+  created_at: '2013-06-06 20:05:09.746702'
+  updated_at: '2013-06-06 20:05:09.748552'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_017:
+  id: '37'
+  model_name: Receipt
+  created_at: '2013-06-06 20:05:09.750213'
+  updated_at: '2013-06-06 20:05:09.752128'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_018:
+  id: '38'
+  model_name: Region
+  created_at: '2013-06-06 20:05:09.753776'
+  updated_at: '2013-06-06 20:05:09.755602'
+  role_id: 
+  action: read
+  company_id: 
+access_rights_019:
+  id: '39'
+  model_name: Season
+  created_at: '2013-06-06 20:05:09.757527'
+  updated_at: '2013-06-06 20:05:09.759331'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_020:
+  id: '40'
+  model_name: Variety
+  created_at: '2013-06-06 20:05:09.760865'
+  updated_at: '2013-06-06 20:05:09.762663'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_021:
+  id: '1'
+  model_name: User
+  created_at: '2013-06-06 04:26:01.778167'
+  updated_at: '2013-06-06 04:26:01.978969'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_022:
+  id: '2'
+  model_name: Company
+  created_at: '2013-06-06 04:26:02.155276'
+  updated_at: '2013-06-06 04:26:02.300151'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_023:
+  id: '3'
+  model_name: AccessRight
+  created_at: '2013-06-06 04:26:02.304136'
+  updated_at: '2013-06-06 04:26:02.332868'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_024:
+  id: '4'
+  model_name: Commune
+  created_at: '2013-06-06 04:26:02.341764'
+  updated_at: '2013-06-06 04:26:02.345239'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_025:
+  id: '5'
+  model_name: Destination
+  created_at: '2013-06-06 04:26:02.354641'
+  updated_at: '2013-06-06 04:26:02.366266'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_026:
+  id: '6'
+  model_name: Dispatch
+  created_at: '2013-06-06 04:26:02.372806'
+  updated_at: '2013-06-06 04:26:02.387749'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_027:
+  id: '7'
+  model_name: Grouping
+  created_at: '2013-06-06 04:26:02.391028'
+  updated_at: '2013-06-06 04:26:02.394539'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_028:
+  id: '8'
+  model_name: Kind
+  created_at: '2013-06-06 04:26:02.397277'
+  updated_at: '2013-06-06 04:26:02.400223'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_029:
+  id: '9'
+  model_name: Locality
+  created_at: '2013-06-06 04:26:02.402427'
+  updated_at: '2013-06-06 04:26:02.404444'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_030:
+  id: '10'
+  model_name: PackGroupDispatch
+  created_at: '2013-06-06 04:26:02.406379'
+  updated_at: '2013-06-06 04:26:02.408587'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_031:
+  id: '11'
+  model_name: PackGroupReceipt
+  created_at: '2013-06-06 04:26:02.410841'
+  updated_at: '2013-06-06 04:26:02.432427'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_032:
+  id: '12'
+  model_name: PackType
+  created_at: '2013-06-06 04:26:02.436633'
+  updated_at: '2013-06-06 04:26:02.439953'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_033:
+  id: '13'
+  model_name: Pallet
+  created_at: '2013-06-06 04:26:02.442583'
+  updated_at: '2013-06-06 04:26:02.444968'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_034:
+  id: '14'
+  model_name: Producer
+  created_at: '2013-06-06 04:26:02.447086'
+  updated_at: '2013-06-06 04:26:02.449334'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_035:
+  id: '15'
+  model_name: Quality
+  created_at: '2013-06-06 04:26:02.451297'
+  updated_at: '2013-06-06 04:26:02.453801'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_036:
+  id: '16'
+  model_name: Receipt
+  created_at: '2013-06-06 04:26:02.455721'
+  updated_at: '2013-06-06 04:26:02.457876'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_037:
+  id: '17'
+  model_name: Region
+  created_at: '2013-06-06 04:26:02.460049'
+  updated_at: '2013-06-06 04:26:02.462672'
+  role_id: 
+  action: read
+  company_id: 
+access_rights_038:
+  id: '18'
+  model_name: Season
+  created_at: '2013-06-06 04:26:02.487695'
+  updated_at: '2013-06-06 04:26:02.491596'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_039:
+  id: '19'
+  model_name: Variety
+  created_at: '2013-06-06 04:26:02.494604'
+  updated_at: '2013-06-06 04:26:02.497638'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_040:
+  id: '20'
+  model_name: User
+  created_at: '2013-06-06 04:26:02.500016'
+  updated_at: '2013-06-06 04:26:02.521575'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_041:
+  id: '21'
+  model_name: Role
+  created_at: '2013-06-06 04:26:02.529966'
+  updated_at: '2013-06-06 04:26:02.534267'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_042:
+  id: '61'
+  model_name: Variety
+  created_at: '2013-06-06 20:07:07.778406'
+  updated_at: '2013-06-06 20:07:07.780207'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_043:
+  id: '62'
+  model_name: User
+  created_at: '2013-06-06 20:07:07.782154'
+  updated_at: '2013-06-06 20:07:07.783825'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_044:
+  id: '63'
+  model_name: Role
+  created_at: '2013-06-06 20:07:07.785372'
+  updated_at: '2013-06-06 20:07:07.787155'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_045:
+  id: '43'
+  model_name: User
+  created_at: '2013-06-06 20:07:07.711433'
+  updated_at: '2013-06-06 20:07:07.714262'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_046:
+  id: '44'
+  model_name: Company
+  created_at: '2013-06-06 20:07:07.716849'
+  updated_at: '2013-06-06 20:07:07.718742'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_047:
+  id: '45'
+  model_name: AccessRight
+  created_at: '2013-06-06 20:07:07.720375'
+  updated_at: '2013-06-06 20:07:07.722072'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_048:
+  id: '46'
+  model_name: Commune
+  created_at: '2013-06-06 20:07:07.723768'
+  updated_at: '2013-06-06 20:07:07.72696'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_049:
+  id: '47'
+  model_name: Destination
+  created_at: '2013-06-06 20:07:07.729028'
+  updated_at: '2013-06-06 20:07:07.73108'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_050:
+  id: '48'
+  model_name: Dispatch
+  created_at: '2013-06-06 20:07:07.732798'
+  updated_at: '2013-06-06 20:07:07.734532'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_051:
+  id: '49'
+  model_name: Grouping
+  created_at: '2013-06-06 20:07:07.736099'
+  updated_at: '2013-06-06 20:07:07.737765'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_052:
+  id: '50'
+  model_name: Kind
+  created_at: '2013-06-06 20:07:07.739463'
+  updated_at: '2013-06-06 20:07:07.741245'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_053:
+  id: '51'
+  model_name: Locality
+  created_at: '2013-06-06 20:07:07.742864'
+  updated_at: '2013-06-06 20:07:07.744679'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_054:
+  id: '52'
+  model_name: PackGroupDispatch
+  created_at: '2013-06-06 20:07:07.746304'
+  updated_at: '2013-06-06 20:07:07.749137'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_055:
+  id: '53'
+  model_name: PackGroupReceipt
+  created_at: '2013-06-06 20:07:07.750771'
+  updated_at: '2013-06-06 20:07:07.752641'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_056:
+  id: '54'
+  model_name: PackType
+  created_at: '2013-06-06 20:07:07.754211'
+  updated_at: '2013-06-06 20:07:07.755977'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_057:
+  id: '55'
+  model_name: Pallet
+  created_at: '2013-06-06 20:07:07.757705'
+  updated_at: '2013-06-06 20:07:07.759747'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_058:
+  id: '41'
+  model_name: User
+  created_at: '2013-06-06 20:05:09.764279'
+  updated_at: '2013-06-06 20:05:09.766061'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_059:
+  id: '56'
+  model_name: Producer
+  created_at: '2013-06-06 20:07:07.76124'
+  updated_at: '2013-06-06 20:07:07.763049'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_060:
+  id: '57'
+  model_name: Quality
+  created_at: '2013-06-06 20:07:07.76468'
+  updated_at: '2013-06-06 20:07:07.766494'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_061:
+  id: '58'
+  model_name: Receipt
+  created_at: '2013-06-06 20:07:07.768179'
+  updated_at: '2013-06-06 20:07:07.770012'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_062:
+  id: '59'
+  model_name: Region
+  created_at: '2013-06-06 20:07:07.771636'
+  updated_at: '2013-06-06 20:07:07.773377'
+  role_id: 
+  action: read
+  company_id: 
+access_rights_063:
+  id: '60'
+  model_name: Season
+  created_at: '2013-06-06 20:07:07.774999'
+  updated_at: '2013-06-06 20:07:07.776798'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_064:
+  id: '71'
+  model_name: Kind
+  created_at: '2013-06-06 20:07:33.940606'
+  updated_at: '2013-06-06 20:07:33.942373'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_065:
+  id: '72'
+  model_name: Locality
+  created_at: '2013-06-06 20:07:33.944156'
+  updated_at: '2013-06-06 20:07:33.94594'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_066:
+  id: '73'
+  model_name: PackGroupDispatch
+  created_at: '2013-06-06 20:07:33.947553'
+  updated_at: '2013-06-06 20:07:33.94942'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_067:
+  id: '74'
+  model_name: PackGroupReceipt
+  created_at: '2013-06-06 20:07:33.951001'
+  updated_at: '2013-06-06 20:07:33.952842'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_068:
+  id: '75'
+  model_name: PackType
+  created_at: '2013-06-06 20:07:33.954504'
+  updated_at: '2013-06-06 20:07:33.956318'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_069:
+  id: '76'
+  model_name: Pallet
+  created_at: '2013-06-06 20:07:33.958024'
+  updated_at: '2013-06-06 20:07:33.960497'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_070:
+  id: '77'
+  model_name: Producer
+  created_at: '2013-06-06 20:07:33.962705'
+  updated_at: '2013-06-06 20:07:33.964878'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_071:
+  id: '78'
+  model_name: Quality
+  created_at: '2013-06-06 20:07:33.966691'
+  updated_at: '2013-06-06 20:07:33.968824'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_072:
+  id: '79'
+  model_name: Receipt
+  created_at: '2013-06-06 20:07:33.970647'
+  updated_at: '2013-06-06 20:07:33.972522'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_073:
+  id: '80'
+  model_name: Region
+  created_at: '2013-06-06 20:07:33.974189'
+  updated_at: '2013-06-06 20:07:33.976022'
+  role_id: 
+  action: read
+  company_id: 
+access_rights_074:
+  id: '81'
+  model_name: Season
+  created_at: '2013-06-06 20:07:33.977852'
+  updated_at: '2013-06-06 20:07:33.979743'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_075:
+  id: '64'
+  model_name: User
+  created_at: '2013-06-06 20:07:33.91055'
+  updated_at: '2013-06-06 20:07:33.913431'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_076:
+  id: '65'
+  model_name: Company
+  created_at: '2013-06-06 20:07:33.916174'
+  updated_at: '2013-06-06 20:07:33.91835'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_077:
+  id: '66'
+  model_name: AccessRight
+  created_at: '2013-06-06 20:07:33.920184'
+  updated_at: '2013-06-06 20:07:33.922109'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_078:
+  id: '67'
+  model_name: Commune
+  created_at: '2013-06-06 20:07:33.923753'
+  updated_at: '2013-06-06 20:07:33.925414'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_079:
+  id: '68'
+  model_name: Destination
+  created_at: '2013-06-06 20:07:33.927601'
+  updated_at: '2013-06-06 20:07:33.929422'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_080:
+  id: '69'
+  model_name: Dispatch
+  created_at: '2013-06-06 20:07:33.931065'
+  updated_at: '2013-06-06 20:07:33.933361'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_081:
+  id: '70'
+  model_name: Grouping
+  created_at: '2013-06-06 20:07:33.935603'
+  updated_at: '2013-06-06 20:07:33.938791'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_082:
+  id: '82'
+  model_name: Variety
+  created_at: '2013-06-06 20:07:33.981678'
+  updated_at: '2013-06-06 20:07:33.98349'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_083:
+  id: '83'
+  model_name: User
+  created_at: '2013-06-06 20:07:33.985211'
+  updated_at: '2013-06-06 20:07:33.987048'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_084:
+  id: '84'
+  model_name: Role
+  created_at: '2013-06-06 20:07:33.988755'
+  updated_at: '2013-06-06 20:07:33.990551'
+  role_id: 
+  action: manage
+  company_id: 
+access_rights_085:
+  id: '85'
+  model_name: User
+  created_at: '2013-06-25 04:58:12.660672'
+  updated_at: '2013-06-25 04:58:12.670592'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_086:
+  id: '86'
+  model_name: Company
+  created_at: '2013-06-25 04:58:12.708511'
+  updated_at: '2013-06-25 04:58:12.71502'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_087:
+  id: '87'
+  model_name: AccessRight
+  created_at: '2013-06-25 04:58:12.720782'
+  updated_at: '2013-06-25 04:58:12.726758'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_088:
+  id: '88'
+  model_name: Commune
+  created_at: '2013-06-25 04:58:12.731977'
+  updated_at: '2013-06-25 04:58:12.738952'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_089:
+  id: '89'
+  model_name: Destination
+  created_at: '2013-06-25 04:58:12.744754'
+  updated_at: '2013-06-25 04:58:12.750623'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_090:
+  id: '90'
+  model_name: Dispatch
+  created_at: '2013-06-25 04:58:12.755901'
+  updated_at: '2013-06-25 04:58:12.787881'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_091:
+  id: '91'
+  model_name: Grouping
+  created_at: '2013-06-25 04:58:12.793791'
+  updated_at: '2013-06-25 04:58:12.799718'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_092:
+  id: '92'
+  model_name: Kind
+  created_at: '2013-06-25 04:58:12.805131'
+  updated_at: '2013-06-25 04:58:12.810959'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_093:
+  id: '93'
+  model_name: Locality
+  created_at: '2013-06-25 04:58:12.816261'
+  updated_at: '2013-06-25 04:58:12.821934'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_094:
+  id: '94'
+  model_name: PackGroupDispatch
+  created_at: '2013-06-25 04:58:12.827311'
+  updated_at: '2013-06-25 04:58:12.833682'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_095:
+  id: '95'
+  model_name: PackGroupReceipt
+  created_at: '2013-06-25 04:58:12.839463'
+  updated_at: '2013-06-25 04:58:12.844932'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_096:
+  id: '96'
+  model_name: PackType
+  created_at: '2013-06-25 04:58:12.850113'
+  updated_at: '2013-06-25 04:58:12.85567'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_097:
+  id: '97'
+  model_name: Pallet
+  created_at: '2013-06-25 04:58:12.861144'
+  updated_at: '2013-06-25 04:58:12.86754'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_098:
+  id: '98'
+  model_name: Producer
+  created_at: '2013-06-25 04:58:12.872722'
+  updated_at: '2013-06-25 04:58:12.87862'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_099:
+  id: '99'
+  model_name: Quality
+  created_at: '2013-06-25 04:58:12.884312'
+  updated_at: '2013-06-25 04:58:12.890057'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_100:
+  id: '100'
+  model_name: Receipt
+  created_at: '2013-06-25 04:58:12.895653'
+  updated_at: '2013-06-25 04:58:12.901244'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_101:
+  id: '101'
+  model_name: Region
+  created_at: '2013-06-25 04:58:12.906338'
+  updated_at: '2013-06-25 04:58:12.911943'
+  role_id: '5'
+  action: read
+  company_id: 
+access_rights_102:
+  id: '102'
+  model_name: Season
+  created_at: '2013-06-25 04:58:12.916923'
+  updated_at: '2013-06-25 04:58:12.922366'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_103:
+  id: '103'
+  model_name: Variety
+  created_at: '2013-06-25 04:58:12.927906'
+  updated_at: '2013-06-25 04:58:12.933616'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_104:
+  id: '104'
+  model_name: User
+  created_at: '2013-06-25 04:58:12.938731'
+  updated_at: '2013-06-25 04:58:12.94424'
+  role_id: '5'
+  action: manage
+  company_id: 
+access_rights_105:
+  id: '105'
+  model_name: Role
+  created_at: '2013-06-25 04:58:12.949532'
+  updated_at: '2013-06-25 04:58:12.955468'
+  role_id: '5'
+  action: manage
+  company_id: 

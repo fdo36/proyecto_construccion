@@ -1,0 +1,60 @@
+<div class="box">
+<%= form_for(@supply) do |f| %>
+  <% if @supply.errors.any? %>
+    <div id="error_explanation">
+      <h2>Se han encontrado los siguientes errores:</h2>
+
+      <ul>
+        <% @supply.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Nombre                
+        <em class="formee-req">*</em>
+      </label> 
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Descripcion                
+        <em class="formee-req">*</em>
+      </label>   
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :description %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Stock Minimo                
+        <em class="formee-req">*</em>
+      </label> 
+    </div>
+    <div class="forme-in">
+      <%= f.number_field :name %>
+    </div>
+  </div>
+
+  <label> (
+      <em class="formee-req">*</em>
+  </label> ) Campos obligatorios. 
+</div>
+
+<div class="foot-box">
+  <%= link_to 'Cancelar', supplies_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+<% end %>

@@ -1,6 +1,6 @@
 #encoding: utf-8
 class QualitiesController < ApplicationController
-  load_and_authorize_resource
+  #load_and_authorize_resource
   # GET /qualities
   # GET /qualities.json
   def index

@@ -1,11 +1,53 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+---
+users_001:
+  id: '9'
+  email: superadmin@acopio.com
+  encrypted_password: $2a$10$f94TFRSSw6rIzhFmoVKKtO6HUH7dWLhqAP3Pgh4MH36JM58cwuZoC
+  reset_password_token: 
+  reset_password_sent_at: 
+  remember_created_at: 
+  sign_in_count: '0'
+  current_sign_in_at: 
+  last_sign_in_at: 
+  current_sign_in_ip: 
+  last_sign_in_ip: 
+  created_at: '2013-06-25 04:58:12.322483'
+  updated_at: '2013-06-25 04:58:12.322483'
+  phone: 
+  active: t
+  name: 
+  lastname: 
+  secret_question: 
+  secret_answer: 
+  super_admin: t
+  company_id: 
+  gender: 
+  address: 
+  region_id: 
+  commune_id: 
+users_002:
+  id: '10'
+  email: admin@acopio.com
+  encrypted_password: $2a$10$N/1bhlO1xRe38pGJbLG4K.KXdLZAPE/5agPqzyRh26Q3..kiOqDTC
+  reset_password_token: 
+  reset_password_sent_at: 
+  remember_created_at: 
+  sign_in_count: '0'
+  current_sign_in_at: 
+  last_sign_in_at: 
+  current_sign_in_ip: 
+  last_sign_in_ip: 
+  created_at: '2013-06-25 04:58:13.264457'
+  updated_at: '2013-06-25 04:58:13.264457'
+  phone: 
+  active: t
+  name: 
+  lastname: 
+  secret_question: 
+  secret_answer: 
+  super_admin: f
+  company_id: '5'
+  gender: 
+  address: 
+  region_id: 
+  commune_id: 

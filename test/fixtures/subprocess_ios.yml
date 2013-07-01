@@ -1,15 +1,1 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  packing_pallet_id: 1
-  io_datetime: 2013-06-11 15:46:51
-  direction: false
-  worker_id: 1
-  subprocess_id: 1
-
-two:
-  packing_pallet_id: 1
-  io_datetime: 2013-06-11 15:46:51
-  direction: false
-  worker_id: 1
-  subprocess_id: 1
+--- {}
