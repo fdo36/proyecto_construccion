@@ -1,0 +1,29 @@
+<h1>Listing supplies_providers_loans</h1>
+
+<table>
+  <tr>
+    <th>Provider</th>
+    <th>Supply</th>
+    <th>Quantity</th>
+    <th>Company</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @supplies_providers_loans.each do |supplies_providers_loan| %>
+  <tr>
+    <td><%= supplies_providers_loan.provider_id %></td>
+    <td><%= supplies_providers_loan.supply_id %></td>
+    <td><%= supplies_providers_loan.quantity %></td>
+    <td><%= supplies_providers_loan.company_id %></td>
+    <td><%= link_to 'Show', supplies_providers_loan %></td>
+    <td><%= link_to 'Edit', edit_supplies_providers_loan_path(supplies_providers_loan) %></td>
+    <td><%= link_to 'Destroy', supplies_providers_loan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Supplies providers loan', new_supplies_providers_loan_path %>

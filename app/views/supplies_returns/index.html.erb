@@ -1,0 +1,29 @@
+<h1>Listing supplies_returns</h1>
+
+<table>
+  <tr>
+    <th>Worker</th>
+    <th>Supply</th>
+    <th>Company</th>
+    <th>Quantity</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @supplies_returns.each do |supplies_return| %>
+  <tr>
+    <td><%= supplies_return.worker_id %></td>
+    <td><%= supplies_return.supply_id %></td>
+    <td><%= supplies_return.company_id %></td>
+    <td><%= supplies_return.quantity %></td>
+    <td><%= link_to 'Show', supplies_return %></td>
+    <td><%= link_to 'Edit', edit_supplies_return_path(supplies_return) %></td>
+    <td><%= link_to 'Destroy', supplies_return, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Supplies return', new_supplies_return_path %>

@@ -1,4 +1,13 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :supplies_providers_loans
+
+
+  resources :supplies_returns
+
+
+  resources :supplies_loans
+
+
   resources :pallet_finished_products
 
   resources :packing_pallets

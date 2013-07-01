@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Provider:</b>
+  <%= @supplies_providers_loan.provider_id %>
+</p>
+
+<p>
+  <b>Supply:</b>
+  <%= @supplies_providers_loan.supply_id %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @supplies_providers_loan.quantity %>
+</p>
+
+<p>
+  <b>Company:</b>
+  <%= @supplies_providers_loan.company_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_supplies_providers_loan_path(@supplies_providers_loan) %> |
+<%= link_to 'Back', supplies_providers_loans_path %>
