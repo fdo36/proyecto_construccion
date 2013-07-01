@@ -41,7 +41,8 @@ class TunnelsController < ApplicationController
   # POST /tunnels.json
   def create
     @tunnel = Tunnel.new(params[:tunnel])
-
+    @tunnel.update_attributes(:is_delete => "0")
+    
     respond_to do |format|
       if @tunnel.save
         format.html { redirect_to @tunnel, notice: 'Tunnel was successfully created.' }

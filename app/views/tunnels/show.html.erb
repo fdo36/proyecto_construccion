@@ -1,10 +1,14 @@
 <p id="notice"><%= notice %></p>
-
+<div class="headContent">
+  <h1>Ver Túnel</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', tunnels_path , :class => "button blue alignright" %>
 <p>
   <b>Name:</b>
   <%= @tunnel.name %>
 </p>
-
-
-<%= link_to 'Edit', edit_tunnel_path(@tunnel) %> |
-<%= link_to 'Back', tunnels_path %>
+</div>
+<div class="foot-box">
+	<%= link_to 'Editar', edit_tunnel_path(@tunnel) , :class => "button green alignright" %>
+</div>
