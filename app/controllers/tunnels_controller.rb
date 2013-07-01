@@ -45,7 +45,7 @@ class TunnelsController < ApplicationController
     
     respond_to do |format|
       if @tunnel.save
-        format.html { redirect_to @tunnel, notice: 'Tunnel was successfully created.' }
+        format.html { redirect_to @tunnel, notice: 'El Túnel ha sido creado exitosamente.' }
         format.json { render json: @tunnel, status: :created, location: @tunnel }
       else
         format.html { render action: "new" }
@@ -61,7 +61,7 @@ class TunnelsController < ApplicationController
 
     respond_to do |format|
       if @tunnel.update_attributes(params[:tunnel])
-        format.html { redirect_to @tunnel, notice: 'Tunnel was successfully updated.' }
+        format.html { redirect_to @tunnel, notice: 'El Túnel ha sido actualizado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -81,4 +81,14 @@ class TunnelsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def delete_tunnel
+    @tunnel = Tunnel.find(params[:id])
+    @tunnel.update_attribute(:is_delete, "1")
+    respond_to do |format|
+      format.html { redirect_to tunnels_url }
+      format.json { head :no_content }
+    end
+  end
+
 end

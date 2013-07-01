@@ -45,7 +45,6 @@ class SeasonsController < ApplicationController
   def create
     @season = Season.new(params[:season])
     @season.update_attributes(:is_active => "1", :is_delete => "0")
-    @season.company_id = current_user.company_id
 
     respond_to do |format|
       if @season.save
