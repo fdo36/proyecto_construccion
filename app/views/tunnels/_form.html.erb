@@ -2,7 +2,7 @@
   <%= form_for(@tunnel) do |f| %>
     <% if @tunnel.errors.any? %>
       <div id="error_explanation">
-        <h2><%= pluralize(@tunnel.errors.count, "error") %> prohibited this tunnel from being saved:</h2>
+        <h2><%= pluralize(@tunnel.errors.count, "error") %>. No se puede guardar el túnel:</h2>
 
         <ul>
         <% @tunnel.errors.full_messages.each do |msg| %>
