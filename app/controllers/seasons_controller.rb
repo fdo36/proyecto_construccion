@@ -48,7 +48,7 @@ class SeasonsController < ApplicationController
 
     respond_to do |format|
       if @season.save
-        format.html { redirect_to @season, notice: 'La Temporada ha sido creada satisfactoriamente.' }
+        format.html { redirect_to @season, notice: "La Temporada ha sido creada satisfactoriamente." }
         format.json { render json: @season, status: :created, location: @season }
       else
         format.html { render action: "new" }
@@ -64,7 +64,7 @@ class SeasonsController < ApplicationController
 
     respond_to do |format|
       if @season.update_attributes(params[:season])
-        format.html { redirect_to @season, notice: 'Season was successfully updated.' }
+        format.html { redirect_to @season, notice: "Season was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
