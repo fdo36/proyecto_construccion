@@ -1,38 +1,64 @@
 <script type="text/javascript">
 
-   function show_pack_type2() //sel= id del productor seleccionado
+function show_pack_type2() //sel= id del productor seleccionado
    {
       var selDest = document.getElementById("Destinos4");
       var selEnv = document.getElementById("Envases4");
       var idDest = selDest.options[selDest.selectedIndex].value;
-      var x = 1;
       selEnv.options.length = 0;
       selEnv.options[0] = new Option("Seleccione un Envase","","1");      
-         
-       $.get("/pack_types.json", function(data1) {
-          $.each(data1, function(index1, element1){  
-             var flag4 = true;
-               $.get("/dispatches.json", function(data) {
-                   $.each(data, function(index, element){ 
-                      if(idDest == element.destination_id && flag4){ //id Destino seleccionado == id destinos
-                            $.get("/dispatches/"+element.id+"/pack_group_dispatches.json", function(data) {  
-                               $.each(data, function(i, item){ 
-                                     if(element.id == item.dispatch_id && flag4 && item.pack_type_id == element1.id){ // id de dispatch == id dispatch de pack_group_dispatches
-                                              selEnv.options[x] = new Option(element1.name,element1.id,"0");
-                                              x = x+1;
-                                              selEnv.selectedIndex=0;
-                                              flag4 = false;  
-                                     }
-                               });
-                            });
-                      }                 
-                   });
-                }); 
-                
-          });;
-       });
-       
-       }
+      var x = 1;
+      var flag4;   
+      $.get("/pack_types.json", function(data) {  
+      $.get("/dispatches.json", function(data1) { 
+      $.get("/pack_group_dispatches.json", function(data2) { 
+      $.get("/pallets.json", function(data3) { 
+      for(i=0;i<data.length;i++){
+            flag4 = true;
+            for(j=0;j<data1.length && flag4;j++){
+                 if(idDest == data1[j].destination_id){ // si destino idDest == idDestino de dispatches
+                     for(k=0;k<data2.length && flag4;k++){ //busco en pack_group_dispatches
+                          if(data1[j].id == data2[k].dispatch_id && data[i].id == data2[k].pack_type_id){ //idDispatch == idDispatch de pack_group_dispatches and idPackType == idPackType de pack_group_dispatches
+                              selEnv.options[x] = new Option(data[i].name,data[i].id,"0");
+                              x++;
+                              selEnv.selectedIndex=0;                               
+                              flag4 = false;
+                          }                       
+                     }
+                     if(flag4){ //si NO se encontro en packGroupReceipts, busco en Pallets
+                        for(q=0;q<data3.length && flag4;k++){ //busco en pallets
+                             if(data1[j].id == data3[q].dispatch_id && data[i].id == data3[k].pack_type_id){  //idDispatch == idDispatch de pallets and idPackType == idPackType de pallets
+                                 selEnv.options[x] = new Option(data[i].name,data[i].id,"0");
+                                 x++;
+                                 selEnv.selectedIndex=0;                               
+                                 flag4 = false;
+                             }                          
+                        }
+                     }
+                 }
+
+            }
+      }
+      });
+      });
+      });
+      }); 
+      setEstadoBoton4(idDest);   
+    }
+
+  function setEstadoBoton4(idDest){
+      //si campos obligatorios estan seleccionados ==> boton habilitado, sino boton deshabilitado
+      var bt4 = document.getElementById("boton4");
+      if(idDest>=1){
+        bt4.disabled = false;
+        bt4.setAttribute("class","button blue");
+      }
+      else{
+        bt4.disabled = true;
+        bt4.setAttribute("class","");
+      } 
+  }
+
     function validate(){
       var destinationID = document.getElementById('Destinos4');
       if(destinationID.value == ""){
@@ -50,6 +76,7 @@
       <div class="line-forme">
          <div class="forme-lab">
            <%= label_tag 'Destino' %> 
+                <em class="formee-req">*</em>
         </div>
         <% @destinations_array = Destination.all.map { |desti| [desti.name, desti.id] } %>
         <div class="forme-in">
@@ -84,6 +111,6 @@
             <%= select_date Date.today, :prefix => :end_date4 %>
          </div>                        
       </div>                                                                    
-      <%= submit_tag "Generar Informe", :class => "button blue alignleft", :onclick => "validate()" %>
+      <button id="boton4" >Generar Informe </button> 
                        
 <% end %> 

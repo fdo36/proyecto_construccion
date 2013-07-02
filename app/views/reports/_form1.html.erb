@@ -20,32 +20,44 @@
          });
       }
       show_kind1(s.options[s.selectedIndex].value);
+      setEstadoBoton1(s.options[s.selectedIndex].value);
    }
+
+     function setEstadoBoton1(idPro){
+      //si campos obligatorios estan seleccionados ==> boton habilitado, sino boton deshabilitado
+      var bt1 = document.getElementById("boton1");
+      if(idPro>=1){
+        bt1.disabled = false;
+        bt1.setAttribute("class","button blue");
+      }
+      else{
+        bt1.disabled = true;
+        bt1.setAttribute("class","");
+      } 
+  }   
 
    function show_kind1(sel) //sel= id del productor seleccionado
    {
       var selKin = document.getElementById("Especies1");
-      var i = 1;
+      var x = 1;
+      var flag1;
       selKin.options.length = 0;
       selKin.options[0] = new Option("Seleccione una Especie","","1");  
-
-      $.get("/kinds.json", function(data1) {
-         $.each(data1, function(index1, element1){
-            var flag1 = true;
-            $.get("/receipts.json", function(data) {
-               $.each(data, function(index, element){                  
-                  if(sel == element.producer_id && flag1){ //id productor seleccionado == id productor de ingresos         
-                        if(element1.id == element.kind_id){
-                           selKin.options[i] = new Option(element1.name,element1.id,"0");
-                           i = i+1;
-                           selKin.selectedIndex=0;
-                           flag1 = false;                                                    
-                        }                        
-                  } 
-               });
-            }); 
-         });
-      });      
+      $.get("/kinds.json", function(data) {  
+      $.get("/receipts.json", function(data1) { 
+      for(i=0;i<data.length;i++){
+         flag1 = true;
+         for(j=0;j<data1.length && flag1;j++){
+            if(sel == data1[j].producer_id && data[i].id == data1[j].kind_id){ //productor sel == idProductor de receipts and idKind == idKind de receipts
+                  selKin.options[x] = new Option(data[i].name,data[i].id,"0");
+                  x++;
+                  selKin.selectedIndex=0;
+                  flag1 = false;
+            }
+         }
+      }
+      });
+      });
    }
 
    function myfunction(event)
@@ -122,6 +134,7 @@
    <div class="line-forme">
       <div class="forme-lab">
          <%= label_tag 'Productor'%> 
+              <em class="formee-req">*</em>
       </div>
       <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
       <div class="forme-in">
@@ -174,5 +187,5 @@
          <%= select_date Date.today, :prefix => :end_date1%>
       </div>
    </div>
-   <button class="button blue alignleft" onclick="validate()">Generar Informe</button>
+   <button id = "boton1" >Generar Informe </button>
 <% end %>
