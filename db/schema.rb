@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130702165636) do
+
+ActiveRecord::Schema.define(:version => 20130701021007) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -495,6 +496,19 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"
+  end
+
+  create_table "wash_chamber_ios", :force => true do |t|
+    t.integer  "order_number"
+    t.integer  "duration"
+    t.float    "washing_lines"
+    t.float    "total_neto"
+    t.float    "total_cull"
+    t.float    "total_waste"
+    t.float    "total"
+    t.float    "stadistics"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "wiki_page_versions", :force => true do |t|

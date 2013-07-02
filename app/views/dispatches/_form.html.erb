@@ -1,5 +1,30 @@
 <script type="text/javascript">
+var oTable = {}
+var registers = new Array();
+var id_count = 1;
+var modified = false;
+
     $(function() {
+      oTable = $('#tablealone').dataTable({
+        "sPaginationType": "full_numbers",
+        "bJQueryUI": true,
+        "aoColumnDefs": [
+          { "bSortable": false, "aTargets": [ -1 ] },
+          { "bSearchable": false, "aTargets": [ -1 ]}
+        ] } );
+
+      $("#tablealone tbody").delegate("a", "click", function () {
+          var parent = $(this).parent().parent().get( 0 );
+          console.log(parent)
+          var iPos = oTable.fnGetPosition(parent);
+          if (iPos !== null) {
+              oTable.fnDeleteRow(iPos);
+              var name = $(this).attr("name");
+              delete registers[name];
+              console.log(name);
+      }});
+
+
       $(".chzn-select").chosen().change(function() {
           var id = $(this).val();
           document.getElementById('select_destination').value = id;
@@ -41,11 +66,6 @@
     
   }
 
-
-  var registers = new Array();
-  var id_count = 1;
-  var modified = false;
-
   window.onbeforeunload = function () {    
     if (modified) {
       return "Los cambios no guardados se perderan";
@@ -76,6 +96,7 @@
       //obtener datos de despacho
       var kind_id = $("#dispatch_kind_id").val();
       var destination_id = $("#select_destination").val();
+      var code = $("#dispatch_code").val();
 
       //crear datetime
       var year = $("#dispatch_dispatch_datetime_1i").val();
@@ -90,7 +111,7 @@
         type: "POST", 
         dataType: "json",
         async: false,
-        data: { dispatch : {code: "1", kind_id: kind_id, destination_id: destination_id, dispatch_datetime: dispatch_datetime } },
+        data: { dispatch : {code: code, kind_id: kind_id, destination_id: destination_id, dispatch_datetime: dispatch_datetime } },
         success: function(data){ 
           add_registers_to(data.id);
         },  
@@ -104,8 +125,8 @@
   }
 
   function add_registers_to (dispatch_id) {
-    for (var i = 0; i < registers.length; i++) {
-      var register = registers[i];
+    for (var key in registers) {
+      var register = registers[key];
 
       var code = register.code;
       var gross_weight = register.gross_weight;
@@ -135,6 +156,7 @@
       }
     };
     set_modified(false);
+    location.href = "/dispatches";
   }
 
   function get_pack_type_tare (pack_type_id) {
@@ -177,10 +199,12 @@
     var id = id_count;
     id_count++;
 
-    var new_register = new register(variety_id, quality_id, price_kg, pack_type_id, quantity, gross_weight, code, tare, is_pallet, id);
-    registers.push(new_register);
 
-    var row = new Array(code, quantity, net_weight, variety_name, quality_name, price_kg, "<a href='#' onClick='delete_row(cd)'>eliminar</a>");
+    var new_register = new register(variety_id, quality_id, price_kg, pack_type_id, quantity, gross_weight, code, tare, is_pallet, id);
+
+    registers[id_count] = new_register;
+
+    var row = new Array(code, quantity, net_weight, variety_name, quality_name, price_kg, "<a name="+id_count+"'>eliminar</a>");
     $('#tablealone').dataTable().fnAddData(row);
     set_modified(true);
   }
@@ -244,30 +268,6 @@
     
   }
 
-    else
-    {      
-      $.get("/destinations.json", function(data) {       
-       
-       var encontrado = false;       
-       
-       for (var i = data.length - 1; i >= 0; i--) {
-        if(data[i]["code"]==s.value){
-          $('#rut').val(data[i]["rut"]); 
-          $('#select_destination').val([data[i]["name"], data[i]["id"]]);
-          $('#codigo').val(s.value);
-          encontrado = true;                  
-        }
-       };
-       if(!encontrado)
-       {
-          $('#select_destination').val("");
-          $('#rut').val("-");      
-          $('#codigo').val("-");
-       }
-             
-      });      
-  }  
-}
 </script>
 
 <script type="text/javascript">
@@ -439,9 +439,6 @@
         <em class="formee-req">*</em>
       </div>    
       <div class="forme-in">
-        <%= f.text_field(:rut, :id => 'rut', :value => "-", :onblur => "search_rut(this)")%>
-      </div>
-    </div>
 
         <% @options = Destination.all.map { |d| [d.rut, d.id] } %>
         <%= f.select(:destination_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione Rut de destino - '} , :id => 'select_rut',:onchange => "show_rut(this)", :class => 'chzn-select') %>  
@@ -623,7 +620,7 @@
     </div>
 
     <div class="box"> 
-      <table cellpadding="0" cellspacing="0" border="0" id="tablealone" class="display datatable">
+      <table cellpadding="0" cellspacing="0" border="0" id="tablealone" class="display">
         <thead>
           <tr>
             <th style="width:20% !important;">Código Pallet</th>
