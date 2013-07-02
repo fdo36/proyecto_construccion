@@ -168,7 +168,6 @@
 					<%end%>
 				</div>
 
-<<<<<<< HEAD
 				<div id="tools">
 					<ul id="menuTools">
 						<ul>
@@ -179,48 +178,20 @@
 							</div>
 						</ul>
 						<% if current_user.super_admin != true and can?(:manage, User) %>
-						<ul>
-							<p>Compañía</p>
-							<div class="toolsDisplay">
-								<li><%= link_to('Cuentas', company_users_path(current_user.company)) %></li>
-								<li><%= link_to('Configuración', new_setting_path) %></li>
-							</div>
-						</ul>
+							<ul>
+								<p>Compañía</p>
+								<div class="toolsDisplay">
+									<li><%= link_to('Cuentas', company_users_path(current_user.company)) %></li>
+									<li><%= link_to('Configuración', new_setting_path) %></li>
+								</div>
+							</ul>
 						<% end %>
-=======
+					</ul>
 				</div>
 				
-				<div class="tools">
-					<div class="toolsCompressed">
-						<p>Cuenta</p>
-					</div>
-					
-					<ul class="toolsMenu">
-						<li><p>Perfil</p></li>
-						<li><p><%= link_to('Ayuda', "/wiki") %></p></li>
-						<li><p><%= link_to('Cerrar sesión', destroy_user_session_path, :method => :delete) %></p> </li>
->>>>>>> 7892ec6c9b2e7793c9510c3aa1dea22d3170dd25
-					</ul>
-
-				</div>
-
-<<<<<<< HEAD
 				<div id="nameLogin">
 						<p><%= current_user.email %></p>
-=======
-				<% if current_user.super_admin != true and can?(:manage, User) %>
-				<div class="tools first-tool">
-					<div class="toolsCompressed">
-						<p>Compañia</p>
-					</div>
-					<ul class="toolsMenu">
-						<li> <p><%= link_to('Cuentas', company_users_path(current_user.company)) %></p> </li>
-						<li> <p><%= link_to('Configuración', new_setting_path) %> </p> </li>
-						
-					</ul>
->>>>>>> 7892ec6c9b2e7793c9510c3aa1dea22d3170dd25
 				</div>
-				
 			</div>
 		</section>
 
