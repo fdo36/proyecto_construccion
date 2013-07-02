@@ -1,0 +1,110 @@
+<div class="box">
+  <%= form_for(@final_packing_pallet) do |f| %>
+    <% if @final_packing_pallet.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= @final_packing_pallet.errors.count > 1 ? "#{@final_packing_pallet.errors.count} errores." : "#{@final_packing_pallet.errors.count} error." %> no se puede guardar el packing pallet final</h2>
+
+        <ul>
+        <% @final_packing_pallet.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Especie                
+          <em class="formee-req">*</em>
+        </label>  
+      </div>
+      <div class="forme-in">
+        <% kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+        <%= f.select(:kind_id, kinds_array, :selected => :prompt, :prompt => '- Seleccione Especie -') %>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Variedad                
+          <em class="formee-req">*</em>
+        </label>  
+      </div>
+      <div class="forme-in">
+        <% varieties_array = Variety.all.map { |variety| [variety.name, variety.id] } %>
+        <%= f.select(:variety_id, varieties_array, :selected => :prompt, :prompt => '- Seleccione Variedad -') %>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Calidad                
+          <em class="formee-req">*</em>
+        </label>  
+      </div>
+      <div class="forme-in">
+        <% qualities_array = Quality.all.map { |quality| [quality.name, quality.id] } %>
+        <%= f.select(:quality_id, qualities_array, :selected => :prompt, :prompt => '- Seleccione Calidad -') %>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Pack_Packing_ID                
+          <em class="formee-req">*</em>
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= f.text_field :pack_packing_id %>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Formato:              
+          <em class="formee-req">*</em>
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= f.text_field :format_id %>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Cantidad              
+          <em class="formee-req">*</em>
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= f.text_field :quantity %>
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Peso Neto              
+          <em class="formee-req">*</em>
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= f.text_field :net_weight, :oninput => "replace_comma_with_dot(this)" %>
+      </div>
+    </div>
+
+    <label> (
+      <em class="formee-req">*</em>
+    </label> ) Campos obligatorios.
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', final_packing_pallets_path, :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+<% end %>

@@ -1,35 +1,45 @@
 ProyectoConstruccion::Application.routes.draw do
+
   resources :wash_chamber_ios
 
+  resources :tunnels
 
-  resources :pallet_finished_products
-
-
-  resources :production_process_ios
-
-
-  resources :receipt_packing_ios
-
-
-  resources :stabilization_chamber_ios
+  resources :frozen_tunnels
 
 
   resources :customs
 
+  resources :pallet_finished_products
+
+  resources :packing_pallets
+
+  resources :final_packing_pallets
+  resources :production_process_ios
+
+  resources :customs
+  resources :receipt_packing_ios
 
   resources :transit_chamber_ios
-  resources :format_packings
 
 
-  resources :providers
+  resources :turns
+  resources :stabilization_chamber_ios
+
   resources :workers
 
 
+  resources :packing_processes
+  resources :format_packings
+
+  resources :subprocesses
+  resources :providers
+  resources :workers
+
+  resources :subprocess_ios
   resources :supplies
 
 
   resources :pack_packings
-
 
   resources :empty_packs_destination_moves
 
@@ -133,12 +143,12 @@ ProyectoConstruccion::Application.routes.draw do
   match 'producers/:id/disable' => 'producers#disable', :as => 'producers_disable'
   match 'producers/:id/delete_producer' => 'producers#delete_producer', :as => 'producer_delete'
     
-
-
   match '/help/css/jquery-ui.css', :to => redirect('/css/jquery-ui.css')
   match '/help/css/styles.css', :to => redirect('/css/styles.css')
   match '/help/css/default_buttons.css', :to => redirect('/css/default_buttons.css')
 
   match 'receipts/generate_pdf' => 'receipts#generate_pdf', :as => 'receipts_generate_pdf'
+
+  match 'tunnels/:id/delete_tunnel' => 'tunnels#delete_tunnel', :as => 'tunnel_delete'
   
 end

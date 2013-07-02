@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130701014810) do
+ActiveRecord::Schema.define(:version => 20130701021007) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -69,10 +69,13 @@ ActiveRecord::Schema.define(:version => 20130701014810) do
     t.string   "email"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.integer  "company_id"
+    t.integer  "user_id"
   end
 
   create_table "destinations", :force => true do |t|
     t.string   "code"
+    t.integer  "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -129,12 +132,34 @@ ActiveRecord::Schema.define(:version => 20130701014810) do
     t.datetime "updated_at",   :null => false
   end
 
+
+  create_table "frozen_tunnels", :force => true do |t|
+    t.integer  "order_number"
+    t.integer  "tunnel_id"
+    t.float    "tunnel_temperature"
+    t.float    "packing_pallet_temperature"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+
+  create_table "final_packing_pallets", :force => true do |t|
+    t.integer  "kind_id"
+    t.integer  "variety_id"
+    t.integer  "quality_id"
+    t.integer  "pack_packing_id"
+    t.integer  "format_id"
+    t.integer  "quantity"
+    t.float    "net_weight"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "format_packings", :force => true do |t|
     t.string   "name"
     t.integer  "quantity"
     t.float    "weight"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+>>>>>>> 415b307854b1342cc6ffc3aa4377297b6bd422f0
   end
 
   create_table "groupings", :force => true do |t|
@@ -231,6 +256,8 @@ ActiveRecord::Schema.define(:version => 20130701014810) do
     t.integer  "unit_price"
     t.float    "tare"
     t.float    "temperature"
+    t.string   "pallet_code"
+    t.integer  "pack_type_id"
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -401,6 +428,8 @@ ActiveRecord::Schema.define(:version => 20130701014810) do
     t.integer  "subprocess_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "heir_id"
+    t.string   "heir_type"
   end
 
   create_table "subprocesses", :force => true do |t|
@@ -423,6 +452,22 @@ ActiveRecord::Schema.define(:version => 20130701014810) do
     t.integer  "order_number"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "tunnels", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "is_delete"
+  end
+
+  create_table "turns", :force => true do |t|
+    t.string   "name"
+    t.integer  "subprocess_id"
+    t.datetime "start_datetime"
+    t.datetime "end_datetime"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -526,6 +571,10 @@ ActiveRecord::Schema.define(:version => 20130701014810) do
 
   add_foreign_key "dispatches", "destinations", :name => "dispatches_destination_id_fk"
   add_foreign_key "dispatches", "kinds", :name => "dispatches_kind_id_fk"
+
+  add_foreign_key "final_packing_pallets", "kinds", :name => "final_packing_pallets_kind_id_fk"
+  add_foreign_key "final_packing_pallets", "qualities", :name => "final_packing_pallets_quality_id_fk"
+  add_foreign_key "final_packing_pallets", "varieties", :name => "final_packing_pallets_variety_id_fk"
 
   add_foreign_key "groupings_producers", "groupings", :name => "groupings_producers_grouping_id_fk"
   add_foreign_key "groupings_producers", "producers", :name => "groupings_producers_producer_id_fk"

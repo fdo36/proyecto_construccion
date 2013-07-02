@@ -49,7 +49,7 @@ class DispatchesController < ApplicationController
 
     respond_to do |format|
       if @dispatch.save
-        format.html { redirect_to @dispatch, notice: 'Dispatch was successfully created.' }
+        format.html { redirect_to @dispatch, notice: 'El despacho fue creado exitosamente.' }
         format.json { render json: @dispatch, status: :created, location: @dispatch }
       else
         format.html { render action: "new" }
@@ -65,7 +65,7 @@ class DispatchesController < ApplicationController
 
     respond_to do |format|
       if @dispatch.update_attributes(params[:dispatch])
-        format.html { redirect_to @dispatch, notice: 'Dispatch was successfully updated.' }
+        format.html { redirect_to @dispatch, notice: 'El despacho fue editado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -1,0 +1,31 @@
+<div class="box">
+  <%= form_for(@tunnel) do |f| %>
+    <% if @tunnel.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@tunnel.errors.count, "error") %>. No se puede guardar el túnel:</h2>
+
+        <ul>
+        <% @tunnel.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Nombre túnel                
+          <em class="formee-req">*</em>
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= f.text_field :name %>
+      </div>
+    </div>  
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', tunnels_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+<% end %>

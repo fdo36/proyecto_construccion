@@ -1,15 +1,39 @@
 ProyectoConstruccion::Application.routes.draw do
 <<<<<<< HEAD
-  resources :format_packings
 =======
+  resources :pallet_finished_products
+>>>>>>> 3aa11bc6ae28d70c675a38af04492177a4d40dba
+
+  resources :packing_pallets
+
+<<<<<<< HEAD
+  resources :final_packing_pallets
+
+
   resources :customs
 
 
   resources :transit_chamber_ios
->>>>>>> 84af0432da40a2bf01823a167aab13d718606cea
+=======
+  resources :production_process_ios
+
+
+  resources :receipt_packing_ios
+>>>>>>> 3aa11bc6ae28d70c675a38af04492177a4d40dba
+
+
+  resources :stabilization_chamber_ios
+
+
+  resources :customs
+
+
+  resources :transit_chamber_ios
+  resources :format_packings
 
 
   resources :providers
+  resources :workers
 
 
   resources :supplies

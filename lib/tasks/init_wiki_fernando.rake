@@ -21,7 +21,98 @@ namespace :init_wiki_fernando do
 ** [[Especies]]
 ** [[Productores]]
 ** [[Variedades]]
+** [[Agencias de Aduana]]
+
 </div>')
+        WikiPage.create(:creator_id => 2, :updator_id => 2, 
+                    :path=> 'Agencias de Aduana', :title => 'Agencias de Aduana', :content => '<div class="textContent">
+Módulo encargado de mantener las agencias de aduana. Permite agregar, modificar y eliminar cada una de las agencias de aduana.
+</div>
+
+<div class="indexHelp">
+* "1. Descripciónn de los Campos":#description
+** "1.1 Nombre":#f_name
+** "1.2 Descripción":#f_description
+* "2. Acciones":#actions
+** "2.1 Agregar nueva agencia de aduana":#a_add
+** "2.2 Editar agencia de aduana existente":#a_edit
+** "2.3. Ver agencia de aduana existente":#a_show
+** "2.4. Eliminar agencia de aduana existente":#a_delete
+* "3. Preguntas Frecuentes":#faq
+</div>
+
+<div class="contentHelp">
+h2(#description). Descripción de los Campos
+
+h3(#f_name). Nombre:
+
+<div class="contentHelp">
+Campo que almacena el nombre de la agencia de aduana.
+</div>
+
+h3(#f_description). Descripción:
+
+<div class="contentHelp">
+Campo que almacena una breve descripción de la agencia de aduana.
+</div>
+
+h3(#a_add). Agregar nueva agencia de aduana:
+
+<div class="textContent">
+Para agregar una nueva agencia de aduana, primero debemos seleccionar el módulo "Aduanas" en la barra de navegación (a la izquierda), ubicada dentro de "Recursos".
+!/help/img/grouping/add_1.png!
+El Sistema mostrará en pantalla una lista de todas las agencias de aduana agregadas con anterioridad (Si se ha ingresado por primera vez, no mostrará ninguna).
+Presionamos el botón "Nueva Aduana", en la esquina superior derecha.
+!/help/img/grouping/add_2.png!
+Llenamos la información correspondiente (Los campos obligatorios se destacan con un *). Posteriormente guardamos para continuar o simplemente cancelamos.
+!/help/img/grouping/add_3.png!
+Finalmente, el sistema volverá a la página principal de agencias de aduana y mostrará en la tabla la agencia de aduana agregada.
+!/help/img/grouping/add_4.png!
+</div>
+
+h3(#a_edit). Editar agencia de aduana existente:
+
+<div class="textContent">
+Para editar una agencia de aduana existente, en la página principal del módulo "Aduanas", seleccionamos "Editar"
+(ubicada al extremo opuesto de la agencia de aduana por editar y dentro de la columna "acciones").
+!/help/img/grouping/edit_1.png!
+El Sistema cargará el formulario de ingreso, pero esta vez mostrará los datos que ya se han ingresado. En este punto se puede modificar la información de dichos campos o no.
+Marcamos en el botón "Guardar" para confirmar los nuevos cambios o simplemente cancelamos.
+!/help/img/grouping/edit_2.png!
+Finalmente, el sistema volverá a la página principal de agencias de aduana y mostrará en la tabla el o los datos modificados.
+!/help/img/grouping/edit_3.png!
+</div>
+
+h3(#a_show). Ver agencia de aduana existente:
+
+<div class="textContent">
+Para ver los datos de una agencia de aduana existente, en la página principal del módulo "Aduanas", seleccionamos "Ver"
+(ubicada al extremo opuesto de la agencia de aduana por ver y dentro de la columna "acciones"). 
+!/help/img/grouping/show_1.png!
+El Sistema mostrará los datos de la agencia de aduana seleccionada, sin opción de modificación. 
+Por lo demás, en este punto, el sistema permite editar los datos o simplemente volver a la página principal del módulo.
+!/help/img/grouping/show_2.png!
+Finalmente, el sistema volverá a la página principal de agencias de aduana o de edición dependiendo de la acción tomada.!
+</div>
+
+h3(#a_delete). Eliminar agencia de aduana existente:
+
+<div class="textContent">
+Para eliminar los datos de una agencia de aduana existente, en la página principal del módulo "Aduanas", seleccionamos "Eliminar"
+(ubicada al extremo opuesto de la agencia de aduana por eliminar y dentro de la columna "acciones"). 
+!/help/img/grouping/delete_1.png!
+El Sistema mostrará un diálogo preguntando si deseamos eliminar la agencia de aduana.
+!/help/img/grouping/delete_2.png!
+Si marcamos el botón "Aceptar", la agencia de aduana desaparecerá de la lista de agencias de aduana.
+!/help/img/grouping/delete_3.png!
+</div>
+
+h2(#faq). Preguntas Frecuentes
+
+Actualmente no existen preguntas frecuentes.
+</div>)
+end')
+
 		WikiPage.create(:creator_id => 2, :updator_id => 2, 
     				:path=> 'Agrupaciones', :title => 'Agrupaciones', :content => '<div class="textContent">
 Módulo encargado de mantener las agrupaciones. Permite agregar, modificar y eliminar cada una de las agrupaciones.
@@ -63,7 +154,7 @@ h3(#a_add). Agregar nueva agrupación:
 <div class="textContent">
 Para agregar una nueva agrupación, primero debemos seleccionar el módulo "Agrupaciones" en la barra de navegación (a la izquierda), ubicada dentro de "Recursos".
 !/help/img/grouping/add_1.png!
-El Sistema mostrará en pantalla una lista de todos las agrupaciones agregadas con anterioridad (Si se ha ingresado por primera vez, no mostrará ninguna).
+El Sistema mostrará en pantalla una lista de todas las agrupaciones agregadas con anterioridad (Si se ha ingresado por primera vez, no mostrará ninguna).
 Presionamos el botón "Nueva Agrupación", en la esquina superior derecha.
 !/help/img/grouping/add_2.png!
 Llenamos la información correspondiente (Los campos obligatorios se destacan con un *). Posteriormente guardamos para continuar o simplemente cancelamos.
@@ -103,7 +194,7 @@ h3(#a_delete). Eliminar agrupación existente:
 Para eliminar los datos de una agrupación existente, en la página principal del módulo "Agrupaciones", seleccionamos "Eliminar"
 (ubicada al extremo opuesto de la agrupación por eliminar y dentro de la columna "acciones"). 
 !/help/img/grouping/delete_1.png!
-El Sistema mostrará un dialogo preguntando si deseamos eliminar la agrupación.
+El Sistema mostrará un diálogo preguntando si deseamos eliminar la agrupación.
 !/help/img/grouping/delete_2.png!
 Si marcamos el botón "Aceptar", la agrupación desaparecerá de la lista de agrupaciones.
 !/help/img/grouping/delete_3.png!
@@ -188,7 +279,7 @@ h3(#a_delete). Eliminar calidad existente:
 Para eliminar los datos de una calidad existente, en la página principal del módulo "Calidad", seleccionamos "Eliminar"
 (ubicada al extremo opuesto de la calidad por eliminar y dentro de la columna "acciones"). 
 !/help/img/quality/delete_1.png!
-El Sistema mostrará un dialogo preguntando si deseamos eliminar la calidad.
+El Sistema mostrará un diálogo preguntando si deseamos eliminar la calidad.
 !/help/img/quality/delete_2.png!
 Si marcamos el botón "Aceptar", la calidad desaparecerá de la lista de calidades.
 !/help/img/grouping/delete_3.png!
@@ -333,7 +424,7 @@ h3(#a_delete). Eliminar destino existente:
 Para eliminar los datos de un destino existente, en la página principal del módulo "Destinos" y tabla "Deshabilitados", seleccionamos "Eliminar"
 (ubicada al extremo opuesto del destino por eliminar y dentro de la columna "acciones"). 
 !/help/img/destination/delete_1.png!
-El Sistema mostrará un dialogo preguntando si deseamos eliminar el destino.
+El Sistema mostrará un diálogo preguntando si deseamos eliminar el destino.
 !/help/img/destination/delete_2.png!
 Si marcamos el botón "Aceptar", el destino desaparecerá de la lista de destinos.
 </div>
@@ -422,7 +513,7 @@ h3(#a_delete). Eliminar envase existente:
 Para eliminar los datos de un envase existente, en la página principal del módulo "Envase", seleccionamos "Eliminar"
 (ubicada al extremo opuesto de el envase por eliminar y dentro de la columna "acciones"). 
 !/help/img/pack_type/delete_1.png!
-El Sistema mostrará un dialogo preguntando si deseamos eliminar el envase.
+El Sistema mostrará un diálogo preguntando si deseamos eliminar el envase.
 !/help/img/pack_type/delete_2.png!
 Si marcamos el botón "Aceptar", el envase desaparecerá de la lista de envases.
 !/help/img/pack_type/delete_3.png!
@@ -596,7 +687,7 @@ h3(#a_delete). Eliminar productor existente:
 Para eliminar los datos de un productor existente, en la página principal del módulo "Productores" y tabla "Deshabilitados", seleccionamos "Eliminar"
 (ubicada al extremo opuesto de el productor por eliminar y dentro de la columna "acciones"). 
 !/help/img/producer/delete_1.png!
-El Sistema mostrará un dialogo preguntando si deseamos eliminar el productor.
+El Sistema mostrará un diálogo preguntando si deseamos eliminar el productor.
 !/help/img/producer/delete_2.png!
 Si marcamos el botón "Aceptar", el productor desaparecerá de la lista de productores.
 !/help/img/producer/delete_3.png!
