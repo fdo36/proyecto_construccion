@@ -1,35 +1,50 @@
 <script type="text/javascript">
 
 function add_pallet(){
-
-    console.log("agregando")
-    $("#error_label").text("");
-    $.get("/packing_pallets.json", function(pallets) {
-      flag = false;
-      $.each(pallets, function(index, pallet){
-        if (pallet.pallet_code == $("#code_pallet").val()) {
+  $("#error_label").text("");
+  $.get("/packing_pallets.json", function(pallets) {
+    flag = false;
+    $.each(pallets, function(index, pallet){
+      flag2 = false
+      if (pallet.pallet_code == $("#code_pallet").val()) {
+        $('#tunnel_table tbody tr').each(function(index){
+          var code = $(this).find("td").eq(0).text();
+          if (pallet.pallet_code == code) {
+            flag2 = true
+          }
+        });
+        if(flag2==false){
           flag = true;
           $('#tunnel_table').dataTable().fnAddData([
              pallet.pallet_code,
              pallet.pack_type_id,
              pallet.gross_weight,
              "<a onclick='delete_row(this);'>Eliminar</a>"
-          ]);   
-        }
-      });
-      if (!flag){
-        $("#error_label").text("Ingrese un código válido");
+          ]);
+        }  
       }
-       
-      $("#code_pallet").val("");
     });
-  }
+    if (!flag){
+      $("#error_label").text("Ingrese un código válido");
+    }
+     
+    $("#code_pallet").val("");
+  });
+}
+
+function delete_row(button)
+{
+  var currentRow = $(button).closest('tr');
+  $("#tunnel_table").dataTable().fnDeleteRow(currentRow[0]);
+}
 
 function add_pallets(){
-  var p_temperature = $("#frozen_tunnel_temperature").val();
-  var p_order_number = $("#frozen_tunnel_order_number").val();
-  var p_worker_id = $("#frozen_tunnel__worker_id").val();
-  var p_direction = $('input[name="frozen_tunnel_[direction]"]:checked').val();
+  var p_tunnel_temperature = $("#frozen_tunnel_io_tunnel_temperature").val();
+  var p_pallet_temperature = $("#frozen_tunnel_io_packing_pallet_temperature").val();
+  var p_order_number = $("#frozen_tunnel_io_order_number").val();
+  var p_worker_id = $("#frozen_tunnel_io_worker_id").val();
+  var p_tunnel_id = $("#frozen_tunnel_io_tunnel_id").val();
+  var p_direction = $('input[name="frozen_tunnel_io[direction]"]:checked').val();
   
   $('#tunnel_table tbody tr').each(function(index){
      var code = $(this).find("td").eq(0).text();
@@ -38,16 +53,19 @@ function add_pallets(){
         if (pallet.pallet_code == code) {
           p_packing_pallet_id = pallet.id;
           $.ajax({
-              url: "/frozen_tunnel_/",
+              url: "/frozen_tunnel_ios/",
               type: "POST",
-                data: {frozen_tunnel:{ temperature: p_temperature,
-                                            order_number: p_order_number,
-                                            direction: p_direction,
-                                            worker_id: p_worker_id,
-                                            packing_pallet_id: p_packing_pallet_id}
+              data: {frozen_tunnel_io:{  order_number: p_order_number,
+                                      packing_pallet_temperature: p_pallet_temperature,
+                                      tunnel_id: p_tunnel_id,
+                                      tunnel_temperature: p_tunnel_temperature,
+                                      packing_pallet_id: p_packing_pallet_id,
+                                      direction: p_direction,
+                                      worker_id: p_worker_id          
+                                    }
                       }                      
             }).done(function(){
-              window.location = "/frozen_tunnels"
+              window.location = "/frozen_tunnel_ios"
             });
         }
        });
@@ -59,12 +77,12 @@ function add_pallets(){
 
 <div class="box">
 
-<%= form_for(@frozen_tunnel) do |f| %>
-  <% if @frozen_tunnel.errors.any? %>
+<%= form_for(@frozen_tunnel_io) do |f| %>
+  <% if @frozen_tunnel_io.errors.any? %>
     <div id="error_explanation">
-      <h2><%= @frozen_tunnel.errors.count > 1 ? "#{@frozen_tunnel.errors.count} errores." : "#{@frozen_tunnel.errors.count} error." %> No se puede guardar la cámara de tunel de congelado:</h2>
+      <h2><%= @frozen_tunnel_io.errors.count > 1 ? "#{@frozen_tunnel_io.errors.count} errores." : "#{@frozen_tunnel_io.errors.count} error." %> No se puede guardar el tunel de congelado:</h2>
       <ul>
-      <% @frozen_tunnel.errors.full_messages.each do |msg| %>
+      <% @frozen_tunnel_io.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -185,6 +203,6 @@ function add_pallets(){
 </div>
 
 <div class="foot-box">
-    <%= link_to 'Cancelar', frozen_tunnels_path , :class => "button silver alignright" %>
+    <%= link_to 'Cancelar', frozen_tunnel_ios_path , :class => "button silver alignright" %>
     <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallets();"%>
-</div>
+</div>|

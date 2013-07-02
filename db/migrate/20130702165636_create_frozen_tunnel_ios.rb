@@ -1,6 +1,6 @@
-class CreateFrozenTunnels < ActiveRecord::Migration
+class CreateFrozenTunnelIos < ActiveRecord::Migration
   def change
-    create_table :frozen_tunnels do |t|
+    create_table :frozen_tunnel_ios do |t|
       t.integer :order_number
       t.integer :tunnel_id
       t.float :tunnel_temperature

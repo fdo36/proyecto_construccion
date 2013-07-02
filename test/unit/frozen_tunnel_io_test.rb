@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FrozenTunnelTest < ActiveSupport::TestCase
+class FrozenTunnelIoTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

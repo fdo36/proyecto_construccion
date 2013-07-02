@@ -1,9 +1,9 @@
 ProyectoConstruccion::Application.routes.draw do
 
+  resources :frozen_tunnel_ios
+
+
   resources :tunnels
-
-
-  resources :frozen_tunnels
 
 
   resources :customs
