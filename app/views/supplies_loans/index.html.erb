@@ -21,9 +21,9 @@
               <td><%= supplies_loan.worker_id %></td>
               <td><%= supplies_loan.supply_id %></td>
               <td><%= supplies_loan.quantity %></td>
-              <td><%= link_to 'Ver', supplies_loan %></td>
-              <td><%= link_to 'Editar', edit_supplies_loan_path(supplies_loan) %></td>
-              <td><%= link_to 'Eliminar', supplies_loan, method: :delete, data: { confirm: 'Esta seguro que desea eliminar este Prestamo?' } %></td>
+              <td><%= link_to 'Ver', supplies_loan %>
+              <%= link_to 'Editar', edit_supplies_loan_path(supplies_loan) %>
+              <%= link_to 'Eliminar', supplies_loan, method: :delete, data: { confirm: 'Esta seguro que desea eliminar este Prestamo?' } %></td>
             </tr>
         <% end %>
       </tbody>

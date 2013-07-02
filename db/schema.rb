@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130701044107) do
+ActiveRecord::Schema.define(:version => 20130702065009) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -541,13 +541,13 @@ ActiveRecord::Schema.define(:version => 20130701044107) do
   add_index "wiki_pages", ["path"], :name => "index_wiki_pages_on_path", :unique => true
 
   create_table "workers", :force => true do |t|
-    t.integer  "rut"
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "phone"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"
+    t.string   "rut"
   end
 
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"

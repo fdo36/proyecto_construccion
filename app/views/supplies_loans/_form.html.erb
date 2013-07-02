@@ -1,16 +1,92 @@
 <script type="text/javascript">
 
+var registers = new Array();
+var id_count = 1;
+var modified = false;
+
+
+window.onbeforeunload = function () {    
+  if (modified) {
+    return "Los cambios no guardados se perderan";
+  }
+}
+
+function set_modified (argument) {
+  modified = argument;
+}
+
+function del_register () {
+    
+}
+
+function add_supply_loan()
+{
+  var worker_id = $("#worker_id").val();
+  var worker_name = $("#worker_id option[value='"+worker_id+"']").text();
+  var supply_id = $("#supply_id").val();
+  var supply_name = $("#supply_id option[value='"+supply_id+"']").text();
+  var quantity= $("#quantity").val();
+  alert(quantity);
+  var id = id_count;
+  id_count++;
+
+  var new_register = new register(worker_id, quantity, supply_id, id);
+  registers.push(new_register);
+
+  var row = new Array(worker_name, supply_name, quantity, "<a href='#' onClick='delete_row(cd)'>eliminar</a>");
+    $('#supply_table').dataTable().fnAddData(row);
+    set_modified(true);
+
+}
+
+function add_db () {
+  if(registers.length > 0)
+  {
+    for (var i = 0; i < registers.length; i++) {
+      var register = registers[i];
+
+      var p_worker_id = register.worker_id;
+      var p_quantity = register.quantity;
+      var p_supply_id = register.supply_id;
+      
+      $.ajax({  
+        url: "/supplies_loans",  
+        type: "POST", 
+        dataType: "json",
+        async: false,
+        data: { supplies_loan : {worker_id: p_worker_id,
+                                        quantity: p_quantity,
+                                        supply_id: p_supply_id,
+                                        } } }); 
+
+      
+  };
+  set_modified(false);
+ 
+  }
+  else
+    alert("Lista de ingresos vacía");
+}
+
+function register ( worker_id, quantity, supply_id , id) 
+{
+  this.worker_id = worker_id;
+  this.quantity = quantity;
+  this.supply_id = supply_id;
+  this.id = id;
+}
+
 function show_rut(s)
 {
   if(s.value == "")
   {
-   var inputRut = document.getElementById('rut1');
+   var inputRut = document.getElementById('rut');
    inputRut.value = " - ";
   }
   else
   {
    $.get("/workers/"+s.value+".json", function(data) {
-      var inputRut = document.getElementById('rut1');
+      var inputRut = document.getElementById('rut');
       inputRut.value = data.rut;
    });
   }
@@ -19,13 +95,13 @@ function show_stock(s)
   {
     if (s.value == "")
     {
-      var inputStock = document.getElementById('stock1');
+      var inputStock = document.getElementById('stock');
       inputStock.value = " - "
     }
     else
     {
       $.get("/supplies/"+s.value+".json", function(data) {
-      var inputStock = document.getElementById('stock1');
+      var inputStock = document.getElementById('stock');
       inputStock.value = data.stock_ini;
       });
     }
@@ -44,7 +120,7 @@ function show_stock(s)
   </div>
   <% @workers_array = Worker.all.map { |worker| [worker.first_name+ " " + worker.last_name, worker.id] } %>
   <div class="forme-in">
-    <%= select_tag "Trabajadores1", options_for_select(@workers_array), :prompt => " -Seleccione un Trabajador - ", :onchange => "show_rut(this)" %>
+    <%= select_tag "worker_id", options_for_select(@workers_array), :prompt => " -Seleccione un Trabajador - ", :onchange => "show_rut(this)" %>
   </div>
 </div>
 
@@ -53,7 +129,7 @@ function show_stock(s)
    <%= label_tag "rut"  %>
   </div>
   <div class="forme-in ">
-   <input id="rut1" value="-" disabled="true"></input>
+   <input id="rut" value="-" disabled="true"></input>
   </div>
 </div>
 
@@ -63,7 +139,7 @@ function show_stock(s)
   </div>
   <% @supplies_array = Supply.all.map { |supply| [supply.name, supply.id] } %>
   <div class="forme-in">
-   <%= select_tag "mySelect", options_for_select(@supplies_array), :prompt => " - Seleccione un Insumo - " ,:onchange => "show_stock(this)"%>
+   <%= select_tag "supply_id", options_for_select(@supplies_array), :prompt => " - Seleccione un Insumo - " ,:onchange => "show_stock(this)"%>
   </div>
 </div>
 
@@ -72,7 +148,7 @@ function show_stock(s)
    <%= label_tag 'Stock'%> 
   </div>    
   <div class="forme-in">
-    <input id="stock1" value="-" disabled="true"></input>
+    <input id="stock" value="-" disabled="true"></input>
   </div>  
 </div>
 
@@ -84,8 +160,8 @@ function show_stock(s)
     <input id="quantity" type="text"><br>
   </div>  
 </div>
-<button type="button" onclick="displayResult(),show_stock2()" class="button blue alignright">Agregar prestamo</button>
-  <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="chamber_table">
+<button type="button" onclick="add_supply_loan(),show_stock()" class="button blue alignright">Agregar prestamo</button>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="supply_table">
     <thead>
       <tr>    
         <th>Trabajador</th>
@@ -103,5 +179,5 @@ function show_stock(s)
 </div>
 <div class="foot-box">
     <%= link_to 'Cancelar', supplies_loans_path , :class => "button silver alignright" %>
-    <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallets();"%>
+    <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_db();"%>
 </div>
