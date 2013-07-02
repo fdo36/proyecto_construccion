@@ -3,11 +3,11 @@
 one:
   order_number: 1
   tunnel_id: 1
-  tunnel_temperature: 
-  packing_pallet_temperature: 
+  tunnel_temperature: 1.5
+  packing_pallet_temperature: 1.5
 
 two:
   order_number: 1
   tunnel_id: 1
-  tunnel_temperature: 
-  packing_pallet_temperature: 
+  tunnel_temperature: 1.5
+  packing_pallet_temperature: 1.5
