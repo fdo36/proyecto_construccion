@@ -40,6 +40,9 @@ function delete_row(button)
 }
 
 $(document).ready(function(){
+  $('input[name="transit_chamber_io[direction]"]').on("click", function(){
+    $('#type_error_label').text("");
+  });
 
   $('#code_pallet').keydown(function (e){
       if(e.keyCode == 13){
@@ -47,14 +50,16 @@ $(document).ready(function(){
       }
   });
   
- $('#code_pallet').focus(function(){
-  alert($('#direction').checked().val());
-  $('#code_pallet').blur();
- });
+  $('#code_pallet').on("focus",function(){
+    var direction = $('input[name="transit_chamber_io[direction]"]:checked').val();
+    if (direction == null){
+      $('#code_pallet').blur();
+      $('#type_error_label').text("Debe seleccionar un tipo de registro.");
+    }
+  });
 
-  function add_pallet (){
+  function add_pallet (pallets){
     $("#error_label").text("");
-    $.get("/packing_pallets.json", function(pallets) {
       flag = false;
       $.each(pallets, function(index, pallet){
         if (pallet.pallet_code == $("#code_pallet").val()) {
@@ -72,8 +77,30 @@ $(document).ready(function(){
       }
        
       $("#code_pallet").val("");
-    });
   }
+
+  // function add_pallet (){
+  //   $("#error_label").text("");
+  //   $.get("/packing_pallets.json", function(pallets) {
+  //     flag = false;
+  //     $.each(pallets, function(index, pallet){
+  //       if (pallet.pallet_code == $("#code_pallet").val()) {
+  //         flag = true;
+  //         $('#chamber_table').dataTable().fnAddData([
+  //            pallet.pallet_code,
+  //            pallet.pack_type_id,
+  //            pallet.gross_weight,
+  //            "<a onclick='delete_row(this);'>Eliminar</a>"
+  //         ]);   
+  //       }
+  //     });
+  //     if (!flag){
+  //       $("#error_label").text("Ingrese un código válido");
+  //     }
+       
+  //     $("#code_pallet").val("");
+  //   });
+  // }
 });
 
 
@@ -139,7 +166,7 @@ $(document).ready(function(){
         <%= label_tag(:label1, "Entrada") %>
         <%= f.radio_button(:direction,false) %>
         <%= label_tag(:label1, "Salida") %>
-        <label id="type_error_label", class="alignright", style="color: red;">este es un errror</label>
+        <label id="type_error_label", class="alignright", style="color: red;"></label>
     </div>
     <div class="forme-in">
         
@@ -164,7 +191,7 @@ $(document).ready(function(){
       <div class="forme-in">
         <label id="error_label", style="color: red;"></label>
       </div>
-      <%= button_tag "Agregar Pallet" , :class => "button blue alignright", :onclick => "add_pallet();"%>
+      <%= button_tag "Agregar Pallet" , :class => "button blue alignright", :onclick => "add_pallet(#{@pallets_previous_subprocess});"%>
     </div>
 
     <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="chamber_table">

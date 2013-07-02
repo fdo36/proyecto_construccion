@@ -27,6 +27,12 @@ class TransitChamberIosController < ApplicationController
   def new
     @transit_chamber_io = TransitChamberIo.new
 
+    @previous_subprocess = SubprocessIo.where(:heir_type => Lavado.heir_type, :direction => false)
+    @pallets_previous_subprocess = @previous_subprocess.map {|x| x.packing_pallet}
+    
+    @pallets_already_added = 
+    @pallets_previous_subprocess = @pallets_previous_subprocess - @pallets_already_added
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @transit_chamber_io }
