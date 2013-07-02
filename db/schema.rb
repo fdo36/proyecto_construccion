@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620162315) do
+ActiveRecord::Schema.define(:version => 20130701014810) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
   end
 
   create_table "destinations", :force => true do |t|
-    t.integer  "code"
+    t.string   "code"
     t.string   "rut"
     t.string   "name"
     t.integer  "commune_id"
@@ -425,15 +425,6 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.datetime "updated_at",   :null => false
   end
 
-  create_table "turns", :force => true do |t|
-    t.string   "name"
-    t.integer  "subprocess_id"
-    t.datetime "start_datetime"
-    t.datetime "end_datetime"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -470,6 +461,19 @@ ActiveRecord::Schema.define(:version => 20130620162315) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"
+  end
+
+  create_table "wash_chamber_ios", :force => true do |t|
+    t.integer  "order_number"
+    t.integer  "duration"
+    t.float    "washing_lines"
+    t.float    "total_neto"
+    t.float    "total_cull"
+    t.float    "total_waste"
+    t.float    "total"
+    t.float    "stadistics"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "wiki_page_versions", :force => true do |t|

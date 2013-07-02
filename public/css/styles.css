@@ -5,7 +5,7 @@ body
 	min-width: 630px;
 	background: #F5F5F5;
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c8TV1mAAAAG3RSTlNAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAvEOwtAAAFVklEQVR4XpWWB67c2BUFb3g557T/hRo9/WUMZHlgr4Bg8Z4qQgQJlHI4A8SzFVrapvmTF9O7dmYRFZ60YiBhJRCgh1FYhiLAmdvX0CzTOpNE77ME0Zty/nWWzchDtiqrmQDeuv3powQ5ta2eN0FY0InkqDD73lT9c9lEzwUNqgFHs9VQce3TVClFCQrSTfOiYkVJQBmpbq2L6iZavPnAPcoU0dSw0SUTqz/GtrGuXfbyyBniKykOWQWGqwwMA7QiYAxi+IlPdqo+hYHnUt5ZPfnsHJyNiDtnpJyayNBkF6cWoYGAMY92U2hXHF/C1M8uP/ZtYdiuj26UdAdQQSXQErwSOMzt/XWRWAz5GuSBIkwG1H3FabJ2OsUOUhGC6tK4EMtJO0ttC6IBD3kM0ve0tJwMdSfjZo+EEISaeTr9P3wYrGjXqyC1krcKdhMpxEnt5JetoulscpyzhXN5FRpuPHvbeQaKxFAEB6EN+cYN6xD7RYGpXpNndMmZgM5Dcs3YSNFDHUo2LGfZuukSWyUYirJAdYbF3MfqEKmjM+I2EfhA94iG3L7uKrR+GdWD73ydlIB+6hgref1QTlmgmbM3/LeX5GI1Ux1RWpgxpLuZ2+I+IjzZ8wqE4nilvQdkUdfhzI5QDWy+kw5Wgg2pGpeEVeCCA7b85BO3F9DzxB3cdqvBzWcmzbyMiqhzuYqtHRVG2y4x+KOlnyqla8AoWWpuBoYRxzXrfKuILl6SfiWCbjxoZJUaCBj1CjH7GIaDbc9kqBY3W/Rgjda1iqQcOJu2WW+76pZC9QG7M00dffe9hNnseupFL53r8F7YHSwJWUKP2q+k7RdsxyOB11n0xtOvnW4irMMFNV4H0uqwS5ExsmP9AxbDTc9JwgneAT5vTiUSm1E7BSflSt3bfa1tv8Di3R8n3Af7MNWzs49hmauE2wP+ttrq+AsWpFG2awvsuOqbipWHgtuvuaAE+A1Z/7gC9hesnr+7wqCwG8c5yAg3AL1fm8T9AZtp/bbJGwl1pNrE7RuOX7PeMRUERVaPpEs+yqeoSmuOlokqw49pgomjLeh7icHNlG19yjs6XXOMedYm5xH2YxpV2tc0Ro2jJfxC50ApuxGob7lMsxfTbeUv07TyYxpeLucEH1gNd4IKH2LAg5TdVhlCafZvpskfncCfx8pOhJzd76bJWeYFnFciwcYfubRc12Ip/ppIhA1/mSZ/RxjFDrJC5xifFjJpY2Xl5zXdguFqYyTR1zSp1Y9p+tktDYYSNflcxI0iyO4TPBdlRcpeqjK/piF5bklq77VSEaA+z8qmJTFzIWiitbnzR794USKBUaT0NTEsVjZqLaFVqJoPN9ODG70IPbfBHKK+/q/AWR0tJzYHRULOa4MP+W/HfGadZUbfw177G7j/OGbIs8TahLyynl4X4RinF793Oz+BU0saXtUHrVBFT/DnA3ctNPoGbs4hRIjTok8i+algT1lTHi4SxFvONKNrgQFAq2/gFnWMXgwffgYMJpiKYkmW3tTg3ZQ9Jq+f8XN+A5eeUKHWvJWJ2sgJ1Sop+wwhqFVijqWaJhwtD8MNlSBeWNNWTa5Z5kPZw5+LbVT99wqTdx29lMUH4OIG/D86ruKEauBjvH5xy6um/Sfj7ei6UUVk4AIl3MyD4MSSTOFgSwsH/QJWaQ5as7ZcmgBZkzjjU1UrQ74ci1gWBCSGHtuV1H2mhSnO3Wp/3fEV5a+4wz//6qy8JxjZsmxxy5+4w9CDNJY09T072iKG0EnOS0arEYgXqYnXcYHwjTtUNAcMelOd4xpkoqiTYICWFq0JSiPfPDQdnt+4/wuqcXY47QILbgAAAABJRU5ErkJggg==);
-
+	min-width: 630px;
 }
 
 section#top
@@ -14,7 +14,7 @@ section#top
 	top: 0px;
 	left: 0px;
 	width: 100%;
-	min-width: 630px
+	min-width: 630px;
 }
 
 #pageHead
@@ -28,6 +28,7 @@ section#top
 	background: linear-gradient(to bottom, rgba(164,179,87,1) 0%, rgba(117,137,12,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4b357', endColorstr='#75890c', GradientType=0 );
 	height: 45px;
+	min-width: 853px;
 }
 #pageHead h1
 {
@@ -113,82 +114,6 @@ section#content{
 }
 
 
-
-.tools{
-	position: absolute;
-	right: 20px;
-	top: 0;
-	padding: 0;
-	height: 45px;
-	width: 110px;
-	border-right: 1px solid #8dbb00;
-	border-left: 1px solid #8dbb00;
-	cursor: pointer;
-	font-weight: bold;
-}
-
-.first-tool{
-	right: 131px;
-}
-
-
-.toolsCompressed{
-	float: left;
-	height: 100%;
-	width: 100%;
-}
-
-.toolsCompressed p{
-	margin: 12px 0 0 31px;
-	color: #fff;
-
-}
-
-.first-tool .toolsCompressed p{
-	margin: 12px 0 0 16px;
-}
-
-.toolsMenu{
-	list-style-type: none;
-	display: none;
-}
-
-
-
-.tools:hover{
-	background: rgb(238, 255, 184);;
-	border-right: 1px solid #99ca00;
-	border-left: 1px solid #99ca00;
-	color: #698907;
-}
-
-.tools:hover .toolsCompressed p{
-	color: #698907;
-
-}
-
-.tools:hover .toolsMenu{
-	display: block;
-	clear:both;
-	padding: 0;
-	background: #CDE976;
-	-webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-	box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-}
-
-.toolsMenu li:hover{
-	background: #779c00;
-	color: #fff;
-}
-
-.toolsMenu li p {
-	height: 30px;
-	padding: 10px 0 0 10px;
-	margin: 0;
-	border-top: 1px solid #99ca00;
-}
-
 .separator p{
 	border-top: 2px solid #99ca00 !important;
 }
@@ -200,6 +125,7 @@ section#content{
 	position: relative;
 	margin-left: 215px;
 	margin-right: 15px;
+	min-width: 620px;
 }
 
 .headContent{
@@ -216,8 +142,8 @@ section#content{
 	-moz-border-radius: 5px 5px 0px 0px;
 	-webkit-border-radius: 5px 5px 0px 0px;
 	border: 1px solid rgb(184, 136, 74);
-
 	height: 35px;
+	
 }
 
 .headContent h1{
@@ -227,6 +153,8 @@ section#content{
 	padding-left: 5px;
 	text-shadow: 0px 1px 1px #ca4a04;
 }
+
+
 
 .box{
 	padding: 10px;
@@ -307,6 +235,7 @@ section#content{
 	margin-right: 15px;
 	margin-top: 2px;
 	width: 15%;
+	min-width: 160px;
 }
 
 .forme-in{
@@ -314,14 +243,10 @@ section#content{
 	width: 35%;
 }
 
-.forme-in{
-	min-width: 300px;
-}
-
-
-.forme-in  input[type="text"], .forme-in select{
-	width: 97%;
+.forme-in  input[type="text"], .forme-in select, .chzn-container{
+	width: 97%!important;
 	height: 90%;
+	min-width: 300px;
 }
 
 .line-forme .text-area-forme{
@@ -396,21 +321,6 @@ margin-right: -.3em;
 
 .temporada-pan1 .field{
 	float: left;
-}
-
-#nameLogin{
-	position: absolute;
-	right: 242px;
-	top: 0;
-	padding: 0;
-	height: 45px;
-	width: 200px;
-}
-#nameLogin p
-{
-	padding-top: 0px;
-	padding-left: 45px;
-<<<<<<< HEAD
 }
 
 .box a {
@@ -547,4 +457,88 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  {
  padding: 20px;
  font-size: 1.2em;
 }
->>>>>>> c5d3da07b5fd8f82755cd68642f221c448c33df2
+
+#tools{
+	float: right;
+	height: 100%;
+	font-weight: bold;
+}
+#tools ul{
+	display: block;
+	list-style-type: none;
+	text-align: center;
+	margin-right: 30px;
+}
+#menuTools{
+	float: right;
+	margin: 0;
+	height:100%;
+	border-right: 1px #849E34;
+}
+
+#menuTools ul{
+	float: right;
+	height: 100%;
+	padding: 0;
+	margin:0;
+	border-left: 1px #849E34;
+}
+#menuTools ul p{
+	margin: 0;
+	padding: 10px 40px 0 40px;
+	height: 35px;
+	color: #fff;
+}
+
+#menuTools ul:hover p{
+	background-color:  rgb(142, 160, 88);
+}
+
+.toolsDisplay{
+	display: none;
+}
+#menuTools ul:hover .toolsDisplay{
+	display: block;
+}
+
+.toolsDisplay a{
+	float: left;
+	width: 100%;
+	text-align: center;
+	height: 25px;
+	padding-top: 8px;
+	text-decoration: none;
+	border-bottom: 1px solid rgb(151, 201, 0);
+	border-left: 1px solid rgb(151, 201, 0);
+	border-right: 1px solid rgb(151, 201, 0);
+	color: #698907;
+	background: #CDE976;
+}
+
+.toolsDisplay a:hover{
+	background: #849E34;
+	color: #fff;
+}
+
+#nameLogin{
+	float: right;
+}
+#nameLogin p
+{
+	margin: 10px 0 0 0;
+	color: #fff;
+	font-weight: bold;
+	font-variant: small-caps;
+}
+
+.DataTables_sort_wrapper{
+	text-align: left!important;
+}
+
+table a{
+	color: rgb(98, 143, 218);
+}
+table a:hover{
+	color: rgb(154, 189, 247);
+	background: rgba(255, 255, 255, 0)!important;
+}

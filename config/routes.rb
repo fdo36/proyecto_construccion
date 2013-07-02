@@ -1,4 +1,7 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :wash_chamber_ios
+
+
   resources :pallet_finished_products
 
 
