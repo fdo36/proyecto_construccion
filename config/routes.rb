@@ -1,5 +1,8 @@
 ProyectoConstruccion::Application.routes.draw do
 
+  resources :store_finish_products
+
+
   resources :destination_ports
 
 
