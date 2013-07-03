@@ -153,4 +153,7 @@ ProyectoConstruccion::Application.routes.draw do
 
   match 'tunnels/:id/delete_tunnel' => 'tunnels#delete_tunnel', :as => 'tunnel_delete'
   
+  match 'frozen_tunnel_io_valid_pallets' => 'frozen_tunnel_ios#valid_pallets'
+  match 'frozen_tunnel_io_pallets_already_added' => 'frozen_tunnel_ios#pallets_already_added'
+  
 end

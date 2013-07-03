@@ -1,41 +1,90 @@
 <script type="text/javascript">
 
-function add_pallet(){
-  $("#error_label").text("");
-  $.get("/packing_pallets.json", function(pallets) {
-    flag = false;
-    $.each(pallets, function(index, pallet){
-      flag2 = false;
-      if (pallet.pallet_code == $("#code_pallet").val()) {
-        $('#tunnel_table tbody tr').each(function(index){
-          var code = $(this).find("td").eq(0).text();
-          if (pallet.pallet_code == code) {
-            flag2 = true;
-          }
-        });
-        if(flag2==false){
+$(document).ready(function(){
+  $('input[name="frozen_tunnel_io[direction]"]').on("click", function(){
+    $('#type_error_label').text("");
+  });
+
+  $('#code_pallet').keydown(function (e){
+      if(e.keyCode == 13){
+          add_pallet();
+      }
+  });
+
+  $('#add_pallet').on("click", function (e){
+          add_pallet();
+  });
+  
+  $('#code_pallet').on("focus",function(){
+    var direction = $('input[name="frozen_tunnel_io[direction]"]:checked').val();
+    if (direction == null){
+      $('#code_pallet').blur();
+      $('#type_error_label').text("Debe seleccionar un tipo de registro.");
+    }
+  });
+
+  function already_added () {
+    var nodes = $('#tunnel_table').dataTable().fnGetNodes();
+    if (nodes.length == 0)
+    {
+      $('#frozen_tunnel_io_direction_true').attr('disabled', 'disabled');
+      $('#frozen_tunnel_io_direction_false').attr('disabled', 'disabled');
+      return false;
+    }
+    
+    for (var i = 0; i < nodes.length; i++) {
+      var row = $('#tunnel_table').dataTable().fnGetData(i);
+      var code = row[0];
+      if (code == $("#code_pallet").val()){
+        return true;
+      }
+    };
+    return false;
+  }
+
+  function add_pallet(){
+    var route;
+    if($('input[name="frozen_tunnel_io[direction]"]:checked').val() == "true"){
+      route = "/frozen_tunnel_io_valid_pallets";
+    }
+    else{  
+      route = "/frozen_tunnel_io_pallets_already_added";
+    }
+
+
+    $("#error_label").text("");
+    $.get(route, function(pallets){
+      flag = false;
+      $.each(pallets, function(index, pallet){
+        if (pallet.pallet_code == $("#code_pallet").val() && !already_added()) {
           flag = true;
           $('#tunnel_table').dataTable().fnAddData([
              pallet.pallet_code,
              pallet.pack_type_id,
              pallet.gross_weight,
              "<a onclick='delete_row(this);'>Eliminar</a>"
-          ]);
-        }  
+          ]);   
+        }
+      });
+      if (!flag){
+        $("#error_label").text("Ingrese un código válido");
       }
+       
+      $("#code_pallet").val("");
     });
-    if (!flag){
-      $("#error_label").text("Ingrese un código válido");
-    }
-     
-    $("#code_pallet").val("");
-  });
-}
+  }
+});
 
 function delete_row(button)
 {
   var currentRow = $(button).closest('tr');
   $("#tunnel_table").dataTable().fnDeleteRow(currentRow[0]);
+  var nodes = $('#tunnel_table').dataTable().fnGetNodes();
+  if (nodes.length == 0)
+  {
+    $('#frozen_tunnel_io_direction_true').removeAttr('disabled');
+    $('#frozen_tunnel_io_direction_false').removeAttr('disabled');
+  }
 }
 
 function add_pallets(){
@@ -158,6 +207,7 @@ function add_pallets(){
         <%= label_tag(:label1, "Entrada") %>
         <%= f.radio_button(:direction,false) %>
         <%= label_tag(:label1, "Salida") %>
+        <label id="type_error_label", class="alignright", style="color: red;"></label>
     </div>
 
   </div>  
@@ -182,7 +232,7 @@ function add_pallets(){
       <div class="forme-in">
         <label id="error_label", style="color: red;"></label>
       </div>      
-      <%= button_tag "Agregar Pallet" , :class => "button green alignright", :onclick => "add_pallet();"%>
+      <%= button_tag "Agregar Pallet" , :class => "button blue alignright", :id => "add_pallet"%>
     </div>
 
     <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="tunnel_table">
