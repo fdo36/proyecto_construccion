@@ -78,7 +78,7 @@
     <div class="forme-in">
       <% @regions = Region.all.map { |region| [region.name, region.id] } %>
       <%= select_tag('regions', options_for_select(@regions),
-          :onchange => "show_communes(this, 'company_commune_id')", :selected => :prompt, :prompt => '- Seleccione región -') %>
+          :onchange => "show_communes(this, 'provider_commune_id')", :selected => :prompt, :prompt => '- Seleccione región -') %>
     </div>
   </div>
 

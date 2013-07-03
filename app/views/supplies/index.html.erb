@@ -13,8 +13,9 @@
       <tr>
         <th>Nombre</th>
         <th>Descripcion</th>
+        <th>Stock</th>
         <th>Stock Minimo</th>
-        <th style="width:20% !important;">Acciones</th>
+        <th>Acciones</th>
       </tr>
     </thead>
   <tbody>
@@ -22,10 +23,11 @@
   <tr>
     <td><%= supply.name %></td>
     <td><%= supply.description %></td>
+    <td><%= supply.stock_ini %></td>
     <td><%= supply.minimum_stock %></td>
-    <td><%= link_to 'Ver', supply %></td>
-    <td><%= link_to 'Editar', edit_supply_path(supply) %></td>
-    <td><%= link_to 'Eliminar', supply, method: :delete, data: { confirm: '¿Esta seguro que desea elimnar este insumo?' } %></td>
+    <td><%= link_to 'Ver', supply %>
+    <%= link_to 'Editar', edit_supply_path(supply) %>
+    <%= link_to 'Eliminar', supply, method: :delete, data: { confirm: '¿Esta seguro que desea elimnar este insumo?' } %></td>
   </tr>
 <% end %>
     </tbody>

@@ -1,0 +1,200 @@
+<script type="text/javascript">
+
+var registers = new Array();
+var id_count = 1;
+var modified = false;
+
+
+window.onbeforeunload = function () {    
+  if (modified) {
+    return "Los cambios no guardados se perderan";
+  }
+}
+
+function set_modified (argument) {
+  modified = argument;
+}
+
+function del_register () {
+    
+}
+
+function add_insumo()
+{
+  var provider_id = $("#Proveedores1").val();
+  var provider_name = $("#Proveedores1 option[value='"+provider_id+"']").text();
+  var dispatch_guide_number = $("#dispatch_guide_number").val();
+  var supply_id = $("#supply_id").val();
+  var supply_name = $("#supply_id option[value='"+supply_id+"']").text();
+  var quantity= $("#quantity").val();
+  alert(quantity);
+  var id = id_count;
+  id_count++;
+
+  var new_register = new register(provider_id, quantity, supply_id, dispatch_guide_number, id);
+  registers.push(new_register);
+
+  var row = new Array(dispatch_guide_number, provider_name, supply_name, quantity, "<a href='#' onClick='delete_row(cd)'>eliminar</a>");
+    $('#supply_table').dataTable().fnAddData(row);
+    set_modified(true);
+
+}
+
+function post () {
+  if(registers.length > 0)
+  {
+    for (var i = 0; i < registers.length; i++) {
+      var register = registers[i];
+      console.log(register);
+
+      var p_provider_id = register.provider_id;
+      var p_quantity = register.quantity;
+      var p_supply_id = register.supply_id;
+      var p_dispatch_guide_number= register.dispatch_guide_number;
+      
+      console.log(p_provider_id);
+
+      $.ajax({  
+        url: "/supplies_providers_loans",  
+        type: "POST", 
+        dataType: "json",
+        async: false,
+        data: { supplies_providers_loan : {provider_id: p_provider_id,
+                                        quantity: p_quantity,
+                                        supply_id: p_supply_id,
+                                        dispatch_guide_number: p_dispatch_guide_number,
+                                        } } }); 
+
+      
+  };
+  set_modified(false);
+ 
+  }
+  else
+    alert("Lista de ingresos vacía");
+}
+
+function register ( provider_id, quantity, supply_id , dispatch_guide_number) 
+{
+  this.provider_id = provider_id;
+  this.quantity = quantity;
+  this.supply_id = supply_id;
+  this.dispatch_guide_number = dispatch_guide_number;
+}
+
+function show_rut(s)
+{
+  if(s.value == "")
+  {
+   var inputRut = document.getElementById('rut1');
+   inputRut.value = " - ";
+  }
+  else
+  {
+   $.get("/providers/"+s.value+".json", function(data) {
+      var inputRut = document.getElementById('rut1');
+      inputRut.value = data.rut;
+   });
+  }
+}
+function show_stock(s)
+  {
+    if (s.value == "")
+    {
+      var inputStock = document.getElementById('stock1');
+      inputStock.value = " - "
+    }
+    else
+    {
+      $.get("/supplies/"+s.value+".json", function(data) {
+      var inputStock = document.getElementById('stock1');
+      inputStock.value = data.stock_ini;
+      });
+    }
+  }
+
+</script>  
+
+<div class="headContent">
+    <h1>Agregar Ingreso de Insumos</h1>
+  </div>
+  <div class="box">
+
+    <div class="line-forme">
+  <div class="forme-lab">
+    <%= label_tag 'Trabajador'%> 
+  </div>
+  <% @providers_array = Provider.all.map { |provider| [provider.name, provider.id] } %>
+  <div class="forme-in">
+    <%= select_tag "Proveedores1", options_for_select(@providers_array), :prompt => " -Seleccione un Proveedor - ", :onchange => "show_rut(this)" %>
+  </div>
+</div>
+
+<div class="line-forme">
+  <div class="forme-lab">
+   <%= label_tag "rut"  %>
+  </div>
+  <div class="forme-in ">
+   <input id="rut1" value="-" disabled="true"></input>
+  </div>
+</div>
+
+<div class="line-forme">
+  <div class="forme-lab">
+   <%= label_tag 'NºGuia Despacho'%> 
+   </div>    
+  <div class="forme-in">
+    <input id="dispatch_guide_number" type="text"><br>
+  </div>  
+</div>
+
+<div class="line-forme">
+  <div class="forme-lab">
+   <%= label_tag 'Insumo'%> 
+  </div>
+  <% @supplies_array = Supply.all.map { |supply| [supply.name, supply.id] } %>
+  <div class="forme-in">
+   <%= select_tag "supply_id", options_for_select(@supplies_array), :prompt => " - Seleccione un Insumo - " ,:onchange => "show_stock(this)"%>
+  </div>
+</div>
+
+<div class="line-forme">
+  <div class="forme-lab">
+   <%= label_tag 'Stock'%> 
+  </div>    
+  <div class="forme-in">
+    <input id="stock1" value="-" disabled="true"></input>
+  </div>  
+</div>
+
+<div class="line-forme">
+  <div class="forme-lab">
+   <%= label_tag 'Cantidad'%> 
+   </div>    
+  <div class="forme-in">
+    <input id="quantity" type="text"><br>
+  </div>  
+</div>
+
+<button type="button" onclick="add_insumo()" class="button blue alignright">Agregar Ingreso de Insumo</button>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="supply_table">
+    <thead>
+      <tr>    
+        <th>N° Guia Despacho</th>
+        <th>Proveedor</th>
+        <th>Insumo</th>
+        <th>Cantidad</th>  
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    </tbody>
+  </table>
+
+  </div>
+</div>
+<div class="foot-box">
+    <%= link_to 'Cancelar', supplies_providers_loans_path , :class => "button silver alignright" %>
+    <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "post();"%>
+</div>
