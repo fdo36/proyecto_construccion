@@ -6,85 +6,207 @@ function add_pallets(){
   var p_worker_id = $("#stabilization_chamber_io_worker_id").val();
   var p_direction = $('input[name="stabilization_chamber_io[direction]"]:checked').val();
   
-  $('#chamber_table tbody tr').each(function(index){
-     var code = $(this).find("td").eq(0).text();
-     $.get("/packing_pallets.json", function(pallets) {
-       $.each(pallets, function(index, pallet){
-        if (pallet.pallet_code == code) {
-          p_packing_pallet_id = pallet.id;
-          $.ajax({
-              url: "/stabilization_chamber_ios/",
-              type: "POST",
-                data: {stabilization_chamber_io:{ temperature: p_temperature,
-                                            order_number: p_order_number,
-                                            direction: p_direction,
-                                            worker_id: p_worker_id,
-                                            packing_pallet_id: p_packing_pallet_id}
-                      }                      
-            }).done(function(){
-              window.location = "/stabilization_chamber_ios"
-            });
-        }
+
+  if (validarCampos(p_temperature, p_order_number, p_worker_id)){
+
+    $('#stabilization_table tbody tr').each(function(index){
+       var code = $(this).find("td").eq(0).text();
+       $.get("/packing_pallets.json", function(pallets) {
+         $.each(pallets, function(index, pallet){
+          if (pallet.pallet_code == code) {
+            p_packing_pallet_id = pallet.id;
+            $.ajax({
+                url: "/stabilization_chamber_ios/",
+                type: "POST",
+                  data: {stabilization_chamber_io:{ temperature: p_temperature,
+                                              order_number: p_order_number,
+                                              direction: p_direction,
+                                              worker_id: p_worker_id,
+                                              packing_pallet_id: p_packing_pallet_id}
+                        }                      
+              }).done(function(){
+                window.location = "/stabilization_chamber_ios"
+              });
+          }
+         });
        });
-     });
-  });
+    });
+  }
+  
 
   
 
 }
 
+function validarCampos(temperatura, orden, trabajador)
+{
+
+  var items_filled = ((temperatura != '') && (orden != '') && (trabajador != ''));
+  var temperature_decimal = check_decimal(temperatura) || validate_integer(temperature_decimal) ;
+  if(!items_filled || !temperature_decimal)
+  {
+        var errors = "No se puede agregar el registro: \n";
+        if(temperatura == '')
+        {
+          errors = errors + '  - Temperatura no puede estar vacio';
+        }
+        if(!temperature_decimal)
+        {
+          errors = errors + '  - Temperatura debe ser numerico';
+        }
+        if(orden == '')
+        {
+          errors = errors + '\n  - Número de Orden no puede estar vacio';
+        }
+        if(trabajador == '')
+        {
+          errors = errors + '\n  - Encargado no puede estar vacio';
+        }
+
+        alert(errors);
+  }
+  return items_filled;
+
+}
+
+function validate_integer(strValue)
+  {
+      
+      
+      var objRegExp  = /(^-?\d\d*$)/;  
+      var result = objRegExp.test(strValue);
+      if(result)
+      {
+        return true;
+      }
+      return false;
+
+  }
+
+function check_decimal(inputtxt)   
+{   
+    var decimal=  /^[-+]?[0-9]+\.[0-9]+$/; 
+    if(inputtxt.match(decimal) || validate_integer(inputtxt))   
+    {   
+      return true;  
+    }  
+    else  
+    {   
+      return false;  
+    }  
+  } 
+
 function delete_row(button)
 {
   var currentRow = $(button).closest('tr');
-  $("#chamber_table").dataTable().fnDeleteRow(currentRow[0]);
+  $("#stabilization_table").dataTable().fnDeleteRow(currentRow[0]);
+  var nodes = $('#chamber_table').dataTable().fnGetNodes();
+  if (nodes.length == 0)
+  {
+    $('#stabilization_chamber_io_direction_true').removeAttr('disabled');
+    $('#stabilization_chamber_io_direction_false').removeAttr('disabled');
+  }
 }
 
 $(document).ready(function(){
+  $('input[name="stabilization_chamber_io[direction]"]').on("click", function(){
+    $('#type_error_label').text("");
+  });
 
   $('#code_pallet').keydown(function (e){
       if(e.keyCode == 13){
           add_pallet();
       }
   });
-  
- $('#code_pallet').focus(function(){
-  alert($('#direction').checked().val());
-  $('#code_pallet').blur();
- });
 
+  $('#add_pallet').on("click", function (e){
+          add_pallet();
+  });
+  
+  $('#code_pallet').on("focus",function(){
+    var direction = $('input[name="stabilization_chamber_io[direction]"]:checked').val();
+    if (direction == null){
+      $('#code_pallet').blur();
+      $('#type_error_label').text("Debe seleccionar un tipo de registro.");
+    }
+  });
+
+  function already_added () {
+    var nodes = $('#stabilization_table').dataTable().fnGetNodes();
+    if (nodes.length == 0)
+    {
+      $('#stabilization_chamber_io_direction_true').attr('disabled', 'disabled');
+      $('#stabilization_chamber_io_direction_false').attr('disabled', 'disabled');
+      return false;
+    }
+    
+    for (var i = 0; i < nodes.length; i++) {
+      var row = $('#stabilization_table').dataTable().fnGetData(i);
+      var code = row[0];
+      if (code == $("#code_pallet").val()){
+        return true;
+      }
+    };
+    return false;
+  }
+
+  function add_pallet(){
+    var route;
+    if($('input[name="stabilization_chamber_io[direction]"]:checked').val() == "true"){
+      route = "/stabilization_chamber_io_valid_pallets";
+    }
+    else{  
+      route = "/stabilization_chamber_io_pallets_already_added";
+    }
+
+
+    $("#error_label").text("");
+    $.get(route, function(pallets){
+      flag = false;
+      $.each(pallets, function(index, pallet){
+        if (pallet.pallet_code == $("#code_pallet").val() && !already_added()) {
+          flag = true;
+          $('#stabilization_table').dataTable().fnAddData([
+             pallet.pallet_code,
+             pallet.pack_type_id,
+             pallet.gross_weight,
+             "<a onclick='delete_row(this);'>Eliminar</a>"
+          ]);   
+        }
+      });
+      if (!flag){
+        $("#error_label").text("Ingrese un código válido");
+      }
+       
+      $("#code_pallet").val("");
+    });
+  }
+});
 
 
 </script>
 
+
 <div class="box">
+
 <%= form_for(@stabilization_chamber_io) do |f| %>
   <% if @stabilization_chamber_io.errors.any? %>
     <div id="error_explanation">
-      <h2><%= @stabilization_chamber_io.errors.count > 1 ? "#{@tstabilization_chamber_io.errors.count} errores." : "#{@stabilization_chamber_io.errors.count} error." %> no se puede guardar la Cámara de Estabilización:</h2>
+      <h2><%= @stabilization_chamber_io.errors.count > 1 ? "#{@stabilization_chamber_io.errors.count} errores." : "#{@stabilization_chamber_io.errors.count} error." %> no se puede guardar la cámara de Estabilizacion</h2>
       <ul>
       <% @stabilization_chamber_io.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
-<% end %>
+  <% end %>
 
-
-  <div class="line-forme">
-    <div class="forme-lab">
-      <label> 
-        Número de Orden
-      </label>  
-    </div>
-    <div class="forme-in">
-      <%= f.text_field :order_number %>
-    </div>
-  </div>
 
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
         Temperatura
+        <em class="formee-req">*</em>
       </label>  
     </div>
     <div class="forme-in">
@@ -95,12 +217,24 @@ $(document).ready(function(){
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Encargado
+        Número de Orden
+        <em class="formee-req">*</em>
       </label>  
     </div>
     <div class="forme-in">
-      <% workers_array = Worker.all.map { |worker| [worker.first_name + " " + worker.last_name, worker.id] } %>
-                        <%= f.select(:worker_id, workers_array ,:selected => :prompt, :prompt => '- Seleccione el Encargado-') %>
+      <%= f.text_field :order_number %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Encargado
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :worker_id %>
     </div>
   </div>
 
@@ -115,15 +249,24 @@ $(document).ready(function(){
         <%= label_tag(:label1, "Entrada") %>
         <%= f.radio_button(:direction,false) %>
         <%= label_tag(:label1, "Salida") %>
-        
-    </div>
-    <div class="forme-in">  
+        <label id="type_error_label", class="alignright", style="color: red;"></label>
     </div>
   </div>
+
+  <div class="forme-in">
+    <label> (
+    <em class="formee-req">*</em>
+    ) Campos obligatorios.
+    </label>         
+  </div>
+
+  <br>
+  <br>
+
 <% end %>
 
 <div class="headContent">
-    <h1>Agregar Pallet a Estabilización</h1>
+    <h1>Agregar Pallet</h1>
   </div>
   <div class="box">
 
@@ -139,10 +282,10 @@ $(document).ready(function(){
       <div class="forme-in">
         <label id="error_label", style="color: red;"></label>
       </div>
-      <%= button_tag "Agregar Pallet" , :class => "button blue alignright", :onclick => "add_pallet();"%>
+      <%= button_tag "Agregar Pallet" , :class => "button blue alignright", :id => "add_pallet"%>
     </div>
 
-    <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="chamber_table">
+    <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="stabilization_table">
       <thead>
         <tr>    
           <th>Código de Pallet</th>

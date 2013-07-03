@@ -140,7 +140,10 @@ ProyectoConstruccion::Application.routes.draw do
 
   match 'companies/:id/enable' => 'companies#enable', :as => 'companies_enable'
   match 'companies/:id/disable' => 'companies#disable', :as => 'companies_disable'
-  
+
+  match 'providers/:id/enable' => 'providers#enable', :as => 'providers_enable'
+  match 'providers/:id/disable' => 'providers#disable', :as => 'providers_disable'
+
   match 'seasons/:id/enable' => 'seasons#enable', :as => 'seasons_enable'
   match 'seasons/:id/disable' => 'seasons#disable', :as => 'seasons_disable'
   match 'seasons/:id/delete_season' => 'seasons#delete_season', :as => 'season_delete'
@@ -161,4 +164,8 @@ ProyectoConstruccion::Application.routes.draw do
 
   match 'tunnels/:id/delete_tunnel' => 'tunnels#delete_tunnel', :as => 'tunnel_delete'
   
+
+  match 'stabilization_chamber_io_valid_pallets' => 'stabilization_chamber_ios#valid_pallets'
+  match 'stabilization_chamber_io_pallets_already_added' => 'stabilization_chamber_ios#pallets_already_added'
+
 end
