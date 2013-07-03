@@ -9,6 +9,8 @@ class Worker < ActiveRecord::Base
   validates :rut, :presence => true
   validates :phone, :presence => true
 
+  has_many :subprocess_io
+
 #  validates :rut, :format => { :with => /^(\d{1,3}.\d{3}.\d{3}-)([a-zA-Z]{1}$|\d{1}$)/,
 #    :message => "debe ingresar el formato válido. Ejemplo: 11.111.111-1" }
 
