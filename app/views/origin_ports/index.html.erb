@@ -1,23 +1,30 @@
-<h1>Listing origin_ports</h1>
+<div class="headContent">
+  <h1>Lista de Puertos de Origen</h1>
+</div>
+<div class="box">
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <div class="newTopBanner">
+    <%= link_to 'Nuevo Puerto de Origen', new_origin_port_path , :class => "button blue alignright" %>
+  </div>
 
-<% @origin_ports.each do |origin_port| %>
-  <tr>
-    <td><%= origin_port.name %></td>
-    <td><%= link_to 'Show', origin_port %></td>
-    <td><%= link_to 'Edit', edit_origin_port_path(origin_port) %></td>
-    <td><%= link_to 'Destroy', origin_port, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+  <p id="notice" class="alignleft"><%= notice %> </p>
 
-<br />
-
-<%= link_to 'New Origin port', new_origin_port_path %>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th colspan="3" style="width:20% !important;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% @origin_ports.each do |origin_port| %>
+        <tr>
+          <td><%= origin_port.name %></td>
+          <td><%= link_to 'Ver', origin_port %>
+          <%= link_to 'Editar', edit_origin_port_path(origin_port) %>
+          <%= link_to 'Eliminar', origin_port, method: :delete, data: { confirm: '¿Está seguro de eliminar este puerto?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

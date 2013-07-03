@@ -1,10 +1,15 @@
 <p id="notice"><%= notice %></p>
-
+<div class="headContent">
+  <h1>Ver Puertos de Origen</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', origin_ports_path , :class => "button blue alignright" %>
 <p>
-  <b>Name:</b>
+  <b>Nombre:</b>
   <%= @origin_port.name %>
 </p>
+</div>
+<div class="foot-box">
+	<%= link_to 'Editar', origin_port_path(@origin_port) , :class => "button green alignright" %>
+</div>
 
-
-<%= link_to 'Edit', edit_origin_port_path(@origin_port) %> |
-<%= link_to 'Back', origin_ports_path %>

@@ -1,7 +1,8 @@
+<div class="box">
 <%= form_for(@destination_port) do |f| %>
   <% if @destination_port.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@destination_port.errors.count, "error") %> prohibited this destination_port from being saved:</h2>
+      <h2><%= @destination_port.errors.count > 1 ? "#{@destination_port.errors.count} errores." : "#{@destination_port.errors.count} error." %> no se puede guardar el puerto:</h2>
 
       <ul>
       <% @destination_port.errors.full_messages.each do |msg| %>
@@ -11,11 +12,23 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Nombre                
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :name %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', destination_ports_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
 <% end %>
