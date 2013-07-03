@@ -1,9 +1,9 @@
 <div class="headContent">
-    <h1>Lista de Cámaras de Producto en Tránsito</h1>
+    <h1>Lista Registros de Cámara de Producto en Tránsito</h1>
 </div>
 <div class="box">
     <div class="newTopBanner">
-        <%= link_to 'Nueva Cámara de Producto en Tránsito', new_transit_chamber_io_path , :class => "button blue alignright" %>
+        <%= link_to 'Nuevo Registro', new_transit_chamber_io_path , :class => "button blue alignright" %>
     </div>
 
     <p id="notice" class="alignleft"><%= notice %> </p>
@@ -29,7 +29,7 @@
                 <td><%= transit_chamber_io.io_datetime %></td>
                 <td><%= link_to 'Ver', transit_chamber_io %>
                   <%= link_to 'Editar', edit_transit_chamber_io_path(transit_chamber_io) %>
-                  <%= link_to 'Eliminar', transit_chamber_io, method: :delete, data: { confirm: '¿Está seguro de eliminar esta Cámara de Producto en Tránsito?' } %></td>
+                  <%= link_to 'Eliminar', transit_chamber_io, method: :delete, data: { confirm: '¿Está seguro de eliminar este registro?' } %></td>
             </tr>
         <% end %>
       </tbody>
