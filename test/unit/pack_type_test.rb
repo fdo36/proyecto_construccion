@@ -3,22 +3,23 @@ require 'test_helper'
 class PackTypeTest < ActiveSupport::TestCase
 
   #Campos vacios
-  test "Tipo Envase verificacion de todos sus campos" do
+  test "Verifica presencia de campos obligatorios" do #OK
   	pack_type = PackType.new
   	pack_type.save
-	assert pack_type.errors.size == 3 		
+	assert !pack_type.save 		
   end
 
   #Campos llenos
-  test "Tipo Envase sin tara" do
+  test "Agrega un envase con campos correctos" do #OK
   	pack_type = PackType.new
   	pack_type.name = 'Envase 1'
+  	pack_type.tare = 0.2
   	pack_type.company_id = 1
-  	refute pack_type.save
+  	assert pack_type.save
   end
 
   #nombre
-  test "Tipo Envase sin nombre" do
+  test "No agrega envase sin nombre" do #OK
   	pack_type = PackType.new
   	pack_type.tare = 1
   	pack_type.company_id = 1
@@ -26,7 +27,7 @@ class PackTypeTest < ActiveSupport::TestCase
   end
 
   #tara
-  test "Tipo Envase sin tara" do
+  test "No agrega envase sin tara" do #OK
   	pack_type = PackType.new
   	pack_type.name = 'Envase 1'
   	pack_type.company_id = 1
@@ -34,36 +35,44 @@ class PackTypeTest < ActiveSupport::TestCase
   end
 
   #company_id
-  test "Tipo Envase sin compania" do
+  test "Agrega compania en controlador" do #OK
   	pack_type = PackType.new
   	pack_type.name = 'Envase 1'
   	pack_type.tare = 1
-  	refute pack_type.save
-  end
-
-
-  test "Tipo Envase tara es numerico" do
-  	pack_type = PackType.new
-  	pack_type.name = 'Envase 1'
-  	pack_type.tare = 1
-  	pack_type.company_id = 1
   	assert pack_type.save
   end
 
-  test "Tipo Envase tara no es numerico" do
+
+  test "Tara es numerico" do
   	pack_type = PackType.new
   	pack_type.name = 'Envase 1'
   	pack_type.tare = 'a'
   	pack_type.company_id = 1
-  	assert pack_type.errors.size == 1
+  	assert !pack_type.save
   end
 
-  test "Tipo Envase tara puede ser flotante" do
+  test "Tara es flotante" do  #OK
   	pack_type = PackType.new
   	pack_type.name = 'Envase 1'
   	pack_type.tare = 0.25
   	pack_type.company_id = 1
   	assert pack_type.save
+  end
+
+  test "Tara no es negativo" do
+  	pack_type = PackType.new
+  	pack_type.name = 'Envase 1'
+  	pack_type.tare = -0.25
+  	pack_type.company_id = 1
+  	refute pack_type.save, "Tara no puede ser negativo"
+  end
+
+  test "Tara no es cero" do
+  	pack_type = PackType.new
+  	pack_type.name = 'Envase 1'
+  	pack_type.tare = 0
+  	pack_type.company_id = 1
+  	assert !pack_type.save, "Tara no puede ser cero"
   end
 
 end
