@@ -21,12 +21,12 @@
 
   <p>
     <b>Pack Packing:</b>
-    <%= @final_packing_pallet.pack_packing_id %>
+    <%= PackPacking.find(@final_packing_pallet.pack_packing_id).name %>
   </p>
 
   <p>
     <b>Formato:</b>
-    <%= @final_packing_pallet.format_id %>
+    <%= FormatPacking.find(@final_packing_pallet.format_id).name %>
   </p>
 
   <p>

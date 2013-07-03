@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130701021007) do
+ActiveRecord::Schema.define(:version => 20130702165636) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -149,6 +149,15 @@ ActiveRecord::Schema.define(:version => 20130701021007) do
     t.float    "weight"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "frozen_tunnel_ios", :force => true do |t|
+    t.integer  "order_number"
+    t.integer  "tunnel_id"
+    t.float    "tunnel_temperature"
+    t.float    "packing_pallet_temperature"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "groupings", :force => true do |t|
@@ -315,11 +324,11 @@ ActiveRecord::Schema.define(:version => 20130701021007) do
     t.string   "phone"
     t.string   "email"
     t.string   "address"
-    t.string   "commune"
-    t.string   "contacto"
     t.boolean  "active"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "commune_id"
+    t.string   "contact"
   end
 
   create_table "qualities", :force => true do |t|
@@ -405,8 +414,11 @@ ActiveRecord::Schema.define(:version => 20130701021007) do
 
   create_table "stabilization_chamber_ios", :force => true do |t|
     t.float    "temperature"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "order_number"
+    t.integer  "heir_id"
+    t.string   "heir_type"
   end
 
   create_table "subprocess_ios", :force => true do |t|
@@ -434,6 +446,35 @@ ActiveRecord::Schema.define(:version => 20130701021007) do
     t.integer  "minimum_stock"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "stock_ini"
+  end
+
+  create_table "supplies_loans", :force => true do |t|
+    t.integer  "worker_id"
+    t.integer  "supply_id"
+    t.integer  "quantity"
+    t.integer  "company_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "supplies_providers_loans", :force => true do |t|
+    t.integer  "provider_id"
+    t.integer  "supply_id"
+    t.integer  "quantity"
+    t.integer  "company_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "dispatch_guide_number"
+  end
+
+  create_table "supplies_returns", :force => true do |t|
+    t.integer  "worker_id"
+    t.integer  "supply_id"
+    t.integer  "company_id"
+    t.integer  "quantity"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "transit_chamber_ios", :force => true do |t|
@@ -441,6 +482,13 @@ ActiveRecord::Schema.define(:version => 20130701021007) do
     t.integer  "order_number"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "tunnels", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "is_delete"
   end
 
   create_table "users", :force => true do |t|
@@ -509,12 +557,13 @@ ActiveRecord::Schema.define(:version => 20130701021007) do
   add_index "wiki_pages", ["path"], :name => "index_wiki_pages_on_path", :unique => true
 
   create_table "workers", :force => true do |t|
-    t.integer  "rut"
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "phone"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
+    t.string   "rut"
   end
 
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
