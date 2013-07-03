@@ -6,5 +6,4 @@ class TransitChamberIo < ActiveRecord::Base
   validates :temperature, :worker_id, :order_number, :presence => true
   validates :temperature, :numericality => true
   has_many :packing_pallets
-
 end
