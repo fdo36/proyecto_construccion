@@ -195,7 +195,10 @@ function add_db()
 			url: "producers/"+values[1]+"/empty_packs_producer_moves",
 	 		type: "POST",
 	    	data: {empty_packs_producer_move:{producer_id: values[1],pack_type_id: values[0],quantity: values[4],pack_option: values[5]}},
-	 	});
+	 	}).done(function(data){
+
+             window.location = "/empty_packs_producer_moves"
+         });
 		
 	}
 }
@@ -317,6 +320,6 @@ function add_db()
   </tbody>
 </table>
 <!--Boton que termina el proceso y agrega todos los datos a la base de datos-->
-<a hrtf href="/empty_packs"class = "button blue alignright" data-role="button" onclick="add_db()">Aceptar</a>
+<a class = "button blue alignright" data-role="button" onclick="add_db()">Aceptar</a>
 
 
