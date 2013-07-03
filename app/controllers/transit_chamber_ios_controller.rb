@@ -28,10 +28,11 @@ class TransitChamberIosController < ApplicationController
     @transit_chamber_io = TransitChamberIo.new
 
     @previous_subprocess = SubprocessIo.where(:heir_type => Lavado.heir_type, :direction => false)
-    @pallets_previous_subprocess = @previous_subprocess.map {|x| x.packing_pallet}
+    @pallets_previous_subprocess = @previous_subprocess.map {|x| PackingPallet.find(x.packing_pallet)}
     
     @transit_chamber_io = TransitChamberIo.where(:direction => true)
-    @pallets_already_added = @transit_chamber_io.map {|x| x.packing_pallet}
+    @pallets_already_added = @transit_chamber_io.map {|x| PackingPallet.find(x.packing_pallet)}
+
     @pallets_previous_subprocess = @pallets_previous_subprocess - @pallets_already_added
 
     respond_to do |format|
