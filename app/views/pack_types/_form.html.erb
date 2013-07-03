@@ -39,6 +39,10 @@ function replace_comma_with_dot (input) {
       <%= f.text_field :tare, :oninput => "replace_comma_with_dot(this)" %>
     </div>
   </div>
+
+
+    <%= f.hidden_field :company_id, :value => 1 %>
+    
     <label> (
       <em class="formee-req">*</em>
     </label> ) Campos obligatorios. 
