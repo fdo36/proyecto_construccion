@@ -1,5 +1,318 @@
-<h1>New receipt_packing_io</h1>
+<div class="headContent">
+  <h1>Ingreso de pallets a recepción</h1>
+</div>
 
-<%= render 'form' %>
+<script type="text/javascript">
+var packing_pallets = [];
+
+function ReceiptPackingIo(code, comments, dispatch_guide_number, producer_id, trazability_code, worker_id)
+{
+	this.code = code;
+	this.comments = comments;
+	this.dispatch_guide_number = dispatch_guide_number;
+	this.producer_id = producer_id;
+	this.trazability_code = trazability_code;
+	this.worker_id = worker_id;
+}
+
+function add_receipts(pallet_ids)
+{
+	var receipt_packing_io = new ReceiptPackingIo($("#receipt_packing_io_code").val(),
+	$("#receipt_packing_io_comments").val(),
+	$("#receipt_packing_io_dispatch_guide_number").val(),
+	$("#select_producer").val(),
+	$("#receipt_packing_io_trazability_code").val(),
+	$("#receipt_packing_io_worker_id").val());
+	
+	var ajaxObjects = [];
+	for(var i in pallet_ids) {
+		pallet_id = pallet_ids[i];
+		receipt_packing_io.packing_pallet_id = pallet_id;
+		ajaxObjects.push($.ajax({
+			url: "/receipt_packing_ios.json",
+			type: "POST",
+			data: { receipt_packing_io: receipt_packing_io }
+		}));
+	}
+	// Espero que todas las operaciones ajax se realicen antes de continuar.
+	$.when.apply(this, ajaxObjects).done(function() {
+		alert("Se ha guardado con éxito el ingreso");
+		packing_pallets = [];
+		update_pallets_table();
+	});
+}
+
+function add_pallets()
+{
+	var ajaxObjects = [];
+	for(var i in packing_pallets) {
+		packing_pallet = packing_pallets[i];
+		ajaxObjects.push($.ajax({
+              url: "/packing_pallets.json",
+              type: "POST",
+              data: { packing_pallet: packing_pallet }
+			})
+		);
+	}
+	// Espero que todas las operaciones ajax se realicen antes de continuar.
+	$.when.apply(this, ajaxObjects).done(function() {
+		var pallet_ids = [];
+		for(var i = 0; i < arguments.length; i++) {
+			if(arguments[i] instanceof Array)
+	    		pallet_ids.push(arguments[i][0].id);
+			else
+				pallet_ids.push(arguments[i].id);
+	  	}
+		// Ahora que conozco los ids de los pallet agregados, paso al siguiente paso.
+		add_receipts(pallet_ids);
+	});
+}
+
+function PackingPallet(pallet_code, gross_weight, pack_type_id, quantity, tare, temperature, unit_price)
+{
+	this.pallet_code = pallet_code;
+	this.gross_weight = gross_weight;
+	this.pack_type_id = pack_type_id;
+	this.quantity = quantity;
+	this.tare = tare;
+	this.temperature = temperature;
+	this.unit_price = unit_price;
+}
+
+function update_pallets_table()
+{
+	$('#receipt_table').dataTable().fnClearTable();
+	for(var i in packing_pallets) {
+		packing_pallet = packing_pallets[i];
+		var values = [];
+		for (var property in packing_pallet) {
+	    	values.push(packing_pallet[property]);
+		}
+		values.push("<a href=\"#\" onclick=\"remove_pallet(" + i + "); return false;\">Eliminar</a>");
+		$('#receipt_table').dataTable().fnAddData(values);
+	}
+}
+
+function reset_pallet()
+{
+	$("#packing_pallet_code").val("");
+	$("#packing_pallet_gross_weight").val("");
+	$("#packing_pallet_pack_type_id").val("");
+	$("#packing_pallet_quantity").val("");
+	$("#packing_pallet_tare").val("");
+	$("#packing_pallet_unit_price").val("");
+	$("#packing_pallet_temperature").val("");
+}
+
+function add_pallet()
+{
+	var packing_pallet = new PackingPallet($("#packing_pallet_code").val(), 
+										$("#packing_pallet_gross_weight").val(),
+										$("#packing_pallet_pack_type_id").val(),
+										$("#packing_pallet_quantity").val(),
+										$("#packing_pallet_tare").val(),
+										$("#packing_pallet_unit_price").val(),
+										$("#packing_pallet_temperature").val());
+	packing_pallets.push(packing_pallet);
+	update_pallets_table();
+	reset_pallet();
+}
+
+function remove_pallet(n)
+{
+	packing_pallets.splice(n, 1);
+	update_pallets_table();
+}
+
+</script>
+
+<div class="box">
+<%= form_for(@receipt_packing_io) do |f| %>
+  <% if @receipt_packing_io.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @receipt_packing_io.errors.count > 1 ? "#{@treceipt_packing_io.errors.count} errores." : "#{@receipt_packing_io.errors.count} error." %> no se puede guardar la Cámara de Estabilización:</h2>
+      <ul>
+      <% @receipt_packing_io.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+<% end %>
+
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Código
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :code %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Nº Guía de despacho
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :dispatch_guide_number %>
+    </div>
+  </div>
+
+
+
+  <div class="line-forme">
+    
+    <div class="forme-lab">
+      <label>Productor </label>
+      <em class="formee-req">*</em>
+    </div>
+  
+    <div class="forme-in">
+      <% @options = Producer.all.map { |p| [p.name, p.id] } %>
+      <%= f.select(:producer_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione productor - '} , :id => 'select_producer', :class => 'chzn-select') %>  
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Código de trazabilidad
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :trazability_code %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Encargado
+      </label>  
+    </div>
+    <div class="forme-in">
+      <% workers_array = Worker.all.map { |worker| [worker.first_name + " " + worker.last_name, worker.id] } %>
+                        <%= f.select(:worker_id, workers_array , {:selected => :prompt, :prompt => '- Seleccione el encargado -'}, :class => 'chzn-select') %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Comentarios
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :comments %>
+    </div>
+  </div>
+<% end %>
+
+<div class="headContent">
+    <h1>Agregar Pallet a Recepción</h1>
+  </div>
+  <div class="box">
+	<div class="line-forme">
+	  <div class="forme-lab">
+        <label> 
+          Código de pallet
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= text_field(:packing_pallet, :code) %> 
+      </div>
+	</div>
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Peso neto
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= text_field(:packing_pallet, :gross_weight) %> 
+      </div>
+    </div>
+    <div class="line-forme">
+	  <div class="forme-lab">
+        <label> 
+          Tipo de envase
+        </label>  
+      </div>
+      <div class="forme-in">
+		<% @pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+		<%= select(:packing_pallet, :pack_type_id, @pack_types_array , {:selected => :prompt, :prompt => '- Seleccione tipo envase -'}, :class => 'chzn-select') %>
+      </div>
+    </div>
+	<div class="line-forme">
+	  <div class="forme-lab">
+        <label> 
+          Cantidad de envases
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= text_field(:packing_pallet, :quantity) %> 
+      </div>
+	</div>
+	<div class="line-forme">
+	  <div class="forme-lab">
+        <label> 
+          Tara
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= text_field(:packing_pallet, :tare) %> 
+      </div>
+	</div>
+	<div class="line-forme">
+	  <div class="forme-lab">
+        <label> 
+          Precio por unidad
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= text_field(:packing_pallet, :unit_price) %> 
+      </div>
+	</div>
+	<div class="line-forme">
+	  <div class="forme-lab">
+        <label> 
+          Temperatura
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= text_field(:packing_pallet, :temperature) %> 
+      </div>
+	</div>
+      <%= button_tag "Agregar Pallet" , :class => "button blue alignright", :onclick => "add_pallet();"%>
+
+
+    <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="receipt_table">
+      <thead>
+        <tr>    
+          <th>Código de Pallet</th>
+          <th>Peso neto</th>
+          <th>Tipo envase</th>
+  		  <th>Cantidad de envases</th>
+		  <th>Tara</th>
+		  <th>Precio unidad</th>
+		  <th>Temperatura</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+<div class="foot-box">
+    <%= link_to 'Cancelar', receipt_packing_ios_path , :class => "button silver alignright" %>
+    <%= button_tag "Aceptar" , :class => "button green alignright", :onclick => "add_pallets();"%>
+</div>
 
 <%= link_to 'Back', receipt_packing_ios_path %>

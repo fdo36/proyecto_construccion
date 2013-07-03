@@ -1,7 +1,6 @@
 ProyectoConstruccion::Application.routes.draw do
   resources :supplies_providers_loans
 
-
   resources :supplies_returns
 
 

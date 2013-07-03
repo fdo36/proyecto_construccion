@@ -1,46 +1,59 @@
 ProyectoConstruccion::Application.routes.draw do
 <<<<<<< HEAD
+  resources :supplies_providers_loans
+
+
+  resources :supplies_returns
+
+
+  resources :supplies_loans
+
+
 =======
+
+  resources :frozen_tunnel_ios
+
+  resources :wash_chamber_ios
+
+  resources :tunnels
+
+  resources :tunnels
+
+
+  resources :customs
+
+>>>>>>> 06f34fcf4b9f7e92f0e7049222aaaafd66167159
   resources :pallet_finished_products
->>>>>>> 3aa11bc6ae28d70c675a38af04492177a4d40dba
 
   resources :packing_pallets
 
-<<<<<<< HEAD
   resources :final_packing_pallets
-
-
-  resources :customs
-
-
-  resources :transit_chamber_ios
-=======
   resources :production_process_ios
 
-
-  resources :receipt_packing_ios
->>>>>>> 3aa11bc6ae28d70c675a38af04492177a4d40dba
-
-
-  resources :stabilization_chamber_ios
-
-
   resources :customs
-
+  resources :receipt_packing_ios
 
   resources :transit_chamber_ios
-  resources :format_packings
 
 
-  resources :providers
+  resources :turns
+  resources :stabilization_chamber_ios
+
   resources :workers
 
 
+  resources :packing_processes
+  resources :format_packings
+
+  resources :subprocesses
+  resources :providers
+  resources :workers
+
+  resources :subprocess_ios
   resources :supplies
 
 
   resources :pack_packings
-
 
   resources :empty_packs_destination_moves
 
@@ -144,12 +157,12 @@ ProyectoConstruccion::Application.routes.draw do
   match 'producers/:id/disable' => 'producers#disable', :as => 'producers_disable'
   match 'producers/:id/delete_producer' => 'producers#delete_producer', :as => 'producer_delete'
     
-
-
   match '/help/css/jquery-ui.css', :to => redirect('/css/jquery-ui.css')
   match '/help/css/styles.css', :to => redirect('/css/styles.css')
   match '/help/css/default_buttons.css', :to => redirect('/css/default_buttons.css')
 
   match 'receipts/generate_pdf' => 'receipts#generate_pdf', :as => 'receipts_generate_pdf'
+
+  match 'tunnels/:id/delete_tunnel' => 'tunnels#delete_tunnel', :as => 'tunnel_delete'
   
 end

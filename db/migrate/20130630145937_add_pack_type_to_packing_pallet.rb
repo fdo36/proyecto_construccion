@@ -1,5 +1,5 @@
 class AddPackTypeToPackingPallet < ActiveRecord::Migration
   def change
-    add_column :packing_pallets, :pack_type, :integer
+    add_column :packing_pallets, :pack_type_id, :integer
   end
 end
