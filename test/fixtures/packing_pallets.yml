@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
@@ -15,3 +16,6 @@ two:
   temperature: 1.5
   gross_weight: 1
   unit_price: 1
+=======
+--- {}
+>>>>>>> 0f1355443faf80c096dd8344148ebe69420520a2

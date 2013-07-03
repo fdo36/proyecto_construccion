@@ -1,10 +1,41 @@
 <p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Cámara de Estabilización</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', stabilization_chamber_ios_path  , :class => "button blue alignright" %>
 
 <p>
-  <b>Temperature:</b>
-  <%= @stabilization_chamber_io.temperature %>
+  <b>Temperatura:</b>
+  <%= @stabilization_chamber_io.temperature%>
+</p>
+
+<p>
+  <b>Número de Orden:</b>
+  <%= @stabilization_chamber_io.order_number %>
+</p>
+
+<p>
+  <b>Pallet:</b>
+  <%= @stabilization_chamber_io.packing_pallet_id %>
+</p>
+
+<p>
+  <b>Encargado:</b>
+  <%= @stabilization_chamber_io.worker_id %>
 </p>
 
 
-<%= link_to 'Edit', edit_stabilization_chamber_io_path(@stabilization_chamber_io) %> |
-<%= link_to 'Back', stabilization_chamber_ios_path %>
+<p>
+  <b>Tipo:</b>
+  <%= if @stabilization_chamber_io.direction
+        "Entrada"
+      else
+        "Salida"
+      end %>
+</p>
+
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_stabilization_chamber_io_path(@stabilization_chamber_io), :class => "button green alignright" %>
+</div>

@@ -1,1 +1,29 @@
---- {}
+---
+varieties_001:
+  id: '1'
+  name: Variedad 1
+  kind_id: '1'
+  created_at: '2013-07-02 01:20:27.736023'
+  updated_at: '2013-07-02 01:20:27.736023'
+  company_id: 
+varieties_002:
+  id: '2'
+  name: Variedad 1
+  kind_id: '2'
+  created_at: '2013-07-02 01:20:39.161693'
+  updated_at: '2013-07-02 01:20:39.161693'
+  company_id: 
+varieties_003:
+  id: '3'
+  name: Variedad 1
+  kind_id: '3'
+  created_at: '2013-07-02 01:20:50.790933'
+  updated_at: '2013-07-02 01:20:50.790933'
+  company_id: 
+varieties_004:
+  id: '4'
+  name: Variedad 2
+  kind_id: '2'
+  created_at: '2013-07-02 01:21:02.451785'
+  updated_at: '2013-07-02 01:21:02.451785'
+  company_id: 

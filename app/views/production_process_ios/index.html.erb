@@ -1,25 +1,29 @@
-<h1>Listing production_process_ios</h1>
+<div class="headContent">
+  <h1>Línea de Producción</h1>
+</div>
+<div class="box">
+<div class="newTopBanner">
+  <%= link_to 'Nueva Línea de Producción', new_production_process_io_path , :class => "button blue alignright" %>
+</div>
 
-<table>
-  <tr>
-    <th>Order number</th>
-    <th>Production lines number</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+  <thead>
+    <tr>
+      <th>Número de Orden</th>
+      <th>Línea de Producción</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
 <% @production_process_ios.each do |production_process_io| %>
-  <tr>
-    <td><%= production_process_io.order_number %></td>
-    <td><%= production_process_io.production_lines_number %></td>
-    <td><%= link_to 'Show', production_process_io %></td>
-    <td><%= link_to 'Edit', edit_production_process_io_path(production_process_io) %></td>
-    <td><%= link_to 'Destroy', production_process_io, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+    <tr>
+      <td><%= production_process_io.order_number %></td>
+      <td><%= production_process_io.production_lines_number %>
+      <td><%= link_to 'Ver', production_process_io %>
+      <%= link_to 'Editar', edit_production_process_io_path(production_process_io) %>
+      <%= link_to 'Eliminar', production_process_io, method: :delete, data: { confirm: 'Esta seguro que eliminar esta línea de productión' } %></td>
+    </tr>
 <% end %>
+  </tbody>
 </table>
-
-<br />
-
-<%= link_to 'New Production process io', new_production_process_io_path %>
+</div>
