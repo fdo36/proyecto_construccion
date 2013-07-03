@@ -1,0 +1,23 @@
+<h1>Listing origin_ports</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @origin_ports.each do |origin_port| %>
+  <tr>
+    <td><%= origin_port.name %></td>
+    <td><%= link_to 'Show', origin_port %></td>
+    <td><%= link_to 'Edit', edit_origin_port_path(origin_port) %></td>
+    <td><%= link_to 'Destroy', origin_port, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Origin port', new_origin_port_path %>

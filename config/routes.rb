@@ -1,5 +1,11 @@
 ProyectoConstruccion::Application.routes.draw do
 
+  resources :destination_ports
+
+
+  resources :origin_ports
+
+
   resources :frozen_tunnel_ios
 
   resources :wash_chamber_ios
