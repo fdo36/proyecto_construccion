@@ -21,9 +21,9 @@
               <td><%= supplies_return.worker_id %></td>
               <td><%= supplies_return.supply_id %></td>
               <td><%= supplies_return.quantity %></td>
-              <td><%= link_to 'Ver', supplies_return %></td>
-              <td><%= link_to 'Editar', edit_supplies_return_path(supplies_return)  %></td>
-              <td><%= link_to 'Eliminar', supplies_return, method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta devolucion?' } %></td>
+              <td><%= link_to 'Ver', supplies_return %>
+              <%= link_to 'Editar', edit_supplies_return_path(supplies_return)  %>
+              <%= link_to 'Eliminar', supplies_return, method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta devolucion?' } %></td>
             </tr>
         <% end %>
       </tbody>

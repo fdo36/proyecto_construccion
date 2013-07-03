@@ -41,9 +41,12 @@ class SuppliesReturnsController < ApplicationController
   # POST /supplies_returns.json
   def create
     @supplies_return = SuppliesReturn.new(params[:supplies_return])
+    @supply = Supply.find(@supplies_return.supply_id)
+    @supply.stock_ini += @supplies_return.quantity
 
     respond_to do |format|
       if @supplies_return.save
+        @supply.save
         format.html { redirect_to @supplies_return, notice: 'Supplies return was successfully created.' }
         format.json { render json: @supplies_return, status: :created, location: @supplies_return }
       else

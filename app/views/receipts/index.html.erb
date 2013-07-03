@@ -17,6 +17,7 @@
       </tr>
      </thead> 
      <tbody>
+      <% count = 0 %>
       <% @receipts.each do |receipt| %>
 
           <tr>
@@ -26,14 +27,15 @@
             <td><%= (Kind.all(:select => "name", :conditions => ["id = ?",receipt.kind_id]))[0].name %></td>
             <% total_price = 0 %>
             <% receipt.pallets.each do |pallet| %>
+              <% count++ %>
               <% total_price += pallet.price_per_unit %>
             <% end %>
             <% receipt.pack_group_receipts.each do |pack_group_receipt| %>
+              <% count++ %>
               <% total_price += pack_group_receipt.price_per_unit %>
             <% end %>
             <td><%= total_price %></td>
             <td>
-              <%= link_to 'Ver', receipt %>
             <%= link_to 'Editar', edit_receipt_path(receipt) %>
             <%= link_to 'Eliminar', receipt, method: :delete, data: { confirm: '¿Está seguro de eliminar este ingreso?'} %></td>
           </tr>   
