@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Order number:</b>
+  <%= @frozen_tunnel_io.order_number %>
+</p>
+
+<p>
+  <b>Tunnel:</b>
+  <%= @frozen_tunnel_io.tunnel_id %>
+</p>
+
+<p>
+  <b>Tunnel temperature:</b>
+  <%= @frozen_tunnel_io.tunnel_temperature %>
+</p>
+
+<p>
+  <b>Packing pallet temperature:</b>
+  <%= @frozen_tunnel_io.packing_pallet_temperature %>
+</p>
+
+
+<%= link_to 'Edit', edit_frozen_tunnel_io_path(@frozen_tunnel_io) %> |
+<%= link_to 'Back', frozen_tunnel_ios_path %>

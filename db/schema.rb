@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130702065009) do
+
+ActiveRecord::Schema.define(:version => 20130701021007) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -151,6 +152,15 @@ ActiveRecord::Schema.define(:version => 20130702065009) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "frozen_tunnel_ios", :force => true do |t|
+    t.integer  "order_number"
+    t.integer  "tunnel_id"
+    t.float    "tunnel_temperature"
+    t.float    "packing_pallet_temperature"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
   create_table "groupings", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -246,7 +256,7 @@ ActiveRecord::Schema.define(:version => 20130702065009) do
     t.float    "tare"
     t.float    "temperature"
     t.string   "pallet_code"
-    t.integer  "pack_type"
+    t.integer  "pack_type_id"
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -475,6 +485,13 @@ ActiveRecord::Schema.define(:version => 20130702065009) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "tunnels", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "is_delete"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -511,6 +528,19 @@ ActiveRecord::Schema.define(:version => 20130702065009) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"
+  end
+
+  create_table "wash_chamber_ios", :force => true do |t|
+    t.integer  "order_number"
+    t.integer  "duration"
+    t.float    "washing_lines"
+    t.float    "total_neto"
+    t.float    "total_cull"
+    t.float    "total_waste"
+    t.float    "total"
+    t.float    "stadistics"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "wiki_page_versions", :force => true do |t|

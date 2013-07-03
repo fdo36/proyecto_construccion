@@ -61,7 +61,7 @@ $(document).ready(function(){
           flag = true;
           $('#chamber_table').dataTable().fnAddData([
              pallet.pallet_code,
-             pallet.pack_type,
+             pallet.pack_type_id,
              pallet.gross_weight,
              "<a onclick='delete_row(this);'>Eliminar</a>"
           ]);   
@@ -186,4 +186,4 @@ $(document).ready(function(){
 <div class="foot-box">
     <%= link_to 'Cancelar', stabilization_chamber_ios_path , :class => "button silver alignright" %>
     <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallets();"%>
-  </div>
+</div>
