@@ -40,10 +40,13 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 50
-  timeout: 5000
+  adapter: postgresql
+  encoding: unicode
+  database: proyecto_construccion_test
+  pool: 5
+  username: stifler
+  password: stifler
+  host: localhost
 
 production:
   adapter: postgresql
