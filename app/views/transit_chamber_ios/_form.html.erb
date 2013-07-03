@@ -37,6 +37,12 @@ function delete_row(button)
 {
   var currentRow = $(button).closest('tr');
   $("#chamber_table").dataTable().fnDeleteRow(currentRow[0]);
+  var nodes = $('#chamber_table').dataTable().fnGetNodes();
+  if (nodes.length == 0)
+  {
+    $('#transit_chamber_io_direction_true').removeAttr('disabled');
+    $('#transit_chamber_io_direction_false').removeAttr('disabled');
+  }
 }
 
 $(document).ready(function(){
@@ -58,11 +64,39 @@ $(document).ready(function(){
     }
   });
 
-  function add_pallet (pallets){
+  function already_added () {
+    var nodes = $('#chamber_table').dataTable().fnGetNodes();
+    if (nodes.length == 0)
+    {
+      $('#transit_chamber_io_direction_true').attr('disabled', 'disabled');
+      $('#transit_chamber_io_direction_false').attr('disabled', 'disabled');
+      return false;
+    }
+    
+    for (var i = 0; i < nodes.length; i++) {
+      var row = $('#chamber_table').dataTable().fnGetData(i);
+      var code = row[0];
+      if (code == $("#code_pallet").val()){
+        return true;
+      }
+    };
+    return false;
+  }
+
+  function add_pallet (){
+    var route;
+    if($('input[name="transit_chamber_io[direction]"]:checked').val() == "true"){
+      route = "/transit_chamber_io_valid_pallets";
+    }
+    else{  
+      route = "/transit_chamber_io_pallets_already_added";
+    }
+
     $("#error_label").text("");
+    $.get(route, function(pallets){
       flag = false;
       $.each(pallets, function(index, pallet){
-        if (pallet.pallet_code == $("#code_pallet").val()) {
+        if (pallet.pallet_code == $("#code_pallet").val() && !already_added()) {
           flag = true;
           $('#chamber_table').dataTable().fnAddData([
              pallet.pallet_code,
@@ -77,30 +111,8 @@ $(document).ready(function(){
       }
        
       $("#code_pallet").val("");
+    });
   }
-
-  // function add_pallet (){
-  //   $("#error_label").text("");
-  //   $.get("/packing_pallets.json", function(pallets) {
-  //     flag = false;
-  //     $.each(pallets, function(index, pallet){
-  //       if (pallet.pallet_code == $("#code_pallet").val()) {
-  //         flag = true;
-  //         $('#chamber_table').dataTable().fnAddData([
-  //            pallet.pallet_code,
-  //            pallet.pack_type_id,
-  //            pallet.gross_weight,
-  //            "<a onclick='delete_row(this);'>Eliminar</a>"
-  //         ]);   
-  //       }
-  //     });
-  //     if (!flag){
-  //       $("#error_label").text("Ingrese un código válido");
-  //     }
-       
-  //     $("#code_pallet").val("");
-  //   });
-  // }
 });
 
 
@@ -191,8 +203,7 @@ $(document).ready(function(){
       <div class="forme-in">
         <label id="error_label", style="color: red;"></label>
       </div>
-      <%= pallets = render json: @pallets_previous_subprocess %>
-      <%= button_tag "Agregar Pallet" , :class => "button blue alignright", :onclick => "add_pallet(#{pallets});"%>
+      <%= button_tag "Agregar Pallet" , :class => "button blue alignright", :onclick => "add_pallet();"%>
     </div>
 
     <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="chamber_table">

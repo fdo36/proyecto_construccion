@@ -22,18 +22,34 @@ class TransitChamberIosController < ApplicationController
     end
   end
 
+  
+  def valid_pallets
+    @previous_subprocess = SubprocessIo.where(:heir_type => "FrozenTunnelIo", :direction => false)
+    @pallets_previous_subprocess = @previous_subprocess.map {|x| PackingPallet.find(x.packing_pallet_id)}
+    
+    @transit_chamber = SubprocessIo.where(:heir_type => "TransitChamberIo", :direction => true)
+    @pallets_already_added = @transit_chamber.map {|x| PackingPallet.find(x.packing_pallet_id)}
+
+    @valid_pallets = @pallets_previous_subprocess - @pallets_already_added      
+
+    respond_to do |format|
+      format.json {render json: @valid_pallets}
+    end
+  end
+
+  def pallets_already_added
+    @transit_chamber = SubprocessIo.where(:heir_type => "TransitChamberIo", :direction => true)
+    @pallets_already_added = @transit_chamber.map {|x| PackingPallet.find(x.packing_pallet_id)}    
+
+    respond_to do |format|
+      format.json {render json: @pallets_already_added}
+    end
+  end
+
   # GET /transit_chamber_ios/new
   # GET /transit_chamber_ios/new.json
   def new
     @transit_chamber_io = TransitChamberIo.new
-
-    @previous_subprocess = SubprocessIo.where(:heir_type => Lavado.heir_type, :direction => false)
-    @pallets_previous_subprocess = @previous_subprocess.map {|x| PackingPallet.find(x.packing_pallet)}
-    
-    @transit_chamber_io = TransitChamberIo.where(:direction => true)
-    @pallets_already_added = @transit_chamber_io.map {|x| PackingPallet.find(x.packing_pallet)}
-
-    @pallets_previous_subprocess = @pallets_previous_subprocess - @pallets_already_added
 
     respond_to do |format|
       format.html # new.html.erb
