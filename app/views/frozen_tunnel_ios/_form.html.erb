@@ -5,12 +5,12 @@ function add_pallet(){
   $.get("/packing_pallets.json", function(pallets) {
     flag = false;
     $.each(pallets, function(index, pallet){
-      flag2 = false
+      flag2 = false;
       if (pallet.pallet_code == $("#code_pallet").val()) {
         $('#tunnel_table tbody tr').each(function(index){
           var code = $(this).find("td").eq(0).text();
           if (pallet.pallet_code == code) {
-            flag2 = true
+            flag2 = true;
           }
         });
         if(flag2==false){
@@ -129,7 +129,8 @@ function add_pallets(){
       </label>  
     </div>
     <div class="forme-in">
-      <% tunnels_array = Tunnel.all.map { |t| [t.name, t.id] } %>
+      <% tunnels_array = Tunnel.select { |t| t.is_delete == 0}%>
+      <% tunnels_array = tunnels_array.map { |e| [e.name, e.id] } %>
       <%= f.select(:tunnel_id, tunnels_array, :prompt => "Seleccione un Tunel") %>      
     </div>
   </div>
