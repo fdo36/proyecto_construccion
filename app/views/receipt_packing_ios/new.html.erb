@@ -5,7 +5,7 @@
 <script type="text/javascript">
 var packing_pallets = [];
 
-function ReceiptPackingIo(code, comments, dispatch_guide_number, producer_id, trazability_code, worker_id)
+function ReceiptPackingIo(code, comments, dispatch_guide_number, producer_id, trazability_code, worker_id, direction)
 {
 	this.code = code;
 	this.comments = comments;
@@ -13,6 +13,7 @@ function ReceiptPackingIo(code, comments, dispatch_guide_number, producer_id, tr
 	this.producer_id = producer_id;
 	this.trazability_code = trazability_code;
 	this.worker_id = worker_id;
+	this.direction = direction;
 }
 
 function add_receipts(pallet_ids)
@@ -22,7 +23,8 @@ function add_receipts(pallet_ids)
 	$("#receipt_packing_io_dispatch_guide_number").val(),
 	$("#select_producer").val(),
 	$("#receipt_packing_io_trazability_code").val(),
-	$("#receipt_packing_io_worker_id").val());
+	$("#receipt_packing_io_worker_id").val(),
+	false);
 	
 	var ajaxObjects = [];
 	for(var i in pallet_ids) {
@@ -60,8 +62,10 @@ function add_pallets()
 		for(var i = 0; i < arguments.length; i++) {
 			if(arguments[i] instanceof Array)
 	    		pallet_ids.push(arguments[i][0].id);
-			else
+			else {
 				pallet_ids.push(arguments[i].id);
+				break;
+			}
 	  	}
 		// Ahora que conozco los ids de los pallet agregados, paso al siguiente paso.
 		add_receipts(pallet_ids);
