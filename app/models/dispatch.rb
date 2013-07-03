@@ -4,6 +4,8 @@ class Dispatch < ActiveRecord::Base
   belongs_to :destination
   belongs_to :kind
   belongs_to :user
+  belongs_to :receipt
+  belongs_to :dispatch
   has_many :pallets
   has_many :pack_group_dispatches
 

@@ -62,10 +62,6 @@ var modified = false;
     };
   }
 
-  function delete_row () {
-    
-  }
-
   window.onbeforeunload = function () {    
     if (modified) {
       return "Los cambios no guardados se perderan";
@@ -75,6 +71,8 @@ var modified = false;
   function set_modified (argument) {
     modified = argument;
   }
+
+
 
   function register (variety_id, quality_id, price_kg, pack_type_id, quantity, gross_weight, code, tare, is_pallet, id) {
     this.variety_id = variety_id;
@@ -176,10 +174,21 @@ var modified = false;
     return tare;
   }
 
+  function clean_form () {
+    $("#select_variety").val("");
+    $("#pallet_quality_id").val("");
+    $("#pallet_price_per_unit").val("");
+    $("#pallet_pack_type_id").val("");
+    $("#pallet_quantity").val("");
+    $("#pallet_gross_weight").val("");
+    $("#code").val("");
+    $("#destare").val("");
+  }
+
   function add_register()
   {
     var variety_id = $("#select_variety").val();
-    var variety_name = $("#pallet_variety_id option[value='"+variety_id+"']").text();
+    var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
     var quality_id = $("#pallet_quality_id").val();
     var quality_name = $("#pallet_quality_id option[value='"+quality_id+"']").text();
     var price_kg = $("#pallet_price_per_unit").val();
@@ -207,6 +216,7 @@ var modified = false;
     var row = new Array(code, quantity, net_weight, variety_name, quality_name, price_kg, "<a name="+id_count+"'>eliminar</a>");
     $('#tablealone').dataTable().fnAddData(row);
     set_modified(true);
+    clean_form();
   }
 </script>
 

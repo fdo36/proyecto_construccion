@@ -7,4 +7,7 @@ class ProductionProcessIo < ActiveRecord::Base
   validates :production_lines_number, :presence => true
   validates :worker_id, :presence => true
 
+  attr_accessible :order_number, :production_lines_number
+
+  has_many :packing_pallets
 end
