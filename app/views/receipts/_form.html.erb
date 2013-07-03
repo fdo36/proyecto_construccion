@@ -3,8 +3,12 @@ var oTable = {}
 var registers = new Array();
 var id_count = 0;
 var modified = false;
-
+var idReg = 0;
+var posTable = 0;
     $(function() {
+
+      $("#save").hide();
+      $("#cancel").hide();
 
       oTable = $('#tablealone').dataTable({
         "sPaginationType": "full_numbers",
@@ -14,7 +18,7 @@ var modified = false;
           { "bSearchable": false, "aTargets": [ -1 ]}
         ] } );
 
-      $("#tablealone tbody").delegate("a", "click", function () {
+      $("#tablealone tbody").delegate(".del", "click", function () {
           var parent = $(this).parent().parent().get( 0 );
           console.log(parent)
           var iPos = oTable.fnGetPosition(parent);
@@ -24,6 +28,96 @@ var modified = false;
               delete registers[name];
               console.log(registers);
       }});
+
+      $("#tablealone tbody").delegate(".edit", "click", function () {
+          var parent = $(this).parent().parent().get( 0 );
+          var iPos = oTable.fnGetPosition(parent);
+
+          if (iPos !== null) {
+              //oTable.fnDeleteRow(iPos);
+              posTable = iPos
+              var name = $(this).attr("name");
+              idReg = name;
+              console.log(name)
+              var code = registers[name].code;
+              var gross_weight = registers[name].gross_weight;
+              var pack_type_id = registers[name].pack_type_id;
+              var price_per_unit = registers[name].price_kg;
+              var quality_id = registers[name].quality_id;
+              var quantity = registers[name].quantity;
+              var tare = registers[name].tare;
+              var variety_id = registers[name].variety_id;
+              var is_pallet = registers[name].is_pallet;
+
+              clean_form();
+
+              $("#select_variety").val(variety_id);
+              $("#pallet_variety_id").val(variety_id);
+              $("#pallet_quality_id").val(quality_id);
+              $("#pallet_price_per_unit").val(price_per_unit);
+              $("#pallet_pack_type_id").val(pack_type_id);
+              $("#pallet_quantity").val(quantity);
+              $("#pallet_gross_weight").val(gross_weight);
+              $('#check').prop('checked', false);
+              $("#code").prop("disabled",true);
+              $("#destare").prop("disabled",true);
+
+              if (is_pallet)
+              {
+                $('#check').prop('checked', true);
+                $("#code").prop("disabled",false);
+                $("#destare").prop("disabled",false);
+                $("#code").val(code);
+                $("#destare").val(tare)
+              }
+              $("#save").show();
+              $("#cancel").show();
+              $("#agregar").hide();
+
+              //$("#destare").val("");
+              //delete registers[name];
+              //console.log(registers);
+
+      }});
+      
+      $("#save").click(function() {
+        var variety_id = $("#select_variety").val();
+        var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
+        var quality_id = $("#pallet_quality_id").val();
+        var quality_name = $("#pallet_quality_id option[value='"+quality_id+"']").text();
+        var price_kg = $("#pallet_price_per_unit").val();
+        var pack_type_id = $("#pallet_pack_type_id").val();
+        var quantity = $("#pallet_quantity").val();
+        var gross_weight = $("#pallet_gross_weight").val();
+        var code = $("#code").val();
+        var tare = $("#destare").val();
+
+        var pack_type_tare = get_pack_type_tare(pack_type_id);
+
+        var net_weight = gross_weight - (pack_type_tare * quantity) - tare;
+
+        var is_pallet = $("#check").is(':checked'); //true pallet
+        if(!is_pallet){
+          code = "no aplica";
+        }
+        var row = new Array(code, quantity, net_weight, variety_name, quality_name, price_kg, "<a class='del' name="+idReg+">Eliminar</a> <a class='edit' name="+idReg+">Editar</a>");
+
+        var new_register = new register(variety_id, quality_id, price_kg, pack_type_id, quantity, gross_weight, code, tare, is_pallet, idReg);
+
+        registers[idReg] = new_register;
+        oTable.fnUpdate( row, posTable );
+        $("#save").hide();
+        $("#cancel").hide();
+        $("#agregar").show();
+        clean_form();
+      });
+      
+      $("#cancel").click(function() {
+        $("#save").hide();
+        $("#cancel").hide();
+        $("#agregar").show();
+        clean_form();
+      });
 
       $(".chzn-select").chosen().change(function() {
           var id = $(this).val();
@@ -110,7 +204,7 @@ var modified = false;
       var day = $("#receipt_receipt_datetime_3i").val();
       var hour = $("#receipt_receipt_datetime_4i").val();
       var minute = $("#receipt_receipt_datetime_5i").val();
-      var receipt_datetime = new Date(year, month, day, hour, minute);
+      var receipt_datetime = year+"-"+month+"-"+day+" "+hour+":"+minute+":00";
 
       $.ajax({  
         url: "/receipts",  
@@ -226,7 +320,7 @@ var modified = false;
 
     registers[id_count] = new_register;
 
-    var row = new Array(code, quantity, net_weight, variety_name, quality_name, price_kg, "<a name="+id_count+">eliminar</a>");
+    var row = new Array(code, quantity, net_weight, variety_name, quality_name, price_kg, "<a class='del' name="+id_count+">Eliminar</a> <a class='edit' name="+id_count+">Editar</a>");
     $('#tablealone').dataTable().fnAddData(row);
     set_modified(true);
     clean_form();
@@ -774,6 +868,8 @@ var modified = false;
       </div>
       <div class = "newTopBanner">
         <input type="button" value="Agregar Pallet" id="agregar" name="agregar" class="button blue alignright" language="javascript" onClick='errors_revision()'>
+        <input type="button" value="Cancelar" id="cancel" name="agregar" class="button red alignright" language="javascript" >
+        <input type="button" value="Guardar" id="save" name="agregar" class="button green alignright" language="javascript" >
       </div>
       <label> (
       <em class="formee-req">*</em>

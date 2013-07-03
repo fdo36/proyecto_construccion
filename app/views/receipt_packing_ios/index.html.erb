@@ -1,33 +1,50 @@
-<h1>Listing receipt_packing_ios</h1>
+<div class="headContent">
+    <h1>Ingresos en recepción</h1>
+</div>
+<div class="box">
+    <div class="newTopBanner">
+        <%= link_to 'Agregar nuevo ingreso', new_receipt_packing_io_path , :class => "button blue alignright" %>
+    </div>
+    <p id="notice" class="alignleft"><%= notice %> </p>
+    <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+      <thead>
+          <tr>
+			<th>Pallet</th>
+		    <th>Código</th>
+			<th>Productor</th>
+		    <th>Código de trazabilidad</th>
+		    <th>Nº Guía de despacho</th>
+          </tr>
+      </thead>
+      <tbody>
+ 		<% @receipt_packing_ios.each do |receipt_packing_io| %>
+		  <tr>
+			<% if receipt_packing_io.packing_pallet != nil %>
+			<td><%= link_to receipt_packing_io.packing_pallet.pallet_code, packing_pallet_path(receipt_packing_io.packing_pallet) %></td>
+			<% else %>
+			<td><font color="red">No ingresado</td></td>
+			<% end %>
+			<td><%= receipt_packing_io.code %></td>
+			<% if receipt_packing_io.producer != nil %>
+		    <td><%= receipt_packing_io.producer.name %></td>
+			<% else %>
+			<td><font color="red">No definido</font></td>
+			<% end %>
+		    <td><%= receipt_packing_io.trazability_code %></td>
+		    <td><%= receipt_packing_io.dispatch_guide_number %></td>
+                <td><%= link_to 'Ver', receipt_packing_io %>
+                  <%= link_to 'Editar', edit_receipt_packing_io_path(receipt_packing_io) %>
+                  <%= link_to 'Eliminar', receipt_packing_io, method: :delete, data: { confirm: '¿Está seguro de eliminar este ingreso?' } %></td>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>
 
-<table>
-  <tr>
-    <th>Producer</th>
-    <th>Code</th>
-    <th>Pack type</th>
-    <th>Trazability code</th>
-    <th>Dispatch guide number</th>
-    <th>Comments</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @receipt_packing_ios.each do |receipt_packing_io| %>
-  <tr>
-    <td><%= receipt_packing_io.producer_id %></td>
-    <td><%= receipt_packing_io.code %></td>
-    <td><%= receipt_packing_io.pack_type %></td>
-    <td><%= receipt_packing_io.trazability_code %></td>
-    <td><%= receipt_packing_io.dispatch_guide_number %></td>
-    <td><%= receipt_packing_io.comments %></td>
-    <td><%= link_to 'Show', receipt_packing_io %></td>
-    <td><%= link_to 'Edit', edit_receipt_packing_io_path(receipt_packing_io) %></td>
-    <td><%= link_to 'Destroy', receipt_packing_io, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
 
-<br />
 
-<%= link_to 'New Receipt packing io', new_receipt_packing_io_path %>
+
+
+
+
