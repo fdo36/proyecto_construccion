@@ -1,25 +1,56 @@
 <p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Registro de Túnel de Congelado</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', frozen_tunnel_ios_path , :class => "button blue alignright" %>
 
 <p>
-  <b>Order number:</b>
+  <b>Número de Orden:</b>
   <%= @frozen_tunnel_io.order_number %>
 </p>
 
 <p>
-  <b>Tunnel:</b>
-  <%= @frozen_tunnel_io.tunnel_id %>
+  <% tunel = Tunnel.find { |e| e.id = @frozen_tunnel_io.tunnel_id }%>
+  <b>Túnel:</b>
+  <%= tunel.name %>
 </p>
 
 <p>
-  <b>Tunnel temperature:</b>
+  <b>Temperatura del Túnel:</b>
   <%= @frozen_tunnel_io.tunnel_temperature %>
 </p>
 
 <p>
-  <b>Packing pallet temperature:</b>
+  <b>Pallet:</b>
+  <%= @frozen_tunnel_io.packing_pallet_id %>
+</p>
+
+<p>
+  <b>Temperatura del Pallet:</b>
   <%= @frozen_tunnel_io.packing_pallet_temperature %>
 </p>
 
 
-<%= link_to 'Edit', edit_frozen_tunnel_io_path(@frozen_tunnel_io) %> |
-<%= link_to 'Back', frozen_tunnel_ios_path %>
+<p>
+  <% worker = Worker.find { |w| w.id = @frozen_tunnel_io.worker_id }%>
+  <b>Encargado:</b>
+  <%= worker.first_name %>
+  <%= worker.last_name %>
+</p>
+
+<p>
+  <b>Tipo:</b>
+  <%= if @frozen_tunnel_io.direction
+  		"Entrada"
+  	  else
+  	  	"Salida"
+  	  end %>
+</p>
+
+
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_frozen_tunnel_io_path(@frozen_tunnel_io) , :class => "button green alignright" %>
+</div>
+

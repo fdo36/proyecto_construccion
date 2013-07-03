@@ -41,9 +41,9 @@
             <td><%= worker.first_name %>
               <%= worker.last_name %>
             </td>
-            <td><%= link_to 'Show', frozen_tunnel_io %>
-            <%= link_to 'Edit', edit_frozen_tunnel_io_path(frozen_tunnel_io) %>
-            <%= link_to 'Destroy', frozen_tunnel_io, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Ver', frozen_tunnel_io %>
+            <!--<%= link_to 'Editar', edit_frozen_tunnel_io_path(frozen_tunnel_io) %>-->
+            <%= link_to 'Eliminar', frozen_tunnel_io, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>
