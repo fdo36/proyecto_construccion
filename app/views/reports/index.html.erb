@@ -16,8 +16,62 @@ var activeTab = $(this).find("a").attr("href");
 $(activeTab).fadeIn(); 
 return false;
 });
-
+botonesDisabled();
 });
+
+function botonesDisabled(){ //inicializar los botones como deshabilitados
+    //boton1
+    var bt1 = document.getElementById("boton1");
+    var pd1 = document.getElementById("Productores1");
+    var selPd1 = pd1.options[pd1.selectedIndex].value;
+    if(selPd1 == "") {
+     bt1.disabled = true; 
+    }
+    else {
+     bt1.setAttribute('class',"button blue") ;
+    }
+    //boton2
+    var bt2 = document.getElementById("boton2");
+    var pd2 = document.getElementById("Productores2");
+    var selPd2 = pd2.options[pd2.selectedIndex].value;
+    if(selPd2 == "")  { 
+      bt2.disabled = true; 
+    }
+    else { 
+      bt2.setAttribute('class',"button blue") ;
+    }
+    //boton3
+    var bt3 = document.getElementById("boton3");
+    var pd3 = document.getElementById("Productores3");
+    var selPd3 = pd3.options[pd3.selectedIndex].value;
+    if(selPd3 == "")  {
+     bt3.disabled = true; 
+    }
+    else { 
+      bt3.setAttribute('class',"button blue") ;
+    }
+    //boton4
+    var bt4 = document.getElementById("boton4");
+    var dt4 = document.getElementById("Destinos4");
+    var selDt4 = dt4.options[dt4.selectedIndex].value;
+    if (selDt4 == "") { 
+      bt4.disabled = true; 
+    }
+    else { 
+      bt4.setAttribute('class',"button blue") ;
+    }
+    //boton5
+    var bt5 = document.getElementById("boton5");
+    var dt5 = document.getElementById("Destinos5");
+    var selDt5 = dt5.options[dt5.selectedIndex].value;
+    if (selDt5 == "") { 
+      bt5.disabled = true; 
+    } 
+    else { 
+      bt5.setAttribute('class',"button blue") ;
+    }     
+}
+
 </script>
 
 

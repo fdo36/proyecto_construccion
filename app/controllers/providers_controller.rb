@@ -69,6 +69,25 @@ class ProvidersController < ApplicationController
     end
   end
 
+  def disable
+    @provider = Provider.find(params[:id])
+    @provider.update_attribute(:active, false)
+
+    respond_to do |format|
+      format.html { redirect_to providers_path(@provider) }
+      format.json { head :no_content }
+    end
+  end
+
+  def enable
+    @provider = Provider.find(params[:id])
+    @provider.update_attribute(:active, true)
+
+    respond_to do |format|
+      format.html { redirect_to providers_path(@provider) }
+      format.json { head :no_content }
+    end
+  end
   # DELETE /providers/1
   # DELETE /providers/1.json
   def destroy

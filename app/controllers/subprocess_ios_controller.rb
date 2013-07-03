@@ -1,3 +1,5 @@
+# POST /subprocess_ios
+# POST /subprocess_ios.json
 class SubprocessIosController < ApplicationController
   # GET /subprocess_ios
   # GET /subprocess_ios.json
