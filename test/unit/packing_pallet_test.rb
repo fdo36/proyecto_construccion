@@ -6,8 +6,8 @@ class PackingPalletTest < ActiveSupport::TestCase
   # end
 
 	test "" do
-  		packingPallet = Packing_Pallet.new
+  		packingPallet = PackingPallet.new
   		packingPallet.save
-  		assert packingPallet.errors.size == 5
+  		assert packingPallet.errors.size == 12
   	end
 end
