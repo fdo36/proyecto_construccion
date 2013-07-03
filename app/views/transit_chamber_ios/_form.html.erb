@@ -138,6 +138,7 @@ $(document).ready(function(){
     <div class="forme-lab">
       <label> 
         Temperatura
+        <em class="formee-req">*</em>
       </label>  
     </div>
     <div class="forme-in">
@@ -149,6 +150,7 @@ $(document).ready(function(){
     <div class="forme-lab">
       <label> 
         Número de Orden
+        <em class="formee-req">*</em>
       </label>  
     </div>
     <div class="forme-in">
@@ -160,6 +162,7 @@ $(document).ready(function(){
     <div class="forme-lab">
       <label> 
         Encargado
+        <em class="formee-req">*</em>
       </label>  
     </div>
     <div class="forme-in">
@@ -221,6 +224,10 @@ $(document).ready(function(){
     </table>
 
   </div>
+
+  <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
 </div>
 <div class="foot-box">
     <%= link_to 'Cancelar', stabilization_chamber_ios_path , :class => "button silver alignright" %>
