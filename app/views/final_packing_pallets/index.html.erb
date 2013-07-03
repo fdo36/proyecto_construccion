@@ -14,8 +14,6 @@
         <th>Calidad</th>
         <th>Pack Packing</th>
         <th>Formato</th>
-        <th>Cantidad</th>
-        <th>Peso Neto</th>
         <th style="width:20% !important;">Acciones</th>
       </tr>
     </thead>
@@ -25,10 +23,8 @@
           <td><%= Kind.find(final_packing_pallet.kind_id).name %></td>
           <td><%= Variety.find(final_packing_pallet.variety_id).name %></td>
           <td><%= Quality.find(final_packing_pallet.quality_id).name %></td>
-          <td><%= final_packing_pallet.pack_packing_id %></td>
-          <td><%= final_packing_pallet.format_id %></td>
-          <td><%= final_packing_pallet.quantity %></td>
-          <td><%= final_packing_pallet.net_weight %></td>
+          <td><%= PackPacking.find(final_packing_pallet.pack_packing_id).name %></td>
+          <td><%= FormatPacking.find(final_packing_pallet.format_id).name %></td>
           <td><%= link_to 'Ver', final_packing_pallet %>
           <%= link_to 'Editar', edit_final_packing_pallet_path(final_packing_pallet) %>
           <%= link_to 'Eliminar', final_packing_pallet, method: :delete, data: { confirm: '¿Está seguro de eliminar este Packing Pallet Final?' } %></td>

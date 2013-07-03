@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Worker:</b>
+  <%= @supplies_return.worker_id %>
+</p>
+
+<p>
+  <b>Supply:</b>
+  <%= @supplies_return.supply_id %>
+</p>
+
+<p>
+  <b>Company:</b>
+  <%= @supplies_return.company_id %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @supplies_return.quantity %>
+</p>
+
+
+<%= link_to 'Edit', edit_supplies_return_path(@supplies_return) %> |
+<%= link_to 'Back', supplies_returns_path %>

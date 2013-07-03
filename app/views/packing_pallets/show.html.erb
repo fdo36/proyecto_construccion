@@ -10,7 +10,7 @@
   </p>
   <p>
     <b>Tipo de Pack:</b>
-    <%= @packing_pallet.pack_type_id %>
+    <%= PackType.find(@packing_pallet.pack_type_id).name %>
   </p>
 
   <p>
