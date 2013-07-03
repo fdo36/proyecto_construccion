@@ -1,13 +1,14 @@
 require 'test_helper'
 
 class QualityTest < ActiveSupport::TestCase
-	test "should not save post without data" do
+	test "no debe guardar calidad sin datos" do
 	  post = Quality.new
 	  assert !post.save, "Guarda Calidad sin datos"
 	end
 
-	test "should save post with all data" do
+	test "guarda calidad con datos validos" do
 	  post = Quality.new
+	  post.
 	  assert !post.save
 	end
 end
