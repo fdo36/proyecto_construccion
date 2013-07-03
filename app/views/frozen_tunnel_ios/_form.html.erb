@@ -89,6 +89,31 @@ function add_pallets(){
     </div>
   <% end %>
 
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Número de Orden
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :order_number %>
+    </div>
+  </div>
+
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Túnel
+      </label>  
+    </div>
+    <div class="forme-in">
+      <% tunnels_array = Tunnel.select { |t| t.is_delete == 0}%>
+      <% tunnels_array = tunnels_array.map { |e| [e.name, e.id] } %>
+      <%= f.select(:tunnel_id, tunnels_array, :prompt => "Seleccione un Tunel") %>      
+    </div>
+  </div>
+
     <div class="line-forme">
     <div class="forme-lab">
       <label> 
@@ -110,30 +135,6 @@ function add_pallets(){
        <%= f.text_field :packing_pallet_temperature %>
     </div>
   </div>  
-
-  <div class="line-forme">
-    <div class="forme-lab">
-      <label> 
-        Número de Orden
-      </label>  
-    </div>
-    <div class="forme-in">
-      <%= f.text_field :order_number %>
-    </div>
-  </div>
-
-  <div class="line-forme">
-    <div class="forme-lab">
-      <label> 
-        Túnel
-      </label>  
-    </div>
-    <div class="forme-in">
-      <% tunnels_array = Tunnel.select { |t| t.is_delete == 0}%>
-      <% tunnels_array = tunnels_array.map { |e| [e.name, e.id] } %>
-      <%= f.select(:tunnel_id, tunnels_array, :prompt => "Seleccione un Tunel") %>      
-    </div>
-  </div>
 
   <div class="line-forme">
     <div class="forme-lab">

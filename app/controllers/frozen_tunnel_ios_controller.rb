@@ -42,7 +42,7 @@ class FrozenTunnelIosController < ApplicationController
   # POST /frozen_tunnel_ios.json
   def create
     @frozen_tunnel_io = FrozenTunnelIo.new(params[:frozen_tunnel_io])
-
+    @transit_chamber_io.io_datetime = DateTime.current();
     respond_to do |format|
       if @frozen_tunnel_io.save
         format.html { redirect_to @frozen_tunnel_io, notice: 'Frozen tunnel io was successfully created.' }
