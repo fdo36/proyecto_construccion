@@ -6,32 +6,95 @@ function add_pallets(){
   var p_worker_id = $("#transit_chamber_io_worker_id").val();
   var p_direction = $('input[name="transit_chamber_io[direction]"]:checked').val();
   
-  $('#chamber_table tbody tr').each(function(index){
-     var code = $(this).find("td").eq(0).text();
-     $.get("/packing_pallets.json", function(pallets) {
-       $.each(pallets, function(index, pallet){
-        if (pallet.pallet_code == code) {
-          p_packing_pallet_id = pallet.id;
-          $.ajax({
-              url: "/transit_chamber_ios/",
-              type: "POST",
-                data: {transit_chamber_io:{ temperature: p_temperature,
-                                            order_number: p_order_number,
-                                            direction: p_direction,
-                                            worker_id: p_worker_id,
-                                            packing_pallet_id: p_packing_pallet_id}
-                      }                      
-            }).done(function(){
-              window.location = "/transit_chamber_ios"
-            });
-        }
+
+  if (validarCampos(p_temperature, p_order_number, p_worker_id)){
+
+    $('#chamber_table tbody tr').each(function(index){
+       var code = $(this).find("td").eq(0).text();
+       $.get("/packing_pallets.json", function(pallets) {
+         $.each(pallets, function(index, pallet){
+          if (pallet.pallet_code == code) {
+            p_packing_pallet_id = pallet.id;
+            $.ajax({
+                url: "/transit_chamber_ios/",
+                type: "POST",
+                  data: {transit_chamber_io:{ temperature: p_temperature,
+                                              order_number: p_order_number,
+                                              direction: p_direction,
+                                              worker_id: p_worker_id,
+                                              packing_pallet_id: p_packing_pallet_id}
+                        }                      
+              }).done(function(){
+                window.location = "/transit_chamber_ios"
+              });
+          }
+         });
        });
-     });
-  });
+    });
+  }
+  
 
   
 
 }
+
+function validarCampos(temperatura, orden, trabajador)
+{
+
+  var items_filled = ((temperatura != '') && (orden != '') && (trabajador != ''));
+  var temperature_decimal = check_decimal(temperatura) || validate_integer(temperature_decimal) ;
+  if(!items_filled || !temperature_decimal)
+  {
+        var errors = "No se puede agregar el registro: \n";
+        if(temperatura == '')
+        {
+          errors = errors + '  - Temperatura no puede estar vacio';
+        }
+        if(!temperature_decimal)
+        {
+          errors = errors + '  - Temperatura debe ser numerico';
+        }
+        if(orden == '')
+        {
+          errors = errors + '\n  - Número de Orden no puede estar vacio';
+        }
+        if(trabajador == '')
+        {
+          errors = errors + '\n  - Encargado no puede estar vacio';
+        }
+
+        alert(errors);
+  }
+  return items_filled;
+
+}
+
+function validate_integer(strValue)
+  {
+      
+      
+      var objRegExp  = /(^-?\d\d*$)/;  
+      var result = objRegExp.test(strValue);
+      if(result)
+      {
+        return true;
+      }
+      return false;
+
+  }
+
+function check_decimal(inputtxt)   
+{   
+    var decimal=  /^[-+]?[0-9]+\.[0-9]+$/; 
+    if(inputtxt.match(decimal) || validate_integer(inputtxt))   
+    {   
+      return true;  
+    }  
+    else  
+    {   
+      return false;  
+    }  
+  } 
 
 function delete_row(button)
 {
@@ -87,7 +150,7 @@ $(document).ready(function(){
     return false;
   }
 
-  function add_pallet (){
+  function add_pallet(){
     var route;
     if($('input[name="transit_chamber_io[direction]"]:checked').val() == "true"){
       route = "/transit_chamber_io_valid_pallets";
@@ -95,6 +158,7 @@ $(document).ready(function(){
     else{  
       route = "/transit_chamber_io_pallets_already_added";
     }
+
 
     $("#error_label").text("");
     $.get(route, function(pallets){
