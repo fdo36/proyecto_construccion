@@ -11,19 +11,36 @@
     <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
       <thead>
           <tr>
-            <th>Order number</th>
-            <th>Tunnel</th>
-            <th>Tunnel temperature</th>
-            <th>Packing pallet temperature</th>
+            <th>Fecha</th>
+            <th>Número de Orden</th>
+            <th>Tunel</th>
+            <th>Pallet</th>
+            <th>Tipo</th>
+            <th>Encargado</th>
+            <th>Acciones</th>
           </tr>
       </thead>
       <tbody>
         <% @frozen_tunnel_ios.each do |frozen_tunnel_io| %>
           <tr>
+            <% fecha = "#{frozen_tunnel_io.io_datetime.day}-" %>
+            <% fecha = fecha + "#{frozen_tunnel_io.io_datetime.month}-"%>
+            <% fecha = fecha + "#{frozen_tunnel_io.io_datetime.year}"%>
+            <td><%=fecha %></td>
             <td><%= frozen_tunnel_io.order_number %></td>
-            <td><%= frozen_tunnel_io.tunnel_id %></td>
-            <td><%= frozen_tunnel_io.tunnel_temperature %></td>
-            <td><%= frozen_tunnel_io.packing_pallet_temperature %></td>
+            <% tunel = Tunnel.find { |e| e.id = frozen_tunnel_io.tunnel_id }%>
+            <td><%= tunel.name %></td>
+            <td><%= frozen_tunnel_io.packing_pallet_id %></td>
+            <% if(frozen_tunnel_io.direction==true) %>
+            <%  tipo = "Entrada"%>
+            <% else %>
+            <% tipo = "Salida"%>
+            <%end%>
+            <td><%=  tipo%></td>
+            <% worker = Worker.find { |w| w.id = frozen_tunnel_io.worker_id }%>
+            <td><%= worker.first_name %>
+              <%= worker.last_name %>
+            </td>
             <td><%= link_to 'Show', frozen_tunnel_io %>
             <%= link_to 'Edit', edit_frozen_tunnel_io_path(frozen_tunnel_io) %>
             <%= link_to 'Destroy', frozen_tunnel_io, method: :delete, data: { confirm: 'Are you sure?' } %></td>
