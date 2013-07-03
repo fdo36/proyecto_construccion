@@ -165,4 +165,8 @@ ProyectoConstruccion::Application.routes.draw do
 
   match 'tunnels/:id/delete_tunnel' => 'tunnels#delete_tunnel', :as => 'tunnel_delete'
   
+
+  match 'stabilization_chamber_io_valid_pallets' => 'stabilization_chamber_ios#valid_pallets'
+  match 'stabilization_chamber_io_pallets_already_added' => 'stabilization_chamber_ios#pallets_already_added'
+
 end
