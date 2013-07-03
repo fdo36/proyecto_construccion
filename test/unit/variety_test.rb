@@ -28,4 +28,10 @@ class VarietyTest < ActiveSupport::TestCase
   		refute variety.save
 	end
 
+	test "Variedad verificacion de todos sus campos" do
+		variety = Variety.new
+		variety.save
+		assert variety.errors.size == 2
+	end
+	
 end

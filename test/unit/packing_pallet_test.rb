@@ -5,7 +5,7 @@ class PackingPalletTest < ActiveSupport::TestCase
   #   assert true
   # end
 
-	test "" do
+	test "PackingPallet verificacion de todos sus campos" do
   		packingPallet = PackingPallet.new
   		packingPallet.save
   		assert packingPallet.errors.size == 12
