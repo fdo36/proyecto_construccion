@@ -1,0 +1,31 @@
+<div class="headContent">
+    <h1>Lista de los prestamos de Insumos</h1>
+</div>
+<div class="box">
+    <div class="newTopBanner">
+        <%= link_to 'Nuevo prestamo de insumos', new_supplies_loan_path, :class => "button blue alignright" %>
+    </div>
+    <p id="notice" class="alignleft"><%= notice %> </p>
+    <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+      <thead>
+          <tr>
+            <th>Trabajador</th>
+            <th>Insumo</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+          </tr>
+      </thead>
+      <tbody>
+        <% @supplies_loans.each do |supplies_loan| %>
+            <tr>
+              <td><%= supplies_loan.worker_id %></td>
+              <td><%= supplies_loan.supply_id %></td>
+              <td><%= supplies_loan.quantity %></td>
+              <td><%= link_to 'Ver', supplies_loan %>
+              <%= link_to 'Editar', edit_supplies_loan_path(supplies_loan) %>
+              <%= link_to 'Eliminar', supplies_loan, method: :delete, data: { confirm: 'Esta seguro que desea eliminar este Prestamo?' } %></td>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>

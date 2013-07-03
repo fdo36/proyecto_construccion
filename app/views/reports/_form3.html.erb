@@ -22,40 +22,66 @@
          });
       }
       show_pack_type(s.options[s.selectedIndex].value);
+      setEstadoBoton3(s.options[s.selectedIndex].value);
    }
 
-   function show_pack_type(sel) //sel= id del productor seleccionado
+     function setEstadoBoton3(idPro){
+      //si campos obligatorios estan seleccionados ==> boton habilitado, sino boton deshabilitado
+      var bt3 = document.getElementById("boton3");
+      if(idPro>=1){
+        bt3.disabled = false;
+        bt3.setAttribute("class","button blue");
+      }
+      else{
+        bt3.disabled = true;
+        bt3.setAttribute("class","");
+      } 
+  }
+
+function show_pack_type(sel) //sel= id del productor seleccionado
    {
       var selEnv = document.getElementById("Envases3");
       var x = 1;
- 
+      var flag3;   
       selEnv.options.length = 0;
-      selEnv.options[0] = new Option("Seleccione un Envase","","1");      
-         
-      $.get("/pack_types.json", function(data1) {
-         $.each(data1, function(index1, element1){  
-            var flag3 = true;
-              $.get("/receipts.json", function(data) {
-                  $.each(data, function(index, element){ 
-                     if(sel == element.producer_id && flag3){ //id productor seleccionado == id productor de receipt
-                           $.get("/receipts/"+element.id+"/pack_group_receipts.json", function(data) {  
-                              $.each(data, function(i, item){ 
-                                    if(element.id == item.receipt_id && flag3 && item.pack_type_id == element1.id){ // id de receipt == id receipt de pack_group_receipts
-                                             selEnv.options[x] = new Option(element1.name,element1.id,"0");
-                                             x = x+1;
-                                             selEnv.selectedIndex=0;
-                                             flag3 = false;  
-                                    }
-                              });
-                           });
-                     }                 
-                  });
-               }); 
-               
-         });;
+      selEnv.options[0] = new Option("Seleccione un Envase","","1");               
+      $.get("/pack_types.json", function(data) {  
+      $.get("/receipts.json", function(data1) { 
+      $.get("/pack_group_receipts.json", function(data2) { 
+      $.get("/pallets.json", function(data3) { 
+      for(i=0;i<data.length;i++){
+            flag3 = true;
+            for(j=0;j<data1.length && flag3;j++){
+                 if(sel == data1[j].producer_id){ // si productor sel == idProducer de receipts
+                     for(k=0;k<data2.length && flag3;k++){ //busco en pack_group_receipts
+                          if(data1[j].id == data2[k].receipt_id && data[i].id == data2[k].pack_type_id){ //idReceipt == idReceipt de pack_group_receipts and idPackType == idPackType de pack_group_receipts
+                              selEnv.options[x] = new Option(data[i].name,data[i].id,"0");
+                              x++;
+                              selEnv.selectedIndex=0;                               
+                              flag3 = false;
+                          }                       
+                     }
+                     if(flag3){ //si NO se encontro en packGroupReceipts, busco en Pallets
+                        for(q=0;q<data3.length && flag3;k++){ //busco en pallets
+                             if(data1[j].id == data3[q].receipt_id && data[i].id == data3[k].pack_type_id){ //idReceipt == idReceipt de pallets and idPackType == idPackType de pallets
+                                 selEnv.options[x] = new Option(data[i].name,data[i].id,"0");
+                                 x++;
+                                 selEnv.selectedIndex=0;                               
+                                 flag3 = false;
+                             }                          
+                        }
+                     }
+                 }
+
+            }
+      }
       });
+      });
+      });
+      });                               
+   }     
+
    
-   }
    function validate(){
       var producerID = document.getElementById('Productores3');
       if(producerID.value == ""){
@@ -71,6 +97,7 @@
    <div class="line-forme">
       <div class="forme-lab">
          <%= label_tag 'Productor'%>
+              <em class="formee-req">*</em>
       </div>
       <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
       <div class="forme-in">
@@ -123,6 +150,6 @@
          <%= select_date Date.today, :prefix => :end_date3 %>
       </div>
    </div>                                                                    
-   <%= submit_tag "Generar Informe", :class => "button blue alignleft", :onclick => "validate()" %>
+   <button id = "boton3"  >Generar Informe </button> 
                        
 <% end %>               	
