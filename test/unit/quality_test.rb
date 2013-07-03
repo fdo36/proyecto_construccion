@@ -20,4 +20,10 @@ class QualityTest < ActiveSupport::TestCase
   	quality.name = 'Calidad 1'
   	assert quality.save
   end
+
+  #test "Guarda Caracteres especiales" do
+  	#quality = Quality.new
+  	#quality.name = ("<b>!#$%&()*+,-.</b>01234567890}áéíóú~}{[]").to_s
+  	#assert quality.save
+  #end
 end

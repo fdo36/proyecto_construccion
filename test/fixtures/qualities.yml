@@ -1,13 +1,19 @@
 ---
 qualities_001:
   id: '1'
-  name: Calidad 1
-  created_at: '2013-07-03 03:23:25.856885'
-  updated_at: '2013-07-03 03:23:25.856885'
+  name: Alta
+  created_at: '2013-07-01 22:37:15.197776'
+  updated_at: '2013-07-01 22:37:15.197776'
   company_id: 
 qualities_002:
   id: '2'
-  name: Calidad 2
-  created_at: '2013-07-03 03:23:32.492331'
-  updated_at: '2013-07-03 03:23:32.492331'
+  name: Media
+  created_at: '2013-07-01 22:37:32.536282'
+  updated_at: '2013-07-01 22:37:32.536282'
+  company_id: 
+qualities_003:
+  id: '3'
+  name: Baja
+  created_at: '2013-07-01 22:37:51.340782'
+  updated_at: '2013-07-01 22:37:51.340782'
   company_id: 
