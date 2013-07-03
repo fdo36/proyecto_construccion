@@ -20,5 +20,4 @@ class QualityTest < ActiveSupport::TestCase
   	quality.name = 'Calidad 1'
   	assert quality.save
   end
-
 end
