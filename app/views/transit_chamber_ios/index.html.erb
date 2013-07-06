@@ -24,8 +24,8 @@
             <tr>
                 <td><%= transit_chamber_io.direction == true ? "Entrada" : "Salida" %></td>
                 <td><%= transit_chamber_io.order_number %></td>
-                <td><%= PackingPallet.find(transit_chamber_io.packing_pallet_id).pallet_code %></td>
                 <td><%= Worker.find(transit_chamber_io.worker_id).rut %></td>
+                <td><%= PackingPallet.find(transit_chamber_io.packing_pallet_id).pallet_code %></td>
                 <td><%= transit_chamber_io.io_datetime %></td>
                 <td><%= link_to 'Ver', transit_chamber_io %>
                   <%= link_to 'Editar', edit_transit_chamber_io_path(transit_chamber_io) %>
