@@ -213,27 +213,17 @@ $(document).ready(function(){
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Número de Orden
-        <em class="formee-req">*</em>
-      </label>  
-    </div>
-    <div class="forme-in">
-      <%= f.text_field :order_number %>
-    </div>
-  </div>
-
-  <div class="line-forme">
-    <div class="forme-lab">
-      <label> 
         Encargado
         <em class="formee-req">*</em>
       </label>  
     </div>
     <div class="forme-in">
-
       <% @workers = Worker.all.map { |worker| [worker.first_name.to_s + " " + worker.last_name.to_s, worker.id] } %>
-      <%= select("transit_chamber_io", :worker_id, @workers, :selected => :prompt, :prompt => '- Seleccione trabajador -') %>
-
+      <% if @transit_chamber_io.worker_id.nil? %>
+        <%= f.select(:worker_id, @workers, :selected => :prompt, :prompt => '- Seleccione trabajador -') %>  
+      <% else %>
+        <%= f.select(:worker_id, @workers) %>  
+      <% end %>
     </div>
   </div>
 

@@ -34,7 +34,6 @@
                         <td><%= PackingPallet.find(transit_chamber_io.packing_pallet_id).pallet_code %></td>
                         <td><%= transit_chamber_io.io_datetime %></td>
                         <td><%= link_to 'Ver', transit_chamber_io %>
-                          <%= link_to 'Editar', edit_transit_chamber_io_path(transit_chamber_io) %>
                           <%= link_to 'Eliminar', transit_chamber_io, method: :delete, data: { confirm: '¿Está seguro de eliminar este registro?' } %></td>
                     </tr>
                 <% end %>
@@ -70,7 +69,6 @@
                         <td><%= PackingPallet.find(transit_chamber_io.packing_pallet_id).pallet_code %></td>
                         <td><%= transit_chamber_io.io_datetime %></td>
                         <td><%= link_to 'Ver', transit_chamber_io %>
-                          <%= link_to 'Editar', edit_transit_chamber_io_path(transit_chamber_io) %>
                           <%= link_to 'Eliminar', transit_chamber_io, method: :delete, data: { confirm: '¿Está seguro de eliminar este registro?' } %></td>
                     </tr>
                 <% end %>

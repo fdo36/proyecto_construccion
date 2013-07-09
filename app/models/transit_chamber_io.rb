@@ -3,7 +3,7 @@ class TransitChamberIo < ActiveRecord::Base
   attr_accessible :order_number, :temperature, :direction, :io_datetime, :packing_pallet_id, :subprocess_id, :worker_id, :heir_id, :heir_type
 
   validates :direction, :inclusion => {:in => [true, false]}
-  validates :temperature, :worker_id, :order_number, :presence => true
+  validates :temperature, :worker_id, :presence => true
   validates :temperature, :numericality => true
   has_many :packing_pallets
 end
