@@ -226,8 +226,6 @@ section#content{
 }
 
 .line-forme{
-	float: left;
-	width: 100%;
 	min-height: 30px;
 	margin-bottom: 5px;
 }

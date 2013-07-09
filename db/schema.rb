@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(:version => 20130709205338) do
     t.integer  "company_id"
   end
 
+  create_table "charging_orders", :force => true do |t|
+    t.integer  "custom_agent_id"
+    t.integer  "origin_port_id"
+    t.integer  "destination_port_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
   create_table "communes", :force => true do |t|
     t.string   "name"
     t.integer  "region_id"
@@ -57,6 +65,12 @@ ActiveRecord::Schema.define(:version => 20130709205338) do
 
   add_index "containers_producers", ["container_id", "producer_id"], :name => "index_containers_producers_on_container_id_and_producer_id"
   add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
+
+  create_table "custom_agents", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "customs", :force => true do |t|
     t.string   "rut"
@@ -106,8 +120,20 @@ ActiveRecord::Schema.define(:version => 20130709205338) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "dispatch_ios", :force => true do |t|
+    t.integer  "number"
+    t.integer  "charging_order_id"
+    t.string   "container_code"
+    t.float    "charging_temperature"
+    t.float    "dispatch_temperature"
+    t.string   "name_driver"
+    t.string   "rut_driver"
+    t.string   "patent"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
   create_table "dispatches", :force => true do |t|
-    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
@@ -268,6 +294,7 @@ ActiveRecord::Schema.define(:version => 20130709205338) do
     t.float    "temperature"
     t.string   "pallet_code"
     t.integer  "pack_type_id"
+    t.integer  "producer_id"
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -374,7 +401,6 @@ ActiveRecord::Schema.define(:version => 20130709205338) do
   end
 
   create_table "receipts", :force => true do |t|
-    t.string   "code"
     t.integer  "producer_id"
     t.integer  "kind_id"
     t.datetime "receipt_datetime"

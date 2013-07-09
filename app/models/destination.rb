@@ -10,9 +10,6 @@ class Destination < ActiveRecord::Base
   validates :email, :format => { :with => /\A(([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,}))?\z/i,
     :message => "debe seguir el formato ejemplo@midominio.com" }
 
-  validates :phone, :format => { :with => /^-?((?:\d+|\d*)$)/,
-    :message => "debe ingresar un número válido" }
-
   validates :rut, :format => { :with => /^(\d{1,3}.\d{3}.\d{3}-)([a-zA-Z]{1}$|\d{1}$)/,
     :message => "debe ingresar el formato válido. Ejemplo: 11.111.111-1" }
 
