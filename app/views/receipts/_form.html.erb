@@ -161,12 +161,14 @@ var config = 'pack_pallet';
       $('#codigo').val("");
       $('#codigo_sag').val("");
     }
-    
-    $.get("/producers/"+s.value+".json", function(data) {
-     $('#rut').val(data.rut); 
-     $('#codigo').val(data.code);
-     $('#codigo_sag').val(data.sag_code);
-   });
+    else
+    {
+      $.get("/producers/"+s.value+".json", function(data) {
+      $('#rut').val(data.rut); 
+      $('#codigo').val(data.code);
+      $('#codigo_sag').val(data.sag_code);
+      });
+    }
   }
 
   function checkedPallet() {
@@ -536,6 +538,47 @@ var config = 'pack_pallet';
     return !isNaN(parseInt(possibleInteger));
   }
 
+  function validate_receipt () {
+    var producer_id = ($("#select_producer").val());
+    var kind_id = ($("#select_kind").val());
+
+    $("#producer_div").removeClass("field_with_errors");
+    $("#kind_div").removeClass("field_with_errors");
+
+    var errorText = "<div id=error_explanation>";
+    var isError = false;
+    var contador_errores = 0;
+    var errors = "";
+
+    if(producer_id == ""){
+      $("#producer_div").addClass("field_with_errors");
+      errors = errors + "<li>Productor no puede estar en blanco</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+
+    if(kind_id == ""){
+      $("#kind_div").addClass("field_with_errors");
+      errors = errors + "<li>Especie no puede estar en blanco</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+
+    if(isError){
+      errorText+= "<h2>"+contador_errores+" errores, no se puede guardar el ingreso";
+      errorText+= "<ul>";
+      errorText+= errors;
+      errorText+= "</ul>";
+      errorText+= "</div>";  
+      document.getElementById("show_errors_receipt").innerHTML = errorText;
+    }
+
+    else{
+      document.getElementById("show_errors_receipt").innerHTML = "";
+      add_register();
+    }
+  }
+
   function errors_revision () {
     var variety_id = $("#select_variety").val();   
     var quality_id = $("#pallet_quality_id").val();
@@ -664,11 +707,14 @@ var config = 'pack_pallet';
 
 
 <div class="box">
+
+<div id = "show_errors_receipt">
+</div>
+
 <%= form_for(@receipt) do |f| %>
   <% if @receipt.errors.any? %>
     <div id="error_explanation">
       <h2><%= @receipt.errors.count > 1 ? "#{@receipt.errors.count} errores." : "#{@receipt.errors.count} error." %> No se puede guardar el ingreso:</h2>
-
       <ul>
       <% @receipt.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -686,11 +732,11 @@ var config = 'pack_pallet';
         <label>Productor </label>
         <em class="formee-req">*</em>
       </div>
-    
-      <div class="forme-in">
+        <div class="forme-in">
+          <div id="producer_div">
         <% @options = Producer.all.map { |p| [p.name, p.id] } %>
         <%= f.select(:producer_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione productor - '} , :id => 'select_producer',:onchange => "show_rut(this)", :class => 'chzn-select') %>  
-
+          </div>
       </div>
 
     </div>
@@ -741,10 +787,11 @@ var config = 'pack_pallet';
         <label>Especie </label>
         <em class="formee-req">*</em>
       </div>
-    
-      <div class="forme-in">
-        <% @options_kinds = Kind.all.map { |kind| [kind.name, kind.id] } %>
-        <%= f.select(:kind_id, options_for_select(@options_kinds), {:selected => :prompt, :prompt => '- Seleccione especie - '} , :id => 'select_kind',:onchange => "show_variety(this)") %>        
+      <div id="kind_div">
+        <div class="forme-in">
+          <% @options_kinds = Kind.all.map { |kind| [kind.name, kind.id] } %>
+          <%= f.select(:kind_id, options_for_select(@options_kinds), {:selected => :prompt, :prompt => '- Seleccione especie - '} , :id => 'select_kind',:onchange => "show_variety(this)") %>        
+        </div>
       </div>
     </div>
 
@@ -964,7 +1011,7 @@ var config = 'pack_pallet';
 <div class="foot-box">
   <div class="line-forme">
     <%= link_to 'Cancelar', receipts_path , :class => "button silver alignright" %>
-    <%= f.submit :Guardar , :class => "button green alignright", :onClick => 'post()' %>
+    <%= f.submit :Guardar , :class => "button green alignright", :onClick => 'validate_receipt()' %>
   </div>
   
 </div>
