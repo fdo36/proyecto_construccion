@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  custom_agent_id: 1
+  origin_port_id: 1
+  destination_port_id: 1
+
+two:
+  custom_agent_id: 1
+  origin_port_id: 1
+  destination_port_id: 1

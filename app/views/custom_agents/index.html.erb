@@ -1,0 +1,26 @@
+<div class="headContent">
+    <h1>Agentes Aduaneros</h1>
+</div>
+
+<div class="box">
+  <%= link_to 'Nuevo custom_agent', new_custom_agent_path , :class => "button blue alignright" %>
+
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th style="width:20% !important;">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @custom_agents.each do |custom_agent| %>
+        <tr>
+          <td><%= custom_agent.name %></td>
+          <td><%= link_to 'Ver', custom_agent %>
+          <%= link_to 'Editar', edit_custom_agent_path(custom_agent) %>
+          <%= link_to 'Eliminar', custom_agent, method: :delete, data: { confirm: '¿Está seguro que desea eliminar el registro?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

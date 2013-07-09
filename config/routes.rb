@@ -1,4 +1,13 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :dispatch_ios
+
+
+  resources :charging_orders
+
+
+  resources :custom_agents
+
+
   resources :supplies_providers_loans
 
   resources :supplies_returns

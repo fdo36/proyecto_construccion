@@ -1,0 +1,49 @@
+<%= form_for(@dispatch_io) do |f| %>
+  <% if @dispatch_io.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dispatch_io.errors.count, "error") %> prohibited this dispatch_io from being saved:</h2>
+
+      <ul>
+      <% @dispatch_io.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :number %><br />
+    <%= f.number_field :number %>
+  </div>
+  <div class="field">
+    <%= f.label :charging_order_id %><br />
+    <%= f.number_field :charging_order_id %>
+  </div>
+  <div class="field">
+    <%= f.label :container_code %><br />
+    <%= f.text_field :container_code %>
+  </div>
+  <div class="field">
+    <%= f.label :charging_temperature %><br />
+    <%= f.text_field :charging_temperature %>
+  </div>
+  <div class="field">
+    <%= f.label :dispatch_temperature %><br />
+    <%= f.text_field :dispatch_temperature %>
+  </div>
+  <div class="field">
+    <%= f.label :name_driver %><br />
+    <%= f.text_field :name_driver %>
+  </div>
+  <div class="field">
+    <%= f.label :rut_driver %><br />
+    <%= f.text_field :rut_driver %>
+  </div>
+  <div class="field">
+    <%= f.label :patent %><br />
+    <%= f.text_field :patent %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
