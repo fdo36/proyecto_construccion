@@ -33,9 +33,6 @@ function add_pallets(){
     });
   }
   
-
-  
-
 }
 
 function validarCampos(temperatura, orden, trabajador)
@@ -233,7 +230,10 @@ $(document).ready(function(){
       </label>  
     </div>
     <div class="forme-in">
-      <%= f.text_field :worker_id %>
+
+      <% @workers = Worker.all.map { |worker| [worker.first_name.to_s + " " + worker.last_name.to_s, worker.id] } %>
+      <%= select("transit_chamber_io", :worker_id, @workers, :selected => :prompt, :prompt => '- Seleccione trabajador -') %>
+
     </div>
   </div>
 
@@ -241,6 +241,7 @@ $(document).ready(function(){
     <div class="forme-lab">
       <label> 
         Tipo
+        <em class="formee-req">*</em>
       </label>  
     </div>
     <div class="forme-in">

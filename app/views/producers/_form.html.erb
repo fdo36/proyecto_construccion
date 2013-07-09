@@ -57,6 +57,9 @@ function checkBox_click (chkbox) {
     <div class="forme-in">
       <%= f.text_field :rut, :class => 'rut' %>
     </div>
+    <div class="forme-in">
+      <label class="rut_error", class="alignright", style="color: red;"></label>
+    </div>
   </div>
   <div class="line-forme">
     <div class="forme-lab">
@@ -174,8 +177,7 @@ function checkBox_click (chkbox) {
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Agrupaciones                
-        <em class="formee-req">*</em>
+        Agrupaciones
       </label>  
     </div>
   </div>

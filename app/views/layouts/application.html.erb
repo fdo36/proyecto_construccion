@@ -34,7 +34,8 @@
 		    $(".chzn-select").chosen();
 
 		    $('.rut').Rut({
-			  on_error: function(){ alert('Rut incorrecto'); },
+			  on_error: function(){ $(".rut_error").text("Rut inválido") },
+			  on_success: function(){ $(".rut_error").text("") },
 			  format_on: 'keyup'
 			});
 
