@@ -64,6 +64,7 @@
             <% @destinations.each do |destination| %>
               <% if ((destination.active == false) and (destination.is_deleted == false))%>
                 <tr>
+                  <td><%= destination.code %></td>
                   <td><%= destination.name %></td>
                   <td><%= destination.phone %></td>
                   <td><%= destination.email %></td>

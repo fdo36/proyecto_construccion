@@ -8,32 +8,75 @@
 
     <p id="notice" class="alignleft"><%= notice %> </p>
 
-    <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
-      <thead>
-          <tr>
-            <th>Entrada/Salida</th>
-            <th>Número de Orden</th>
-            <th>Encargado</th>
-            <th>Codigo Pallet</th>
-            <th>Fecha</th>
-            <th>Acciones</th>  
-          </tr>
-      </thead>
-      <tbody>
-        <% @transit_chamber_ios.each do |transit_chamber_io| %>
-            <tr>
-                <td><%= transit_chamber_io.direction == true ? "Entrada" : "Salida" %></td>
-                <td><%= transit_chamber_io.order_number %></td>
-                <td><%= PackingPallet.find(transit_chamber_io.packing_pallet_id).pallet_code %></td>
-                <td><%= Worker.find(transit_chamber_io.worker_id).rut %></td>
-                <td><%= transit_chamber_io.io_datetime %></td>
-                <td><%= link_to 'Ver', transit_chamber_io %>
-                  <%= link_to 'Editar', edit_transit_chamber_io_path(transit_chamber_io) %>
-                  <%= link_to 'Eliminar', transit_chamber_io, method: :delete, data: { confirm: '¿Está seguro de eliminar este registro?' } %></td>
-            </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Productos de Entrada</h1>
+        </div>
+        <div class="box">
+          <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+            <thead>
+                <tr>
+                  <th>Entrada/Salida</th>
+                  <th>Número de Orden</th>
+                  <th>Encargado</th>
+                  <th>Codigo Pallet</th>
+                  <th>Fecha</th>
+                  <th>Acciones</th>  
+                </tr>
+            </thead>
+            <tbody>
+              <% @transit_chamber_ios.each do |transit_chamber_io| %>
+                <% s = SubprocessIo.where(:packing_pallet_id => transit_chamber_io.packing_pallet_id, :heir_type => "TransitChamberIo") %>
+                <% if ( s.length < 2 && transit_chamber_io.direction == true)%>
+                    <tr>
+                        <td><%= transit_chamber_io.direction == true ? "Entrada" : "Salida" %></td>
+                        <td><%= transit_chamber_io.order_number %></td>
+                        <td><%= Worker.find(transit_chamber_io.worker_id).rut %></td>
+                        <td><%= PackingPallet.find(transit_chamber_io.packing_pallet_id).pallet_code %></td>
+                        <td><%= transit_chamber_io.io_datetime %></td>
+                        <td><%= link_to 'Ver', transit_chamber_io %>
+                          <%= link_to 'Eliminar', transit_chamber_io, method: :delete, data: { confirm: '¿Está seguro de eliminar este registro?' } %></td>
+                    </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+    </div>
 
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Productos de Salida</h1>
+        </div>
+        <div class="box">
+          <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+            <thead>
+                <tr>
+                  <th>Entrada/Salida</th>
+                  <th>Número de Orden</th>
+                  <th>Encargado</th>
+                  <th>Codigo Pallet</th>
+                  <th>Fecha</th>
+                  <th>Acciones</th>  
+                </tr>
+            </thead>
+            <tbody>
+              <% @transit_chamber_ios.each do |transit_chamber_io| %>
+                <% if (transit_chamber_io.direction == false)%>
+                    <tr>
+                        <td><%= transit_chamber_io.direction == true ? "Entrada" : "Salida" %></td>
+                        <td><%= transit_chamber_io.order_number %></td>
+                        <td><%= Worker.find(transit_chamber_io.worker_id).rut %></td>
+                        <td><%= PackingPallet.find(transit_chamber_io.packing_pallet_id).pallet_code %></td>
+                        <td><%= transit_chamber_io.io_datetime %></td>
+                        <td><%= link_to 'Ver', transit_chamber_io %>
+                          <%= link_to 'Eliminar', transit_chamber_io, method: :delete, data: { confirm: '¿Está seguro de eliminar este registro?' } %></td>
+                    </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+    </div>
 </div>
 

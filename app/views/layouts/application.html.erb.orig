@@ -116,13 +116,19 @@
 					</ul>
 					<%else%>
 					
-						<% namesIO = {'Receipt' => 'Ingresos', 'Season' => 'Temporada', 'Dispatch' => 'Despachos', 'Report' => 'Informes' }%>
+						<% namesIO = {'Receipt' => 'Ingresos', 'Season' => 'Temporada', 'Dispatch' => 'Despachos', 'Report' => 'Informes', 'TransitChamberIo' => 'Cámaras de Producto en Tránsito' }%>
 
+<<<<<<< HEAD
+						<% namesResource = {'Producer' => 'Productor', 'PackType' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Especie', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduana', 'Worker' => 'Trabajador', 'Variety' => 'Variedad', 'PackingPallet' => 'Packing Pallets' } %>
+
+						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'PackType' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/kinds', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs', 'Worker' => '/workers', 'Variety' => '/varieties', 'TransitChamberIo' => 'transit_chamber_ios', 'PackingPallet' => '/packing_pallets' } %>
+=======
 
 						<% namesResource = {'Producer' => 'Productor', 'Pack_type' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Especie', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduana', 'Worker' => 'Trabajador', 'Variety' => 'Variedad' , 'OriginPort' => 'Puertos de Origen',  'DestinationPort' => 'Puertos de destino'} %>
 
 						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'Pack_type' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/kinds', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs', 'Worker' => '/workers', 'Variety' => '/varieties' , 'OriginPort' => '/origin_ports',  'DestinationPort' => '/destination_ports'} %>
 
+>>>>>>> 2f53ae58f91c1785b427de216baac9ee9c186319
 
 						<% models_name_io = [] %>
 						<% models_name_rsrc = [] %>
