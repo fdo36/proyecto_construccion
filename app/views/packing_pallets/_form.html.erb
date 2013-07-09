@@ -31,8 +31,9 @@
       </label>  
     </div>
     <div class="forme-in">
-      <% pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
-      <%= f.select(:pack_type_id, pack_types_array, :selected => :prompt, :prompt => '- Seleccione Tipo de Pack -') %>
+
+        <% pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+        <%= f.select(:pack_type_id, pack_types_array, :selected => :prompt, :prompt => '- Seleccione Pack Packing -') %>
     </div>
   </div>
 

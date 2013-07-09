@@ -172,14 +172,12 @@ ProyectoConstruccion::Application.routes.draw do
   match 'transit_chamber_io_valid_pallets' => 'transit_chamber_ios#valid_pallets'
   match 'transit_chamber_io_pallets_already_added' => 'transit_chamber_ios#pallets_already_added'
   
-<<<<<<< HEAD
+
 
   match 'stabilization_chamber_io_valid_pallets' => 'stabilization_chamber_ios#valid_pallets'
   match 'stabilization_chamber_io_pallets_already_added' => 'stabilization_chamber_ios#pallets_already_added'
 
-=======
+
   match 'frozen_tunnel_io_valid_pallets' => 'frozen_tunnel_ios#valid_pallets'
   match 'frozen_tunnel_io_pallets_already_added' => 'frozen_tunnel_ios#pallets_already_added'
-  
->>>>>>> db8fab7d196f611f3d4b12292719220693a59812
 end
