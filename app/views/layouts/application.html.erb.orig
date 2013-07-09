@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Centros de Acopio</title>
+  	
+	<%= javascript_include_tag "application" %>
+	<%= csrf_meta_tags %>
+
+	<link rel="stylesheet" href="/css/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="/plugins/datatables/media/css/data_table.css" />
+	<link  rel="stylesheet" href="/css/styles.css" type="text/css"></style>
+	<link  rel="stylesheet" href="/css/default_buttons.css" type="text/css"></style>
+	<link rel="stylesheet" type="text/css" href="/plugins/chosen/chosen.css" />
+
+	<script src="/js/jquery-ui.js"></script>
+	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="/plugins/datatables/media/js/jquery.dataTablesES.js"></script>
+	<script type="text/javascript" src="/plugins/jquery.Rut/jquery.Rut.js"></script>
+	<script type="text/javascript" src="/plugins/chosen/chosen.jquery.js"></script>
+
+	<script>
+		$(function() {
+			$( ".date" ).datepicker();
+
+		    $('.datatable').dataTable({
+				"sPaginationType": "full_numbers",
+				"bJQueryUI": true,
+				"aoColumnDefs": [
+		      { "bSortable": false, "aTargets": [ -1 ] },
+		      { "bSearchable": false, "aTargets": [ -1 ]}
+		    ] } );
+
+		    $(".chzn-select").chosen();
+
+		    $('.rut').Rut({
+			  on_error: function(){ $(".rut_error").text("Rut inválido") },
+			  on_success: function(){ $(".rut_error").text("") },
+			  format_on: 'keyup'
+			});
+
+		    
+		});
+		$(document).on("click", "#mostrar-dialog",function(event) 
+		{	
+			$( "#dialog-modal" ).dialog( "open" );
+		});
+  	</script>
+
+  	<script>
+  	// ACTUALIZA EL COMBOBOX DE COMUNAS DEPENDIENDO DE LO QUE SE SELECCIONE EN EL DE REGIONES
+      function show_communes(region_selector, commune_selector_id) {
+      	if (region_selector.value == '') {
+      		var options = '<option value>- Seleccione comuna -</option>';
+      		$("#"+commune_selector_id).html(options);
+      	}
+      	else
+      	{
+	        $.get("/regions/"+region_selector.value+"/communes.json", function(data) { 
+		    	var options = '';
+		      	$.each(data, function(i, item){	
+		            options += '<option value="' + item.id + '">' + item.name + '</option>';
+		        });
+		        $("#"+commune_selector_id).html(options);
+	        });
+        }
+      }
+	</script>
+
+	<script>
+	// CARGA LAS REGIONES Y COMUNAS PARA EL EDITAR
+	function load_regions(region_selector_id, commune_selector_id) {
+		var pathname = window.location.pathname;
+		if(!pathname.match(/new$/)) // SÓLO SI ESTA EDITANDO HACE ESTO
+		{	
+		  	pathname = pathname.replace('/edit', '');
+		  	pathname = pathname + ".json";
+		    $.get(pathname, function(commune) {
+		      $.get("/regions/-1/communes/" + commune.commune_id +".json", function(region){
+		      	
+		      	$("#"+region_selector_id).val(region.region_id);
+
+		      	$.get("/regions/"+region.region_id+"/communes.json", function(data) { 
+                  var options = '';
+                  $.each(data, function(i, item){ 
+                      options += '<option value="' + item.id + '">' + item.name + '</option>';
+                  });
+                  $("#"+commune_selector_id).html(options);
+		      	  $("#"+commune_selector_id).val(commune.commune_id);
+                });
+		      });
+		  	});
+		}
+	}
+	</script>
+	
+</head>
+<body>
+
+	<div id="container">
+
+		<section id="content">
+			
+
+			<div class="contentPanel">
+				<%= yield %>
+			</div>
+
+			<section id="left">
+				<div id="leftCol">
+				<ul>
+					<% if current_user.super_admin %>
+					<p>Acciones</p>
+					<ul>
+						<li><%= link_to('Compañias', companies_path)%></li>
+					</ul>
+					<%else%>
+					
+						<% namesIO = {'Receipt' => 'Ingresos', 'Season' => 'Temporada', 'Dispatch' => 'Despachos', 'Report' => 'Informes', 'TransitChamberIo' => 'Cámaras de Producto en Tránsito' }%>
+
+<<<<<<< HEAD
+						<% namesResource = {'Producer' => 'Productor', 'PackType' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Especie', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduana', 'Worker' => 'Trabajador', 'Variety' => 'Variedad', 'PackingPallet' => 'Packing Pallets' } %>
+
+						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'PackType' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/kinds', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs', 'Worker' => '/workers', 'Variety' => '/varieties', 'TransitChamberIo' => 'transit_chamber_ios', 'PackingPallet' => '/packing_pallets' } %>
+=======
+
+						<% namesResource = {'Producer' => 'Productor', 'Pack_type' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Especie', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduana', 'Worker' => 'Trabajador', 'Variety' => 'Variedad' , 'OriginPort' => 'Puertos de Origen',  'DestinationPort' => 'Puertos de destino'} %>
+
+						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'Pack_type' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/kinds', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs', 'Worker' => '/workers', 'Variety' => '/varieties' , 'OriginPort' => '/origin_ports',  'DestinationPort' => '/destination_ports'} %>
+
+>>>>>>> 2f53ae58f91c1785b427de216baac9ee9c186319
+
+						<% models_name_io = [] %>
+						<% models_name_rsrc = [] %>
+						<% for r in current_user.roles %>
+							<% r.access_rights.each do |ar| %> 
+								<% if namesIO.has_key?(ar.model_name) and !models_name_io.include?(ar.model_name)%>
+									<% models_name_io << ar.model_name%>
+								<% elsif namesResource.has_key?(ar.model_name) and !models_name_rsrc.include?(ar.model_name)%>
+									<% models_name_rsrc << ar.model_name%>
+								<% end %>
+							<% end %>
+						<% end %>
+
+						<%if !models_name_io.empty? %>
+							<p>Entradas/Salidas</p>
+							<ul>
+							<% for m in models_name_io%>
+								<li> <%= link_to namesIO[m], links[m] %></li>
+							<% end %>
+							</ul>
+						<% end %>
+
+						<%if !models_name_rsrc.empty? %>
+							<p>Recursos</p>
+							<ul>
+							<% for m in models_name_rsrc%>
+								<li> <%= link_to namesResource[m], links[m] %></li>
+							<% end %>
+							</ul>
+						<% end %>
+
+					<%end%>
+				</ul>
+				</div>
+			</section>
+		</section>
+
+		<section id="top">
+			<div id="pageHead">
+				<div id="logo">
+					<img src="/images/des.png" >
+					<% if current_user.super_admin == true %>
+						<h1 id="textLogo">Administración</h1>
+					<%else%>
+						<h1 id="textLogo">Sistema Centros de Acopio</h1>
+					<%end%>
+				</div>
+
+				<div id="tools">
+					<ul id="menuTools">
+						<ul>
+							<p>Cuenta</p>
+							<div class="toolsDisplay">
+								<li><a href="#">Perfil</a></li>
+								<li><%= link_to('Cerrar sesión', destroy_user_session_path, :method => :delete) %></li>
+							</div>
+						</ul>
+						<% if current_user.super_admin != true and can?(:manage, User) %>
+						<ul>
+							<p>Compañía</p>
+							<div class="toolsDisplay">
+								<li><%= link_to('Cuentas', company_users_path(current_user.company)) %></li>
+								<li><%= link_to('Configuración', new_setting_path) %></li>
+							</div>
+						</ul>
+						<% end %>
+					</ul>
+				</div>
+
+				<div id="nameLogin">
+						<p><%= current_user.email %></p>
+				</div>
+				
+			</div>
+		</section>
+
+	</div>
+</body>
+</html>
+
