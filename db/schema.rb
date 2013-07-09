@@ -268,7 +268,10 @@ ActiveRecord::Schema.define(:version => 20130709212952) do
     t.float    "temperature"
     t.string   "pallet_code"
     t.integer  "pack_type_id"
+<<<<<<< HEAD
     t.integer  "producer_id"
+=======
+>>>>>>> d907e3f93b1d353f2a4c4b1183343fdd1f8c332b
   end
 
   create_table "packing_processes", :force => true do |t|

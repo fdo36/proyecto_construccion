@@ -113,9 +113,10 @@ ProyectoConstruccion::Application.routes.draw do
     resources :pack_group_dispatches
   end
 
-  resources :varieties do
-    resources :kinds
-  end
+  resources :varieties
+  
+  resources :kinds
+  
   
   resources :qualities
 

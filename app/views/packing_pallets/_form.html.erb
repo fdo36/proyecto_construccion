@@ -14,7 +14,7 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Código del pallet
+        Código Pallet
         <em class="formee-req">*</em>
       </label>  
     </div>
@@ -26,16 +26,15 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Tipo de Pack                
+        Tipo de Envase                
         <em class="formee-req">*</em>
       </label>  
     </div>
     <div class="forme-in">
+      <% pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
       <% if @packing_pallet.pack_type_id.nil? %>
-        <% pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
         <%= f.select(:pack_type_id, pack_types_array, :selected => :prompt, :prompt => '- Seleccione Tipo de Pack -') %>
       <% else %>
-        <% pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
           <%= f.select(:pack_type_id, pack_types_array) %>
       <% end %>
     </div>
@@ -44,7 +43,7 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Cantidad               
+        Cantidad de Envases              
         <em class="formee-req">*</em>
       </label>  
     </div>
@@ -55,7 +54,7 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Tara               
+        Destare Pallet (Kg)               
         <em class="formee-req">*</em>
       </label>  
     </div>
@@ -66,7 +65,7 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Temperatura               
+        Temperatura (°C)            
         <em class="formee-req">*</em>
       </label>  
     </div>
@@ -77,7 +76,7 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Peso Bruto               
+        Peso Bruto (Kg)               
         <em class="formee-req">*</em>
       </label>  
     </div>
@@ -88,7 +87,7 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Precio por Unidad              
+        Precio por Kg              
         <em class="formee-req">*</em>
       </label>  
     </div>
