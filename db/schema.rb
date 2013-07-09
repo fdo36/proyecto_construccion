@@ -11,9 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130702165636) do
-
-ActiveRecord::Schema.define(:version => 20130702165636) do
+ActiveRecord::Schema.define(:version => 20130709212952) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -270,6 +268,10 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
     t.float    "temperature"
     t.string   "pallet_code"
     t.integer  "pack_type_id"
+<<<<<<< HEAD
+    t.integer  "producer_id"
+=======
+>>>>>>> d907e3f93b1d353f2a4c4b1183343fdd1f8c332b
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -433,6 +435,13 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
     t.integer  "order_number"
     t.integer  "heir_id"
     t.string   "heir_type"
+  end
+
+  create_table "store_finish_products", :force => true do |t|
+    t.datetime "time_out"
+    t.string   "store_time"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "subprocess_ios", :force => true do |t|

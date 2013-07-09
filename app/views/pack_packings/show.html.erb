@@ -1,10 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @pack_packing.name %>
-</p>
+<div class="headContent">
+  <h1>Ver Pack packing</h1>
+</div>
 
+<div class="box">
+	<%= link_to 'Volver', pack_packings_path, :class => "button blue alignright" %>
+	<p>
+	  <b>Nombre:</b>
+	  <%= @pack_packing.name %>
+	</p>
+</div>
 
-<%= link_to 'Edit', edit_pack_packing_path(@pack_packing) %> |
-<%= link_to 'Back', pack_packings_path %>
+<div class="foot-box">
+	<%= link_to 'Editar', edit_pack_packing_path(@pack_packing), :class => "button green alignright" %>
+</div>
