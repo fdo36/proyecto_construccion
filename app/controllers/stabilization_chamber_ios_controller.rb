@@ -74,7 +74,7 @@ class StabilizationChamberIosController < ApplicationController
     @previous_subprocess = SubprocessIo.where(:heir_type => "ReceiptsPackingIo", :direction => false)
     @pallets_previous_subprocess = @previous_subprocess.map {|x| PackingPallet.find(x.packing_pallet_id)}
     
-    @transit_chamber = SubprocessIo.where(:heir_type => "StabilizationChamberIo", :direction => true)
+    @stabilization_chamber = SubprocessIo.where(:heir_type => "StabilizationChamberIo", :direction => true)
     @pallets_already_added = @stabilization_chamber.map {|x| PackingPallet.find(x.packing_pallet_id)}
 
     @valid_pallets = @pallets_previous_subprocess - @pallets_already_added      

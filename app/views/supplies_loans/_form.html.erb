@@ -160,7 +160,7 @@ function isInteger(possibleInteger)
       for (var i = 0; i < registers.length; i++) {
       var register = registers[i];
       var p_supply_id = register.supply_id;
-        if(p_supply_id = supply_id)
+        if(p_supply_id == supply_id)
         {
           $("#supply_id").addClass("field_with_errors");
           alert('No puede realizar 2 ingresos del mismo insumo');

@@ -1,1 +1,31 @@
---- {}
+---
+destinations_001:
+  id: '1'
+  code: '203564'
+  rut: 16.726.966-4
+  name: CMR
+  commune_id: '137'
+  address: 12 y media sur C
+  email: asd@gmail.com
+  phone: '334455'
+  contact: '223344'
+  active: t
+  created_at: '2013-07-03 02:00:24.478501'
+  updated_at: '2013-07-03 02:00:24.54426'
+  is_deleted: f
+  company_id: '1'
+destinations_002:
+  id: '2'
+  code: '7654'
+  rut: 6.792.143-7
+  name: MTB
+  commune_id: '44'
+  address: Los Caquis
+  email: mtb@gmail.com
+  phone: '77665544'
+  contact: '9876789'
+  active: f
+  created_at: '2013-07-03 02:02:54.441969'
+  updated_at: '2013-07-03 02:04:52.057341'
+  is_deleted: f
+  company_id: '1'
