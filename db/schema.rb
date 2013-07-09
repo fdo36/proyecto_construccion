@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709162643) do
+ActiveRecord::Schema.define(:version => 20130709151449) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -605,16 +605,10 @@ ActiveRecord::Schema.define(:version => 20130709162643) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "phone"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "company_id"
     t.string   "rut"
-    t.string   "nave"
-    t.string   "reservation"
-    t.string   "stamp_number"
-    t.string   "thermograph"
-    t.string   "dispatch_guide"
-    t.string   "po_number"
   end
 
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
