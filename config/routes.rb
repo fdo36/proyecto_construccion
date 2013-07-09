@@ -1,4 +1,7 @@
 ProyectoConstruccion::Application.routes.draw do
+  #get "packing_reports/index"
+    resources :packing_reports
+
   resources :supplies_providers_loans
 
   resources :supplies_returns
