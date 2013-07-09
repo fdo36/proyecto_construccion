@@ -11,9 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130702165636) do
-
-ActiveRecord::Schema.define(:version => 20130702165636) do
+ActiveRecord::Schema.define(:version => 20130709162643) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -22,6 +20,14 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
     t.integer  "role_id"
     t.string   "action"
     t.integer  "company_id"
+  end
+
+  create_table "charging_orders", :force => true do |t|
+    t.integer  "custom_agent_id"
+    t.integer  "origin_port_id"
+    t.integer  "destination_port_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "communes", :force => true do |t|
@@ -59,6 +65,12 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
 
   add_index "containers_producers", ["container_id", "producer_id"], :name => "index_containers_producers_on_container_id_and_producer_id"
   add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
+
+  create_table "custom_agents", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "customs", :force => true do |t|
     t.string   "rut"
@@ -106,6 +118,19 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
     t.float    "gross_weight"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "dispatch_ios", :force => true do |t|
+    t.integer  "number"
+    t.integer  "charging_order_id"
+    t.string   "container_code"
+    t.float    "charging_temperature"
+    t.float    "dispatch_temperature"
+    t.string   "name_driver"
+    t.string   "rut_driver"
+    t.string   "patent"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   create_table "dispatches", :force => true do |t|
@@ -269,7 +294,6 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
     t.float    "tare"
     t.float    "temperature"
     t.string   "pallet_code"
-    t.integer  "pack_type_id"
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -435,6 +459,13 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
     t.string   "heir_type"
   end
 
+  create_table "store_finish_products", :force => true do |t|
+    t.datetime "time_out"
+    t.string   "store_time"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "subprocess_ios", :force => true do |t|
     t.integer  "packing_pallet_id"
     t.datetime "io_datetime"
@@ -573,11 +604,17 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
   create_table "workers", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "phone"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "phone"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "company_id"
     t.string   "rut"
+    t.string   "nave"
+    t.string   "reservation"
+    t.string   "stamp_number"
+    t.string   "thermograph"
+    t.string   "dispatch_guide"
+    t.string   "po_number"
   end
 
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
