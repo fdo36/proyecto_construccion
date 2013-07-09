@@ -32,7 +32,11 @@
     </div>
     <div class="forme-in">
       <% kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
-      <%= f.select(:kind_id, kinds_array, :selected => :prompt, :prompt => '- Seleccione especie -') %>
+      <% if @variety.kind_id.nil? %>
+        <%= f.select(:kind_id, kinds_array, :selected => :prompt, :prompt => '- Seleccione especie -') %>
+      <%else%>
+        <%= f.select(:kind_id, kinds_array)%>
+      <% end %>
     </div>
   </div>
   <label> (
@@ -40,7 +44,7 @@
   </label> ) Campos obligatorios.
 </div>
 <div class="foot-box">
-  <%= link_to 'Cancelar', kinds_path , :class => "button silver alignright" %>
+  <%= link_to 'Cancelar', varieties_path , :class => "button silver alignright" %>
   <%= f.submit :Guardar , :class => "button green alignright" %>
 </div>
 <% end %>

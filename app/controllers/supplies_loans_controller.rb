@@ -41,9 +41,12 @@ class SuppliesLoansController < ApplicationController
   # POST /supplies_loans.json
   def create
     @supplies_loan = SuppliesLoan.new(params[:supplies_loan])
+    @supply = Supply.find(@supplies_loan.supply_id)
+    @supply.stock_ini -= @supplies_loan.quantity
 
     respond_to do |format|
       if @supplies_loan.save
+        @supply.save
         format.html { redirect_to @supplies_loan, notice: 'Supplies loan was successfully created.' }
         format.json { render json: @supplies_loan, status: :created, location: @supplies_loan }
       else

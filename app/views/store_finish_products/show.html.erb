@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Time out:</b>
+  <%= @store_finish_product.time_out %>
+</p>
+
+<p>
+  <b>Store time:</b>
+  <%= @store_finish_product.store_time %>
+</p>
+
+
+<%= link_to 'Edit', edit_store_finish_product_path(@store_finish_product) %> |
+<%= link_to 'Back', store_finish_products_path %>

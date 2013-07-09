@@ -50,7 +50,7 @@ class TransitChamberIosController < ApplicationController
   # GET /transit_chamber_ios/new.json
   def new
     @transit_chamber_io = TransitChamberIo.new
-
+    @transit_chamber_io.io_datetime = DateTime.current();
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @transit_chamber_io }

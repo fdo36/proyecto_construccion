@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130702165636) do
+ActiveRecord::Schema.define(:version => 20130703061654) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -71,6 +71,12 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
     t.datetime "updated_at",       :null => false
     t.integer  "company_id"
     t.integer  "user_id"
+  end
+
+  create_table "destination_ports", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "destinations", :force => true do |t|
@@ -199,6 +205,12 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "origin_ports", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "pack_group_dispatches", :force => true do |t|
     t.integer  "gross_weight"
     t.integer  "quantity"
@@ -255,7 +267,6 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
     t.float    "tare"
     t.float    "temperature"
     t.string   "pallet_code"
-    t.integer  "pack_type_id"
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -419,6 +430,13 @@ ActiveRecord::Schema.define(:version => 20130702165636) do
     t.integer  "order_number"
     t.integer  "heir_id"
     t.string   "heir_type"
+  end
+
+  create_table "store_finish_products", :force => true do |t|
+    t.datetime "time_out"
+    t.string   "store_time"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "subprocess_ios", :force => true do |t|

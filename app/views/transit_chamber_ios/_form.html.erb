@@ -33,9 +33,6 @@ function add_pallets(){
     });
   }
   
-
-  
-
 }
 
 function validarCampos(temperatura, orden, trabajador)
@@ -201,7 +198,6 @@ $(document).ready(function(){
     </div>
   <% end %>
 
-
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
@@ -234,7 +230,10 @@ $(document).ready(function(){
       </label>  
     </div>
     <div class="forme-in">
-      <%= f.text_field :worker_id %>
+
+      <% @workers = Worker.all.map { |worker| [worker.first_name.to_s + " " + worker.last_name.to_s, worker.id] } %>
+      <%= select("transit_chamber_io", :worker_id, @workers, :selected => :prompt, :prompt => '- Seleccione trabajador -') %>
+
     </div>
   </div>
 
@@ -242,6 +241,7 @@ $(document).ready(function(){
     <div class="forme-lab">
       <label> 
         Tipo
+        <em class="formee-req">*</em>
       </label>  
     </div>
     <div class="forme-in">
@@ -302,6 +302,6 @@ $(document).ready(function(){
   </div>
 </div>
 <div class="foot-box">
-    <%= link_to 'Cancelar', stabilization_chamber_ios_path , :class => "button silver alignright" %>
+    <%= link_to 'Cancelar', transit_chamber_ios_path , :class => "button silver alignright" %>
     <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallets();"%>
 </div>
