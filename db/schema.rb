@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709174722) do
+ActiveRecord::Schema.define(:version => 20130709194017) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -131,16 +131,9 @@ ActiveRecord::Schema.define(:version => 20130709174722) do
     t.string   "patent"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
-    t.string   "nave"
-    t.string   "reservation"
-    t.string   "stamp_number"
-    t.string   "thermograph"
-    t.string   "dispatch_guide"
-    t.string   "po_number"
   end
 
   create_table "dispatches", :force => true do |t|
-    t.string   "code"
     t.integer  "destination_id"
     t.integer  "kind_id"
     t.datetime "dispatch_datetime"
@@ -300,6 +293,7 @@ ActiveRecord::Schema.define(:version => 20130709174722) do
     t.float    "tare"
     t.float    "temperature"
     t.string   "pallet_code"
+    t.integer  "pack_type_id"
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -406,7 +400,6 @@ ActiveRecord::Schema.define(:version => 20130709174722) do
   end
 
   create_table "receipts", :force => true do |t|
-    t.string   "code"
     t.integer  "producer_id"
     t.integer  "kind_id"
     t.datetime "receipt_datetime"
@@ -610,7 +603,7 @@ ActiveRecord::Schema.define(:version => 20130709174722) do
   create_table "workers", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "phone"
+    t.integer  "phone"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"
