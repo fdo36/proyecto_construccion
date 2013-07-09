@@ -1,4 +1,21 @@
 ProyectoConstruccion::Application.routes.draw do
+  resources :supplies_providers_loans
+
+  resources :supplies_returns
+
+
+  resources :supplies_loans
+
+
+
+  resources :store_finish_products
+
+
+  resources :destination_ports
+
+
+  resources :origin_ports
+
 
   resources :frozen_tunnel_ios
 
@@ -132,7 +149,10 @@ ProyectoConstruccion::Application.routes.draw do
 
   match 'companies/:id/enable' => 'companies#enable', :as => 'companies_enable'
   match 'companies/:id/disable' => 'companies#disable', :as => 'companies_disable'
-  
+
+  match 'providers/:id/enable' => 'providers#enable', :as => 'providers_enable'
+  match 'providers/:id/disable' => 'providers#disable', :as => 'providers_disable'
+
   match 'seasons/:id/enable' => 'seasons#enable', :as => 'seasons_enable'
   match 'seasons/:id/disable' => 'seasons#disable', :as => 'seasons_disable'
   match 'seasons/:id/delete_season' => 'seasons#delete_season', :as => 'season_delete'
@@ -144,13 +164,16 @@ ProyectoConstruccion::Application.routes.draw do
   match 'producers/:id/enable' => 'producers#enable', :as => 'producers_enable'
   match 'producers/:id/disable' => 'producers#disable', :as => 'producers_disable'
   match 'producers/:id/delete_producer' => 'producers#delete_producer', :as => 'producer_delete'
-    
-  match '/help/css/jquery-ui.css', :to => redirect('/css/jquery-ui.css')
-  match '/help/css/styles.css', :to => redirect('/css/styles.css')
-  match '/help/css/default_buttons.css', :to => redirect('/css/default_buttons.css')
 
   match 'receipts/generate_pdf' => 'receipts#generate_pdf', :as => 'receipts_generate_pdf'
 
   match 'tunnels/:id/delete_tunnel' => 'tunnels#delete_tunnel', :as => 'tunnel_delete'
+
+  match 'transit_chamber_io_valid_pallets' => 'transit_chamber_ios#valid_pallets'
+  match 'transit_chamber_io_pallets_already_added' => 'transit_chamber_ios#pallets_already_added'
   
+
+  match 'stabilization_chamber_io_valid_pallets' => 'stabilization_chamber_ios#valid_pallets'
+  match 'stabilization_chamber_io_pallets_already_added' => 'stabilization_chamber_ios#pallets_already_added'
+
 end

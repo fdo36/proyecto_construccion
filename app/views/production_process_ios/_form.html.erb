@@ -1,8 +1,235 @@
+<script type="text/javascript">
+
+var packing_pallet_array = new Array();
+var value = new Array();
+var worker_array = new Array();
+var count=0;
+var production_worker;
+var production_order_number;
+var production_lines;
+
+$(document).ready(function() {
+  <%@packing_pallets.each do |pallet|%>
+    var a1 = "<%= pallet.id %>";
+    var b1 = "<%= pallet.unit_price  %>";
+    var c1 = "<%= pallet.quantity %>";
+    var d1 = "<%= pallet.gross_weight %>";
+    var e1 = "<%= pallet.temperature %>";
+    var f1 = "<%= pallet.pallet_code %>";
+    var g1 = "<%= pallet.pack_type %>";
+    add_packing_pallet(a1,b1,c1,d1,e1,f1,g1);
+  <%end%>
+  
+
+
+ });
+
+function packing_pallet(id,unit_price,quantity,gross_weight,temperature,pallet_code,pack_type) {
+    this.id = id;
+    this.unit_price = unit_price;
+    this.quantity = quantity;
+    this.gross_weight = gross_weight;
+    this.temperature = temperature;
+    this.pallet_code = pallet_code;
+    this.pack_type = pack_type; 
+    this.adder = false; 
+}
+ 
+function add_packing_pallet(id,unit_price,quantity,gross_weight,temperature,pallet_code,pack_type){
+  var pallet = new packing_pallet(id,unit_price,quantity,gross_weight,temperature,pallet_code,pack_type,false);
+  packing_pallet_array.push(pallet);
+  //add_row(pallet);  
+}
+function set_adder(code,x) {
+  for(i=0;i<packing_pallet_array.length;i++)
+  {
+    if(packing_pallet_array[i].pallet_code==code)
+    {
+      packing_pallet_array[i].adder=x;
+      
+    }
+
+  }
+}
+/*function add_row(packing_pallet) {
+  var pallet_code = packing_pallet.pallet_code;
+  var pack_type = packing_pallet.pack_type;
+  var gross_weight = packing_pallet.gross_weight;
+  var button = '<button type="button" id="delete_button" align="center" onclick="delete_row(this)">Agregar</button>';
+ 
+  $('#table_transit_chamber_ios').dataTable().fnAddData(
+      [pallet_code,pack_type,gross_weight,button
+      ]);
+}
+function add_row2(x,y,z) {
+
+  var button = '<button type="button" id="delete_button" align="center" onclick="delete_row(this)">Agregar</button>';
+  $('#table_transit_chamber_ios').dataTable().fnAddData(
+      [x,y,z,button
+      ]);
+  change_gross_weight(parseFloat(z)*-1);
+}*/
+function add_row_pallet(x,y,z) {
+  var button = '<button type="button" id="delete_button_pallet" align="center" onclick="delete_row_pallet(this)">Eliminar</button>';
+  $('#table_pallet_final').dataTable().fnAddData(
+      [x,y,z,button
+      ]);
+  change_gross_weight(z);
+}
+/*function delete_row(b) {
+
+  var table = document.getElementById("table_transit_chamber_ios");
+  var parent= b.parentNode;
+  while(parent.nodeName.toLowerCase()!='tr') {
+    parent = parent.parentNode;
+  }
+  
+  $('#table_transit_chamber_ios').dataTable().fnDeleteRow(parent);
+  add_row_pallet(parent.childNodes[0].innerHTML,parent.childNodes[1].innerHTML,parent.childNodes[2].innerHTML);
+  set_adder(parent.childNodes[0].innerHTML,false);
+}*/
+function delete_row_pallet(b) { 
+  var table = document.getElementById("table_pallet_final");
+  var parent= b.parentNode;
+  while(parent.nodeName.toLowerCase()!='tr') {
+    parent = parent.parentNode;
+  }
+  $('#table_pallet_final').dataTable().fnDeleteRow(parent);
+  
+  set_adder(parent.childNodes[0].innerHTML,false);
+  change_gross_weight(parseFloat(parent.childNodes[2].innerHTML)*-1);
+}
+/*function clear_field()  {
+  var kind = document.getElementById("kind");
+  var variety = document.getElementById("variety");
+  var select_pack = document.getElementById("select_pack");
+  var select_format = document.getElementById("select_format");
+  var net_weight = document.getElementById("net_weight");
+  var quantity = document.getElementById("quantity");
+  var quality = document.getElementById("quality");
+
+  net_weight.value = "";
+  quantity.value = "";
+  quality.value = "";
+  kind.value = "";
+  variety.value = "";
+  select_pack.value ="";
+  select_format.value ="";
+}*/
+function add_pallet_final(){
+  var kind = document.getElementById("kind");
+  var variety = document.getElementById("variety");
+  var select_pack = document.getElementById("select_pack");
+  var select_format = document.getElementById("select_format");
+  var net_weight = document.getElementById("net_weight");
+  var quantity = document.getElementById("quantity");
+  var quality = document.getElementById("quality");
+  var button = '<button type="button" id="delete_button" align="center" onclick="delete_row_pallet_final(this)">Eliminar</button>';
+ 
+  $('#table_final').dataTable().fnAddData(
+      [select_format.value,select_pack.value,quality.value,kind.value,quantity.value,net_weight.value,button
+      ]);
+  change_gross_weight2(net_weight.value);
+  clear_field();
+}
+function find(x){
+  for(var y=0; y<packing_pallet_array.length; y++){
+    if(packing_pallet_array[y].pallet_code==x)
+    {
+      return packing_pallet_array[y];
+    }
+  }
+}
+function add_pallet_code() { 
+  var flag = false;
+  var code = document.getElementById('code_pallet');
+  if(code.value.length==0) {
+    alert("Debes ingresar un codigo");
+  }
+  else if(isInt(code.value)==true){
+    for(i=0;i<packing_pallet_array.length;i++){
+      if(packing_pallet_array[i].pallet_code == code.value && packing_pallet_array[i].adder==false){  
+        flag=true;
+        add_row_pallet(packing_pallet_array[i].pallet_code,packing_pallet_array[i].pack_type,packing_pallet_array[i].gross_weight);
+        set_adder(packing_pallet_array[i].pallet_code,true);
+      }
+    }
+    if(flag==false){
+      alert("Pallet no encontrado");
+    }
+  }
+  else {
+    alert("Debes ingresar solo números enteros");
+  }
+}
+/*function change_gross_weight2(x){
+  x = parseFloat(x);
+  count2 = x + count2;
+  var weight = document.getElementById("gross_weight_2");
+  weight.value = count2;
+}*/
+function change_gross_weight(x) {
+  x = x
+  count = x + count;
+  var weight = document.getElementById("gross_weight");
+  weight.value = count;
+}
+function add_db() {
+  get_attributes();
+  var table = document.getElementById('table_pallet_final');
+  var rowLength = table.rows.length;
+  var y;
+  for(var i=2; i<rowLength; i+=1){
+    var row = table.rows[i];
+    var values=new Array(); 
+    var cellLength = row.cells.length;
+    var cell = row.cells[0];
+    if(cell.firstChild!=null) {
+      var value = cell.firstChild.data;
+      y = find(value);       
+    }  
+    $.ajax({
+      url: "/production_process_ios.json",
+      type: "POST",
+      success: function(response) {
+        alert(JSON.stringify(response));
+      },
+      error: function (request, status, error) {
+        errors(jQuery.parseJSON(request.responseText));
+
+    },
+      data: {production_process_io:{order_number: production_order_number,production_lines_number: production_lines,direction: false,packing_pallet_id: y.id,worker_id: production_worker}},
+    }).done(function(data){
+
+             window.location = "/production_process_ios"
+      });
+  }
+}
+function get_attributes(){
+  var worker_id = document.getElementById('worker');
+  var lines_id = document.getElementById('production_lines_id');
+  var order_id = document.getElementById('production_order_number_id');
+  production_worker = worker_id.value;
+  production_order_number = lines_id.value;
+  production_lines = order_id.value;
+}
+function isInt(n) {
+   return n % 1 === 0;
+ }
+function errors(x){
+  
+  alert(JSON.stringify(x));
+}
+
+</script>
+<div class="box">
+
 <%= form_for(@production_process_io) do |f| %>
+
+
   <% if @production_process_io.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@production_process_io.errors.count, "error") %> prohibited this production_process_io from being saved:</h2>
-
       <ul>
       <% @production_process_io.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -11,15 +238,81 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :order_number %><br />
-    <%= f.number_field :order_number %>
+  <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Número_de_orden %>
+        <em class="formee-req">*</em>
+      </div>    
+      <div class="forme-in">
+        <input id="production_order_number_id" type="text" >
+      </div>
   </div>
-  <div class="field">
-    <%= f.label :production_lines_number %><br />
-    <%= f.text_field :production_lines_number %>
+  <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Lineas_de_producción %>
+        <em class="formee-req">*</em>
+      </div>
+      <div class="forme-in">
+        <input id="production_lines_id" type="text" >
+      </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Encargado %>
+        <em class="formee-req">*</em>
+      </div>
+      <div class="forme-in">
+      <% @workers_array= @workers.map { |worker| [worker.first_name+" "+worker.last_name,worker.id] }%>
+       <%= select_tag "worker", options_for_select(@workers_array),:prompt => "Seleccione un Encargado", :onchange => "x(this)" %>
+      </div>
   </div>
+</div>
+ 
+<div class="headContent">
+  <h1>Pallet ingresados a linea de producción</h1>
+</div>
+<div class="box">
+  <div class="line-forme">
+     <div class="forme-lab">
+    <label> Pallet</label>
+    </div>
+    <div class="forme-in">  
+    <input id="code_pallet" type="text" >
+    </div>
+    <button type="button" id="button_add_pallet" class ="button blue alignright"align="center" onclick="add_pallet_code()">Agregar Pallet</button>'
+  </div>
+  <table id="table_pallet_final" cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th>Código de Pallet</th>
+        <th>Tipo de Envace</th>
+        <th>Peso Bruto</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>      
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="box">
+  <div class="line-forme">
+    <div class="forme-lab">
+     <%= label_tag 'Peso Neto Total'%> 
+    </div>
+    <div class="forme-in">
+     <input id="gross_weight" type="text" disabled="true">
+    </div>
+  </div>
+</div>
+
+<div class="foot-box">
+  <%= link_to 'Cancelar', production_process_ios_path , :class => "button silver alignright" %>
+  <button type="button" id="button_add_db" class="button green alignright" align="center" onclick="add_db()">Guardar</button>'
+</div>
 <% end %>

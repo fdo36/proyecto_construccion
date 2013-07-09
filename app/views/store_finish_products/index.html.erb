@@ -1,0 +1,112 @@
+<script type="text/javascript">
+
+Date.prototype.today = function(){ 
+    return this.getFullYear() +"-"+ (((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"-"+ ((this.getDate() < 10)?"0":"") + this.getDate();
+};
+//For the time now
+Date.prototype.timeNow = function(){
+     return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
+};
+
+function calculateTime (time_in, time_out) {
+  
+  var timein = new Date(time_in);
+  var timeout = new Date(time_out);
+  
+  var total_anio = timeout.getFullYear()-timein.getFullYear();
+  var total_mes = timeout.getMonth()-timein.getMonth();
+  var total_dia = timeout.getDate()-timein.getDate();
+  var total_hora = timeout.getHours()-timein.getHours();
+  var total_min = timeout.getMinutes()-timein.getMinutes();
+  var datetime ="";
+
+  if(total_anio>0){
+    if (total_mes<0) {
+      total_anio--;
+      total_mes=12+total_mes+1;
+    }
+    datetime = datetime + total_anio+" años ";
+  }
+  if (total_mes>0){
+    if(total_dia<0){
+      total_mes--;
+      total_dia=12+total_dia+1;  
+    }
+    datetime = datetime + total_mes+" mes ";
+  }
+  if (total_dia>0) {
+    if(total_hora<0){
+      total_dia--;
+      total_hora=24+total_hora+1;
+    }
+    datetime = datetime + total_dia+" dias ";
+  }
+  if (total_hora>0) {
+    if(total_min<0){
+      total_hora--;
+      total_min=60+total_min+1;
+    }
+    datetime = datetime + total_hora+" horas ";
+  }
+
+  datetime = datetime + total_min+" minutos";
+  
+  return datetime;
+}
+
+function update_date(s) {
+  
+  var newDate = new Date();
+  var datetime = newDate.today() + " " + newDate.timeNow() + " UTC";
+  var store_time = calculateTime(s.name, datetime);
+  $.ajax({
+    type: "POST",
+    url: '/store_finish_products/'+s.id+'.json',
+    data: { _method:'PUT', store_finish_product : {time_out: datetime,
+                                                   direction: false,
+                                                   store_time: store_time
+      } 
+
+    },
+    dataType: 'json'
+  }).done(function(){
+  window.location = "/store_finish_products"});
+}
+
+</script>
+
+<div class="headContent">
+  <h1>Lista de Bodega de Productos terminados</h1>
+</div>
+<div class="box">
+  <%= link_to 'Nueva Bodega de Prodcuto Terminado', new_store_finish_product_path , :class => "button blue alignright" %>
+
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th>Tiempo Entrada</th>
+        <th>Tiempo Salida</th>
+        <th>Tiempo en Bodega</th>
+        <th>Encargado</th>
+        <th style="width:20% !important;">Acciones</th>
+      </tr>
+    </thead>
+  <tbody>
+  <% @store_finish_products.each do |store_finish_product| %>
+  <tr>
+    <td><%= store_finish_product.io_datetime %></td>
+    <td><%= store_finish_product.time_out%></td>
+    <td><%= store_finish_product.store_time%></td>
+    <td><%= store_finish_product.worker_id%></td>
+
+    <td><%= link_to 'Ver', store_finish_product %>
+    <%= link_to 'Editar', edit_store_finish_product_path(store_finish_product) %>
+    <%= link_to 'Eliminar', store_finish_product, method: :delete, data: { confirm: '¿Está seguro que desea eliminar el registro?' } %>
+    <%= link_to 'Salida',"#", :onclick => 'update_date(this)', :id => store_finish_product.id, :name => store_finish_product.io_datetime %>
+    </td>
+  </tr>
+<% end %>
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,286 @@
+<script type="text/javascript">
+
+var registers = new Array();
+var id_count = 1;
+var modified = false;
+
+
+window.onbeforeunload = function () {    
+  if (modified) {
+    return "Los cambios no guardados se perderan";
+  }
+}
+
+function set_modified (argument) {
+  modified = argument;
+}
+
+function del_register () {
+    
+}
+
+function add_supply_loan()
+{
+  var worker_id = $("#worker_id").val();
+  var worker_name = $("#worker_id option[value='"+worker_id+"']").text();
+  var supply_id = $("#supply_id").val();
+  var supply_name = $("#supply_id option[value='"+supply_id+"']").text();
+  var quantity= $("#quantity").val();
+  alert(quantity);
+  var id = id_count;
+  id_count++;
+
+  var new_register = new register(worker_id, quantity, supply_id, id);
+  registers.push(new_register);
+
+  var row = new Array(worker_name, supply_name, quantity, "<a href='#' onClick='delete_row(cd)'>eliminar</a>");
+    $('#supply_table').dataTable().fnAddData(row);
+    set_modified(true);
+
+}
+
+function add_db () {
+  if(registers.length > 0)
+  {
+    for (var i = 0; i < registers.length; i++) {
+      var register = registers[i];
+
+      var p_worker_id = register.worker_id;
+      var p_quantity = register.quantity;
+      var p_supply_id = register.supply_id;
+      
+      $.ajax({  
+        url: "/supplies_loans",  
+        type: "POST", 
+        dataType: "json",
+        async: false,
+        data: { supplies_loan : {worker_id: p_worker_id,
+                                        quantity: p_quantity,
+                                        supply_id: p_supply_id,
+                                        } } }); 
+
+      
+  };
+  set_modified(false);
+ 
+  }
+  else
+    alert("Lista de ingresos vacía");
+}
+
+function register ( worker_id, quantity, supply_id , id) 
+{
+  this.worker_id = worker_id;
+  this.quantity = quantity;
+  this.supply_id = supply_id;
+  this.id = id;
+}
+
+function show_rut(s)
+{
+  if(s.value == "")
+  {
+   var inputRut = document.getElementById('rut');
+   inputRut.value = " - ";
+  }
+  else
+  {
+   $.get("/workers/"+s.value+".json", function(data) {
+      var inputRut = document.getElementById('rut');
+      inputRut.value = data.rut;
+   });
+  }
+}
+function show_stock(s)
+  {
+    if (s.value == "")
+    {
+      var inputStock = document.getElementById('stock');
+      inputStock.value = " - "
+    }
+    else
+    {
+      $.get("/supplies/"+s.value+".json", function(data) {
+      var inputStock = document.getElementById('stock');
+      inputStock.value = data.stock_ini;
+      });
+    }
+  }
+
+  
+function isInteger(possibleInteger) 
+{
+  return !isNaN(parseInt(possibleInteger));
+}
+
+
+  function errors_revision() {
+    document.getElementById("show_errors").innerHTML = "";
+    var quantity = $("#quantity").val();
+    var stock =  $("#stock").val();
+    var dispatch_guide_number = $("#dispatch_guide_number").val();
+    
+    
+    $("#quantity").removeClass("field_with_errors");
+    $("#dispatch_guide_number").removeClass("field_with_errors");
+    var supply_id = $("#supply_id").val();
+
+    var errorText = "<div id=error_explanation>";
+    var isError = false;
+    var contador_errores = 0;
+    var errors = "";
+
+    if(quantity == ""){
+      $("#quantity").addClass("field_with_errors");
+      errors = errors + "<li>La cantidad no puede estar en blanco</li>";
+      contador_errores += 1;
+      isError = true;
+    }   
+
+    if(!isInteger(quantity)){
+      $("#quantity").addClass("field_with_errors");
+      errors = errors + "<li>La cantidad debe ser un numero</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+    if(quantity<=0){
+      $("#quantity").addClass("field_with_errors");
+      errors = errors + "<li>La cantidad debe ser un numero mayor a 0</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+    if(quantity>stock){
+      $("#quantity").addClass("field_with_errors");
+      errors = errors + "<li>No puede retirar una cantidad mayor al stock actual</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+    if(registers.length > 0)
+    {
+      for (var i = 0; i < registers.length; i++) {
+      var register = registers[i];
+      var p_supply_id = register.supply_id;
+        if(p_supply_id == supply_id)
+        {
+          $("#supply_id").addClass("field_with_errors");
+          alert('No puede realizar 2 ingresos del mismo insumo');
+          errors = errors + "<li>No puede realizar 2 prestamos del mismo Insumo</li>";
+          contador_errores += 1;
+          isError = true;
+        }
+      
+      }
+    }
+    
+    if(isError){
+      errorText+= "<h2>"+contador_errores+" errores, no se puede guardar el insumo";
+      errorText+= "<ul>";
+      errorText+= errors;
+      errorText+= "</ul>";
+      errorText+= "</div>";  
+      document.getElementById("show_errors").innerHTML = errorText;
+
+    }
+    else{
+
+      add_supply_loan();
+    }
+  }
+
+</script>  
+<div class="box">
+   <div id = "show_errors">
+    </div>
+<%= form_for(@supplies_loan) do |f| %>
+   <% if @supplies_loan.errors.any? %>
+    <div id="error_explanation">
+      <h2>Se han encontrado los siguientes errores:</h2>
+      <ul>
+      <% @supplies_loan.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="headContent">
+    <h1>Agregar prestamo de insumo</h1>
+  </div>
+  <div class="box">
+
+<div class="line-forme">
+  <div class="forme-lab">
+      <label>Trabajador </label>
+      <em class="formee-req">*</em>
+  </div>    
+    <div class="forme-in">
+
+      <% @workers_array = Worker.all.map { |worker| [worker.first_name+ " " + worker.last_name, worker.id] } %>
+    <%= f.select(:worker_id, options_for_select(@workers_array), {:selected => :prompt, :prompt => '- Seleccione un Trabajador - '} , :id => 'worker_id',:onchange => "show_rut(this)", :class => 'chzn-select') %>  
+    
+    </div>
+</div>
+
+<div class="line-forme">
+  <div class="forme-lab">
+   <%= label_tag "rut"  %>
+  </div>
+  <div class="forme-in ">
+   <input id="rut" value="-" disabled="true"></input>
+  </div>
+</div>
+
+ <div class="line-forme">
+      <div class="forme-lab">
+        <label>Insumo </label>
+        <em class="formee-req">*</em>
+      </div>    
+      <div class="forme-in">
+
+        <% @supplies_array = Supply.all.map { |supply| [supply.name, supply.id] } %>
+        <%= f.select(:supply_id, options_for_select(@supplies_array), {:selected => :prompt, :prompt => '- Seleccione un Insumo - '} , :id => 'supply_id',:onchange => "show_stock(this)", :class => 'chzn-select') %>  
+        
+      </div>
+  </div>
+
+<div class="line-forme">
+  <div class="forme-lab">
+   <%= label_tag 'Stock'%> 
+  </div>    
+  <div class="forme-in">
+    <input id="stock" value="-" disabled="true"></input>
+  </div>  
+</div>
+
+
+<div class="line-forme">
+  <div class="forme-lab">
+    <label>Cantidad </label>
+    <em class="formee-req">*</em>
+  </div>    
+  <div>
+    <%= f.number_field :quantity , :id => 'quantity'%>
+  </div>    
+</div>
+
+<button type="button" onclick="errors_revision()" class="button blue alignright">Agregar prestamo</button>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="supply_table">
+    <thead>
+      <tr>    
+        <th>Trabajador</th>
+        <th>Insumo</th>
+        <th>Cantidad</th>  
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    </tbody>
+  </table>
+
+  </div>
+</div>
+<div class="foot-box">
+    <%= link_to 'Cancelar', supplies_loans_path , :class => "button silver alignright" %>
+    <%= button_tag "Aceptar" , :class => "button green alignright", :onclick => "add_db();"%>
+</div>
+<% end %>

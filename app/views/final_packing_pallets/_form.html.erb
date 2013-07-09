@@ -54,12 +54,13 @@
     <div class="line-forme">
       <div class="forme-lab">
         <label> 
-          Pack_Packing_ID                
+          Pack Packing                
           <em class="formee-req">*</em>
         </label>  
       </div>
       <div class="forme-in">
-        <%= f.text_field :pack_packing_id %>
+        <% pack_packings_array = PackPacking.all.map { |pack_packing| [pack_packing.name, pack_packing.id] } %>
+        <%= f.select(:pack_packing_id, pack_packings_array, :selected => :prompt, :prompt => '- Seleccione Pack Packing -') %>
       </div>
     </div>
 
@@ -71,7 +72,8 @@
         </label>  
       </div>
       <div class="forme-in">
-        <%= f.text_field :format_id %>
+        <% formats_array = FormatPacking.all.map { |format_packing| [format_packing.name, format_packing.id] } %>
+        <%= f.select(:format_id, formats_array, :selected => :prompt, :prompt => '- Seleccione Formato -') %>
       </div>
     </div>
 

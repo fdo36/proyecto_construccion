@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Puertos de Destino</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', destination_ports_path , :class => "button blue alignright" %>
+<p>
+  <b>Nombre:</b>
+  <%= @destination_port.name %>
+</p>
+</div>
+<div class="foot-box">
+	<%= link_to 'Editar', destination_port_path(@destination_port) , :class => "button green alignright" %>
+</div>
+

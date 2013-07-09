@@ -6,4 +6,10 @@ class PackingPallet < ActiveRecord::Base
   validates :tare, :gross_weight, :temperature, :unit_price, :numericality => true
 
   validates :quantity, :numericality => { :only_integer => true }
+
+  belongs_to :transit_chamber_io
+  belongs_to :stabilization_chamber_io
+  belongs_to :production_process_io
+  belongs_to :receipt_packing_io
+  belongs_to :frozen_tunnel_io
 end

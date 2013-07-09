@@ -3,6 +3,8 @@ class ProductionProcessIosController < ApplicationController
   # GET /production_process_ios.json
   def index
     @production_process_ios = ProductionProcessIo.all
+    
+
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,7 +27,19 @@ class ProductionProcessIosController < ApplicationController
   # GET /production_process_ios/new.json
   def new
     @production_process_io = ProductionProcessIo.new
+   
+    
+    @x=SubprocessIo.where(:heir_type => "TransitChamberIo",:direction => false)
+    @packing_pallets_transit = @x.map { |x| PackingPallet.find(x.packing_pallet_id)}
+    
+    @y=SubprocessIo.where(:heir_type => "ProductionProcessIo",:direction => false)
+    @packing_pallets_production = @y.map { |y| [PackingPallet.find(y.packing_pallet_id),y]}
+    @packing_pallets = @packing_pallets_transit-@packing_pallets_production
 
+
+
+    @workers = Worker.all
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @production_process_io }
