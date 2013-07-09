@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709151449) do
+ActiveRecord::Schema.define(:version => 20130709174722) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -131,6 +131,12 @@ ActiveRecord::Schema.define(:version => 20130709151449) do
     t.string   "patent"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+    t.string   "nave"
+    t.string   "reservation"
+    t.string   "stamp_number"
+    t.string   "thermograph"
+    t.string   "dispatch_guide"
+    t.string   "po_number"
   end
 
   create_table "dispatches", :force => true do |t|
