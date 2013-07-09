@@ -26,7 +26,8 @@
             </thead>
             <tbody>
               <% @transit_chamber_ios.each do |transit_chamber_io| %>
-                <% if (transit_chamber_io.direction == true)%>
+                <% s = SubprocessIo.where(:packing_pallet_id => transit_chamber_io.packing_pallet_id, :heir_type => "TransitChamberIo") %>
+                <% if ( s.length < 2 && transit_chamber_io.direction == true)%>
                     <tr>
                         <td><%= transit_chamber_io.direction == true ? "Entrada" : "Salida" %></td>
                         <td><%= transit_chamber_io.order_number %></td>
