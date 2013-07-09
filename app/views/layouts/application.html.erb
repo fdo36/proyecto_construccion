@@ -115,11 +115,11 @@
 					</ul>
 					<%else%>
 					
-						<% namesIO = {'Receipt' => 'Ingresos', 'Season' => 'Temporada', 'Dispatch' => 'Despachos', 'Report' => 'Informes' }%>
+						<% namesIO = {'Receipt' => 'Ingresos', 'Season' => 'Temporada', 'Dispatch' => 'Despachos', 'Report' => 'Informes', 'TransitChamberIo' => 'Cámaras de Producto en Tránsito' }%>
 
-						<% namesResource = {'Producer' => 'Productor', 'PackType' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Especie', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduana', 'Worker' => 'Trabajador', 'Variety' => 'Variedad' } %>
+						<% namesResource = {'Producer' => 'Productor', 'PackType' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Especie', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduana', 'Worker' => 'Trabajador', 'Variety' => 'Variedad', 'PackingPallet' => 'Packing Pallets' } %>
 
-						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'PackType' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/kinds', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs', 'Worker' => '/workers', 'Variety' => '/varieties' } %>
+						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'PackType' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/kinds', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs', 'Worker' => '/workers', 'Variety' => '/varieties', 'TransitChamberIo' => 'transit_chamber_ios', 'PackingPallet' => '/packing_pallets' } %>
 
 						<% models_name_io = [] %>
 						<% models_name_rsrc = [] %>
