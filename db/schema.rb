@@ -267,6 +267,7 @@ ActiveRecord::Schema.define(:version => 20130703061654) do
     t.float    "tare"
     t.float    "temperature"
     t.string   "pallet_code"
+    t.integer  "pack_type_id"
   end
 
   create_table "packing_processes", :force => true do |t|
