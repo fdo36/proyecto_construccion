@@ -44,7 +44,7 @@ class PackPackingsController < ApplicationController
 
     respond_to do |format|
       if @pack_packing.save
-        format.html { redirect_to @pack_packing, notice: 'Pack packing was successfully created.' }
+        format.html { redirect_to @pack_packing, notice: 'Pack packing fue creado exitosamente.' }
         format.json { render json: @pack_packing, status: :created, location: @pack_packing }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class PackPackingsController < ApplicationController
 
     respond_to do |format|
       if @pack_packing.update_attributes(params[:pack_packing])
-        format.html { redirect_to @pack_packing, notice: 'Pack packing was successfully updated.' }
+        format.html { redirect_to @pack_packing, notice: 'Pack packing fue editado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

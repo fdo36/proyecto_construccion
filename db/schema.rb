@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130703061654) do
+ActiveRecord::Schema.define(:version => 20130709212952) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -268,6 +268,10 @@ ActiveRecord::Schema.define(:version => 20130703061654) do
     t.float    "temperature"
     t.string   "pallet_code"
     t.integer  "pack_type_id"
+<<<<<<< HEAD
+    t.integer  "producer_id"
+=======
+>>>>>>> d907e3f93b1d353f2a4c4b1183343fdd1f8c332b
   end
 
   create_table "packing_processes", :force => true do |t|
