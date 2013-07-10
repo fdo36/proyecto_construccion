@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Number:</b>
+  <%= @dispatch_io.number %>
+</p>
+
+<p>
+  <b>Charging order:</b>
+  <%= @dispatch_io.charging_order_id %>
+</p>
+
+<p>
+  <b>Container code:</b>
+  <%= @dispatch_io.container_code %>
+</p>
+
+<p>
+  <b>Charging temperature:</b>
+  <%= @dispatch_io.charging_temperature %>
+</p>
+
+<p>
+  <b>Dispatch temperature:</b>
+  <%= @dispatch_io.dispatch_temperature %>
+</p>
+
+<p>
+  <b>Name driver:</b>
+  <%= @dispatch_io.name_driver %>
+</p>
+
+<p>
+  <b>Rut driver:</b>
+  <%= @dispatch_io.rut_driver %>
+</p>
+
+<p>
+  <b>Patent:</b>
+  <%= @dispatch_io.patent %>
+</p>
+
+
+<%= link_to 'Edit', edit_dispatch_io_path(@dispatch_io) %> |
+<%= link_to 'Back', dispatch_ios_path %>

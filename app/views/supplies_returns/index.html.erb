@@ -18,8 +18,9 @@
       <tbody>
         <% @supplies_returns.each do |supplies_return| %>
             <tr>
-              <td><%= supplies_return.worker_id %></td>
-              <td><%= supplies_return.supply_id %></td>
+              <td><%= (Worker.all(:select => "first_name", :conditions => ["id = ?", supplies_return.worker_id]))[0].first_name %>
+              <%= (Worker.all(:select => "last_name", :conditions => ["id = ?", supplies_return.worker_id]))[0].last_name %></td>
+              <td><%= (Supply.all(:select => "name", :conditions => ["id = ?",supplies_return.supply_id]))[0].name %></td>
               <td><%= supplies_return.quantity %></td>
               <td><%= link_to 'Ver', supplies_return %>
               <%= link_to 'Editar', edit_supplies_return_path(supplies_return)  %>

@@ -69,6 +69,7 @@ class TransitChamberIosController < ApplicationController
     @transit_chamber_io = TransitChamberIo.new(params[:transit_chamber_io])
     @transit_chamber_io.io_datetime = DateTime.current();
     @transit_chamber_io.direction = true
+    
     respond_to do |format|
       if @transit_chamber_io.save
         @transit_chamber_io.order_number = @transit_chamber_io.id
