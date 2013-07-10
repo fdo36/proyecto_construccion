@@ -19,10 +19,12 @@
     <tbody>
       <% @origin_ports.each do |origin_port| %>
         <tr>
-          <td><%= origin_port.name %></td>
-          <td><%= link_to 'Ver', origin_port %>
-          <%= link_to 'Editar', edit_origin_port_path(origin_port) %>
-          <%= link_to 'Eliminar', origin_port, method: :delete, data: { confirm: '¿Está seguro de eliminar este puerto?' } %></td>
+          <% if origin_port != nil %>
+            <td><%= origin_port.name %></td>
+            <td><%= link_to 'Ver', origin_port %>
+            <%= link_to 'Editar', edit_origin_port_path(origin_port) %>
+            <%= link_to 'Eliminar', origin_port, method: :delete, data: { confirm: '¿Está seguro de eliminar este puerto?' } %></td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

@@ -1,0 +1,19 @@
+<<<<<<< HEAD
+=======
+---
+one:
+  pack_type_id: 1
+  quantity: 1
+  tare: 1.5
+  temperature: 1.5
+  gross_weight: 1
+  unit_price: 1
+
+two:
+  pack_type_id: 1
+  quantity: 1
+  tare: 1.5
+  temperature: 1.5
+  gross_weight: 1
+  unit_price: 1
+>>>>>>> 21e376d679310ca444dde737a1273cc774eeb33b

@@ -1,24 +1,26 @@
 ProyectoConstruccion::Application.routes.draw do
   #get "packing_reports/index"
-    resources :packing_reports
+  resources :packing_reports
+
+  resources :dispatch_ios
+
+
+  resources :charging_orders
+
+
+  resources :custom_agents
 
   resources :supplies_providers_loans
 
   resources :supplies_returns
 
-
   resources :supplies_loans
-
-
 
   resources :store_finish_products
 
-
   resources :destination_ports
 
-
   resources :origin_ports
-
 
   resources :frozen_tunnel_ios
 
@@ -27,7 +29,6 @@ ProyectoConstruccion::Application.routes.draw do
   resources :tunnels
 
   resources :tunnels
-
 
   resources :customs
 
@@ -116,12 +117,11 @@ ProyectoConstruccion::Application.routes.draw do
     resources :pack_group_dispatches
   end
 
-  resources :products
-
   resources :varieties
-
+  
   resources :kinds
-
+  
+  
   resources :qualities
 
   resources :groupings
