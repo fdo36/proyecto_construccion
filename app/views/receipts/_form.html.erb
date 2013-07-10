@@ -105,19 +105,33 @@ var config = 'pack_pallet';
         var pack_type_id = $("#pallet_pack_type_id").val();
         var quantity = $("#pallet_quantity").val();
         var gross_weight = $("#pallet_gross_weight").val();
-        var code = 'No aplica';
-        var tare = 0;
-        var is_pallet = false;
 
         if (config == 'pack_pallet') 
         {
-          var is_pallet = $("#check").is(':checked'); //true pallet
-        };
-        if (config == 'pallet' || config == 'pack_pallet') 
+          is_pallet = $("#check").is(':checked'); //true pallet
+          if(is_pallet)
+          {
+            code = $("#code").val();
+            tare = $("#destare").val();
+          }
+          else
+          {
+            code = 'No aplica';
+            tare = 0;
+          }
+        }
+          else if (config == 'pallet') 
         {
-          var code = $("#code").val();
-          var tare = $("#destare").val();
-        };
+          is_pallet = true;
+          code = $("#code").val();
+          tare = $("#destare").val();
+        }
+        else
+        {
+          is_pallet = false;
+          code = 'No aplica';
+          tare = 0;
+        }   
 
         var pack_type_tare = get_pack_type_tare(pack_type_id);
 
@@ -174,15 +188,15 @@ var config = 'pack_pallet';
 
   function checkedPallet() {
     if (check.checked == 0) {
-      code.disabled=true;
-      destare.disabled=true;
+      $("#code").prop("disabled",true);
+      $("#destare").prop("disabled",true);
       $("#code").val("");
       $("#destare").val("");
     } 
     else{
-      code.disabled=false;
-      destare.disabled=false;
-    };
+      $("#code").prop("disabled",false);
+      $("#destare").prop("disabled",false);
+    }
   }
 
   function load_config () {
@@ -245,7 +259,7 @@ var config = 'pack_pallet';
         async: false,
         data: { receipt : { kind_id: kind_id, producer_id: producer_id, receipt_datetime: receipt_datetime } },
         success: function(data){ 
-          add_registers_to(data.id);
+          add_registers_to(data.id, data.producer_id);
         },  
         error: function(){  
           alert("Error al registrar ingreso");  
@@ -256,9 +270,9 @@ var config = 'pack_pallet';
       alert("Lista de ingresos vacía");
   }
 
-  function add_registers_to (receipt_id) {
-    for (var key in registers){
-      var register = registers[key] ;
+  function add_registers_to (receipt_id, producer_id) {
+    for (var key in registers) {
+      var register = registers[key];
 
       var code = register.code;
       var gross_weight = register.gross_weight;
@@ -275,7 +289,7 @@ var config = 'pack_pallet';
           type: "POST", 
           dataType: "json",
           async: false,
-          data: { pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, receipt_id: receipt_id, tare: tare, variety_id: variety_id} } }); 
+          data: { pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, receipt_id: receipt_id, tare: tare, variety_id: variety_id} } });
       }
       else
       {
@@ -286,6 +300,7 @@ var config = 'pack_pallet';
           async: false,
           data: { pack_group_receipt : {gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, receipt_id: receipt_id, variety_id: variety_id} } }); 
       }
+      //agregar a envases prestados
     };
     set_modified(false);
     location.href = "/receipts";
@@ -334,19 +349,32 @@ var config = 'pack_pallet';
     var quantity = $("#pallet_quantity").val();
     var gross_weight = $("#pallet_gross_weight").val();
 
-    var code = 'No aplica';
-    var tare = 0;
-    var is_pallet = false;
-
     if (config == 'pack_pallet') 
     {
-      var is_pallet = $("#check").is(':checked'); //true pallet
-    };
-    if (config == 'pallet' || config == 'pack_pallet') 
+      is_pallet = $("#check").is(':checked'); //true pallet
+      if(is_pallet)
+      {
+        code = $("#code").val();
+        tare = $("#destare").val();
+      }
+      else
+      {
+        code = 'No aplica';
+        tare = 0;
+      }
+    }
+    else if (config == 'pallet') 
     {
-      var code = $("#code").val();
-      var tare = $("#destare").val();
-    };
+      is_pallet = true;
+      code = $("#code").val();
+      tare = $("#destare").val();
+    }
+    else
+    {
+      is_pallet = false;
+      code = 'No aplica';
+      tare = 0;
+    }
 
     var pack_type_tare = get_pack_type_tare(pack_type_id);
 
@@ -359,7 +387,7 @@ var config = 'pack_pallet';
 
     registers[id_count] = new_register;
 
-    var row = new Array(code, quantity, net_weight, variety_name, quality_name, price_kg, "<a class='del' name="+id_count+">Eliminar</a> <a 0.class='edit' name="+id_count+">Editar</a>");
+    var row = new Array(code, quantity, net_weight, variety_name, quality_name, price_kg, "<a class='del' name="+id_count+">Eliminar</a> <a class='edit' name="+id_count+">Editar</a>");
     $('#tablealone').dataTable().fnAddData(row);
     set_modified(true);
     clean_form();
@@ -558,8 +586,7 @@ var config = 'pack_pallet';
 
 
 <div class="box">
-
-<div id = "show_errors_receipt">
+  <div id = "show_errors_receipt">
 </div>
 
 <%= form_for(@receipt) do |f| %>
@@ -578,7 +605,6 @@ var config = 'pack_pallet';
     
     
     <div class="line-forme">
-      
       <div class="forme-lab">
         <label>Productor </label>
         <em class="formee-req">*</em>

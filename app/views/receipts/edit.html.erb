@@ -267,13 +267,13 @@ var config = 'pack_pallet';
 			data: { _method:'PUT', receipt : { kind_id: kind_id, producer_id: producer_id, receipt_datetime: receipt_datetime } },
 				dataType: 'json'
 		});
-		add_registers_to(receipt_id);
+		add_registers_to(receipt_id, producer_id);
     }
     else
       alert("Lista de ingresos vacía");
   }
 
-  function add_registers_to (receipt_id) {
+  function add_registers_to (receipt_id, producer_id) {
     for (var key in registers){
       var register = registers[key] ;
       var register_id = register.register_id;

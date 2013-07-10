@@ -27,6 +27,10 @@ var config = 'pack_pallet';
               oTable.fnDeleteRow(iPos);
               var name = $(this).attr("name");
               delete registers[name];
+              $("#save").hide();
+              $("#cancel").hide();
+              $("#agregar").show();
+              clean_form();
       }});
 
       $("#tablealone tbody").delegate(".edit", "click", function () {
@@ -41,7 +45,6 @@ var config = 'pack_pallet';
               var code = registers[name].code;
               var gross_weight = registers[name].gross_weight;
               var pack_type_id = registers[name].pack_type_id;
-              var price_per_unit = registers[name].price_kg;
               var quality_id = registers[name].quality_id;
               var quantity = registers[name].quantity;
               var tare = registers[name].tare;
@@ -52,7 +55,6 @@ var config = 'pack_pallet';
 
               $("#select_variety").val(variety_id);
               $("#pallet_quality_id").val(quality_id);
-              $("#pallet_price_per_unit").val(price_per_unit);
               $("#pallet_pack_type_id").val(pack_type_id);
               $("#pallet_quantity").val(quantity);
               $("#pallet_gross_weight").val(gross_weight);
@@ -97,31 +99,44 @@ var config = 'pack_pallet';
         var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
         var quality_id = $("#pallet_quality_id").val();
         var quality_name = $("#pallet_quality_id option[value='"+quality_id+"']").text();
-        var price_kg = $("#pallet_price_per_unit").val();
         var pack_type_id = $("#pallet_pack_type_id").val();
         var quantity = $("#pallet_quantity").val();
         var gross_weight = $("#pallet_gross_weight").val();
-        var code = 'No aplica';
-        var tare = 0;
-        var is_pallet = false;
 
         if (config == 'pack_pallet') 
         {
-          var is_pallet = $("#check").is(':checked'); //true pallet
-        };
-        if (config == 'pallet' || config == 'pack_pallet') 
+          is_pallet = $("#check").is(':checked'); //true pallet
+          if(is_pallet)
+          {
+            code = $("#code").val();
+            tare = $("#destare").val();
+          }
+          else
+          {
+            code = 'No aplica';
+            tare = 0;
+          }
+        }
+        else if (config == 'pallet') 
         {
-          var code = $("#code").val();
-          var tare = $("#destare").val();
-        };
+          is_pallet = true;
+          code = $("#code").val();
+          tare = $("#destare").val();
+        }
+        else
+        {
+          is_pallet = false;
+          code = 'No aplica';
+          tare = 0;
+        }
 
         var pack_type_tare = get_pack_type_tare(pack_type_id);
 
         var net_weight = gross_weight - (pack_type_tare * quantity) - tare;
 
-        var row = new Array(code, quantity, net_weight, variety_name, quality_name, price_kg, "<a class='del' name="+idReg+">Eliminar</a> <a class='edit' name="+idReg+">Editar</a>");
+        var row = new Array(code, quantity, net_weight, variety_name, quality_name, "<a class='del' name="+idReg+">Eliminar</a> <a class='edit' name="+idReg+">Editar</a>");
 
-        var new_register = new register(variety_id, quality_id, price_kg, pack_type_id, quantity, gross_weight, code, tare, is_pallet, idReg);
+        var new_register = new register(variety_id, quality_id, pack_type_id, quantity, gross_weight, code, tare, is_pallet, idReg);
 
         registers[idReg] = new_register;
         oTable.fnUpdate( row, posTable );
@@ -164,15 +179,15 @@ var config = 'pack_pallet';
 
   function checkedPallet() {
     if (check.checked == 0) {
-      code.disabled=true;
-      destare.disabled=true;
+      $("#code").prop("disabled",true);
+      $("#destare").prop("disabled",true);
       $("#code").val("");
       $("#destare").val("");
     } 
     else{
-      code.disabled=false;
-      destare.disabled=false;
-    };
+      $("#code").prop("disabled",false);
+      $("#destare").prop("disabled",false);
+    }
   }
 
   function load_config () {
@@ -200,10 +215,9 @@ var config = 'pack_pallet';
     modified = argument;
   }
 
-  function register (variety_id, quality_id, price_kg, pack_type_id, quantity, gross_weight, code, tare, is_pallet, id) {
+  function register (variety_id, quality_id, pack_type_id, quantity, gross_weight, code, tare, is_pallet, id) {
     this.variety_id = variety_id;
     this.quality_id = quality_id;
-    this.price_kg = price_kg;
     this.pack_type_id = pack_type_id;
     this.quantity = quantity;
     this.gross_weight =gross_weight;
@@ -233,7 +247,7 @@ var config = 'pack_pallet';
         type: "POST", 
         dataType: "json",
         async: false,
-        data: { dispatch : {kind_id: kind_id, destination_id: destination_id, dispatch_datetime: dispatch_datetime } },
+        data: { dispatch : { kind_id: kind_id, destination_id: destination_id, dispatch_datetime: dispatch_datetime } },
         success: function(data){ 
           add_registers_to(data.id);
         },  
@@ -253,7 +267,6 @@ var config = 'pack_pallet';
       var code = register.code;
       var gross_weight = register.gross_weight;
       var pack_type_id = register.pack_type_id;
-      var price_per_unit = register.price_kg;
       var quality_id = register.quality_id;
       var quantity = register.quantity;
       var tare = register.tare;
@@ -265,7 +278,7 @@ var config = 'pack_pallet';
           type: "POST", 
           dataType: "json",
           async: false,
-          data: { pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, dispatch_id: dispatch_id, tare: tare, variety_id: variety_id} } }); 
+          data: { pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, quality_id: quality_id, quantity: quantity, dispatch_id: dispatch_id, tare: tare, variety_id: variety_id} } }); 
       }
       else
       {
@@ -301,7 +314,6 @@ var config = 'pack_pallet';
   function clean_form () {
     $("#select_variety").val("");
     $("#pallet_quality_id").val("");
-    $("#pallet_price_per_unit").val("");
     $("#pallet_pack_type_id").val("");
     $("#pallet_quantity").val("");
     $("#pallet_gross_weight").val("");
@@ -319,23 +331,36 @@ var config = 'pack_pallet';
     var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
     var quality_id = $("#pallet_quality_id").val();
     var quality_name = $("#pallet_quality_id option[value='"+quality_id+"']").text();
-    var price_kg = $("#pallet_price_per_unit").val();
     var pack_type_id = $("#pallet_pack_type_id").val();
     var quantity = $("#pallet_quantity").val();
     var gross_weight = $("#pallet_gross_weight").val();
-    var code = 'No aplica';
-    var tare = 0;
-    var is_pallet = false;
 
     if (config == 'pack_pallet') 
     {
-      var is_pallet = $("#check").is(':checked'); //true pallet
-    };
-    if (config == 'pallet' || config == 'pack_pallet') 
+      is_pallet = $("#check").is(':checked'); //true pallet
+      if(is_pallet)
+      {
+        code = $("#code").val();
+        tare = $("#destare").val();
+      }
+      else
+      {
+        code = 'No aplica';
+        tare = 0;
+      }
+    }
+    else if (config == 'pallet') 
     {
-      var code = $("#code").val();
-      var tare = $("#destare").val();
-    };
+      is_pallet = true;
+      code = $("#code").val();
+      tare = $("#destare").val();
+    }
+    else
+    {
+      is_pallet = false;
+      code = 'No aplica';
+      tare = 0;
+    }
 
     var pack_type_tare = get_pack_type_tare(pack_type_id);
 
@@ -344,14 +369,14 @@ var config = 'pack_pallet';
     var id = id_count;
     id_count++;
 
-    var new_register = new register(variety_id, quality_id, price_kg, pack_type_id, quantity, gross_weight, code, tare, is_pallet, id);
+    var new_register = new register(variety_id, quality_id, pack_type_id, quantity, gross_weight, code, tare, is_pallet, id);
 
     registers[id_count] = new_register;
 
-    var row = new Array(code, quantity, net_weight, variety_name, quality_name, price_kg, "<a class='del' name="+id_count+">Eliminar</a> <a class='edit' name="+id_count+">Editar</a>");
+    var row = new Array(code, quantity, net_weight, variety_name, quality_name, "<a class='del' name="+id_count+">Eliminar</a> <a class='edit' name="+id_count+">Editar</a>");
     $('#tablealone').dataTable().fnAddData(row);
     set_modified(true);
-    clean_form();
+    //clean_form();
   }
 </script>
 
@@ -378,19 +403,62 @@ var config = 'pack_pallet';
     return !isNaN(parseInt(possibleInteger));
   }
 
+  function validate_dispatch () {
+    var destination_id = ($("#select_destination").val());
+    var kind_id = ($("#dispatch_kind_id").val());
+
+    $("#destination_div").removeClass("field_with_errors");
+    $("#kind_div").removeClass("field_with_errors");
+
+    var errorText = "<div id=error_explanation>";
+    var isError = false;
+    var contador_errores = 0;
+    var errors = "";
+
+    if(destination_id == ""){
+      $("#destinaion_div").addClass("field_with_errors");
+      errors = errors + "<li>Destino no puede estar en blanco</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+
+    if(kind_id == ""){
+      $("#kind_div").addClass("field_with_errors");
+      errors = errors + "<li>Especie no puede estar en blanco</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+
+    if(isError){
+      errorText+= "<h2>"+contador_errores+" errores, no se puede guardar el despacho";
+      errorText+= "<ul>";
+      errorText+= errors;
+      errorText+= "</ul>";
+      errorText+= "</div>";  
+      document.getElementById("show_errors_dispatch").innerHTML = errorText;
+    }
+
+    else{
+      document.getElementById("show_errors_dispatch").innerHTML = "";
+      post();
+    }
+  }
+
   function errors_revision () {
     var variety_id = $("#select_variety").val();   
     var quality_id = $("#pallet_quality_id").val();
-    var price_kg = $("#pallet_price_per_unit").val();
     var pack_type_id = $("#pallet_pack_type_id").val();
     var quantity = $("#pallet_quantity").val();
     var gross_weight = $("#pallet_gross_weight").val();
-    var code = $("#code").val();
-    var tare = $("#destare").val();
+
+    if (config == 'pallet' || config == 'pack_pallet') 
+    {
+      var code = $("#code").val();
+      var tare = $("#destare").val();
+    };
     
     $("#variety_div").removeClass("field_with_errors");
     $("#quality_div").removeClass("field_with_errors");
-    $("#price_per_unit_div").removeClass("field_with_errors");
     $("#pack_type_id_div").removeClass("field_with_errors");
     $("#quantity_div").removeClass("field_with_errors");
     $("#gross_weight_div").removeClass("field_with_errors");
@@ -412,20 +480,6 @@ var config = 'pack_pallet';
     if(quality_id == ""){
       $("#quality_div").addClass("field_with_errors");
       errors = errors + "<li>Calidad no puede estar en blanco</li>";
-      contador_errores += 1;
-      isError = true;
-    }
-
-    if(price_kg == ""){
-      $("#price_per_unit_div").addClass("field_with_errors");
-      errors = errors + "<li>Precio por Kg no puede estar en blanco</li>";
-      contador_errores += 1;
-      isError = true;
-    }
-
-    if(!isInteger(price_kg)){
-      $("#price_per_unit_div").addClass("field_with_errors");
-      errors = errors + "<li>Precio por Kg no es un número</li>";
       contador_errores += 1;
       isError = true;
     }
@@ -509,8 +563,10 @@ var config = 'pack_pallet';
   }
 </script>
 
-
 <div class="box">
+  <div id = "show_errors_dispatch">
+</div>
+
 <%= form_for(@dispatch) do |f| %>
   <% if @dispatch.errors.any? %>
     <div id="error_explanation">
@@ -531,8 +587,10 @@ var config = 'pack_pallet';
         <em class="formee-req">*</em>
       </div>    
       <div class="forme-in">
-        <% @options = Destination.all.map { |d| [d.name, d.id] } %>
-        <%= f.select(:destination_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione destino - '} , :id => 'select_destination',:onchange => "show_rut(this)", :class => 'chzn-select') %>  
+        <div id="destination_div">
+          <% @options = Destination.all.map { |d| [d.name, d.id] } %>
+          <%= f.select(:destination_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione destino - '} , :id => 'select_destination',:onchange => "show_rut(this)", :class => 'chzn-select') %>  
+        </div>
       </div>
     </div>
 
@@ -542,10 +600,8 @@ var config = 'pack_pallet';
         <em class="formee-req">*</em>
       </div>    
       <div class="forme-in">
-
         <% @options = Destination.all.map { |d| [d.rut, d.id] } %>
         <%= f.select(:destination_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione Rut de destino - '} , :id => 'select_rut',:onchange => "show_rut(this)", :class => 'chzn-select') %>  
-        
       </div>
     </div>
 
@@ -555,8 +611,10 @@ var config = 'pack_pallet';
         <em class="formee-req">*</em>
       </div>    
       <div class="forme-in">
-        <% @options = Kind.all.map { |k| [k.name, k.id] } %>
-        <%= f.select(:kind_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione especie - '} , :onchange => "show_rut(this)") %>
+        <div id="kind_div">
+          <% @options = Kind.all.map { |k| [k.name, k.id] } %>
+          <%= f.select(:kind_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione especie - '} , :onchange => "show_rut(this)") %>
+        </div>
       </div>    
     </div>
 
@@ -628,18 +686,6 @@ var config = 'pack_pallet';
 
         <div class="line-forme">
           <div class="forme-lab">
-            <label>Precio por Kg ($)</label>
-            <em class="formee-req">*</em>
-          </div>
-          <div class="forme-in">
-            <div id="price_per_unit_div">
-              <%= f.text_field :price_per_unit %>
-            </div>
-          </div>
-        </div>
-
-        <div class="line-forme">
-          <div class="forme-lab">
             <label>Tipo Envase</label>
             <em class="formee-req">*</em>
           </div>
@@ -675,6 +721,15 @@ var config = 'pack_pallet';
           </div>
         </div>
 
+        <!-- obtener configuracion para modificar formulario -->
+        <% settings_array = Setting.all.map { |setting| [setting.key] }%>
+        <% if (settings_array.size != 0)%>
+          <% config = (settings_array[settings_array.size - 1][0]).to_s %>
+        <% else %>
+          <% config = 'pack_pallet' %>
+        <% end %>
+
+        <% if config == 'pack_pallet'%>
         <div class="line-forme">
           <div class="forme-lab">
             <label>¿Trabajar con Pallet?</label>
@@ -683,7 +738,9 @@ var config = 'pack_pallet';
               <input type="checkbox" id="check" class="check" value="¿Trabajar con Pallet?" checked onClick="checkedPallet()" />          
           </div>
         </div>
-        
+      <% end %>
+      
+      <% if config == 'pack_pallet' || config == 'pallet'%>
         <div class="line-forme">
           <div class="forme-lab">
             <label>Código Pallet</label>
@@ -707,12 +764,24 @@ var config = 'pack_pallet';
             </div>
           </div>
         </div>
-        <label> (
-          <em class="formee-req">*</em>
-        </label> ) Campos obligatorios.
+      <% end %>
+
         <div class = "newTopBanner">
+        <% if config == 'pack_pallet' %>
+          <input type="button" value="Agregar Registro" id="agregar" name="agregar" class="button blue alignright" language="javascript" onClick='errors_revision()'>
+        <% elsif config == 'pallet' %>
           <input type="button" value="Agregar Pallet" id="agregar" name="agregar" class="button blue alignright" language="javascript" onClick='errors_revision()'>
-        </div>
+        <% else %>
+          <input type="button" value="Agregar Envase" id="agregar" name="agregar" class="button blue alignright" language="javascript" onClick='errors_revision()'>
+        <% end %>
+          
+        
+        <input type="button" value="Cancelar" id="cancel" name="agregar" class="button red alignright" language="javascript" >
+        <input type="button" value="Guardar" id="save" name="agregar" class="button green alignright" language="javascript" >
+      </div>
+      <label> (
+      <em class="formee-req">*</em>
+      </label> ) Campos obligatorios.
     </div> 
   </div>  
 
@@ -731,7 +800,6 @@ var config = 'pack_pallet';
             <th>Peso Neto (Kg)</th>
             <th>Variedad</th>
             <th>Calidad</th>
-            <th>Precio</th>
             <th style="width:20% !important;">Acciones</th>
           </tr>
         </thead>
@@ -748,22 +816,8 @@ var config = 'pack_pallet';
 
 <div class="foot-box">
   <div class="line-forme">
-    <div class="forme-lab">
-      <label>Número Despacho:</label>
-    </div>
-  
-    <div class="forme-in">
-      <% dispatchs_array = Dispatch.all.map { |dispatch| [dispatch.code] }%>
-      <% if (dispatchs_array.size == 0) %>
-        <%= f.text_field(:code, :value => '1', :readonly => true)%>
-      <% else %>
-        <%= f.text_field(:code, :value => (Integer((dispatchs_array[dispatchs_array.size - 1])[0])+1).to_s, :readonly => true)%>
-      <%end%>
-    </div>
-
-
-    <%= link_to 'Cancelar', dispatches_path , :class => "button silver alignright" %>
-    <%= f.submit :Aceptar, :class => "button green alignright", :onClick => 'post()' %>
+        <%= link_to 'Cancelar', dispatches_path , :class => "button silver alignright" %>
+    <%= f.submit :Aceptar, :class => "button green alignright", :onClick => 'validate_dispatch()' %>
   </div>
 </div>
 
