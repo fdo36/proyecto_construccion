@@ -4,18 +4,24 @@
 </div>
 <div class="box">
 <%= link_to 'Volver',supplies_path , :class => "button blue alignright" %>
-p>
   <b>Nombre:</b>
   <%= @supply.name %>
 </p>
 
 <p>
-  <b>Descripcion:</b>
+  <b>Descripción:</b>
   <%= @supply.description %>
 </p>
 
+
 <p>
-  <b>Stock Minimo:</b>
+  <b>Stock Inicial:</b>
+  <%= @supply.stock_ini %>
+</p>
+
+
+<p>
+  <b>Stock Mínimo:</b>
   <%= @supply.minimum_stock %>
 </p>
 </div>

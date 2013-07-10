@@ -226,9 +226,8 @@ section#content{
 }
 
 .line-forme{
-	height: 30px;
+	min-height: 30px;
 	margin-bottom: 5px;
-	width: 100%;
 }
 
 .forme-lab{
@@ -244,13 +243,15 @@ section#content{
 	width: 35%;
 }
 
-.forme-in textarea {
-	float: left;
-}
-
-.forme-in  input[type="text"], .forme-in select, .chzn-container{
+.forme-in  input[type="text"], .forme-in select, .forme-in .chzn-container{
 	width: 97%!important;
 	height: 90%;
+	min-width: 300px;
+}
+
+.forme-in textarea{
+	width: 97%!important;
+	height: 50px;
 	min-width: 300px;
 }
 

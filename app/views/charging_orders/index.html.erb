@@ -1,0 +1,27 @@
+<h1>Listing charging_orders</h1>
+
+<table>
+  <tr>
+    <th>Custom agent</th>
+    <th>Origin port</th>
+    <th>Destination port</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @charging_orders.each do |charging_order| %>
+  <tr>
+    <td><%= charging_order.custom_agent_id %></td>
+    <td><%= charging_order.origin_port_id %></td>
+    <td><%= charging_order.destination_port_id %></td>
+    <td><%= link_to 'Show', charging_order %></td>
+    <td><%= link_to 'Edit', edit_charging_order_path(charging_order) %></td>
+    <td><%= link_to 'Destroy', charging_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Charging order', new_charging_order_path %>

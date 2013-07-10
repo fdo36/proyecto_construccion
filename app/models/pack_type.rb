@@ -4,7 +4,7 @@ class PackType < ActiveRecord::Base
 
   validates :name, :tare, :presence => true
 
-  validates :tare, :numericality => true
+  validates :tare, :numericality => { :greater_than => 0 }
    #validates :tare, :format => { :with => /^-?[0-9]+([,\.][0-9]*)?$/, 
    	#:message => "debe ser un número válido" }
 

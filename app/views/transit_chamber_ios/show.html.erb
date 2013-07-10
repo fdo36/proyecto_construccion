@@ -1,9 +1,20 @@
-<p> id="notice"><%= notice %></p>
+<p id="notice"><%= notice %></p>
 <div class="headContent">
   <h1>Ver Cámara de Producto en Tránsito</h1>
 </div>
 <div class="box">
 <%= link_to 'Volver', transit_chamber_ios_path , :class => "button blue alignright" %>
+
+<p>
+  <b>Hora:</b>
+  <%= @transit_chamber_io.io_datetime %>
+</p>
+
+<p>
+  <b>Tipo:</b>
+  <%= @transit_chamber_io.direction == true ? "Entrada" : "Salida" %>
+</p>
+
 
 <p>
   <b>Temperatura:</b>
@@ -16,22 +27,13 @@
 </p>
 
 <p>
-  <b>Pallet:</b>
-  <%= @transit_chamber_io.packing_pallet_id %>
+  <b>Código de Pallet:</b>
+  <%= PackingPallet.find(@transit_chamber_io.packing_pallet_id).pallet_code %>
 </p>
 
 <p>
   <b>Encargado:</b>
-  <%= @transit_chamber_io.worker_id %>
-</p>
-
-<p>
-  <b>Tipo:</b>
-  <%= if @transit_chamber_io.direction
-  		"Entrada"
-  	  else
-  	  	"Salida"
-  	  end %>
+  <%= Worker.find(@transit_chamber_io.worker_id).rut %>
 </p>
 
 

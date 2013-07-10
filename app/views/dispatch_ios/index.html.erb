@@ -1,0 +1,38 @@
+<div class="headContent">
+    <h1>Lista de Despachos</h1>
+</div>
+<div class="box">
+    <div class="newTopBanner">
+        <%= link_to 'Nuevo Despacho', new_dispatch_io_path, :class => "button blue alignright" %>
+    </div>
+
+    <p id="notice" class="alignleft"><%= notice %> </p>
+
+    <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+                <thead>
+                  <tr>
+                    <th>Número</th>
+                    <th>Número Orden de Carga</th>
+                    <th>Codigo Contenedor</th>
+                    <th>Temperatura Carga</th>
+                    <th>Temperatura Despacho</th>
+                    <th colspan="3" style="width:20% !important;">Acciones</th>
+                  </tr>
+                </thead>
+              <tbody>
+                  <% @dispatch_ios.each do |dispatch_io| %>
+                      <tr>
+                        <td><%= dispatch_io.number %></td>
+                        <td><%= dispatch_io.charging_order_id %></td>
+                        <td><%= dispatch_io.container_code %></td>
+                        <td><%= dispatch_io.charging_temperature %></td>
+                        <td><%= dispatch_io.dispatch_temperature %></td>
+                        <td><%= link_to 'Show', dispatch_io %></td>
+                        <td><%= link_to 'Edit', edit_dispatch_io_path(dispatch_io) %></td>
+                        <td><%= link_to 'Destroy', dispatch_io, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                      </tr>
+                    <% end %>
+                </tbody>
+              </table>
+
+</div>

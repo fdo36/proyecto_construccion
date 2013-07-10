@@ -1,21 +1,26 @@
 ProyectoConstruccion::Application.routes.draw do
+  #get "packing_reports/index"
+  resources :packing_reports
+
+  resources :dispatch_ios
+
+
+  resources :charging_orders
+
+
+  resources :custom_agents
+
   resources :supplies_providers_loans
 
   resources :supplies_returns
 
-
   resources :supplies_loans
-
-
 
   resources :store_finish_products
 
-
   resources :destination_ports
 
-
   resources :origin_ports
-
 
   resources :frozen_tunnel_ios
 
@@ -24,7 +29,6 @@ ProyectoConstruccion::Application.routes.draw do
   resources :tunnels
 
   resources :tunnels
-
 
   resources :customs
 
@@ -113,12 +117,11 @@ ProyectoConstruccion::Application.routes.draw do
     resources :pack_group_dispatches
   end
 
-  resources :products
-
   resources :varieties
-
+  
   resources :kinds
-
+  
+  
   resources :qualities
 
   resources :groupings
@@ -164,17 +167,20 @@ ProyectoConstruccion::Application.routes.draw do
   match 'producers/:id/enable' => 'producers#enable', :as => 'producers_enable'
   match 'producers/:id/disable' => 'producers#disable', :as => 'producers_disable'
   match 'producers/:id/delete_producer' => 'producers#delete_producer', :as => 'producer_delete'
-    
-  match '/help/css/jquery-ui.css', :to => redirect('/css/jquery-ui.css')
-  match '/help/css/styles.css', :to => redirect('/css/styles.css')
-  match '/help/css/default_buttons.css', :to => redirect('/css/default_buttons.css')
 
   match 'receipts/generate_pdf' => 'receipts#generate_pdf', :as => 'receipts_generate_pdf'
 
   match 'tunnels/:id/delete_tunnel' => 'tunnels#delete_tunnel', :as => 'tunnel_delete'
+
+  match 'transit_chamber_io_valid_pallets' => 'transit_chamber_ios#valid_pallets'
+  match 'transit_chamber_io_pallets_already_added' => 'transit_chamber_ios#pallets_already_added'
   
+
 
   match 'stabilization_chamber_io_valid_pallets' => 'stabilization_chamber_ios#valid_pallets'
   match 'stabilization_chamber_io_pallets_already_added' => 'stabilization_chamber_ios#pallets_already_added'
 
+
+  match 'frozen_tunnel_io_valid_pallets' => 'frozen_tunnel_ios#valid_pallets'
+  match 'frozen_tunnel_io_pallets_already_added' => 'frozen_tunnel_ios#pallets_already_added'
 end

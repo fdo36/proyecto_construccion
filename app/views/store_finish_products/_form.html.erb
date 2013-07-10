@@ -22,7 +22,7 @@ function add_pallets(){
 
           p_packing_pallet_id = pallet.id;
           $.ajax({
-              url: "/store_finish_products/",
+              url: "/store_finish_products",
               type: "POST",
                 data: {store_finish_product:{ io_datetime: p_io_datetime,
                                                  direction: p_direction,
@@ -38,12 +38,22 @@ function add_pallets(){
   });
 }
 
+function isInTable(id_pallet) {
+  var flag = false;
+  $('#chamber_table tbody tr').each(function(index){
+    if (id_pallet == $(this).find("td").eq(0).text()) {
+      flag = true;
+    }
+  });
+  return flag;
+}
+
 function add_pallet (){
     $("#error_label").text("");
     $.get("/final_packing_pallets.json", function(pallets) {
       flag = false;
       $.each(pallets, function(index, pallet){
-        if (pallet.id == $("#code_pallet").val()) {
+        if(isInTable($("#code_pallet").val())==false && pallet.id == $("#code_pallet").val()) {
           flag = true;
           $('#chamber_table').dataTable().fnAddData([
              pallet.id,
@@ -55,10 +65,10 @@ function add_pallet (){
       });
       if (!flag){
         $("#error_label").text("Ingrese un código válido");
-      }
-       
+      }   
       $("#code_pallet").val("");
     });
+    
   }
 
 
@@ -101,20 +111,6 @@ function delete_row(button)
     <div class="forme-in">
       <% @options = Worker.all.map { |w| [w.first_name, w.id]} %>
         <%= f.select(:worker_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione trabajador - '}, :class => 'chzn-select') %>
-    </div>
-  </div>
-
-  <div class="line-forme">
-    <div class="forme-lab">
-      <label> 
-        Tipo
-      </label>  
-    </div>
-    <div class="forme-in">
-      <%= f.radio_button(:direction, true) %>
-        <%= label_tag(:label1, "Entrada") %>
-        <%= f.radio_button(:direction,false) %>
-        <%= label_tag(:label1, "Salida") %>
     </div>
   </div>
 

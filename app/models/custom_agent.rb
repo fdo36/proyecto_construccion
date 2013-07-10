@@ -1,0 +1,3 @@
+class CustomAgent < ActiveRecord::Base
+  attr_accessible :name
+end

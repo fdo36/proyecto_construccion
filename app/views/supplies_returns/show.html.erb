@@ -1,18 +1,20 @@
 <p id="notice"><%= notice %></p>
 
+<div class="headContent">
+  <h1>Ver DEvolución de Insumo</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver',supplies_returns_path , :class => "button blue alignright" %>
+
 <p>
-  <b>Worker:</b>
-  <%= @supplies_return.worker_id %>
+  <b>Trabajador:</b>
+   <%= (Worker.all(:select => "first_name", :conditions => ["id = ?", @supplies_return.worker_id]))[0].first_name %>
+   <%= (Worker.all(:select => "last_name", :conditions => ["id = ?", @supplies_return.worker_id]))[0].last_name %>
 </p>
 
 <p>
-  <b>Supply:</b>
-  <%= @supplies_return.supply_id %>
-</p>
-
-<p>
-  <b>Company:</b>
-  <%= @supplies_return.company_id %>
+  <b>Insumo:</b>
+  <%= (Supply.all(:select => "name", :conditions => ["id = ?",@supplies_return.supply_id]))[0].name %>
 </p>
 
 <p>
@@ -21,5 +23,15 @@
 </p>
 
 
-<%= link_to 'Edit', edit_supplies_return_path(@supplies_return) %> |
-<%= link_to 'Back', supplies_returns_path %>
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_supplies_return_path(@supplies_return) , :class => "button green alignright" %>
+</div>
+
+
+
+
+
+
+
+

@@ -5,7 +5,7 @@
 <script type="text/javascript">
 var packing_pallets = [];
 
-function ReceiptPackingIo(code, comments, dispatch_guide_number, producer_id, trazability_code, worker_id)
+function ReceiptPackingIo(code, comments, dispatch_guide_number, producer_id, trazability_code, worker_id, direction)
 {
 	this.code = code;
 	this.comments = comments;
@@ -13,6 +13,7 @@ function ReceiptPackingIo(code, comments, dispatch_guide_number, producer_id, tr
 	this.producer_id = producer_id;
 	this.trazability_code = trazability_code;
 	this.worker_id = worker_id;
+	this.direction = direction;
 }
 
 function add_receipts(pallet_ids)
@@ -22,7 +23,8 @@ function add_receipts(pallet_ids)
 	$("#receipt_packing_io_dispatch_guide_number").val(),
 	$("#select_producer").val(),
 	$("#receipt_packing_io_trazability_code").val(),
-	$("#receipt_packing_io_worker_id").val());
+	$("#receipt_packing_io_worker_id").val(),
+	true);
 	
 	var ajaxObjects = [];
 	for(var i in pallet_ids) {
@@ -60,12 +62,23 @@ function add_pallets()
 		for(var i = 0; i < arguments.length; i++) {
 			if(arguments[i] instanceof Array)
 	    		pallet_ids.push(arguments[i][0].id);
-			else
+			else {
 				pallet_ids.push(arguments[i].id);
+				break;
+			}
 	  	}
 		// Ahora que conozco los ids de los pallet agregados, paso al siguiente paso.
 		add_receipts(pallet_ids);
 	});
+}
+
+function object_values(obj)
+{
+	var values = [];
+	for (var property in obj) {
+		values.push(obj[property]);
+	}
+	return values;
 }
 
 function PackingPallet(pallet_code, gross_weight, pack_type_id, quantity, tare, temperature, unit_price)
@@ -84,24 +97,26 @@ function update_pallets_table()
 	$('#receipt_table').dataTable().fnClearTable();
 	for(var i in packing_pallets) {
 		packing_pallet = packing_pallets[i];
-		var values = [];
-		for (var property in packing_pallet) {
-	    	values.push(packing_pallet[property]);
-		}
-		values.push("<a href=\"#\" onclick=\"remove_pallet(" + i + "); return false;\">Eliminar</a>");
+		var values = object_values(packing_pallet);
+		values.push("<a href=\"#\" onclick=\"edit_pallet(" + i + "); return false;\">Editar </a><a href=\"#\" onclick=\"remove_pallet(" + i + "); return false;\">Eliminar</a>");
 		$('#receipt_table').dataTable().fnAddData(values);
 	}
 }
 
+function set_pallet(a, b, c, d, e, f, g)
+{
+	$("#packing_pallet_code").val(a);
+	$("#packing_pallet_gross_weight").val(b);
+	$("#packing_pallet_pack_type_id").val(c);
+	$("#packing_pallet_quantity").val(d);
+	$("#packing_pallet_tare").val(e);
+	$("#packing_pallet_unit_price").val(f);
+	$("#packing_pallet_temperature").val(g);
+}
+
 function reset_pallet()
 {
-	$("#packing_pallet_code").val("");
-	$("#packing_pallet_gross_weight").val("");
-	$("#packing_pallet_pack_type_id").val("");
-	$("#packing_pallet_quantity").val("");
-	$("#packing_pallet_tare").val("");
-	$("#packing_pallet_unit_price").val("");
-	$("#packing_pallet_temperature").val("");
+	set_pallet("", "", "", "", "", "", "");
 }
 
 function add_pallet()
@@ -116,12 +131,38 @@ function add_pallet()
 	packing_pallets.push(packing_pallet);
 	update_pallets_table();
 	reset_pallet();
+	$("#add_pallet_button").html('Agregar pallet');
+	$("#cancel_edit_button").hide();
 }
 
 function remove_pallet(n)
 {
 	packing_pallets.splice(n, 1);
 	update_pallets_table();
+}
+
+var editing_pallet = null;
+
+function edit_pallet(n)
+{
+	p = packing_pallets[n];
+	packing_pallets.splice(n, 1);
+	set_pallet.apply(null, object_values(p));
+	update_pallets_table();
+	
+	// Actualiza nombre de boton a Guardar pallet
+	$("#add_pallet_button").html('Guardar pallet');
+	$("#cancel_edit_button").show();
+	editing_pallet = p;
+}
+
+function cancel_edit_pallet()
+{
+	packing_pallets.push(editing_pallet);
+	update_pallets_table();
+	reset_pallet();
+	$("#add_pallet_button").html('Agregar pallet');
+	$("#cancel_edit_button").hide();
 }
 
 </script>
@@ -287,9 +328,8 @@ function remove_pallet(n)
         <%= text_field(:packing_pallet, :temperature) %> 
       </div>
 	</div>
-      <%= button_tag "Agregar Pallet" , :class => "button blue alignright", :onclick => "add_pallet();"%>
-
-
+      <%= button_tag "Agregar Pallet" , :id => "add_pallet_button", :class => "button blue alignright", :onclick => "add_pallet();" %>
+	  <%= button_tag "Cancelar" , :id => "cancel_edit_button", :class => "button red alignright", :onclick =>"cancel_edit_pallet();", :style => "display:none;" %>
     <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="receipt_table">
       <thead>
         <tr>    

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Custom agent:</b>
+  <%= @charging_order.custom_agent_id %>
+</p>
+
+<p>
+  <b>Origin port:</b>
+  <%= @charging_order.origin_port_id %>
+</p>
+
+<p>
+  <b>Destination port:</b>
+  <%= @charging_order.destination_port_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_charging_order_path(@charging_order) %> |
+<%= link_to 'Back', charging_orders_path %>

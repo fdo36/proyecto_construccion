@@ -18,8 +18,9 @@
       <tbody>
         <% @supplies_loans.each do |supplies_loan| %>
             <tr>
-              <td><%= supplies_loan.worker_id %></td>
-              <td><%= supplies_loan.supply_id %></td>
+              <td><%= (Worker.all(:select => "first_name", :conditions => ["id = ?", supplies_loan.worker_id]))[0].first_name %>
+                <%= (Worker.all(:select => "last_name", :conditions => ["id = ?", supplies_loan.worker_id]))[0].last_name %> </td>
+              <td><%= (Supply.all(:select => "name", :conditions => ["id = ?",supplies_loan.supply_id]))[0].name %></td>
               <td><%= supplies_loan.quantity %></td>
               <td><%= link_to 'Ver', supplies_loan %>
               <%= link_to 'Editar', edit_supplies_loan_path(supplies_loan) %>
