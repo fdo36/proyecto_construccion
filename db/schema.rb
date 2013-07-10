@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(:version => 20130710150831) do
     t.integer  "region_id"
     t.string   "rut"
     t.string   "phone"
-    t.boolean  "system_type"
   end
 
   create_table "containers", :force => true do |t|
@@ -441,7 +440,6 @@ ActiveRecord::Schema.define(:version => 20130710150831) do
     t.integer  "is_delete"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "company_id"
   end
 
   create_table "settings", :force => true do |t|
