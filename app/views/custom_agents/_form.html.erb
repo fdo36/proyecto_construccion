@@ -1,0 +1,35 @@
+<div class="box">
+  <%= form_for(@custom_agent) do |f| %>
+  <% if @custom_agent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@custom_agent.errors.count, "error") %> prohibited this custom_agent from being saved:</h2>
+
+      <ul>
+      <% @custom_agent.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label>Nombre </label>
+      <em class="formee-req">*</em>
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+
+  <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
+</div>
+
+<div class="foot-box">
+  <%= link_to 'Cancelar', :back , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+
+<% end %>
