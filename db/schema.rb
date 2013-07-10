@@ -293,7 +293,6 @@ ActiveRecord::Schema.define(:version => 20130709194017) do
     t.float    "tare"
     t.float    "temperature"
     t.string   "pallet_code"
-    t.integer  "pack_type_id"
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -603,7 +602,7 @@ ActiveRecord::Schema.define(:version => 20130709194017) do
   create_table "workers", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "phone"
+    t.string   "phone"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"
