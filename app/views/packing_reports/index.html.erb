@@ -1,0 +1,71 @@
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+//Accion por defecto
+$(".tab_content").hide(); 
+$("ul.tabs li:first").addClass("active").show(); 
+$(".tab_content:first").show(); 
+
+//evento (onClick)
+$("ul.tabs li").click(function() {
+$("ul.tabs li").removeClass("active"); 
+$(this).addClass("active"); 
+$(".tab_content").hide(); 
+var activeTab = $(this).find("a").attr("href");
+$(activeTab).fadeIn(); 
+return false;
+});
+});
+
+
+</script>
+
+
+<!--Contenido  Reportes-->
+<div class="headContent">
+  <h1>Informes Packing</h1>
+</div>
+
+   <ul class="tabs">
+       <li><a href="#tab1">Movimiento de bandejas por productor</a></li>
+       <li><a href="#tab2">Productos por productor</a></li>
+   </ul>
+ 
+
+   <div class="tab_container">
+
+       <!--Movimiento de bandejas por productor-->
+       <div id="tab1" class="tab_content">
+
+          <div class="contentSubPanel">
+              <div class="headContent">
+                  <h1>Generar Informe: Movimiento de bandejas por productor</h1>
+              </div>
+              <div class="box">
+              
+                 <%= render 'form1' %>  
+                  
+              </div>
+          </div>
+
+       </div>
+
+       <!--Productos por productor-->
+       <div id="tab2" class="tab_content">
+
+          <div class="contentSubPanel">
+              <div class="headContent">
+                  <h1>Generar Informe: Productos por productor</h1>
+              </div>
+              <div class="box">
+
+                 <%= render 'form2' %>                                 	
+           
+              </div>
+          </div>
+
+       </div>
+
+   </div>
+

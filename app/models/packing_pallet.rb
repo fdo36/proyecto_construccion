@@ -1,7 +1,9 @@
 class PackingPallet < ActiveRecord::Base
-  attr_accessible :gross_weight, :pack_type_id, :quantity, :tare, :temperature, :unit_price, :pallet_code
+  attr_accessible :gross_weight, :pack_type_id, :quantity, :tare, 
+  :temperature, :unit_price, :pallet_code, :producer_id
 
-  validates :gross_weight, :pack_type_id, :quantity, :tare, :temperature, :unit_price, :pallet_code, :presence => true
+  validates :gross_weight, :pack_type_id, :quantity, :tare, :temperature, :unit_price, 
+  :pallet_code, :producer_id, :presence => true
 
   validates :tare, :gross_weight, :temperature, :unit_price, :numericality => true
 

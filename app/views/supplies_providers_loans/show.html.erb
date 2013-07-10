@@ -1,25 +1,30 @@
 <p id="notice"><%= notice %></p>
 
+<div class="headContent">
+  <h1>Ver Ingreso de Insumo Proveedor</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver',supplies_providers_loans_path , :class => "button blue alignright" %>
+
 <p>
-  <b>Provider:</b>
-  <%= @supplies_providers_loan.provider_id %>
+  <b>Trabajador:</b>
+   <%= (Provider.all(:select => "name", :conditions => ["id = ?", @supplies_providers_loan.provider_id]))[0].name %>
 </p>
 
 <p>
-  <b>Supply:</b>
-  <%= @supplies_providers_loan.supply_id %>
+  <b>Insumo:</b>
+  <%= (Supply.all(:select => "name", :conditions => ["id = ?",@supplies_providers_loan.supply_id]))[0].name %>
 </p>
 
 <p>
-  <b>Quantity:</b>
+  <b>Cantidad:</b>
   <%= @supplies_providers_loan.quantity %>
 </p>
 
-<p>
-  <b>Company:</b>
-  <%= @supplies_providers_loan.company_id %>
-</p>
+
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_supplies_providers_loan_path(@supplies_providers_loan) , :class => "button green alignright" %>
+</div>
 
 
-<%= link_to 'Edit', edit_supplies_providers_loan_path(@supplies_providers_loan) %> |
-<%= link_to 'Back', supplies_providers_loans_path %>

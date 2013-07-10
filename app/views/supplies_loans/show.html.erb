@@ -1,25 +1,31 @@
 <p id="notice"><%= notice %></p>
 
+<div class="headContent">
+  <h1>Ver Préstamo de Insumo</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver',supplies_loans_path , :class => "button blue alignright" %>
+
 <p>
-  <b>Worker:</b>
-  <%= @supplies_loan.worker_id %>
+  <b>Trabajador:</b>
+   <%= (Worker.all(:select => "first_name", :conditions => ["id = ?", @supplies_loan.worker_id]))[0].first_name %>
+   <%= (Worker.all(:select => "last_name", :conditions => ["id = ?", @supplies_loan.worker_id]))[0].last_name %>
 </p>
 
 <p>
-  <b>Supply:</b>
-  <%= @supplies_loan.supply_id %>
+  <b>Insumo:</b>
+  <%= (Supply.all(:select => "name", :conditions => ["id = ?",@supplies_loan.supply_id]))[0].name %>
+
 </p>
 
 <p>
-  <b>Quantity:</b>
+  <b>Cantidad:</b>
   <%= @supplies_loan.quantity %>
 </p>
 
-<p>
-  <b>Company:</b>
-  <%= @supplies_loan.company_id %>
-</p>
 
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_supplies_loan_path(@supplies_loan) , :class => "button green alignright" %>
+</div>
 
-<%= link_to 'Edit', edit_supplies_loan_path(@supplies_loan) %> |
-<%= link_to 'Back', supplies_loans_path %>

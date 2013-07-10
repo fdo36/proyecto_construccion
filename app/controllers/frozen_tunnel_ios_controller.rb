@@ -22,6 +22,29 @@ class FrozenTunnelIosController < ApplicationController
     end
   end
 
+  def valid_pallets
+    @previous_subprocess = SubprocessIo.where(:heir_type => "StabilizationChamberIo", :direction => false)
+    @pallets_previous_subprocess = @previous_subprocess.map {|x| PackingPallet.find(x.packing_pallet_id)}
+    
+    @frozen_tunnel = SubprocessIo.where(:heir_type => "FrozenTunnelIo", :direction => true)
+    @pallets_already_added = @frozen_tunnel.map {|x| PackingPallet.find(x.packing_pallet_id)}
+
+    @valid_pallets = @pallets_previous_subprocess - @pallets_already_added      
+
+    respond_to do |format|
+      format.json {render json: @valid_pallets}
+    end
+  end
+
+  def pallets_already_added
+    @frozen_tunnel = SubprocessIo.where(:heir_type => "FrozenTunnelIo", :direction => true)
+    @pallets_already_added = @frozen_tunnel.map {|x| PackingPallet.find(x.packing_pallet_id)}    
+
+    respond_to do |format|
+      format.json {render json: @pallets_already_added}
+    end
+  end  
+
   # GET /frozen_tunnel_ios/new
   # GET /frozen_tunnel_ios/new.json
   def new
@@ -42,7 +65,7 @@ class FrozenTunnelIosController < ApplicationController
   # POST /frozen_tunnel_ios.json
   def create
     @frozen_tunnel_io = FrozenTunnelIo.new(params[:frozen_tunnel_io])
-
+    @frozen_tunnel_io.io_datetime = DateTime.current();
     respond_to do |format|
       if @frozen_tunnel_io.save
         format.html { redirect_to @frozen_tunnel_io, notice: 'Frozen tunnel io was successfully created.' }

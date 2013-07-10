@@ -14,7 +14,7 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Código del pallet
+        Código Pallet
         <em class="formee-req">*</em>
       </label>  
     </div>
@@ -26,20 +26,24 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Tipo de Pack                
+        Tipo de Envase                
         <em class="formee-req">*</em>
       </label>  
     </div>
     <div class="forme-in">
       <% pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
-      <%= f.select(:pack_type_id, pack_types_array, :selected => :prompt, :prompt => '- Seleccione Tipo de Pack -') %>
+      <% if @packing_pallet.pack_type_id.nil? %>
+        <%= f.select(:pack_type_id, pack_types_array, :selected => :prompt, :prompt => '- Seleccione Tipo de Pack -') %>
+      <% else %>
+          <%= f.select(:pack_type_id, pack_types_array) %>
+      <% end %>
     </div>
   </div>
 
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Cantidad               
+        Cantidad de Envases              
         <em class="formee-req">*</em>
       </label>  
     </div>
@@ -50,7 +54,7 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Tara               
+        Destare Pallet (Kg)               
         <em class="formee-req">*</em>
       </label>  
     </div>
@@ -61,7 +65,7 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Temperatura               
+        Temperatura (°C)            
         <em class="formee-req">*</em>
       </label>  
     </div>
@@ -72,7 +76,7 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Peso Bruto               
+        Peso Bruto (Kg)               
         <em class="formee-req">*</em>
       </label>  
     </div>
@@ -83,7 +87,7 @@
   <div class="line-forme">
     <div class="forme-lab">
       <label> 
-        Precio por Unidad              
+        Precio por Kg              
         <em class="formee-req">*</em>
       </label>  
     </div>
@@ -92,9 +96,28 @@
     </div>
   </div>
 
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Compañia              
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <% if @packing_pallet.producer_id.nil? %>
+        <% producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
+        <%= f.select(:producer_id, producers_array, :selected => :prompt, :prompt => '- Seleccione Compañia -') %>
+      <% else %>
+        <% producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
+          <%= f.select(:producer_id, producers_array) %>
+      <% end %>
+    </div>
+  </div>
+
   <label> (
     <em class="formee-req">*</em>
   </label> ) Campos obligatorios.
+
 </div>
 <div class="foot-box">
   <%= link_to 'Cancelar', packing_pallets_path , :class => "button silver alignright" %>

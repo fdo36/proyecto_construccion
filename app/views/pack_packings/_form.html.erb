@@ -1,21 +1,35 @@
-<%= form_for(@pack_packing) do |f| %>
-  <% if @pack_packing.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@pack_packing.errors.count, "error") %> prohibited this pack_packing from being saved:</h2>
+<div class="box">
+  <%= form_for(@pack_packing) do |f| %>
+    <% if @pack_packing.errors.any? %>
+      <div id="error_explanation">
+        <h2>Se han encontrado los siguientes errores:</h2>
 
-      <ul>
-      <% @pack_packing.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @pack_packing.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label> 
+          Nombre                
+          <em class="formee-req">*</em>
+        </label>  
+      </div>
+      <div class="forme-in">
+        <%= f.text_field :name %>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <label> (
+      <em class="formee-req">*</em>
+    </label> ) Campos obligatorios.
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', format_packings_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar, :class => "button green alignright" %>
+</div>
 <% end %>

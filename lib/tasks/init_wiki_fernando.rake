@@ -2,7 +2,7 @@
 namespace :init_wiki_fernando do
 	desc 'inicializa la wiki'
 	task :load, [:delete] => :environment do |t, args|
-        if :delete != false
+		if :delete != false
         	WikiPage.delete_all
         end
 		WikiPage.create(:creator_id => 2, :updator_id => 2, 
@@ -22,97 +22,9 @@ namespace :init_wiki_fernando do
 ** [[Productores]]
 ** [[Variedades]]
 ** [[Agencias de Aduana]]
+** [[Packing Pallets]]
 
 </div>')
-        WikiPage.create(:creator_id => 2, :updator_id => 2, 
-                    :path=> 'Agencias de Aduana', :title => 'Agencias de Aduana', :content => '<div class="textContent">
-Módulo encargado de mantener las agencias de aduana. Permite agregar, modificar y eliminar cada una de las agencias de aduana.
-</div>
-
-<div class="indexHelp">
-* "1. Descripciónn de los Campos":#description
-** "1.1 Nombre":#f_name
-** "1.2 Descripción":#f_description
-* "2. Acciones":#actions
-** "2.1 Agregar nueva agencia de aduana":#a_add
-** "2.2 Editar agencia de aduana existente":#a_edit
-** "2.3. Ver agencia de aduana existente":#a_show
-** "2.4. Eliminar agencia de aduana existente":#a_delete
-* "3. Preguntas Frecuentes":#faq
-</div>
-
-<div class="contentHelp">
-h2(#description). Descripción de los Campos
-
-h3(#f_name). Nombre:
-
-<div class="contentHelp">
-Campo que almacena el nombre de la agencia de aduana.
-</div>
-
-h3(#f_description). Descripción:
-
-<div class="contentHelp">
-Campo que almacena una breve descripción de la agencia de aduana.
-</div>
-
-h3(#a_add). Agregar nueva agencia de aduana:
-
-<div class="textContent">
-Para agregar una nueva agencia de aduana, primero debemos seleccionar el módulo "Aduanas" en la barra de navegación (a la izquierda), ubicada dentro de "Recursos".
-!/help/img/grouping/add_1.png!
-El Sistema mostrará en pantalla una lista de todas las agencias de aduana agregadas con anterioridad (Si se ha ingresado por primera vez, no mostrará ninguna).
-Presionamos el botón "Nueva Aduana", en la esquina superior derecha.
-!/help/img/grouping/add_2.png!
-Llenamos la información correspondiente (Los campos obligatorios se destacan con un *). Posteriormente guardamos para continuar o simplemente cancelamos.
-!/help/img/grouping/add_3.png!
-Finalmente, el sistema volverá a la página principal de agencias de aduana y mostrará en la tabla la agencia de aduana agregada.
-!/help/img/grouping/add_4.png!
-</div>
-
-h3(#a_edit). Editar agencia de aduana existente:
-
-<div class="textContent">
-Para editar una agencia de aduana existente, en la página principal del módulo "Aduanas", seleccionamos "Editar"
-(ubicada al extremo opuesto de la agencia de aduana por editar y dentro de la columna "acciones").
-!/help/img/grouping/edit_1.png!
-El Sistema cargará el formulario de ingreso, pero esta vez mostrará los datos que ya se han ingresado. En este punto se puede modificar la información de dichos campos o no.
-Marcamos en el botón "Guardar" para confirmar los nuevos cambios o simplemente cancelamos.
-!/help/img/grouping/edit_2.png!
-Finalmente, el sistema volverá a la página principal de agencias de aduana y mostrará en la tabla el o los datos modificados.
-!/help/img/grouping/edit_3.png!
-</div>
-
-h3(#a_show). Ver agencia de aduana existente:
-
-<div class="textContent">
-Para ver los datos de una agencia de aduana existente, en la página principal del módulo "Aduanas", seleccionamos "Ver"
-(ubicada al extremo opuesto de la agencia de aduana por ver y dentro de la columna "acciones"). 
-!/help/img/grouping/show_1.png!
-El Sistema mostrará los datos de la agencia de aduana seleccionada, sin opción de modificación. 
-Por lo demás, en este punto, el sistema permite editar los datos o simplemente volver a la página principal del módulo.
-!/help/img/grouping/show_2.png!
-Finalmente, el sistema volverá a la página principal de agencias de aduana o de edición dependiendo de la acción tomada.!
-</div>
-
-h3(#a_delete). Eliminar agencia de aduana existente:
-
-<div class="textContent">
-Para eliminar los datos de una agencia de aduana existente, en la página principal del módulo "Aduanas", seleccionamos "Eliminar"
-(ubicada al extremo opuesto de la agencia de aduana por eliminar y dentro de la columna "acciones"). 
-!/help/img/grouping/delete_1.png!
-El Sistema mostrará un diálogo preguntando si deseamos eliminar la agencia de aduana.
-!/help/img/grouping/delete_2.png!
-Si marcamos el botón "Aceptar", la agencia de aduana desaparecerá de la lista de agencias de aduana.
-!/help/img/grouping/delete_3.png!
-</div>
-
-h2(#faq). Preguntas Frecuentes
-
-Actualmente no existen preguntas frecuentes.
-</div>)
-end')
-
 		WikiPage.create(:creator_id => 2, :updator_id => 2, 
     				:path=> 'Agrupaciones', :title => 'Agrupaciones', :content => '<div class="textContent">
 Módulo encargado de mantener las agrupaciones. Permite agregar, modificar y eliminar cada una de las agrupaciones.
@@ -282,6 +194,93 @@ Para eliminar los datos de una calidad existente, en la página principal del m�
 El Sistema mostrará un diálogo preguntando si deseamos eliminar la calidad.
 !/help/img/quality/delete_2.png!
 Si marcamos el botón "Aceptar", la calidad desaparecerá de la lista de calidades.
+!/help/img/grouping/delete_3.png!
+</div>
+
+h2(#faq). Preguntas Frecuentes
+
+Actualmente no existen preguntas frecuentes.
+</div>')
+		WikiPage.create(:creator_id => 2, :updator_id => 2, 
+    				:path=> 'Agencias de Aduana', :title => 'Agencias de Aduana', :content => '<div class="textContent">
+Módulo encargado de mantener las agencias de aduana. Permite agregar, modificar y eliminar cada una de las agencias de aduana.
+</div>
+
+<div class="indexHelp">
+* "1. Descripción de los Campos":#description
+** "1.1 Nombre":#f_name
+** "1.2 Descripción":#f_description
+* "2. Acciones":#actions
+** "2.1 Agregar nueva agencia de aduana":#a_add
+** "2.2 Editar agencia de aduana existente":#a_edit
+** "2.3. Ver agencia de aduana existente":#a_show
+** "2.4. Eliminar agencia de aduana existente":#a_delete
+* "3. Preguntas Frecuentes":#faq
+</div>
+
+<div class="contentHelp">
+h2(#description). Descripción de los Campos
+
+h3(#f_name). Nombre:
+
+<div class="contentHelp">
+Campo que almacena el nombre de la agencia de aduana.
+</div>
+
+h3(#f_description). Descripción:
+
+<div class="contentHelp">
+Campo que almacena una breve descripción de la agencia de aduana.
+</div>
+
+h3(#a_add). Agregar nueva agencia de aduana:
+
+<div class="textContent">
+Para agregar una nueva agencia de aduana, primero debemos seleccionar el módulo "Aduanas" en la barra de navegación (a la izquierda), ubicada dentro de "Recursos".
+!/help/img/grouping/add_1.png!
+El Sistema mostrará en pantalla una lista de todas las agencias de aduana agregadas con anterioridad (Si se ha ingresado por primera vez, no mostrará ninguna).
+Presionamos el botón "Nueva Aduana", en la esquina superior derecha.
+!/help/img/grouping/add_2.png!
+Llenamos la información correspondiente (Los campos obligatorios se destacan con un *). Posteriormente guardamos para continuar o simplemente cancelamos.
+!/help/img/grouping/add_3.png!
+Finalmente, el sistema volverá a la página principal de agencias de aduana y mostrará en la tabla la agencia de aduana agregada.
+!/help/img/grouping/add_4.png!
+</div>
+
+h3(#a_edit). Editar agencia de aduana existente:
+
+<div class="textContent">
+Para editar una agencia de aduana existente, en la página principal del módulo "Aduanas", seleccionamos "Editar"
+(ubicada al extremo opuesto de la agencia de aduana por editar y dentro de la columna "acciones").
+!/help/img/grouping/edit_1.png!
+El Sistema cargará el formulario de ingreso, pero esta vez mostrará los datos que ya se han ingresado. En este punto se puede modificar la información de dichos campos o no.
+Marcamos en el botón "Guardar" para confirmar los nuevos cambios o simplemente cancelamos.
+!/help/img/grouping/edit_2.png!
+Finalmente, el sistema volverá a la página principal de agencias de aduana y mostrará en la tabla el o los datos modificados.
+!/help/img/grouping/edit_3.png!
+</div>
+
+h3(#a_show). Ver agencia de aduana existente:
+
+<div class="textContent">
+Para ver los datos de una agencia de aduana existente, en la página principal del módulo "Aduanas", seleccionamos "Ver"
+(ubicada al extremo opuesto de la agencia de aduana por ver y dentro de la columna "acciones"). 
+!/help/img/grouping/show_1.png!
+El Sistema mostrará los datos de la agencia de aduana seleccionada, sin opción de modificación. 
+Por lo demás, en este punto, el sistema permite editar los datos o simplemente volver a la página principal del módulo.
+!/help/img/grouping/show_2.png!
+Finalmente, el sistema volverá a la página principal de agencias de aduana o de edición dependiendo de la acción tomada.!
+</div>
+
+h3(#a_delete). Eliminar agencia de aduana existente:
+
+<div class="textContent">
+Para eliminar los datos de una agencia de aduana existente, en la página principal del módulo "Aduanas", seleccionamos "Eliminar"
+(ubicada al extremo opuesto de la agencia de aduana por eliminar y dentro de la columna "acciones"). 
+!/help/img/grouping/delete_1.png!
+El Sistema mostrará un diálogo preguntando si deseamos eliminar la agencia de aduana.
+!/help/img/grouping/delete_2.png!
+Si marcamos el botón "Aceptar", la agencia de aduana desaparecerá de la lista de agencias de aduana.
 !/help/img/grouping/delete_3.png!
 </div>
 
@@ -713,6 +712,125 @@ Paso 3: Crear una nueva "Agrupación".
 Paso 4: Una vez creada la nueva agrupación, volver a crear un nuevo "Productor" y seleccionar la "Agrupación" recientemente creada.
 !/help/img/faq/faq_5.png!
 </div>
+</div>')
+		WikiPage.create(:creator_id => 2, :updator_id => 2, 
+    				:path=> 'Packing Pallets', :title => 'Packing Pallets', :content => '<div class="textContent">
+Módulo encargado de mantener las pallets de packing. Permite agregar, modificar y eliminar cada una de las pallets de packing.
+</div>
+
+<div class="indexHelp">
+* "1. Descripción de los Campos":#description
+** "1.1 Nombre":#f_name
+** "1.2 Descripción":#f_description
+* "2. Acciones":#actions
+** "2.1 Agregar nuevo packing pallet":#a_add
+** "2.2 Editar packing pallet existente":#a_edit
+** "2.3. Ver packing pallet existente":#a_show
+** "2.4. Eliminar packing pallet existente":#a_delete
+* "3. Preguntas Frecuentes":#faq
+</div>
+
+<div class="contentHelp">
+h2(#description). Descripción de los Campos
+
+h3(#f_name). Código Pallet:
+
+<div class="contentHelp">
+Campo que almacena el código del packing pallet.
+</div>
+
+h3(#f_description). Tipo de Envase:
+
+<div class="contentHelp">
+Campo que permite seleccionar un tipo de envase para packing pallet.
+</div>
+
+h3(#f_quantity). Cantidad de Envases:
+
+<div class="contentHelp">
+Campo que almacena la cantidad de envases contenidos en un packing pallet.
+</div>
+
+h3(#f_tare). Destare Pallet:
+
+<div class="contentHelp">
+Campo que almacena la tara de un packing pallet.
+</div>
+
+
+h3(#f_temperature). Temperatura:
+
+<div class="contentHelp">
+Campo que almacena la temperatura en grados celcius de un packing pallet.
+</div>
+
+h3(#f_gross). Peso Bruto:
+
+<div class="contentHelp">
+Campo que almacena el peso bruto en kilogramos de un packing pallet.
+</div>
+
+h3(#f_price). Precio por Kilogramo:
+
+<div class="contentHelp">
+Campo que almacena el precio por kilogramo de un packing pallet.
+</div>
+
+
+h3(#a_add). Agregar nuevo packing pallet:
+
+<div class="textContent">
+Para agregar una nuevo packing pallet, primero debemos seleccionar el módulo "Packing Pallets" en la barra de navegación (a la izquierda), ubicada dentro de "Recursos".
+!/help/img/packing_pallet/add_1.png!
+El Sistema mostrará en pantalla una lista de todos los pallets de packing agregados con anterioridad (Si se ha ingresado por primera vez, no mostrará ninguno).
+Presionamos el botón "Nuevo Packing Pallet", en la ezquina superior derecha.
+!/help/img/packing_pallet/add_2.png!
+Llenamos la información correspondiente (Los campos obligatorios se destacan con un *). Posteriormente guardamos para continuar o simplemente cancelamos.
+!/help/img/packing_pallet/add_3.png!
+Finalmente, el sistema volverá a la página principal de pallets de packing y mostrará en la tabla el packing pallet agregada.
+!/help/img/packing_pallet/add_4.png!
+</div>
+
+h3(#a_edit). Editar packing pallet existente:
+
+<div class="textContent">
+Para editar un packing pallet existente, en la página principal del módulo "Packing Pallets", seleccionamos "Editar"
+(ubicada al extremo opuesto del packing pallet por editar y dentro de la columna "acciones").
+!/help/img/packing_pallet/edit_1.png!
+El Sistema cargará el formulario de ingreso, pero esta vez mostrará los datos que ya se han ingresado. En este punto se puede modificar la información de dichos campos o no.
+Marcamos en el botón "Guardar" para confirmar los nuevos cambios o simplemente cancelamos.
+!/help/img/packing_pallet/edit_2.png!
+Finalmente, el sistema volverá a la página principal de pallets de packing y mostrará en la tabla el o los datos modificados.
+!/help/img/packing_pallet/edit_3.png!
+</div>
+
+h3(#a_show). Ver packing pallet existente:
+
+<div class="textContent">
+Para ver los datos de un packing pallet existente, en la página principal del módulo "Packing Pallets", seleccionamos "Ver"
+(ubicada al extremo opuesto del packing pallet por ver y dentro de la columna "acciones"). 
+!/help/img/packing_pallet/show_1.png!
+El Sistema mostrará los datos del packing pallet seleccionado, sin opción de modificación. 
+Por lo demás, en este punto, el sistema permite editar los datos o simplemente volver a la página principal del módulo.
+!/help/img/packing_pallet/show_2.png!
+Finalmente, el sistema volverá a la página principal de pallets de packing o de edición dependiendo de la acción tomada.!
+</div>
+
+h3(#a_delete). Eliminar packing pallet existente:
+
+<div class="textContent">
+Para eliminar los datos de un packing pallet existente, en la página principal del módulo "Packing Pallets", seleccionamos "Eliminar"
+(ubicada al extremo opuesto del packing pallet por eliminar y dentro de la columna "acciones"). 
+!/help/img/packing_pallet/delete_1.png!
+El Sistema mostrará un diálogo preguntando si deseamos eliminar el packing pallet.
+!/help/img/packing_pallet/delete_2.png!
+Si marcamos el botón "Aceptar", el packing pallet desaparecerá de la lista de pallets de packing.
+!/help/img/packing_pallet/delete_3.png!
+</div>
+
+h2(#faq). Preguntas Frecuentes
+
+Actualmente no existen preguntas frecuentes.
 </div>')
 	end
 end

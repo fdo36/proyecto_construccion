@@ -20,8 +20,13 @@
         </label>  
       </div>
       <div class="forme-in">
-        <% kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
-        <%= f.select(:kind_id, kinds_array, :selected => :prompt, :prompt => '- Seleccione Especie -') %>
+        <% if @final_packing_pallet.kind_id.nil? %>
+          <% kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+          <%= f.select(:kind_id, kinds_array, :selected => :prompt, :prompt => '- Seleccione Especie -') %>
+        <% else %>
+          <% kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
+          <%= f.select(:kind_id, kinds_array) %>
+        <% end %>
       </div>
     </div>
 
@@ -33,8 +38,13 @@
         </label>  
       </div>
       <div class="forme-in">
-        <% varieties_array = Variety.all.map { |variety| [variety.name, variety.id] } %>
-        <%= f.select(:variety_id, varieties_array, :selected => :prompt, :prompt => '- Seleccione Variedad -') %>
+        <% if @final_packing_pallet.variety_id.nil? %>
+          <% varieties_array = Variety.all.map { |variety| [variety.name, variety.id] } %>
+          <%= f.select(:variety_id, varieties_array, :selected => :prompt, :prompt => '- Seleccione Variedad -') %>
+        <% else %>
+          <% varieties_array = Variety.all.map { |variety| [variety.name, variety.id] } %>
+          <%= f.select(:variety_id, varieties_array) %>
+        <% end %>
       </div>
     </div>
 
@@ -46,8 +56,13 @@
         </label>  
       </div>
       <div class="forme-in">
-        <% qualities_array = Quality.all.map { |quality| [quality.name, quality.id] } %>
-        <%= f.select(:quality_id, qualities_array, :selected => :prompt, :prompt => '- Seleccione Calidad -') %>
+        <% if @final_packing_pallet.quality_id.nil? %>
+          <% qualities_array = Quality.all.map { |quality| [quality.name, quality.id] } %>
+          <%= f.select(:quality_id, qualities_array, :selected => :prompt, :prompt => '- Seleccione Calidad -') %>
+        <% else %>
+          <% qualities_array = Quality.all.map { |quality| [quality.name, quality.id] } %>
+          <%= f.select(:quality_id, qualities_array) %>
+        <% end %>
       </div>
     </div>
 
@@ -59,8 +74,13 @@
         </label>  
       </div>
       <div class="forme-in">
-        <% pack_packings_array = PackPacking.all.map { |pack_packing| [pack_packing.name, pack_packing.id] } %>
-        <%= f.select(:pack_packing_id, pack_packings_array, :selected => :prompt, :prompt => '- Seleccione Pack Packing -') %>
+        <% if @final_packing_pallet.pack_packing_id.nil? %>
+          <% pack_packings_array = PackPacking.all.map { |pack_packing| [pack_packing.name, pack_packing.id] } %>
+          <%= f.select(:pack_packing_id, pack_packings_array, :selected => :prompt, :prompt => '- Seleccione Pack Packing -') %>
+        <% else %>
+          <% pack_packings_array = PackPacking.all.map { |pack_packing| [pack_packing.name, pack_packing.id] } %>
+          <%= f.select(:pack_packing_id, pack_packings_array) %>
+        <% end %>  
       </div>
     </div>
 
@@ -72,8 +92,13 @@
         </label>  
       </div>
       <div class="forme-in">
-        <% formats_array = FormatPacking.all.map { |format_packing| [format_packing.name, format_packing.id] } %>
-        <%= f.select(:format_id, formats_array, :selected => :prompt, :prompt => '- Seleccione Formato -') %>
+        <% if @final_packing_pallet.format_id.nil? %>
+          <% formats_array = FormatPacking.all.map { |format_packing| [format_packing.name, format_packing.id] } %>
+          <%= f.select(:format_id, formats_array, :selected => :prompt, :prompt => '- Seleccione Formato -') %>
+        <% else %>
+          <% formats_array = FormatPacking.all.map { |format_packing| [format_packing.name, format_packing.id] } %>
+          <%= f.select(:format_id, formats_array) %>
+        <% end %>
       </div>
     </div>
 

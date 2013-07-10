@@ -1,8 +1,8 @@
 <script type="text/javascript">
+var pack_type_array = new Array();
 /***Funciones relacionadas con modificar los input del html***************/
 /*Agrega el rut y codigo sag del productor ademas cuenta los tipos de envases que le perteneces y los agrega a la tabla */
-function show_rut1(s)
-{
+function show_rut1(s){
 	//Busqueda del codigo sag y rut del productor
 	if(s.value == "")
 	{
@@ -57,8 +57,7 @@ function show_rut1(s)
 	stock_pack_type();
 }
 /*Cuenta la cantidad de envases del tipo especificado de la compañia*/
-function show_stock(s)
-{
+function show_stock(s){
 	for(var i=0;i<pack_types.length;i++)
 	{
 		if(s.value==pack_types[i].pack_id)
@@ -68,8 +67,7 @@ function show_stock(s)
 	}
 }
 /*Modifica el stock cuando es cambiado*/
-function show_stock2()
-{
+function show_stock2(){
 	var selectP = document.getElementById("mySelect").value;
 	for(var i=0;i<pack_types.length;i++)
 	{
@@ -80,124 +78,119 @@ function show_stock2()
 	}
 }
 /****************************************************************************/
+function pack(pack_type_id,producer_id,pack_type,quantity,option){
+	this.pack_type_id = pack_type_id;
+	this.producer_id = producer_id;
+	this.pack_type = pack_type;
+	this.quantity = quantity;
+	this.option = option;
+}
+function listar(){
+	for(i=0; i<pack_type_array.length;i++){
 
-/*************Funciones relacionada con la tabla de ingresos*********************/
-/*Agregar un movimiento de envases a la tabla*/
-function displayResult()
-{
-	//Validar las opciones de ingreso de despacho
-	var radio1 =document.getElementById('radio1');
-	var radio2 =document.getElementById('radio2');
-	var selectp = document.getElementById("Productores1").value;
-	var stock = document.getElementById("stock").value
-
-	var quantityValidate =document.getElementById('quantity').value;
-	var producerValidate = document.getElementById("mySelect").value;
-
-
-	if(stock=="Sin Stock")
-	{
-		alert("No hay stock disponible");
+		console.log(pack_type_array[i].pack_type_id+","+pack_type_array[i].producer_id+","+pack_type_array[i].pack_type+","+pack_type_array[i].quantity+","+pack_type_array[i].option);
 	}
-	else if(selectp.length==0)
-	{
-		alert("Debes selecionar un productor");
-	}
-	else if(!radio1.checked && !radio2.checked)
+}
+function validate_radio(radio1,radio2){
+	if(!radio1.checked && !radio2.checked)
 	{
 		alert("Debes selecionar una opcion");
+		return false;
 	}
-	else if(quantityValidate.length==0)
-	{
-		alert("Debes ingresar una cantidad");
+	else{return true;}
+}
+function validate_quantity(q){
+	if(q.length==0){
+		alert("La cantidad no puedes estar en blanco");
+		return false;
 	}
-	else if(producerValidate.length==0)
+	else if(isNaN(q))
 	{
-		alert("Debes selecionar un tipo de envace");
+		alert("Solo debes ingresar números");
+		return false;
+	}
+	else if(q<0)
+	{
+		alert("Solo debes ingresar números postivos");
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+function new_pack(){
+	var radio1 =document.getElementById('radio1');
+	var radio2 =document.getElementById('radio2');
+	var quantity =document.getElementById('quantity').value;
+	var selectp = document.getElementById("Productores1").value;
+	var select = document.getElementById("mySelect");
+	var quantity =document.getElementById('quantity').value;
 
-	}
-	else if(radio2.checked && stock-quantityValidate<0)
-	{
-		alert("Solo puedes despachar: "+(stock));
-	}	
 	
-	else
+	if(validate_radio(radio1,radio2)==true)
 	{
-		if(selectp.length!=0)
+		if(validate_quantity(quantity)==true)
+		{			
+			var pack_add = new pack(select.value,selectp,select.options[select.selectedIndex].text,quantity,"");
+			if(radio1.checked){
+				pack_add.option = radio1.value;
+			}
+			else{
+				pack_add.option = radio2.value;
+			}
+			pack_type_array.push(pack_add);
+			displayResult(pack_add);
+		}
+	}
+}
+/*************Funciones relacionada con la tabla de ingresos*********************/
+/*Agregar un movimiento de envases a la tabla*/
+function displayResult(pack_add){
+	//Validar las opciones de ingreso de despacho
+	var selectp = document.getElementById("Productores1").value;
+	if(selectp.length!=0)
 		{
 			var deshabilitarP = document.getElementById("Productores1")
 			deshabilitarP.disabled=true;
 		}
-		var radio1 = document.getElementById("radio1");
-		var selectp = document.getElementById("Productores1");
-		var select = document.getElementById("mySelect");
-		var quantity = document.getElementById("quantity");
-		var button = '<button type="button" id="bDelete" align="center" onclick="borrarFila(this)">Eliminar</button>';
-
-		if(radio1.checked)
-		{
+		var button = '<a id="'+pack_add.producer_id+'"align="center" onclick="borrarFila(this)">Eliminar</a>';	
 		$('#myTable').dataTable().fnAddData(
-			[select.value,selectp.value,selectp.options[selectp.selectedIndex].text,
-			 select.options[select.selectedIndex].text,
-			 quantity.value,"ingreso",
+			[pack_add.pack_type,pack_add.quantity,pack_add.option,
 			 button
-			]);
-	   }
-	   else
-	   {
-	   	$('#myTable').dataTable().fnAddData(
-			[select.value,selectp.value,selectp.options[selectp.selectedIndex].text,
-			 select.options[select.selectedIndex].text,
-			 quantity.value,"despacho",
-			 button
-			]);
-	   }
-
-		if(radio2.checked)
-		{
-			addPack_type(parseInt(select.value),parseInt(quantity.value),2);
-		}
-		
-	}
+			]);  	
 }
 /*Borrar la fila selecionada de la tabla*/
-function borrarFila(b)
-{
+function borrarFila(b){
 	var table = document.getElementById("myTable");
 	var parent= b.parentNode;
+	
 	while(parent.nodeName.toLowerCase()!='tr'){
 		parent = parent.parentNode;
 	}
 	$('#myTable').dataTable().fnDeleteRow(parent);
+	for(var i=0;i<pack_type_array.length;i++){
+		if(pack_type_array[i].producer_id==parent.childNodes[0].id){
+			pack_type_array.remove[i];
+		}
+	}
+
+
 }
 /*****************************************************************************/
 
 /*****************Funcion relacionada con la base de datos********************/
 /*Agrega los datos de la myTable a la base de datos empty_packs_producer_moves*/
-function add_db()
-{
-	var table = document.getElementById('myTable');
-	var rowLength = table.rows.length;
-	for(var i=2; i<rowLength; i+=1){
-	  var row = table.rows[i];
-	  var values=new Array(); 
-	  var cellLength = row.cells.length;
-	  for(var y=0; y<cellLength-1; y+=1){
-	    var cell = row.cells[y];
-	    if(cell.firstChild!=null)
-	    {
-		    var value = cell.firstChild.data
-		    values.push(value);
-	    }
-	  	}
-
+function add_db(){
+	
+	for(var i=0; i<pack_type_array.length; i+=1){
+	  
 	  	$.ajax({
-			url: "producers/"+values[1]+"/empty_packs_producer_moves",
+			url: "producers/"+pack_type_array[i].producer_id+"/empty_packs_producer_moves",
 	 		type: "POST",
-	    	data: {empty_packs_producer_move:{producer_id: values[1],pack_type_id: values[0],quantity: values[4],pack_option: values[5]}},
+	    	data: {empty_packs_producer_move:{producer_id: pack_type_array[i].producer_id,pack_type_id: pack_type_array[i].pack_type_id,quantity: pack_type_array[i].quantity,pack_option: pack_type_array[i].option}},
 	 	}).done(function(data){
 
-             window.location = "/empty_packs_producer_moves"
+             window.location = "/empty_packs"
          });
 		
 	}
@@ -292,34 +285,37 @@ function add_db()
 		<%end%>
   </tbody>
 </table>
+<div class="headContent">
+  <h1>Envases</h1>
+</div>
+<div class="box">
 <!--Boton que agregar los datos a la tabla-->
-<button type="button" onclick="displayResult(),show_stock2()" class="button blue alignright">Agregar</button>
+<button type="button" onclick="new_pack()" class="button blue alignright">Agregar</button>
 <!--Tabla que muestra los datos agregados a la tabla-->
 <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="myTable">
 	<thead>
    	<tr>
-	    	<th>Envase1</th>
-	    	<th>Productor1</th>
-	    	<th>Productor</th>
-	      <th>Envase</th>
-	      <th>Cantidad</th>
-	      <th>Opcion</th>
-	      <th>Acción</th>
-    	</tr>
+    	
+    	<th>Envase</th>
+      	<th>Cantidad</th>
+      	<th>Opcion</th>
+	  	<th>Acción</th>
+	</tr>
   </thead>
 	<tbody id="tBody">
 		<tr style="display:none">
-			<td>1</td>
-			<td>1</td>
-			<td>2</td>
-			<td>3</td>
+			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
 		</tr>
   </tbody>
 </table>
+</div>
+<div class="foot-box">
 <!--Boton que termina el proceso y agrega todos los datos a la base de datos-->
-<a class = "button blue alignright" data-role="button" onclick="add_db()">Aceptar</a>
+ <%= link_to 'Cancelar', empty_packs_path, :class => "button silver alignright" %>
+<a class = "button green alignright" data-role="button" onclick="add_db()">Guardar</a>
+</div>
 
 
