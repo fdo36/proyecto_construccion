@@ -4,6 +4,7 @@ class Company < ActiveRecord::Base
   validates :name, :presence => true
   validates :rut, :presence => true
   validates :email, :presence => true
+  validates_inclusion_of :system_type, :in => [true, false]
  
 
   validates :phone, :format => { :with => /^-?((?:\d+|\d*)$)/,
@@ -16,7 +17,7 @@ class Company < ActiveRecord::Base
     :message => "debe ingresar el formato válido. Ejemplo: 11.111.111-1" }
 
   
-  attr_accessible :address, :commune_id, :email, :line_of_business, :name, :phone, :rut , :active, :region_id
+  attr_accessible :address, :commune_id, :email, :line_of_business, :name, :phone, :rut , :active, :region_id , :system_type
   
   has_many :users , :dependent => :destroy
   belongs_to :commune
@@ -24,4 +25,3 @@ class Company < ActiveRecord::Base
   has_many :receipts
   has_many :dispatches
 end
-
