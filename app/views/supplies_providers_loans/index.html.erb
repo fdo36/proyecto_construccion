@@ -20,8 +20,8 @@
         <% @supplies_providers_loans.each do |supplies_providers_loan| %>
             <tr>
               <td><%= supplies_providers_loan.dispatch_guide_number %></td>
-              <td><%= supplies_providers_loan.provider_id %></td>
-              <td><%= supplies_providers_loan.supply_id %></td>
+              <td><%= (Provider.all(:select => "name", :conditions => ["id = ?", supplies_providers_loan.provider_id]))[0].name %></td>
+              <td><%= (Supply.all(:select => "name", :conditions => ["id = ?",supplies_providers_loan.supply_id]))[0].name %></td>
               <td><%= supplies_providers_loan.quantity %></td>
               <td><%= link_to 'Ver', supplies_providers_loan %></td>
               <td><%= link_to 'Editar', edit_supplies_providers_loan_path(supplies_providers_loan) %></td>
