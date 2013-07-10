@@ -117,19 +117,26 @@
 					
 						<% namesIO = {'Receipt' => 'Ingresos', 'Season' => 'Temporada', 'Dispatch' => 'Despachos', 'Report' => 'Informes' }%>
 
+						<% namesInventory = {'Supply' => 'Insumos', 'Provider' => 'Proveedores', 'SuppliesProvidersLoan' => 'Ingreso de Insumos', 'SuppliesLoan' => 'Prestamos de Insumos' , 'SuppliesReturn' => 'Devolucion de Insumos'}%>
+
 						<% namesResource = {'Producer' => 'Productor', 'Pack_type' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Especie', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduana', 'Worker' => 'Trabajador', 'Variety' => 'Variedad' , 'OriginPort' => 'Puertos de Origen',  'DestinationPort' => 'Puertos de destino'} %>
 
-						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'Pack_type' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/kinds', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs', 'Worker' => '/workers', 'Variety' => '/varieties' , 'OriginPort' => '/origin_ports',  'DestinationPort' => '/destination_ports'} %>
+						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'Pack_type' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/kinds', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs', 'Worker' => '/workers', 'Variety' => '/varieties' , 'OriginPort' => '/origin_ports',  'DestinationPort' => '/destination_ports' , 'Supply' => '/supplies' , 'Provider' => '/providers' , 'SuppliesProvidersLoan' => '/supplies_providers_loans' , 'SuppliesLoan' => '/supplies_loans' ,'SuppliesReturn' => '/supplies_returns'  } %>
+
+						
 
 						<% models_name_io = [] %>
 						<% models_name_rsrc = [] %>
+						<% models_name_isrc = [] %>
 						<% for r in current_user.roles %>
 							<% r.access_rights.each do |ar| %> 
 								<% if namesIO.has_key?(ar.model_name) and !models_name_io.include?(ar.model_name)%>
 									<% models_name_io << ar.model_name%>
 								<% elsif namesResource.has_key?(ar.model_name) and !models_name_rsrc.include?(ar.model_name)%>
 									<% models_name_rsrc << ar.model_name%>
-								<% end %>
+								<% elsif namesInventory.has_key?(ar.model_name) and !models_name_isrc.include?(ar.model_name)%>
+									<% models_name_isrc << ar.model_name%>
+								<%end%>
 							<% end %>
 						<% end %>
 
@@ -147,6 +154,15 @@
 							<ul>
 							<% for m in models_name_rsrc%>
 								<li> <%= link_to namesResource[m], links[m] %></li>
+							<% end %>
+							</ul>
+						<% end %>
+
+						<%if !models_name_isrc.empty? %>
+							<p>Inventario</p>
+							<ul>
+							<% for m in models_name_isrc%>
+								<li> <%= link_to namesInventory[m], links[m] %></li>
 							<% end %>
 							</ul>
 						<% end %>
