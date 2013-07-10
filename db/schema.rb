@@ -130,6 +130,12 @@ ActiveRecord::Schema.define(:version => 20130710215444) do
     t.string   "name_driver"
     t.string   "rut_driver"
     t.string   "patent"
+    t.string   "nave"
+    t.string   "reservation"
+    t.string   "stamp_number"
+    t.string   "thermograph"
+    t.string   "dispatch_guide"
+    t.string   "po_number"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
