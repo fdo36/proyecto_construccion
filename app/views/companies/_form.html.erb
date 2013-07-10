@@ -69,6 +69,18 @@
       <%= f.select(:commune_id, "commune" ,:selected => :prompt, :prompt => '- Seleccione comuna -') %>
     </div>
   </div>
+
+  <div class="line-forme">
+      <div class="forme-lab">
+        <%= f.label :Tipo_de_Compañia %><br />
+      </div>
+      <div class="forme-in">
+        <%= f.radio_button(:system_type, true) %>
+        <%= label_tag(:label1, "Centro de Acopio") %>
+        <%= f.radio_button(:system_type, false) %>
+        <%= label_tag(:label1, "Sistema de Packing ") %>
+      </div>
+    </div>
   <div class="line-forme">
     <div class="forme-lab">
       <%= f.label :Giro_del_Negocio %><br />
