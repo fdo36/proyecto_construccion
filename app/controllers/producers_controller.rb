@@ -29,6 +29,7 @@ class ProducersController < ApplicationController
   def new
     @producer = Producer.new
     @groupings = Grouping.all
+    @kinds = Kind.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,6 +41,7 @@ class ProducersController < ApplicationController
   def edit
     @producer = Producer.find(params[:id])
     @groupings = Grouping.all
+    @kinds = Kind.all
   end
 
   # POST /producers
@@ -54,6 +56,11 @@ class ProducersController < ApplicationController
     grouping_ids = params[:grouping_ids] if params[:grouping_ids] 
     grouping_ids ||= []
     @producer.grouping_ids = grouping_ids
+
+    @kinds = Kind.all
+    kind_ids = params[:kind_ids] if params[:kind_ids] 
+    kind_ids ||= []
+    @producer.kind_ids = kind_ids
 
     @producer.company_id = current_user.company_id
 
