@@ -205,40 +205,38 @@ class PackingReportsController < ApplicationController
       #Producto en especifico
       else
         mtrxx = []
-        @kinds = Kind.find{ |e| e.id = @kind_id }
-        @kinds.each do |kind|
-          temp = []
-          @varieties = Variety.all
-          @varieties. each do |variety|
-            temp2 = []
-            @moves = Variety.find(:all, 
-                :from => "varieties, receipt_packing_ios, packing_pallets",
-                :select => "receipt_packing_ios.receipt_packing_io_datetime,
-                            receipt_packing_ios.id,
-                            packing_pallets.pallet_code,
-                            packing_pallets.gross_weight,
-                            packing_pallets.unit_price",
-                :conditions => ["varieties.kind_id = ? and
-                            varieties.id = packing_pallets.variety_id and
-                            receipt_packing_ios.producer_id = ? and
-                            receipt_packing_ios.id = packing_pallets.receipt_packing_io_id and
-                            packing_pallets.variety_id = ? and
-                            receipt_packing_ios.receipt_packing_io_datetime >= ? and
-                            receipt_packing_ios.receipt_packing_io_datetime <= ?",
-                            kind.id, @producer_id, variety.id, @fecha_inicio, @fecha_termino])
-            @moves.each do |dato|
-                row = []
-                row << dato.receipt_packing_io_datetime[0,10]
-                row << dato.id
-                row << dato.pallet_code
-                row << dato.gross_weight
-                row << dato.unit_price
-                temp2 << row
-            end
-            temp << [variety, temp2]
+        @kind = Kind.find{ |e| e.id = @kind_id }
+        temp = []
+        @varieties = Variety.all
+        @varieties. each do |variety|
+          temp2 = []
+          @moves = Variety.find(:all, 
+              :from => "varieties, receipt_packing_ios, packing_pallets",
+              :select => "receipt_packing_ios.receipt_packing_io_datetime,
+                          receipt_packing_ios.id,
+                          packing_pallets.pallet_code,
+                          packing_pallets.gross_weight,
+                          packing_pallets.unit_price",
+              :conditions => ["varieties.kind_id = ? and
+                          varieties.id = packing_pallets.variety_id and
+                          receipt_packing_ios.producer_id = ? and
+                          receipt_packing_ios.id = packing_pallets.receipt_packing_io_id and
+                          packing_pallets.variety_id = ? and
+                          receipt_packing_ios.receipt_packing_io_datetime >= ? and
+                          receipt_packing_ios.receipt_packing_io_datetime <= ?",
+                          @kind.id, @producer_id, variety.id, @fecha_inicio, @fecha_termino])
+          @moves.each do |dato|
+              row = []
+              row << dato.receipt_packing_io_datetime[0,10]
+              row << dato.id
+              row << dato.pallet_code
+              row << dato.gross_weight
+              row << dato.unit_price
+              temp2 << row
           end
-          mtrxx << [kind, temp] 
-        end
+          temp << [variety, temp2]
+          end
+          mtrxx << [@kind, temp] 
         pdf = Report9Pdf.new(@producer, mtrxx, view_context)
         send_data pdf.render,
           type: "application/pdf",
