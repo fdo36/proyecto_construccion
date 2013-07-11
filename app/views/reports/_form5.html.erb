@@ -3,47 +3,28 @@
 function show_pack_type3() //sel= id del productor seleccionado
    {
       var selDest = document.getElementById("Destinos5");
-      var selEnv = document.getElementById("Envases5");
-      var idDest = selDest.options[selDest.selectedIndex].value;
-      setEstadoBoton5(idDest);
-      selEnv.options.length = 0;
-      selEnv.options[0] = new Option("Seleccione un Envase","","1");      
+      var selEsp = document.getElementById("Especies5");
+      var idDest = selDest.options[selDest.selectedIndex].value;    
       var x = 1;
-      var flag5;   
-      $.get("/pack_types.json", function(data) {  
+      var flag1;
+      selEsp.options.length = 0;
+      selEsp.options[0] = new Option("Seleccione una Especie","","1");  
+      $.get("/kinds.json", function(data) {  
       $.get("/dispatches.json", function(data1) { 
-      $.get("/pack_group_dispatches.json", function(data2) { 
-      $.get("/pallets.json", function(data3) { 
       for(i=0;i<data.length;i++){
-            flag5 = true;
-            for(j=0;j<data1.length && flag5;j++){
-                 if(idDest == data1[j].destination_id){ //// si destino idDest == idDestino de dispatches
-                     for(k=0;k<data2.length && flag5;k++){ //busco en pack_group_dispatches
-                          if(data1[j].id == data2[k].dispatch_id && data[i].id == data2[k].pack_type_id){ //idDispatch == idDispatch de pack_group_dispatches and idPackType == idPackType de pack_group_dispatches
-                              selEnv.options[x] = new Option(data[i].name,data[i].id,"0");
-                              x++;
-                              selEnv.selectedIndex=0;                               
-                              flag5 = false;
-                          }                       
-                     }
-                     if(flag5){ //si NO se encontro en packGroupReceipts, busco en Pallets
-                        for(q=0;q<data3.length && flag5;k++){ //busco en pallets
-                             if(data1[j].id == data3[q].dispatch_id && data[i].id == data3[k].pack_type_id){ //idDispatch == idDispatch de pallets and idPackType == idPackType de pallets
-                                 selEnv.options[x] = new Option(data[i].name,data[i].id,"0");
-                                 x++;
-                                 selEnv.selectedIndex=0;                               
-                                 flag5 = false;
-                             }                          
-                        }
-                     }
-                 }
-
+         flag1 = true;
+         for(j=0;j<data1.length && flag1;j++){
+            if(idDest == data1[j].id && data[i].id == data1[j].kind_id){
+                  selEsp.options[x] = new Option(data[i].name,data[i].id,"0");
+                  x++;
+                  selEsp.selectedIndex=0;
+                  flag1 = false;
             }
+         }
       }
       });
-      });
-      });
-      });
+      });  
+      setEstadoBoton5(idDest) ;
       
   }
 
@@ -93,7 +74,7 @@ function show_pack_type3() //sel= id del productor seleccionado
         </div>
         <% @kinds_array = Kind.all.map { |kind| [kind.name, kind.id] } %>
         <div class="forme-in">
-            <%= select_tag "Especies5", options_for_select(@kinds_array), :prompt => "Seleccione una Especie" %>
+            <%= select_tag "Especies5", "",:prompt => "Seleccione una Especie" %>
          </div>                        
       </div>
 
