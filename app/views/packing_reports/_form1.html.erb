@@ -45,7 +45,7 @@
       selKin.options[0] = new Option("Seleccione una Especie","","1");
        $.get("/pack_types.json", function(data) {  
          $.get("/packing_pallets.json", function(data1) {
-            $.get("/empty_packs_producer_moves.json", function(data2) {
+            $.get("/producers/"+sel+"/empty_packs_producer_moves.json", function(data2) {
           for(i=0;i<data.length;i++){
             flag1 = true;
             for(j=0;j<data1.length && flag1;j++){
