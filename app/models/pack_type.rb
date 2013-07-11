@@ -1,5 +1,9 @@
 #encoding: utf-8
+require "general"
+
 class PackType < ActiveRecord::Base
+  announce_component(:acopiopacking, "Recursos", 4)
+
   attr_accessible :company_id, :name, :tare
 
   validates :name, :tare, :presence => true

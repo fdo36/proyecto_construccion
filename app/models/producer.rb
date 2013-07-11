@@ -1,7 +1,9 @@
 #encoding: utf-8
 require 'validators.rb'
+require "general"
 
 class Producer < ActiveRecord::Base
+  announce_component(:acopio, "Recursos", 5)
   
   attr_accessible :active, :address, :commune_id, :name, :contact, :email, :line_of_business, :phone, :rut, :sag_code, :is_deleted, :code
 
