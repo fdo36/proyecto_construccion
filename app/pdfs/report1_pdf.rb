@@ -49,11 +49,7 @@ class Report1Pdf < Prawn::Document
 					y_current = cursor
 					text "Especie", :size => 13
 
-					if data.length==1
-						text_box ": #{@kind.name}", :at => [marginx1, y_current], :style => :bold #TIPO DE EMVASE
-					else
-						text_box ": #{@kind[0].name}", :at => [marginx1, y_current], :style => :bold #TIPO DE EMVASE
-					end
+					text_box ": #{@kind.name}", :at => [marginx1, y_current], :style => :bold #TIPO DE EMVASE
 
 					stroke_line [marginx1, cursor], [540, cursor]
 

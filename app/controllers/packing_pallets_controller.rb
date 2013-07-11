@@ -44,7 +44,7 @@ class PackingPalletsController < ApplicationController
 
     respond_to do |format|
       if @packing_pallet.save
-        format.html { redirect_to @packing_pallet, notice: 'El Packing Pallet fue creado exitosamente.' }
+        format.html { redirect_to '/packing_pallets', notice: 'El Packing Pallet fue creado exitosamente.' }
         format.json { render json: @packing_pallet, status: :created, location: @packing_pallet }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class PackingPalletsController < ApplicationController
 
     respond_to do |format|
       if @packing_pallet.update_attributes(params[:packing_pallet])
-        format.html { redirect_to @packing_pallet, notice: 'El Packing Pallet fue editado exitosamente.' }
+        format.html { redirect_to '/packing_pallets', notice: 'El Packing Pallet fue editado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
