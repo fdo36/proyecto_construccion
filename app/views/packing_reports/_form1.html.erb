@@ -1,5 +1,4 @@
 <script type="text/javascript">
-
    function show_rut1(s)
    {
       if(s.value == "")
@@ -24,14 +23,116 @@
       setEstadoBoton1(s.options[s.selectedIndex].value);
    }
 
+     function setEstadoBoton1(idPro){
+      //si campos obligatorios estan seleccionados ==> boton habilitado, sino boton deshabilitado
+      var bt1 = document.getElementById("boton1");
+      if(idPro>=1){
+        bt1.disabled = false;
+        bt1.setAttribute("class","button blue");
+      }
+      else{
+        bt1.disabled = true;
+        bt1.setAttribute("class","");
+      } 
+  }   
+
+   function show_kind1(sel) //sel= id del productor seleccionado
+   {
+      var selKin = document.getElementById("EnvasePacking");
+      var x = 1;
+      var flag1;
+      selKin.options.length = 0;
+      selKin.options[0] = new Option("Seleccione una Especie","","1");
+       $.get("/pack_types.json", function(data) {  
+         $.get("/packing_pallets.json", function(data1) {
+          for(i=0;i<data.length;i++){
+            flag1 = true;
+            for(j=0;j<data1.length && flag1;j++){
+               if(data1[j].producer_id == sel && data1[j].pack_type_id == data[i].id){
+                  selKin.options[x] = new Option(data[i].name,data[i].id,"0");
+                  x++;
+                  selKin.selectedIndex=0;
+                  flag1 = false;
+               }
+            
+          }
+          }  
+       });
+       });
+   }
+
+   function myfunction(event)
+   {
+      var keyCode = ('which' in event) ? event.which : event.keyCode;
+      if(keyCode==9)
+      {
+         var rut22 = document.getElementById('rut22');
+         $.getJSON("/producers.json", function(data) {
+            var bandera = false;
+            $.each(data, function(index, element){
+               if(element.rut==rut22.value)
+               {
+                  var inputCodigo = document.getElementById('nombrectm');
+                  inputCodigo.value = element.name;
+                  bandera = true;
+               }
+            });
+
+            if(bandera==false)
+            {
+               var inputCodigo = document.getElementById('nombrectm');
+               inputCodigo.value = "-";
+            }
+         });
+      }
+   }
+
+   function get_parameters1()
+   {
+      var producerID = document.getElementById('Productores1');
+
+      if(producerID.value=="")
+      {
+         alert('Seleccione un productor');
+      }
+      else
+      {
+         $.get("/producers/"+producerID.value+".json", function(producers) {
+            var especieID = document.getElementById('Especies1');
+
+            if(especieID.value=="")
+            {
+               //Hacer la consulta mas general
+            }
+            else
+            {
+               //Hacer la consulta mas especifica!!
+               $.get("/kinds/"+especieID.value+".json", function(kinds) {
+                  $.get("/receipts.json", function(receipts) {
+                     $.each(data, function(index, element){
+                        
+                     });
+                  });
+               });
+            }
+         });
+      }
+   }
+   function validate(){
+      var producerID = document.getElementById('Productores1');
+      if(producerID.value == ""){
+         alert('Debes seleccionar un productor');
+      }
+   }
+
+
 
 </script>
 
-<!---->
+<!--Precio por Productor-->
 <%= form_tag  do %>
 <input type="hidden" value="1" name="report_type"></input>
-
-<div class="line-forme">
+   <div class="line-forme">
       <div class="forme-lab">
          <%= label_tag 'Productor'%> 
               <em class="formee-req">*</em>
@@ -62,6 +163,16 @@
 
    <div class="line-forme">
       <div class="forme-lab">
+         <%= label_tag 'Envase'%>
+      </div>
+
+      <div class="forme-in">
+         <%= select_tag "EnvasePacking","",:prompt => "Seleccione un Envase" %>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
          <%= label_tag 'Fecha Inicio' %>
       </div>
       <div class="field">
@@ -77,6 +188,5 @@
          <%= select_date Date.today, :prefix => :end_date1%>
       </div>
    </div>
-   <button id = "boton1" >Generar Informe </button>   
-
+   <button id = "boton1" >Generar Informe </button>
 <% end %>
