@@ -169,9 +169,24 @@ var config = 'pack_pallet';
       });
     });
 
-  function show_rut(s) {
-    load_kinds(s);
-    if(s.value == "")
+  function load_kinds(producer)
+  {
+    $.get("/producers/"+producer.value+"/kinds.json", function(data) {
+        $('#receipt_kind_id')
+            .find('option')
+            .remove()
+            .end()
+            .append('<option value="prompt">- Seleccione especie -</option>')
+            .val('prompt');
+      $.each(data, function(index, value){
+        $("#receipt_kind_id").append(new Option(value.name, value.id));
+      });
+    });
+  }
+
+  function show_rut(producer) {
+
+    if(producer.value == "")
     {      
       $('#rut').val(""); 
       $('#codigo').val("");
@@ -179,7 +194,8 @@ var config = 'pack_pallet';
     }
     else
     {
-      $.get("/producers/"+s.value+".json", function(data) {
+      load_kinds(producer);
+      $.get("/producers/"+producer.value+".json", function(data) {
         $('#rut').val(data.rut); 
         $('#codigo').val(data.code);
         $('#codigo_sag').val(data.sag_code);
