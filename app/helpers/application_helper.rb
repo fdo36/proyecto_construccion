@@ -12,7 +12,7 @@ module ApplicationHelper
 			end
 		}
 		models.reject! { |model_class|
-			model_class.nil? #or !can? :read, model_class
+			model_class.nil? or !can? :read, model_class
 		}
 		models.each { |model_class|
 			begin
@@ -22,7 +22,9 @@ module ApplicationHelper
 			rescue
 			end
 		}
-		categories
+		categories.each { |category_name, components|
+			components.sort! { |x,y| x.get_component_info[2] <=> y.get_component_info[2] }
+		}
 	end
 
 	def link_for_component(component)
