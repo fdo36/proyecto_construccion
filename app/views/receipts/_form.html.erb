@@ -6,6 +6,12 @@ var modified = false;
 var idReg = 0;
 var posTable = 0;
 var config = 'pack_pallet';
+  
+    $(document).ready(function(){
+      $("#receipt_kind_id").change(function(){
+        show_variety(this);
+      });
+    });
 
     $(function() {
       config = load_config();
@@ -209,15 +215,15 @@ var config = 'pack_pallet';
       $("#destare").prop("disabled",true);
       $("#code").val("");
       $("#destare").val("");
-      $('#select_kind').prop("disabled",false);
+      $('#receipt_kind_id').prop("disabled",false);
     } 
     else{
       $("#code").prop("disabled",false);
       $("#destare").prop("disabled",false);
 
-      if(!$.isNumeric($('#select_kind').val()))
+      if(!$.isNumeric($('#receipt_kind_id').val()))
       {
-        $('#select_kind').prop("disabled",false);
+        $('#receipt_kind_id').prop("disabled",false);
         $('#check').attr("checked", false);
         $("#kind_error").text("Seleccione una Especie antes");
         $("#code").prop("disabled",true);
@@ -225,7 +231,7 @@ var config = 'pack_pallet';
       }
       else
       {
-        $('#select_kind').prop("disabled",true);
+        $('#receipt_kind_id').prop("disabled",true);
       }
     }
   }
@@ -272,7 +278,7 @@ var config = 'pack_pallet';
     if(registers.length > 0)
     {
       //obtener datos de ingreso
-      var kind_id = $("#select_kind").val();
+      var kind_id = $("#receipt_kind_id").val();
       var producer_id = $("#select_producer").val();
 
       //crear datetime
@@ -451,7 +457,7 @@ var config = 'pack_pallet';
 
   function validate_receipt () {
     var producer_id = ($("#select_producer").val());
-    var kind_id = ($("#select_kind").val());
+    var kind_id = ($("#receipt_kind_id").val());
 
     $("#producer_div").removeClass("field_with_errors");
     $("#kind_div").removeClass("field_with_errors");
