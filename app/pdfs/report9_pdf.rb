@@ -21,20 +21,19 @@ class Report9Pdf < Prawn::Document
 		    	@kind =data[i][0]
 		    	@mtrxx1 = data[i][1]
 		    	for j in (0 .. (@mtrxx1.length-1))
-		    		if mtrxx1[j][1].length != 0
-                        @variety = mtrxx1[j][0]
-                        @mtrxx = marginx1[j][1]
+		    		if @mtrxx1[j][1].length != 0
+                        @variety = @mtrxx1[j][0]
+                        @mtrxx = @mtrxx1[j][1]
 						move_down 10
 						y_current = cursor
-						text "ESPECIE / VARIEDAD", :size => 13
+						text "PRODUCTO", :size => 13
 						text_box ": #{@kind.name}/#{@variety.name}", :at => [marginx1, y_current], :style => :bold #TIPO DE EMVASE
 						stroke_line [marginx1, cursor], [540, cursor]
 
 						move_down 20
 
-						suma = 0
 						bounding_box([270, cursor], :width => 200) do
-							datos =  [["Fecha", "N° Ingreso", "Codigo Pallet", "Peso Bruto", "Precio P/Unidad"]]#dejar como está y llenar las siguientes filas
+							datos =  [["Fecha", "Nro Ingreso", "Codigo Pallet", "Peso Bruto", "Precio P/Unidad"]]#dejar como está y llenar las siguientes filas
 							for i in (0 .. (@mtrxx.length-1))
 								datos <<  @mtrxx[i]
 							end

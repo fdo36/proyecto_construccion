@@ -176,9 +176,10 @@ class PackingReportsController < ApplicationController
                             packing_pallets.gross_weight,
                             packing_pallets.unit_price",
                 :conditions => ["varieties.kind_id = ? and
+                            varieties.id = packing_pallets.variety_id and
                             receipt_packing_ios.producer_id = ? and
                             receipt_packing_ios.id = packing_pallets.receipt_packing_io_id and
-                            packing_pallets.variety_id == ? and
+                            packing_pallets.variety_id = ? and
                             receipt_packing_ios.receipt_packing_io_datetime >= ? and
                             receipt_packing_ios.receipt_packing_io_datetime <= ?",
                             kind.id, @producer_id, variety.id, @fecha_inicio, @fecha_termino])
