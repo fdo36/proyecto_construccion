@@ -1,7 +1,5 @@
 <script type="text/javascript">
 
-
-
 var registers = new Array();
 var id_count = 1;
 var modified = false;
@@ -23,22 +21,19 @@ function del_register () {
 
 function add_supply_return()
 {
-  var worker_id = $("#worker_id").val();
-  var worker_name = $("#worker_id option[value='"+worker_id+"']").text();
   var supply_id = $("#supply_id").val();
   var supply_name = $("#supply_id option[value='"+supply_id+"']").text();
   var quantity= $("#quantity").val();
-  alert(quantity);
   var id = id_count;
   id_count++;
 
-  var new_register = new register(worker_id, quantity, supply_id, id);
+  var new_register = new register( quantity, supply_id, id);
   registers.push(new_register);
 
-  var row = new Array(worker_name, supply_name, quantity, "<a href='#' onClick='delete_row(cd)'>eliminar</a>");
+  var row = new Array( supply_name, quantity, "<a href='#' onClick='delete_row(cd)'>eliminar</a>");
     $('#supply_table').dataTable().fnAddData(row);
     set_modified(true);
-
+    clean_form();
 }
 
 function add_db () {
@@ -46,8 +41,7 @@ function add_db () {
   {
     for (var i = 0; i < registers.length; i++) {
       var register = registers[i];
-
-      var p_worker_id = register.worker_id;
+      var p_worker_id = $("#worker_id").val();
       var p_quantity = register.quantity;
       var p_supply_id = register.supply_id;
       
@@ -64,36 +58,45 @@ function add_db () {
       
   };
   set_modified(false);
+  location.href='/supplies_returns';
  
   }
   else
     alert("Lista de ingresos vacía");
 }
 
-function register ( worker_id, quantity, supply_id , id) 
-{
-  this.worker_id = worker_id;
-  this.quantity = quantity;
-  this.supply_id = supply_id;
-  this.id = id;
-}
+  function register ( quantity, supply_id , id) 
+  {
+    this.quantity = quantity;
+    this.supply_id = supply_id;
+    this.id = id;
+  }
 
-function show_rut(s)
-{
-  if(s.value == "")
+  function clean_form () 
   {
-   var inputRut = document.getElementById('rut');
-   inputRut.value = " - ";
+      $("#supply_id").val("");
+      $("#stock").val("");
+      $("#quantity").val("");
+      $("#pending").val("");
+      $('#supply_id').trigger('liszt:updated');
   }
-  else
+
+  function show_rut(s)
   {
-   $.get("/workers/"+s.value+".json", function(data) {
-      var inputRut = document.getElementById('rut');
-      inputRut.value = data.rut;
-   });
+    if(s.value == "")
+    {
+     var inputRut = document.getElementById('rut');
+     inputRut.value = " - ";
+    }
+    else
+    {
+     $.get("/workers/"+s.value+".json", function(data) {
+        var inputRut = document.getElementById('rut');
+        inputRut.value = data.rut;
+     });
+    }
   }
-}
-function show_stock(s)
+  function show_stock(s)
   {
     if (s.value == "")
     {
@@ -109,20 +112,54 @@ function show_stock(s)
     }
   }
 
+  function show_pending (){
+    var supply_id = $("#supply_id").val();
+    var worker_id = $("#worker_id").val();
+    var loans = 0;
+    var returns = 0;
+    alert("entro");
+    var ajax_loans = $.get("/supplies_loans.json", function(data){
+      console.log(data);
+        $.each(data, function(index, value){
+          
+           if(worker_id == value.worker_id && supply_id == value.supply_id){
+              loans = loans + value.quantity;
+              alert(loans);
 
-function isInteger(possibleInteger) 
-{
-  return !isNaN(parseInt(possibleInteger));
-}
+          }
+        });
+        alert(loans);
+    });
+    
+    var ajax_returns = $.get("/supplies_returns.json", function(data){
+        $.each(data, function(index, value){
+           if(worker_id == value.worker_id && supply_id == value.supply_id){
+              returns= returns + value.quantity;
+          }
+        });            
+    });
+
+    $.when(ajax_loans, ajax_returns).done(function() {
+      var inputPending = document.getElementById('pending');
+      inputPending.value = loans - returns;
+    });
 
 
-  function errors_revision() {
+  }
+
+
+  function isInteger(possibleInteger) 
+  {
+    return !isNaN(parseInt(possibleInteger));
+  }
+
+
+  function errors_revision() 
+  {
     document.getElementById("show_errors").innerHTML = "";
     var quantity = $("#quantity").val();
     var stock =  $("#stock").val();
-    var dispatch_guide_number = $("#dispatch_guide_number").val();
-    
-    
+
     $("#quantity").removeClass("field_with_errors");
     $("#dispatch_guide_number").removeClass("field_with_errors");
     var supply_id = $("#supply_id").val();
@@ -225,6 +262,12 @@ function isInteger(possibleInteger)
   </div>
 </div>
 
+<div class = "contentSubPanel">
+    <div class="headContent">
+      <h1></h1>
+    </div>
+    <div class="box">
+
  <div class="line-forme">
       <div class="forme-lab">
         <label>Insumo </label>
@@ -233,13 +276,10 @@ function isInteger(possibleInteger)
       <div class="forme-in">
 
         <% @supplies_array = Supply.all.map { |supply| [supply.name, supply.id] } %>
-        <%= f.select(:supply_id, options_for_select(@supplies_array), {:selected => :prompt, :prompt => '- Seleccione un Insumo - '} , :id => 'supply_id',:onchange => "show_stock(this)", :class => 'chzn-select') %>  
+        <%= f.select(:supply_id, options_for_select(@supplies_array), {:selected => :prompt, :prompt => '- Seleccione un Insumo - '} , :id => 'supply_id',:onchange => "show_pending();show_stock(this);", :class => 'chzn-select') %>  
         
       </div>
   </div>
-
-
-
 
 <div class="line-forme">
   <div class="forme-lab">
@@ -249,6 +289,15 @@ function isInteger(possibleInteger)
     <input id="stock" value="-" disabled="true"></input>
   </div>  
 </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= label_tag 'Por devolver'%> 
+    </div>    
+    <div class="forme-in">
+      <input id="pending" value="-" disabled="true"></input>
+    </div>  
+  </div>
 
 <div class="line-forme">
   <div class="forme-lab">
@@ -263,7 +312,6 @@ function isInteger(possibleInteger)
   <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="supply_table">
     <thead>
       <tr>    
-        <th>Trabajador</th>
         <th>Insumo</th>
         <th>Cantidad</th>  
         <th>Acciones</th>
@@ -273,7 +321,8 @@ function isInteger(possibleInteger)
     <tbody>
     </tbody>
   </table>
-
+</div>
+</div>
   </div>
 </div>
 <div class="foot-box">

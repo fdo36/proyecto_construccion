@@ -22,99 +22,90 @@ function del_register () {
 
 function add_insumo()
 {
-  var provider_id = $("#provider_id").val();
-  var provider_name = $("#provider_id option[value='"+provider_id+"']").text();
-  var dispatch_guide_number = $("#dispatch_guide_number").val();
   var supply_id = $("#supply_id").val();
   var supply_name = $("#supply_id option[value='"+supply_id+"']").text();
   var quantity= $("#quantity").val();
-  alert(quantity);
   var id = id_count;
   id_count++;
-  dispatch_guide_number.disabled = false;
 
 
-  var new_register = new register(provider_id, quantity, supply_id, dispatch_guide_number, id);
+  var new_register = new register( quantity, supply_id, id);
   registers.push(new_register);
 
-  var row = new Array(dispatch_guide_number, provider_name, supply_name, quantity, "<a href='#' onClick='delete_row(cd)'>eliminar</a>");
+  var row = new Array( supply_name, quantity, "<a href='#' onClick='delete_row(cd)'>eliminar</a>");
     $('#supply_table').dataTable().fnAddData(row);
     set_modified(true);
     clean_form();
 
 }
 
-function post () {
-  if(registers.length > 0)
+  function post () 
   {
-    for (var i = 0; i < registers.length; i++) {
-      var register = registers[i];
-      console.log(register);
+    if(registers.length > 0)
+    {
+      for (var i = 0; i < registers.length; i++) {
+        var register = registers[i];
+        console.log(register);
+        var p_provider_id = $("#provider_id").val();
+        var p_quantity = register.quantity;
+        var p_supply_id = register.supply_id;
+        var p_dispatch_guide_number= $("#dispatch_guide_number").val();
+        
+        console.log(p_provider_id);
 
-      var p_provider_id = register.provider_id;
-      var p_quantity = register.quantity;
-      var p_supply_id = register.supply_id;
-      var p_dispatch_guide_number= register.dispatch_guide_number;
-      
-      console.log(p_provider_id);
+        $.ajax({  
+          url: "/supplies_providers_loans",  
+          type: "POST", 
+          dataType: "json",
+          async: false,
+          data: { supplies_providers_loan : {provider_id: p_provider_id,
+                                          quantity: p_quantity,
+                                          supply_id: p_supply_id,
+                                          dispatch_guide_number: p_dispatch_guide_number,
+                                          } } }); 
 
-      $.ajax({  
-        url: "/supplies_providers_loans",  
-        type: "POST", 
-        dataType: "json",
-        async: false,
-        data: { supplies_providers_loan : {provider_id: p_provider_id,
-                                        quantity: p_quantity,
-                                        supply_id: p_supply_id,
-                                        dispatch_guide_number: p_dispatch_guide_number,
-                                        } } }); 
-
-      
-  };
-  set_modified(false);
-  location.href='/supplies_providers_loans';
- 
+        
+    };
+    set_modified(false);
+    location.href='/supplies_providers_loans';
+   
+    }
+    else
+      alert("Lista de ingresos vacía");
   }
-  else
-    alert("Lista de ingresos vacía");
-}
 
-function register ( provider_id, quantity, supply_id , dispatch_guide_number) 
-{
-  this.provider_id = provider_id;
-  this.quantity = quantity;
-  this.supply_id = supply_id;
-  this.dispatch_guide_number = dispatch_guide_number;
-}
-
-function show_rut(s)
-{
-  if(s.value == "")
+  function register (  quantity, supply_id  ) 
   {
-   var inputRut = document.getElementById('rut');
-   inputRut.value = " - ";
+    this.quantity = quantity;
+    this.supply_id = supply_id;
+    
   }
-  else
+  function show_rut(s)
   {
-   $.get("/providers/"+s.value+".json", function(data) {
-      var inputRut = document.getElementById('rut');
-      inputRut.value = data.rut;
-   });
-  }
-}
-
-function clean_form () {
-    $("#provider_id").val("");
-    $("#rut").val("");
-    $("#dispatch_guide_number").val("");
-    $("#supply_id").val("");
-    $("#stock").val("");
-    $("#quantity").val("");
-    $('#provider_id').trigger('liszt:updated');
-    $('#supply_id').trigger('liszt:updated');
+    if(s.value == "")
+    {
+     var inputRut = document.getElementById('rut');
+     inputRut.value = " - ";
+    }
+    else
+    {
+     $.get("/providers/"+s.value+".json", function(data) {
+        var inputRut = document.getElementById('rut');
+        inputRut.value = data.rut;
+     });
+    }
   }
 
-function show_stock(s)
+  function clean_form () 
+  {
+
+      $("#supply_id").val("");
+      $("#stock").val("");
+      $("#quantity").val("");
+      $('#supply_id').trigger('liszt:updated');
+  }
+
+  function show_stock(s)
   {
     if (s.value == "")
     {
@@ -129,13 +120,82 @@ function show_stock(s)
       });
     }
   }
+
   function isInteger(possibleInteger) 
-{
-  return !isNaN(parseInt(possibleInteger));
-}
+  {
+    return !isNaN(parseInt(possibleInteger));
+  }
 
 
-  function errors_revision() {
+  function errors_revision_preview()
+  {
+    var quantity = $("#quantity").val();
+    var dispatch_guide_number = $("#dispatch_guide_number").val();
+    
+    $("#quantity").removeClass("field_with_errors");
+    $("#dispatch_guide_number").removeClass("field_with_errors");
+
+    var supply_id = $("#supply_id").val();
+
+
+    var errorText = "<div id=error_explanation>";
+    var isError = false;
+    var contador_errores = 0;
+    var errors = "";
+
+
+
+    if(quantity == ""){
+      $("#quantity").addClass("field_with_errors");
+      errors = errors + "<li>La cantidad no puede estar en blanco</li>";
+      contador_errores += 1;
+      isError = true;
+    }   
+
+    if(!isInteger(quantity)){
+      $("#quantity").addClass("field_with_errors");
+      errors = errors + "<li>La cantidad debe ser un numero</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+    if(quantity<=0){
+      $("#quantity").addClass("field_with_errors");
+      errors = errors + "<li>La cantidad debe ser un numero mayor a 0</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+    if(registers.length > 0)
+    {
+      for (var i = 0; i < registers.length; i++) {
+      var register = registers[i];
+      var p_supply_id = register.supply_id;
+        if(p_supply_id == supply_id)
+        {
+          $("#supply_id").addClass("field_with_errors");
+          alert('No puede realizar 2 ingresos del mismo insumo');
+          errors = errors + "<li>No puede realizar 2 ingresos del mismo Insumo</li>";
+          contador_errores += 1;
+          isError = true;
+        }
+      
+      }
+    }
+    if(isError){
+      errorText+= "<h2>"+contador_errores+" errores, no se puede guardar el insumo";
+      errorText+= "<ul>";
+      errorText+= errors;
+      errorText+= "</ul>";
+      errorText+= "</div>";  
+      document.getElementById("show_errors").innerHTML = errorText;
+
+    }
+   
+    else{
+      add_insumo();
+    }
+  }
+
+  function errors_revision_post() {
     var quantity = $("#quantity").val();
     var dispatch_guide_number = $("#dispatch_guide_number").val();
     
@@ -170,43 +230,6 @@ function show_stock(s)
       isError = true;
     }
 
-    if(quantity == ""){
-      $("#quantity").addClass("field_with_errors");
-      errors = errors + "<li>La cantidad no puede estar en blanco</li>";
-      contador_errores += 1;
-      isError = true;
-    }   
-
-    if(!isInteger(quantity)){
-      $("#quantity").addClass("field_with_errors");
-      errors = errors + "<li>La cantidad debe ser un numero</li>";
-      contador_errores += 1;
-      isError = true;
-    }
-    if(quantity<=0){
-      $("#quantity").addClass("field_with_errors");
-      errors = errors + "<li>La cantidad debe ser un numero mayor a 0</li>";
-      contador_errores += 1;
-      isError = true;
-    }
-    if(registers.length > 0)
-    {
-      for (var i = 0; i < registers.length; i++) {
-      var register = registers[i];
-      var p_supply_id = register.supply_id;
-      alert(p_supply_id);
-      alert(supply_id);
-        if(p_supply_id == supply_id)
-        {
-          $("#supply_id").addClass("field_with_errors");
-          alert('No puede realizar ingresos del mismo insumo');
-          errors = errors + "<li>No puede realizar 2 ingresos del mismo Insumo</li>";
-          contador_errores += 1;
-          isError = true;
-        }
-      
-      }
-    }
     if(isError){
       errorText+= "<h2>"+contador_errores+" errores, no se puede guardar el insumo";
       errorText+= "<ul>";
@@ -218,7 +241,7 @@ function show_stock(s)
     }
    
     else{
-      add_insumo();
+      post();
     }
   }
 
@@ -276,6 +299,12 @@ function show_stock(s)
   </div>    
 </div>
     
+<div class = "contentSubPanel">
+    <div class="headContent">
+      <h1></h1>
+    </div>
+    <div class="box">
+
  <div class="line-forme">
       <div class="forme-lab">
         <label>Insumo </label>
@@ -310,12 +339,10 @@ function show_stock(s)
 
 
 
-<button type="button" onclick="errors_revision()" class="button blue alignright">Agregar Ingreso de Insumo</button>
+<button type="button" onclick="errors_revision_preview()" class="button blue alignright">Agregar Ingreso de Insumo</button>
   <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="supply_table">
     <thead>
       <tr>    
-        <th>N° Guia Despacho</th>
-        <th>Proveedor</th>
         <th>Insumo</th>
         <th>Cantidad</th>  
         <th>Acciones</th>
@@ -325,11 +352,13 @@ function show_stock(s)
     <tbody>
     </tbody>
   </table>
+  </div>
+</div>
 
   </div>
 </div>
 <div class="foot-box">
     <%= link_to 'Cancelar', supplies_providers_loans_path , :class => "button silver alignright" %>
-    <%= button_tag "Aceptar" , :type => :button, :class => "button green alignright", :onclick => "post();"%>
+    <%= button_tag "Aceptar" , :type => :button, :class => "button green alignright", :onclick => "errors_revision_post();"%>
 </div>
 <% end %>

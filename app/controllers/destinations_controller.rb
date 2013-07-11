@@ -27,7 +27,7 @@ class DestinationsController < ApplicationController
   # GET /destinations/new.json
   def new
     @destination = Destination.new
-    
+   
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @destination }
@@ -45,7 +45,7 @@ class DestinationsController < ApplicationController
   def create
     @destination = Destination.new(params[:destination])
     @destination.update_attributes(:active => "1", :is_deleted => "0")
-    
+    @destination.company_id = current_user.company_id
 
     respond_to do |format|
       if @destination.save
