@@ -7,7 +7,7 @@ class Report5Pdf < Prawn::Document
 		if data!= nil
 			for i in (0 .. (data.length-1))
 
-				@producer = data[i][0]
+				@destino = data[i][0]
 				@todo = data[i][1]
 				report_info()
 				if i <= data.length-2
@@ -26,19 +26,15 @@ class Report5Pdf < Prawn::Document
 		#
 
 		move_down 40
-		text "PRODUCTOR", :size => 13
+		text "DESTINO", :size => 13
 		move_down 10
 		y_current = cursor
 		text "<u>Razon Social</u>", :inline_format => true  
-		text_box ": #{@producer.name}", :at => [marginx1, y_current] #RAZON SOCIAL DEL PRODUCTOR
+		text_box ": #{@destino.name}", :at => [marginx1, y_current] #RAZON SOCIAL DEL PRODUCTOR
 		move_down 7
 		y_current = cursor
 		text "<u>Rut</u>", :inline_format => true
-		text_box ": #{@producer.rut}", :at => [marginx1, y_current] #RUT DEL PRODUCTOR
-		bounding_box([marginx2, y_current], :width => 200, :height => 20) do
-			text "<u>Codigo SAG</u>", :inline_format => true
-		end
-		text_box ": #{@producer.sag_code}", :at => [marginx3, y_current]#CODIGO SAG
+		text_box ": #{@destino.rut}", :at => [marginx1, y_current] #RUT DEL PRODUCTOR
 
 		stroke_line [0, cursor], [540, cursor]
 
@@ -53,7 +49,7 @@ class Report5Pdf < Prawn::Document
 				move_down 20
 
 				@tabla2 = @todo[i][1]
-				datos = [ ["Nro Ingreso", "Fecha", "Calidad","Peso Neto(Kgs.)","Precio","Total $"]]#dejar como está, los siguientes son los campos a llenar
+				datos = [ ["Nro Despacho", "Nro Pallet", "Variedad","Calidad","Fecha","Envase","Envases","Peso Neto"]]#dejar como está, los siguientes son los campos a llenar
 				for k in (0 .. (@tabla2.length-1))
 					datos << @tabla2[k]
 				end
