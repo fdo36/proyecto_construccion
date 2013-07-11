@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711203855) do
+ActiveRecord::Schema.define(:version => 20130711214143) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -540,6 +540,7 @@ ActiveRecord::Schema.define(:version => 20130711203855) do
     t.integer  "order_number"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "company_id"
   end
 
   create_table "tunnels", :force => true do |t|
