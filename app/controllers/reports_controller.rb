@@ -642,7 +642,7 @@ class ReportsController < ApplicationController
                 @kinds.each do |kind|
                     @datos = Dispatch.find(:all,
                     :from => 'dispatches, qualities, pallets, destinations, varieties, pack_types',
-                    :select => 'dispatches.code, pallets.code, varieties.name, qualities.name, dispatches.dispatch_datetime, pack_types.name, pallets.quantity,
+                    :select => 'dispatches.id AS dispatches_id, pallets.id AS pallets_id, varieties.name AS variety_name, qualities.name AS quality_name, dispatches.dispatch_datetime, pack_types.name AS pack_types_name, pallets.quantity,
                                 pallets.gross_weight, pallets.tare, pack_types.tare',
                     :conditions => ["destinations.id=? and destinations.id=dispatches.destination_id and 
                         dispatches.dispatch_datetime >= ? and dispatches.dispatch_datetime <= ? and
@@ -656,26 +656,28 @@ class ReportsController < ApplicationController
 
                     temp = []
                     peso_neto = 0
-                    @datos.each do |dato|
-                        roww = []
-                        roww << dato.dispatches.code
-                        roww << dato.pallets.code
-                        roww << dato.varieties.name
-                        roww << dato.qualities.name
-                        roww << dato.dispatch_datetime.strftime("%d/%m/%Y")
-                        roww << dato.pack_type.name
-                        roww << dato.quantity
+                    if @datos.length>0
+                        @datos.each do |dato|
+                            roww = []
+                            roww << dato.dispatches_id
+                            roww << dato.pallets_id
+                            roww << dato.variety_name
+                            roww << dato.quality_name
+                            roww << dato.dispatch_datetime.strftime("%d/%m/%Y")
+                            roww << dato.pack_types_name
+                            roww << dato.quantity
 
-                        #Calculando el peso neto
-                        peso_neto = dato.gross_weight.to_f - dato.pallets.tare.to_f - (dato.pack_types.tare.to_f * dato.quantity.to_f)
+                            #Calculando el peso neto
+                            peso_neto = dato.gross_weight.to_f - dato.pallets.tare.to_f - (dato.pack_types.tare.to_f * dato.quantity.to_f)
 
-                        roww <<peso_neto
-                        temp << roww
+                            roww <<peso_neto
+                            temp << roww
+                        end
                     end
 
                     @datos = Dispatch.find(:all,
                     :from => 'dispatches, qualities, pack_group_dispatches, destinations, varieties, pack_types',
-                    :select => 'dispatches.code, pack_group_dispatches.id, varieties.name, qualities.name, dispatches.dispatch_datetime, pack_types.name, pack_group_dispatches.quantity,
+                    :select => 'dispatches.id AS dispatches_id, pack_group_dispatches.id AS pack_group_dispatches_id, varieties.name AS variety_name, qualities.name AS quality_name, dispatches.dispatch_datetime, pack_types.name AS pack_type_name, pack_group_dispatches.quantity,
                                 pack_group_dispatches.gross_weight, pack_types.tare',
                     :conditions => ["destinations.id=? and destinations.id=dispatches.destination_id and 
                         dispatches.dispatch_datetime >= ? and dispatches.dispatch_datetime <= ? and
@@ -688,23 +690,27 @@ class ReportsController < ApplicationController
                     puts @datos.length
 
                     peso_neto = 0
-                    @datos.each do |dato|
-                        roww = []
-                        roww << dato.dispatches.id
-                        roww << dato.pack_group_dispatches.code
-                        roww << dato.varieties.name
-                        roww << dato.qualities.name
-                        roww << dato.dispatch_datetime.strftime("%d/%m/%Y")
-                        roww << dato.pack_type.name
-                        roww << dato.quantity
+                    if @datos.length>0
+                        @datos.each do |dato|
+                            roww = []
+                            roww << dato.dispatches_id
+                            roww << dato.pack_group_dispatches_id
+                            roww << dato.variety_name
+                            roww << dato.quality_name
+                            roww << dato.dispatch_datetime.strftime("%d/%m/%Y")
+                            roww << dato.pack_type_name
+                            roww << dato.quantity
 
-                        #Calculando el peso neto
-                        peso_neto = dato.gross_weight.to_f - (dato.pack_types.tare.to_f * dato.quantity.to_f)
+                            #Calculando el peso neto
+                            peso_neto = dato.gross_weight.to_f - (dato.pack_types.tare.to_f * dato.quantity.to_f)
 
-                        roww <<peso_neto
-                        temp << roww
+                            roww <<peso_neto
+                            temp << roww
+                        end
                     end
-                    kind_dispatch << [kind, temp]
+                    if temp.length>0
+                        kind_dispatch << [kind, temp]
+                    end
                 end
                 mtrxx << [@producer, kind_dispatch]
 
@@ -723,7 +729,7 @@ class ReportsController < ApplicationController
                 #Para pallets
                 @datos = Dispatch.find(:all,
                 :from => 'dispatches, qualities, pallets, destinations, varieties, pack_types',
-                :select => 'dispatches.code, pallets.code, varieties.name, qualities.name, dispatches.dispatch_datetime, pack_types.name, pallets.quantity,
+                :select => 'dispatches.id AS dispatches_id, pallets.id AS pallets_id, varieties.name AS variety_name, qualities.name AS quality_name, dispatches.dispatch_datetime, pack_types.name AS pack_type_name, pallets.quantity,
                             pallets.gross_weight, pallets.tare, pack_types.tare',
                 :conditions => ["destinations.id=? and destinations.id=dispatches.destination_id and 
                     dispatches.dispatch_datetime >= ? and dispatches.dispatch_datetime <= ? and
@@ -737,26 +743,28 @@ class ReportsController < ApplicationController
 
                 temp = []
                 peso_neto = 0
-                @datos.each do |dato|
-                    roww = []
-                    roww << dato.dispatches.code
-                    roww << dato.pallets.code
-                    roww << dato.varieties.name
-                    roww << dato.qualities.name
-                    roww << dato.dispatch_datetime.strftime("%d/%m/%Y")
-                    roww << dato.pack_type.name
-                    roww << dato.quantity
+                if @datos.length>0
+                    @datos.each do |dato|
+                        roww = []
+                        roww << dato.dispatches_id
+                        roww << dato.pallets_id
+                        roww << dato.variety_name
+                        roww << dato.quality_name
+                        roww << dato.dispatch_datetime.strftime("%d/%m/%Y")
+                        roww << dato.pack_type_name
+                        roww << dato.quantity
 
-                    #Calculando el peso neto
-                    peso_neto = dato.gross_weight.to_f - dato.pallets.tare.to_f - (dato.pack_types.tare.to_f * dato.quantity.to_f)
+                        #Calculando el peso neto
+                        peso_neto = dato.gross_weight.to_f - dato.pallets.tare.to_f - (dato.pack_types.tare.to_f * dato.quantity.to_f)
 
-                    roww <<peso_neto
-                    temp << roww
+                        roww <<peso_neto
+                        temp << roww
+                    end
                 end
 
                 @datos = Dispatch.find(:all,
                 :from => 'dispatches, qualities, pack_group_dispatches, destinations, varieties, pack_types',
-                :select => 'dispatches.code, pack_group_dispatches.id, varieties.name, qualities.name, dispatches.dispatch_datetime, pack_types.name, pack_group_dispatches.quantity,
+                :select => 'dispatches.id AS dispatches_id, pack_group_dispatches.id AS pack_group_dispatches_id, varieties.name AS variety_name, qualities.name AS quality_name, dispatches.dispatch_datetime, pack_types.name AS pack_type_name, pack_group_dispatches.quantity,
                             pack_group_dispatches.gross_weight, pack_types.tare',
                 :conditions => ["destinations.id=? and destinations.id=dispatches.destination_id and 
                     dispatches.dispatch_datetime >= ? and dispatches.dispatch_datetime <= ? and
@@ -769,24 +777,28 @@ class ReportsController < ApplicationController
                 puts @datos.length
 
                 peso_neto = 0
-                @datos.each do |dato|
-                    roww = []
-                    roww << dato.dispatches.code
-                    roww << dato.pack_group_dispatches.id
-                    roww << dato.varieties.name
-                    roww << dato.qualities.name
-                    roww << dato.dispatch_datetime.strftime("%d/%m/%Y")
-                    roww << dato.pack_type.name
-                    roww << dato.quantity
+                if @datos.length>0
+                    @datos.each do |dato|
+                        roww = []
+                        roww << dato.dispatches_id
+                        roww << dato.pack_group_dispatches_id
+                        roww << dato.variety_name
+                        roww << dato.quality_name
+                        roww << dato.dispatch_datetime.strftime("%d/%m/%Y")
+                        roww << dato.pack_type_name
+                        roww << dato.quantity
 
-                    #Calculando el peso neto
-                    peso_neto = dato.gross_weight.to_f - (dato.pack_types.tare.to_f * dato.quantity.to_f)
+                        #Calculando el peso neto
+                        peso_neto = dato.gross_weight.to_f - (dato.pack_types.tare.to_f * dato.quantity.to_f)
 
-                    roww <<peso_neto
-                    temp << roww
+                        roww <<peso_neto
+                        temp << roww
+                    end
                 end
 
-                kind_dispatch << [@kind, temp]
+                if temp.length>0
+                    kind_dispatch << [@kind, temp]
+                end
 
                 mtrxx << [@producer, kind_dispatch]
 
