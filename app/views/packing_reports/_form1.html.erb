@@ -44,8 +44,9 @@
       selKin.options.length = 0;
       selKin.options[0] = new Option("Seleccione una Especie","","1");
        $.get("/pack_types.json", function(data) {  
-         $.get("/packing_pallets.json", function(data1) {
-          for(i=0;i<data.length;i++){
+       $.get("/packing_pallets.json", function(data1) {
+       $.get("/empty_packs_producer_moves.json", function(data2) {
+       for(i=0;i<data.length;i++){
             flag1 = true;
             for(j=0;j<data1.length && flag1;j++){
                if(data1[j].producer_id == sel && data1[j].pack_type_id == data[i].id){
@@ -55,8 +56,20 @@
                   flag1 = false;
                }
             
-          }
-          }  
+             }
+             if(flag1){
+                  for(j=0;j<data2.length && flag1;j++){
+                     if(data2[j].producer_id == sel && data2[j].pack_type_id == data[i].id){
+                        selKin.options[x] = new Option(data2[i].name,data2[i].id,"0");
+                        x++;
+                        selKin.selectedIndex=0;
+                        flag1 = false;
+                     }
+                  
+                   }               
+             }
+       }  
+       });
        });
        });
    }
