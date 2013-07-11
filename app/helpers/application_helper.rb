@@ -1,3 +1,6 @@
+# Author: Felipe A.
+# 2013
+
 require 'astrotils'
 
 module ApplicationHelper
@@ -11,16 +14,25 @@ module ApplicationHelper
 				nil
 			end
 		}
+		
 		models.reject! { |model_class|
-			model_class.nil? #or !can? :read, model_class
+			model_class.nil? or !can? :read, model_class
 		}
+		if !current_user.company.nil?
+			system_type = current_user.company.system_type
+			models.reject! { |model_class|
+				begin
+					membership = model_class.get_component_info()[0]
+					(membership == :acopio and system_type == false) or (membership == :packing and system_type == true)
+				rescue
+					true
+				end
+			}
+		end
 		models.each { |model_class|
-			begin
-				info = model_class.get_component_info
-				categories[info[1]] ||= []
-				categories[info[1]].push(model_class)
-			rescue
-			end
+			info = model_class.get_component_info
+			categories[info[1]] ||= []
+			categories[info[1]].push(model_class)
 		}
 		categories.each { |category_name, components|
 			components.sort! { |x,y| x.get_component_info[2] <=> y.get_component_info[2] }
