@@ -12,7 +12,7 @@ module ApplicationHelper
 			end
 		}
 		models.reject! { |model_class|
-			model_class.nil? or !can? :read, model_class
+			model_class.nil? #or !can? :read, model_class
 		}
 		models.each { |model_class|
 			begin
