@@ -40,6 +40,7 @@
 
 function show_pack_type(sel) //sel= id del productor seleccionado
    {
+      alert("inicio");
       var selEnv = document.getElementById("Envases3");
       var x = 1;
       var flag3;   
@@ -49,7 +50,9 @@ function show_pack_type(sel) //sel= id del productor seleccionado
       $.get("/receipts.json", function(data1) { 
       $.get("/pack_group_receipts.json", function(data2) { 
       $.get("/pallets.json", function(data3) { 
+      $.get("/producers/"+sel+"/empty_packs_producer_moves.json", function(data4) {
       for(i=0;i<data.length;i++){
+            alert("empieza pack types");
             flag3 = true;
             for(j=0;j<data1.length && flag3;j++){
                  if(sel == data1[j].producer_id){ // si productor sel == idProducer de receipts
@@ -74,7 +77,18 @@ function show_pack_type(sel) //sel= id del productor seleccionado
                  }
 
             }
+            if(flag3){
+               for(j=0;j<data4.length && flag3;j++){
+                  if(data4[j].producer_id == sel && data4[j].pack_type_id == data[i].id){
+                        selEnv.options[x] = new Option(data[i].name,data[i].id,"0");
+                        x++;
+                        selEnv.selectedIndex=0;                               
+                        flag3 = false;
+                    }  
+               }
+            }
       }
+      });
       });
       });
       });
