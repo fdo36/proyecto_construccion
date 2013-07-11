@@ -5,6 +5,7 @@ function show_pack_type3() //sel= id del productor seleccionado
       var selDest = document.getElementById("Destinos5");
       var selEnv = document.getElementById("Envases5");
       var idDest = selDest.options[selDest.selectedIndex].value;
+      setEstadoBoton5(idDest);
       selEnv.options.length = 0;
       selEnv.options[0] = new Option("Seleccione un Envase","","1");      
       var x = 1;
@@ -43,7 +44,7 @@ function show_pack_type3() //sel= id del productor seleccionado
       });
       });
       });
-      setEstadoBoton5(idDest);
+      
   }
 
  function setEstadoBoton5(idDest){
