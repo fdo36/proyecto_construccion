@@ -315,12 +315,12 @@ var config = 'pack_pallet';
           $.each(data,function(index, value){
             if(value.id == pack_type_id)
             {
-              tare = value.tare;
+              tarep = value.tare;
             }
           });
       }
     });
-    return tare;
+    return tarep;
   }
 
   function clean_form () {
@@ -744,7 +744,7 @@ var config = 'pack_pallet';
 
       <div class="line-forme">
         <div class="forme-lab">
-          <label>Precio por Kg ($)</label>
+          <label>Precio por Kg. ($)</label>
         </div>
         <div class="forme-in">
           <div id="price_per_unit_div">
@@ -780,7 +780,7 @@ var config = 'pack_pallet';
 
       <div class="line-forme">
         <div class="forme-lab">
-          <label>Peso Bruto (Kg)</label>
+          <label>Peso Bruto (Kg.)</label>
           <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
@@ -824,7 +824,7 @@ var config = 'pack_pallet';
 
         <div class="line-forme">
           <div class="forme-lab">
-            <label>Destare Pallet</label>
+            <label>Destare Pallet (Kg.)</label>
             <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
@@ -866,7 +866,7 @@ var config = 'pack_pallet';
           <tr>
             <th style="width:20% !important;">Código Pallet</th>
             <th>N° Envases</th>
-            <th>Peso Neto (Kg)</th>
+            <th>Peso Neto (Kg.)</th>
             <th>Variedad</th>
             <th>Calidad</th>
             <th>Precio</th>
