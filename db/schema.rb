@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711214143) do
+ActiveRecord::Schema.define(:version => 20130711024043) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -404,9 +404,10 @@ ActiveRecord::Schema.define(:version => 20130711214143) do
     t.integer  "trazability_code"
     t.integer  "dispatch_guide_number"
     t.string   "comments"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.integer  "kind_id"
+    t.datetime "receipt_packing_io_datetime"
     t.boolean  "paid"
     t.boolean  "editable"
     t.datetime "payment_date"
