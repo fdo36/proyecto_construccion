@@ -1,1 +1,41 @@
---- {}
+---
+seasons_001:
+  id: '1'
+  init_date: '2013-07-01'
+  end_date: 
+  kind_id: '4'
+  is_active: '1'
+  is_delete: '0'
+  created_at: '2013-07-10 15:10:27.035669'
+  updated_at: '2013-07-10 15:10:27.112494'
+  company_id: '1'
+seasons_002:
+  id: '2'
+  init_date: '2013-07-02'
+  end_date: 
+  kind_id: '5'
+  is_active: '1'
+  is_delete: '0'
+  created_at: '2013-07-10 15:10:41.467375'
+  updated_at: '2013-07-10 15:10:41.47402'
+  company_id: '1'
+seasons_003:
+  id: '3'
+  init_date: '2013-07-03'
+  end_date: 
+  kind_id: '6'
+  is_active: '1'
+  is_delete: '0'
+  created_at: '2013-07-10 15:10:55.372416'
+  updated_at: '2013-07-10 15:10:55.37613'
+  company_id: '1'
+seasons_004:
+  id: '4'
+  init_date: '2013-07-10'
+  end_date: 
+  kind_id: '7'
+  is_active: '1'
+  is_delete: '0'
+  created_at: '2013-07-10 15:11:09.724237'
+  updated_at: '2013-07-10 15:11:09.783116'
+  company_id: '1'

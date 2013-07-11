@@ -39,6 +39,7 @@ class DispatchesController < ApplicationController
   # GET /dispatches/1/edit
   def edit
     @dispatch = Dispatch.find(params[:id])
+    @pallet = Pallet.new
   end
 
   # POST /dispatches

@@ -99,6 +99,10 @@ function update_pallets_table()
 		packing_pallet = packing_pallets[i];
 		var values = object_values(packing_pallet);
 		values.push("<a href=\"#\" onclick=\"edit_pallet(" + i + "); return false;\">Editar </a><a href=\"#\" onclick=\"remove_pallet(" + i + "); return false;\">Eliminar</a>");
+
+		// Solucion particular para pallet:
+		// Reemplazo el ID de envase por el nombre del envase
+		
 		$('#receipt_table').dataTable().fnAddData(values);
 	}
 }

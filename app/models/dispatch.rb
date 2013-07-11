@@ -1,11 +1,10 @@
 class Dispatch < ActiveRecord::Base
+  announce_component(:acopio, "Entradas/Salidas", 2)
   attr_accessible :company_id, :destination_id, :dispatch_datetime, :kind_id, :user_id
   belongs_to :company
   belongs_to :destination
   belongs_to :kind
   belongs_to :user
-  belongs_to :receipt
-  belongs_to :dispatch
   has_many :pallets
   has_many :pack_group_dispatches
 

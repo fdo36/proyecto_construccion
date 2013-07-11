@@ -1,82 +1,126 @@
 <script type="text/javascript">
+   function show_rut2(s)
+   {
+      if(s.value == "")
+      {
+         var inputRut = document.getElementById('rut2');
+         inputRut.value = "-";
 
-   function show_rut2(s) {
+         var inputCodigo = document.getElementById('codigo2');
+         inputCodigo.value = "-";
+      }
+      else
+      {
+         $.get("/producers/"+s.value+".json", function(data) {
+            var inputRut = document.getElementById('rut2');
+            inputRut.value = data.rut;
 
-    if(s.value == "")
-    {      
-      var inputRut = document.getElementById('rut2');
-      inputRut.value = "-";
+            var inputCodigo = document.getElementById('codigo2');
+            inputCodigo.value = data.sag_code;
+         });
+      }
+      show_kind2(s.options[s.selectedIndex].value);
+      setEstadoBoton2(s.options[s.selectedIndex].value);
+   }
 
-      var inputCodigo = document.getElementById('codigo2');
-      inputCodigo.value = "-";
-    }
+     function setEstadoBoton2(idPro){
+      //si campos obligatorios estan seleccionados ==> boton habilitado, sino boton deshabilitado
+      var bt2 = document.getElementById("boton2");
+      if(idPro>=1){
+        bt2.disabled = false;
+        bt2.setAttribute("class","button blue");
+      }
+      else{
+        bt2.disabled = true;
+        bt2.setAttribute("class","");
+      } 
+  }   
 
-    $.get("/producers/"+s.value+".json", function(data) {
-
-      var inputRut = document.getElementById('rut2');
-      inputRut.value = data.rut;
-
-      var inputCodigo = document.getElementById('codigo2');
-      inputCodigo.value = data.sag_code;
-    });
-
-    show_kind2(s.options[s.selectedIndex].value);
-    setEstadoBoton2(s.options[s.selectedIndex].value);    
-  }
+   function show_kind2(sel) //sel= id del productor seleccionado
+   {
+      var selKin = document.getElementById("EspeciePacking");
+      var x = 1;
+      var flag1;
+      selKin.options.length = 0;
+      selKin.options[0] = new Option("Seleccione una Especie","","1");
+       $.get("/kinds.json", function(data) {  
+         $.get("/receipt_packing_ios.json", function(data1) {
+          for(i=0;i<data.length;i++){
+            flag1 = true;
+            for(j=0;j<data1.length && flag1;j++){
+               if(data1[j].producer_id == sel && data1[j].kind_id == data[i].id){
+                  selKin.options[x] = new Option(data[i].name,data[i].id,"0");
+                  x++;
+                  selKin.selectedIndex=0;
+                  flag1 = false;
+               }
+            
+          }
+          }  
+       });
+       });
+   }
 
 </script>
 
-<!---->
-<%= form_tag  do |f| %>
+<!--Productos por productor-->
+<%= form_tag  do %>
 <input type="hidden" value="2" name="report_type"></input>
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Productor'%> 
+              <em class="formee-req">*</em>
+      </div>
+      <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
+      <div class="forme-in">
+         <%= select_tag "Productores2", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut2(this)" %>
+      </div>
+   </div>
 
-<div class="line-forme">
-         <div class="forme-lab">
-            <%= label_tag 'Productor'%> 
-                 <em class="formee-req">*</em>
-         </div>
-         <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
-         <div class="forme-in">
-            <%= select_tag "Productores2", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut2(this)" %>
-         </div>
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag "rut"  %>
+      </div>
+      <div class="forme-in ">
+         <input id="rut2" value="-" disabled="true"></input>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag "Cod. Productor"%>
+      </div>
+      <div class="forme-in">
+         <input id="codigo2" value="-" disabled="true"></input>
+      </div>
+   </div>
+
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Especie'%>
       </div>
 
-      <div class="line-forme">
-         <div class="forme-lab">
-            <%= label_tag "rut"  %>
-         </div>
-         <div class="forme-in ">
-            <input id="rut2" value="-" disabled="true"></input>
-         </div>
+      <div class="forme-in">
+         <%= select_tag "EspeciePacking","",:prompt => "Seleccione una Especie" %>
       </div>
+   </div>
 
-      <div class="line-forme">
-         <div class="forme-lab">
-            <%= label_tag "Cod. Productor" %>
-         </div>
-         <div class="forme-in">
-            <input id="codigo2" value="-" disabled="true"></input>
-         </div>
-      </div>     
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Fecha Inicio' %>
+      </div>
+      <div class="field">
+         <%= select_date Date.today, :prefix => :start_date2 %>
+      </div>
+   </div>
 
-
-      <div class="line-forme">
-         <div class="forme-lab">
-           <%= label_tag 'Fecha Inicio' %> 
-        </div>
-        <div class="field">
-            <%= select_date Date.today, :prefix => :start_date2 %>
-         </div>                        
-      </div>   
-
-      <div class="line-forme">
-         <div class="forme-lab">
-           <%= label_tag 'Fecha Termino' %> 
-        </div>
-        <div class="field">
-            <%= select_date Date.today, :prefix => :end_date2 %>
-         </div>                        
-      </div>                                                                    
-      <button id = "boton2" >Generar Informe </button>                         
-
-<% end %> 
+   <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Fecha Termino' %>
+      </div>
+      <div class="field">
+         <%= select_date Date.today, :prefix => :end_date2%>
+      </div>
+   </div>
+   <button id = "boton2" >Generar Informe </button>
+<% end %>
