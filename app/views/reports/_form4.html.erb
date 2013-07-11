@@ -28,7 +28,7 @@ function show_pack_type2() //sel= id del productor seleccionado
                      }
                      if(flag4){ //si NO se encontro en packGroupReceipts, busco en Pallets
                         for(q=0;q<data3.length && flag4;q++){ //busco en pallets
-                             if(data1[j].id == data3[q].dispatch_id && data[i].id == data3[k].pack_type_id){  //idDispatch == idDispatch de pallets and idPackType == idPackType de pallets
+                             if(data1[j].id == data3[q].dispatch_id && data[i].id == data3[q].pack_type_id){  //idDispatch == idDispatch de pallets and idPackType == idPackType de pallets
                                  selEnv.options[x] = new Option(data[i].name,data[i].id,"0");
                                  x++;
                                  selEnv.selectedIndex=0;                               
