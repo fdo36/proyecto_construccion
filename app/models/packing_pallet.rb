@@ -1,7 +1,9 @@
 class PackingPallet < ActiveRecord::Base
-  attr_accessible :gross_weight, :pack_type_id, :quantity, :tare, :temperature, :unit_price, :pallet_code
+  attr_accessible :gross_weight, :pack_type_id, :quantity, :tare, 
+  :temperature, :unit_price, :pallet_code, :producer_id, :receipt_packing_io_id, :variety_id
 
-  validates :gross_weight, :pack_type_id, :quantity, :tare, :temperature, :unit_price, :pallet_code, :presence => true
+  validates :gross_weight, :pack_type_id, :quantity, :tare, :temperature, :unit_price, 
+  :pallet_code, :producer_id, :presence => true
 
   validates :tare, :gross_weight, :temperature, :unit_price, :numericality => true
 
@@ -12,4 +14,6 @@ class PackingPallet < ActiveRecord::Base
   belongs_to :production_process_io
   belongs_to :receipt_packing_io
   belongs_to :frozen_tunnel_io
+  belongs_to :receipt_packing_io
+  belongs_to :variety_id
 end

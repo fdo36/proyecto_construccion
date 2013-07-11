@@ -1,0 +1,241 @@
+<script>
+
+function update_order(id_orden_carga){
+
+    $.get("/charging_orders/"+id_orden_carga.value+".json", function(data) {
+      var inputAgente = document.getElementById('agente');
+      inputAgente.value = data.custom_agent_id;
+
+      var inputPorigen = document.getElementById('pOrigen');
+      inputPorigen.value = data.origin_port_id;
+
+      var inputPdestino = document.getElementById('pDestino');
+      inputPdestino.value = data.destination_port_id;
+   });
+
+}
+
+</script>
+
+<div class="box">
+<%= form_for(@dispatch_io) do |f| %>
+   <% if @dispatch_io.errors.any? %>
+    <div id="error_explanation">
+      <h2>Se han encontrado los siguientes errores:</h2>
+
+      <ul>
+      <% @dispatch_io.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Numero
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= number_field_tag(:number, @total_despachos, :readonly => true)%>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Orden de carga                
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= select_tag :charging_order_id, options_for_select(@charging_orders), :onchange => "update_order(this)" %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= label_tag "Agente de Aduana"%>
+    </div>
+    <div class="forme-in">
+      <input id="agente" value="-" disabled="true"></input>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= label_tag "Puerto origen"%>
+    </div>
+    <div class="forme-in">
+      <input id="pOrigen" value="-" disabled="true"></input>
+    </div>
+  </div>
+
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <%= label_tag "Puerto Destino"%>
+    </div>
+    <div class="forme-in">
+      <input id="pDestino" value="-" disabled="true"></input>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Código Contenedor                
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :container_code %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Temperatura Carga
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :charging_temperature %>
+    </div>
+  </div>
+
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Temperatura Despacho
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :dispatch_temperature %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Nombre Conductor
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :name_driver %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Rut Conductor
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :rut_driver, :class => 'rut' %>
+    </div>
+  </div>
+
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Patente
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :patent %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Nave
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :nave %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Reserva
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :reservation %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Número de sello
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :stamp_number %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Termografo
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :thermograph %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Guía de despacho
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :dispatch_guide %>
+    </div>
+  </div>
+
+  <div class="line-forme">
+    <div class="forme-lab">
+      <label> 
+        Número PO
+        <em class="formee-req">*</em>
+      </label>  
+    </div>
+    <div class="forme-in">
+      <%= f.text_field :po_number %>
+    </div>
+  </div>
+
+  <label> (
+    <em class="formee-req">*</em>
+  </label> ) Campos obligatorios.
+</div>
+</div>
+<div class="foot-box">
+  <%= link_to 'Cancelar', dispatch_ios_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+<% end %>

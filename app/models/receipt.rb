@@ -1,7 +1,7 @@
 require 'chronic'
 
 class Receipt < ActiveRecord::Base
-  attr_accessible :code, :company_id, :kind_id, :producer_id, :receipt_datetime, :user_id
+  attr_accessible :company_id, :kind_id, :producer_id, :receipt_datetime, :user_id
   belongs_to :company
   belongs_to :kind
   belongs_to :producer
@@ -9,7 +9,7 @@ class Receipt < ActiveRecord::Base
   has_many :pallets
   has_many :pack_group_receipts
 
-  validates :code, :receipt_datetime, :kind_id, :producer_id, :presence => true
+  validates :receipt_datetime, :kind_id, :producer_id, :presence => true
 
 
 end

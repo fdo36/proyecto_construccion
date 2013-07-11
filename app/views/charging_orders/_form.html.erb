@@ -1,0 +1,29 @@
+<%= form_for(@charging_order) do |f| %>
+  <% if @charging_order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@charging_order.errors.count, "error") %> prohibited this charging_order from being saved:</h2>
+
+      <ul>
+      <% @charging_order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :custom_agent_id %><br />
+    <%= f.number_field :custom_agent_id %>
+  </div>
+  <div class="field">
+    <%= f.label :origin_port_id %><br />
+    <%= f.number_field :origin_port_id %>
+  </div>
+  <div class="field">
+    <%= f.label :destination_port_id %><br />
+    <%= f.number_field :destination_port_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
