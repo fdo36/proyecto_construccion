@@ -6,8 +6,8 @@ var modified = false;
 var idReg = 0;
 var posTable = 0;
 var config = 'pack_pallet';
-    $(function() {
 
+    $(function() {
       config = load_config();
       $("#save").hide();
       $("#cancel").hide();
@@ -22,13 +22,15 @@ var config = 'pack_pallet';
 
       $("#tablealone tbody").delegate(".del", "click", function () {
           var parent = $(this).parent().parent().get( 0 );
-          console.log(parent)
           var iPos = oTable.fnGetPosition(parent);
           if (iPos !== null) {
               oTable.fnDeleteRow(iPos);
               var name = $(this).attr("name");
               delete registers[name];
-              console.log(registers);
+              $("#save").hide();
+              $("#cancel").hide();
+              $("#agregar").show();
+              clean_form();
       }});
 
       $("#tablealone tbody").delegate(".edit", "click", function () {
@@ -53,7 +55,6 @@ var config = 'pack_pallet';
               clean_form();
 
               $("#select_variety").val(variety_id);
-              $("#pallet_variety_id").val(variety_id);
               $("#pallet_quality_id").val(quality_id);
               $("#pallet_price_per_unit").val(price_per_unit);
               $("#pallet_pack_type_id").val(pack_type_id);
@@ -104,19 +105,33 @@ var config = 'pack_pallet';
         var pack_type_id = $("#pallet_pack_type_id").val();
         var quantity = $("#pallet_quantity").val();
         var gross_weight = $("#pallet_gross_weight").val();
-        var code = 'No aplica';
-        var tare = 0;
-        var is_pallet = false;
 
         if (config == 'pack_pallet') 
         {
-          var is_pallet = $("#check").is(':checked'); //true pallet
-        };
-        if (config == 'pallet' || config == 'pack_pallet') 
+          is_pallet = $("#check").is(':checked'); //true pallet
+          if(is_pallet)
+          {
+            code = $("#code").val();
+            tare = $("#destare").val();
+          }
+          else
+          {
+            code = 'No aplica';
+            tare = 0;
+          }
+        }
+          else if (config == 'pallet') 
         {
-          var code = $("#code").val();
-          var tare = $("#destare").val();
-        };
+          is_pallet = true;
+          code = $("#code").val();
+          tare = $("#destare").val();
+        }
+        else
+        {
+          is_pallet = false;
+          code = 'No aplica';
+          tare = 0;
+        }   
 
         var pack_type_tare = get_pack_type_tare(pack_type_id);
 
@@ -173,15 +188,25 @@ var config = 'pack_pallet';
 
   function checkedPallet() {
     if (check.checked == 0) {
-      code.disabled=true;
-      destare.disabled=true;
+      $("#code").prop("disabled",true);
+      $("#destare").prop("disabled",true);
       $("#code").val("");
       $("#destare").val("");
     } 
     else{
-      code.disabled=false;
-      destare.disabled=false;
-    };
+      $("#code").prop("disabled",false);
+      $("#destare").prop("disabled",false);
+
+      if(!$.isNumeric($('#select_kind').val()))
+      {
+        alert("SIIIIIIIIII");
+        $('#select_kind').prop("disabled",false);
+      }
+      else
+      {
+        $('#select_kind').prop("disabled",true);
+      }
+    }
   }
 
   function load_config () {
@@ -198,10 +223,6 @@ var config = 'pack_pallet';
     });
     return setting;
   }
-
-  var registers = new Array();
-  var id_count = 1;
-  var modified = false;
 
   window.onbeforeunload = function () {    
     if (modified) {
@@ -226,7 +247,6 @@ var config = 'pack_pallet';
     this.id = id;
   }
 
-//arreglar code
   function post () {
     if(registers.length > 0)
     {
@@ -249,7 +269,7 @@ var config = 'pack_pallet';
         async: false,
         data: { receipt : { kind_id: kind_id, producer_id: producer_id, receipt_datetime: receipt_datetime } },
         success: function(data){ 
-          add_registers_to(data.id);
+          add_registers_to(data.id, data.producer_id);
         },  
         error: function(){  
           alert("Error al registrar ingreso");  
@@ -260,9 +280,9 @@ var config = 'pack_pallet';
       alert("Lista de ingresos vacía");
   }
 
-  function add_registers_to (receipt_id) {
-    for (var key in registers){
-      var register = registers[key] ;
+  function add_registers_to (receipt_id, producer_id) {
+    for (var key in registers) {
+      var register = registers[key];
 
       var code = register.code;
       var gross_weight = register.gross_weight;
@@ -279,7 +299,7 @@ var config = 'pack_pallet';
           type: "POST", 
           dataType: "json",
           async: false,
-          data: { pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, receipt_id: receipt_id, tare: tare, variety_id: variety_id} } }); 
+          data: { pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, receipt_id: receipt_id, tare: tare, variety_id: variety_id} } });
       }
       else
       {
@@ -290,6 +310,7 @@ var config = 'pack_pallet';
           async: false,
           data: { pack_group_receipt : {gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, receipt_id: receipt_id, variety_id: variety_id} } }); 
       }
+      //agregar a envases prestados
     };
     set_modified(false);
     location.href = "/receipts";
@@ -304,12 +325,12 @@ var config = 'pack_pallet';
           $.each(data,function(index, value){
             if(value.id == pack_type_id)
             {
-              tare = value.tare;
+              tarep = value.tare;
             }
           });
       }
     });
-    return tare;
+    return tarep;
   }
 
   function clean_form () {
@@ -325,10 +346,8 @@ var config = 'pack_pallet';
       $("#code").val("");
       $("#destare").val("");
     };
-    
   }
 
-  //variety_id, quality_id, price_kg, container_id, quantity, gross_weight, code, tare
   function add_register()
   {
     var variety_id = $("#select_variety").val();
@@ -339,19 +358,33 @@ var config = 'pack_pallet';
     var pack_type_id = $("#pallet_pack_type_id").val();
     var quantity = $("#pallet_quantity").val();
     var gross_weight = $("#pallet_gross_weight").val();
-    var code = 'No aplica';
-    var tare = 0;
-    var is_pallet = false;
 
     if (config == 'pack_pallet') 
     {
-      var is_pallet = $("#check").is(':checked'); //true pallet
-    };
-    if (config == 'pallet' || config == 'pack_pallet') 
+      is_pallet = $("#check").is(':checked'); //true pallet
+      if(is_pallet)
+      {
+        code = $("#code").val();
+        tare = $("#destare").val();
+      }
+      else
+      {
+        code = 'No aplica';
+        tare = 0;
+      }
+    }
+    else if (config == 'pallet') 
     {
-      var code = $("#code").val();
-      var tare = $("#destare").val();
-    };
+      is_pallet = true;
+      code = $("#code").val();
+      tare = $("#destare").val();
+    }
+    else
+    {
+      is_pallet = false;
+      code = 'No aplica';
+      tare = 0;
+    }
 
     var pack_type_tare = get_pack_type_tare(pack_type_id);
 
@@ -372,48 +405,8 @@ var config = 'pack_pallet';
 </script>
 
 <script type="text/javascript">
-  function search_rut(s) {   
-      
-    if(s.value=="")
-    {           
-      $('#select_producer').val("");
-      $('#rut').val("-");      
-      $('#codigo').val("-");
-      $('#codigo_sag').val("-");
-    }
-
-    else
-    {      
-      $.get("/producers.json", function(data) {       
-       
-       var encontrado = false;       
-       
-       for (var i = data.length - 1; i >= 0; i--) {
-        if(data[i]["rut"]==s.value){
-          $('#rut').val(s.value); 
-          $('#select_producer').val([data[i]["name"], data[i]["id"]]);
-          $('#codigo').val(data[i]["code"]);
-          $('#codigo_sag').val(data[i]["sag_code"]);  
-          encontrado = true;                  
-        }
-       };
-       if(!encontrado)
-       {
-          $('#select_producer').val("");
-          $('#rut').val("-");      
-          $('#codigo').val("-");
-          $('#codigo_sag').val("-");
-       }
-
-      });      
-  }  
-}
-</script>
-
-<script type="text/javascript">
   function show_variety(s)
   { 
-      
     if (s.value != '')
     {
       $.get("/varieties.json", function(data) {         
@@ -426,111 +419,7 @@ var config = 'pack_pallet';
         $("#select_variety").html(options);
       });
     }
-    
   }
-
-  function show_kind(s)
-  {
-    /*
-       
-    if (s.value != '')
-    {
-      $.get("/kinds.json", function(data) {         
-        var options = '<option value>- Seleccione especie -</option>';
-        $.each(data, function(i, item){ 
-          $.get("/varieties/"+s.value+".json", function(variety)
-            {
-              if(item.id == variety.kind_id){
-                options += '<option value="' + item.id + '" selected>' + item.name + '</option>';
-              }
-              $("#select_kind").html(options);
-            });
-            
-        });
-        
-      });
-    }
-    */
-  }
-
-</script>
-
-<script type="text/javascript">
-  function search_code(s) {   
-      
-    if(s.value=="")
-    {           
-      $('#select_producer').val("");
-      $('#rut').val("-");      
-      $('#codigo').val("-");
-      $('#codigo_sag').val("-");
-    }
-
-    else
-    {      
-      $.get("/producers.json", function(data) {       
-       
-       var encontrado = false;       
-       
-       for (var i = data.length - 1; i >= 0; i--) {
-        if(data[i]["code"]==s.value){
-          $('#rut').val(data[i]["rut"]); 
-          $('#select_producer').val([data[i]["name"], data[i]["id"]]);
-          $('#codigo').val(s.value);
-          $('#codigo_sag').val(data[i]["sag_code"]);  
-          encontrado = true;                  
-        }
-       };
-       if(!encontrado)
-       {
-          $('#select_producer').val("");
-          $('#rut').val("-");      
-          $('#codigo').val("-");
-          $('#codigo_sag').val("-");
-       }
-             
-      });      
-  }  
-}
-</script>
-
-<script type="text/javascript">
-  function search_sag(s) {   
-      
-    if(s.value=="")
-    {           
-      $('#select_producer').val("");
-      $('#rut').val("-");      
-      $('#codigo').val("-");
-      $('#codigo_sag').val("-");
-    }
-
-    else
-    {      
-      $.get("/producers.json", function(data) {       
-       
-       var encontrado = false;       
-       
-       for (var i = data.length - 1; i >= 0; i--) {
-        if(data[i]["sag_code"]==s.value){
-          $('#rut').val(data[i]["rut"]); 
-          $('#select_producer').val([data[i]["name"], data[i]["id"]]);
-          $('#codigo').val(data[i]["code"]);
-          $('#codigo_sag').val(s.value);  
-          encontrado = true;                  
-        }
-       };
-       if(!encontrado)
-       {
-          $('#select_producer').val("");
-          $('#rut').val("-");      
-          $('#codigo').val("-");
-          $('#codigo_sag').val("-");
-       }
-             
-      });      
-  }  
-}
 </script>
 
 <script type="text/javascript">
@@ -575,7 +464,7 @@ var config = 'pack_pallet';
 
     else{
       document.getElementById("show_errors_receipt").innerHTML = "";
-      add_register();
+      post();
     }
   }
 
@@ -707,8 +596,7 @@ var config = 'pack_pallet';
 
 
 <div class="box">
-
-<div id = "show_errors_receipt">
+  <div id = "show_errors_receipt">
 </div>
 
 <%= form_for(@receipt) do |f| %>
@@ -727,7 +615,6 @@ var config = 'pack_pallet';
     
     
     <div class="line-forme">
-      
       <div class="forme-lab">
         <label>Productor </label>
         <em class="formee-req">*</em>
@@ -847,7 +734,7 @@ var config = 'pack_pallet';
         <div class="forme-in">
           <div id="variety_div">
             <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
-            <%= f.select(:variety_id, options_for_select(@options_varieties), {:selected => :prompt, :prompt => '- Seleccione variedad - '} , :id => 'select_variety',:onchange => "show_kind(this)") %> 
+            <%= f.select(:variety_id, options_for_select(@options_varieties), {:selected => :prompt, :prompt => '- Seleccione variedad - '} , :id => 'select_variety') %> 
           </div>
         </div>
       </div>
@@ -867,7 +754,7 @@ var config = 'pack_pallet';
 
       <div class="line-forme">
         <div class="forme-lab">
-          <label>Precio por Kg ($)</label>
+          <label>Precio por Kg. ($)</label>
         </div>
         <div class="forme-in">
           <div id="price_per_unit_div">
@@ -903,7 +790,7 @@ var config = 'pack_pallet';
 
       <div class="line-forme">
         <div class="forme-lab">
-          <label>Peso Bruto (Kg)</label>
+          <label>Peso Bruto (Kg.)</label>
           <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
@@ -927,7 +814,7 @@ var config = 'pack_pallet';
             <label>¿Trabajar con Pallet?</label>
           </div>
           <div class="forme-in">
-              <input type="checkbox" id="check" class="check" value="¿Trabajar con Pallet?" checked onClick="checkedPallet()" />          
+              <input type="checkbox" id="check" class="check" value="¿Trabajar con Pallet?" onClick="checkedPallet()" />          
           </div>
         </div>
       <% end %>
@@ -947,7 +834,7 @@ var config = 'pack_pallet';
 
         <div class="line-forme">
           <div class="forme-lab">
-            <label>Destare Pallet</label>
+            <label>Destare Pallet (Kg.)</label>
             <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
@@ -989,7 +876,7 @@ var config = 'pack_pallet';
           <tr>
             <th style="width:20% !important;">Código Pallet</th>
             <th>N° Envases</th>
-            <th>Peso Neto (Kg)</th>
+            <th>Peso Neto (Kg.)</th>
             <th>Variedad</th>
             <th>Calidad</th>
             <th>Precio</th>

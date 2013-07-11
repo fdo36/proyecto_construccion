@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709205338) do
+ActiveRecord::Schema.define(:version => 20130711154830) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20130709205338) do
     t.integer  "region_id"
     t.string   "rut"
     t.string   "phone"
+    t.boolean  "system_type"
   end
 
   create_table "containers", :force => true do |t|
@@ -285,8 +286,8 @@ ActiveRecord::Schema.define(:version => 20130709205338) do
   add_index "pack_types_producers", ["producer_id", "pack_type_id"], :name => "index_pack_types_producers_on_producer_id_and_pack_type_id"
 
   create_table "packing_pallets", :force => true do |t|
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
     t.integer  "quantity"
     t.float    "gross_weight"
     t.integer  "unit_price"
@@ -295,6 +296,8 @@ ActiveRecord::Schema.define(:version => 20130709205338) do
     t.string   "pallet_code"
     t.integer  "pack_type_id"
     t.integer  "producer_id"
+    t.integer  "variety_id"
+    t.integer  "receipt_packing_io_id"
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -398,6 +401,7 @@ ActiveRecord::Schema.define(:version => 20130709205338) do
     t.string   "comments"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.integer  "kind_id"
   end
 
   create_table "receipts", :force => true do |t|
@@ -440,6 +444,7 @@ ActiveRecord::Schema.define(:version => 20130709205338) do
     t.integer  "is_delete"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "settings", :force => true do |t|
@@ -527,6 +532,7 @@ ActiveRecord::Schema.define(:version => 20130709205338) do
     t.integer  "order_number"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "company_id"
   end
 
   create_table "tunnels", :force => true do |t|
