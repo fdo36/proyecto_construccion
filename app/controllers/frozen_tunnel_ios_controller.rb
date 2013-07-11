@@ -66,9 +66,12 @@ class FrozenTunnelIosController < ApplicationController
   def create
     @frozen_tunnel_io = FrozenTunnelIo.new(params[:frozen_tunnel_io])
     @frozen_tunnel_io.io_datetime = DateTime.current();
+
     respond_to do |format|
       if @frozen_tunnel_io.save
-        format.html { redirect_to @frozen_tunnel_io, notice: 'Frozen tunnel io was successfully created.' }
+        @frozen_tunnel_io.order_number = @frozen_tunnel_io.id
+        @frozen_tunnel_io.save
+        format.html { redirect_to @frozen_tunnel_io, notice: 'El tunel de congelado creado exitosamente.' }
         format.json { render json: @frozen_tunnel_io, status: :created, location: @frozen_tunnel_io }
       else
         format.html { render action: "new" }
@@ -84,7 +87,7 @@ class FrozenTunnelIosController < ApplicationController
 
     respond_to do |format|
       if @frozen_tunnel_io.update_attributes(params[:frozen_tunnel_io])
-        format.html { redirect_to @frozen_tunnel_io, notice: 'Frozen tunnel io was successfully updated.' }
+        format.html { redirect_to @frozen_tunnel_io, notice: 'El tunel de congelado fue editado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

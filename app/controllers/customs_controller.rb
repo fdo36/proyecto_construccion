@@ -1,5 +1,6 @@
 #encoding: utf-8
 class CustomsController < ApplicationController
+  load_and_authorize_resource
   # GET /customs
   # GET /customs.json
   def index

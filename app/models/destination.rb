@@ -1,6 +1,10 @@
 #encoding: utf-8
 require 'validators.rb'
+require "general"
+
 class Destination < ActiveRecord::Base
+  announce_component(:acopio, "Recursos", 1)
+
   attr_accessible :code, :active, :address, :commune_id, :name, :contact, :email, :phone, :rut, :is_deleted
 
   validates :code, :address, :commune_id, :name, :contact, :phone, :rut, :presence => true

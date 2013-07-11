@@ -167,8 +167,10 @@
       </div>
       <div class="forme-in">
       <% @roles.each do |role| %>
-        <%= check_box_tag 'role_ids[]', role.id, @user.roles.member?(role) -%>
-        <%= h role.name -%>
+        <% if role.company_id == @company.id  %>
+          <%= check_box_tag 'role_ids[]', role.id, @user.roles.member?(role) -%>
+          <%= h role.name -%>
+        <% end %>
       <% end %>
       </div>
     </div>

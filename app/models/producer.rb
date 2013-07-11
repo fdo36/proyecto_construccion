@@ -1,7 +1,9 @@
 #encoding: utf-8
 require 'validators.rb'
+require "general"
 
 class Producer < ActiveRecord::Base
+  announce_component(:acopio, "Recursos", 5)
   
   attr_accessible :active, :address, :commune_id, :name, :contact, :email, :line_of_business, :phone, :rut, :sag_code, :is_deleted, :code
 
@@ -18,7 +20,6 @@ class Producer < ActiveRecord::Base
   validates :code, :format => { :with => /^-?((?:\d+|\d*)$)/,
     :message => "debe ingresar un número válido" }
 
-
   validates_with RutValidator
   #validates_with ValidatorProducerRutAlreadySaved
 
@@ -29,6 +30,8 @@ class Producer < ActiveRecord::Base
   has_and_belongs_to_many :groupings
   has_and_belongs_to_many :kinds
   has_and_belongs_to_many :pack_types
-  has_many :empty_packs_producer_moves 
+  has_many :empty_packs_producer_moves
+
+  has_and_belongs_to_many :kinds
 
 end

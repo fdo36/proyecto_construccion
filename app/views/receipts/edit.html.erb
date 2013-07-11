@@ -113,20 +113,33 @@ var config = 'pack_pallet';
         var price_kg = $("#pallet_price_per_unit").val();
         var pack_type_id = $("#pallet_pack_type_id").val();
         var quantity = $("#pallet_quantity").val();
-        var gross_weight = $("#pallet_gross_weight").val();
-        var code = '<No aplica>';
-        var tare = 0;
-        var is_pallet = false;
-
+        
         if (config == 'pack_pallet') 
         {
-          var is_pallet = $("#check").is(':checked'); //true pallet
-        };
-        if (config == 'pallet' || config == 'pack_pallet') 
+          is_pallet = $("#check").is(':checked'); //true pallet
+          if(is_pallet)
+          {
+            code = $("#code").val();
+            tare = $("#destare").val();
+          }
+          else
+          {
+            code = 'No aplica';
+            tare = 0;
+          }
+        }
+          else if (config == 'pallet') 
         {
-          var code = $("#code").val();
-          var tare = $("#destare").val();
-        };
+          is_pallet = true;
+          code = $("#code").val();
+          tare = $("#destare").val();
+        }
+        else
+        {
+          is_pallet = false;
+          code = 'No aplica';
+          tare = 0;
+        }
 
         var pack_type_tare = get_pack_type_tare(pack_type_id);
 
@@ -171,12 +184,12 @@ var config = 'pack_pallet';
     });
 
     function show_rut(s) {
-    if(s.value == "")
-    {      
-      $('#rut').val(""); 
-      $('#codigo').val("");
-      $('#codigo_sag').val("");
-    }
+      if(s.value == "")
+      {      
+        $('#rut').val(""); 
+        $('#codigo').val("");
+        $('#codigo_sag').val("");
+      }
     
     $.get("/producers/"+s.value+".json", function(data) {
      $('#rut').val(data.rut); 
@@ -242,7 +255,6 @@ var config = 'pack_pallet';
     this.register_id = register_id;
   }
 
-//arreglar code
   function post () {
     if(registers.length > 0)
     {
@@ -251,7 +263,6 @@ var config = 'pack_pallet';
 
   		var kind_id = $("#select_kind").val();
       var producer_id = $("#select_producer").val();
-      var code = $("#receipt_code").val();
 
       //crear datetime
       var year = $("#receipt_receipt_datetime_1i").val();
@@ -470,7 +481,7 @@ var config = 'pack_pallet';
             {
             	var id = id_count;
             	id_count++;
-            	var new_register = new register(value.variety_id, value.quality_id, value.price_per_unit, value.pack_type_id, value.quantity, value.gross_weight, "", "", false, id, 0, value.id);
+            	var new_register = new register(value.variety_id, value.quality_id, value.price_per_unit, value.pack_type_id, value.quantity, value.gross_weight, "No aplica", 0, false, id, 0, value.id);
             	registers[id_count] = new_register;
 
             	var pack_type_tare = get_pack_type_tare(value.pack_type_id);
@@ -966,7 +977,7 @@ var config = 'pack_pallet';
 
       <div class="line-forme">
         <div class="forme-lab">
-          <label>Precio por Kg ($)</label>
+          <label>Precio por Kg. ($)</label>
           <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
@@ -1003,7 +1014,7 @@ var config = 'pack_pallet';
 
       <div class="line-forme">
         <div class="forme-lab">
-          <label>Peso Bruto (Kg)</label>
+          <label>Peso Bruto (Kg.)</label>
           <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
@@ -1088,7 +1099,7 @@ var config = 'pack_pallet';
           <tr>
             <th style="width:20% !important;">Código Pallet</th>
             <th>N° Envases</th>
-            <th>Peso Neto (Kg)</th>
+            <th>Peso Neto (Kg.)</th>
             <th>Variedad</th>
             <th>Calidad</th>
             <th>Precio</th>
