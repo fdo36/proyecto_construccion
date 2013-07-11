@@ -42,13 +42,13 @@ class ReportsController < ApplicationController
     		@kinds.each do |kind|
     			@ingresos = Receipt.find(:all,
 	    		:from => 'receipts, varieties, qualities, pallets, producers',
-	    		:select => 'receipts.code, receipts.receipt_datetime, varieties.name, qualities.name, pallets.price_per_unit',
+	    		:select => 'receipts.id, receipts.receipt_datetime, varieties.name, qualities.name, pallets.price_per_unit',
 	    		:conditions => ["producers.id=? and producers.id=receipts.producer_id and 
 	    			receipts.receipt_datetime >= ? and receipts.receipt_datetime <= ? and
 	    			receipts.kind_id=? and pallets.receipt_id
 	    			=receipts.id and varieties.id=pallets.variety_id and qualities.id=pallets.quality_id",@producer_id, 
 	    			@fecha_inicio, @fecha_termino, kind.id])
-    			mtrxx << [[kind, @ingresos]]
+                mtrxx << [kind, @ingresos]
     		end
     		pdf = Report1Pdf.new(@producer, mtrxx, view_context)
 	    	send_data pdf.render,
@@ -60,7 +60,7 @@ class ReportsController < ApplicationController
 
     		@ingresos = Receipt.find(:all,
 	    		:from => 'receipts, varieties, qualities, pallets, producers',
-	    		:select => 'receipts.code, receipts.receipt_datetime, varieties.name, qualities.name, pallets.price_per_unit',
+	    		:select => 'receipts.id, receipts.receipt_datetime, varieties.name, qualities.name, pallets.price_per_unit',
 	    		:conditions => ["producers.id=? and producers.id=receipts.producer_id and 
 	    			receipts.receipt_datetime >= ? and receipts.receipt_datetime <= ? and
 	    			receipts.kind_id=? and pallets.receipt_id
