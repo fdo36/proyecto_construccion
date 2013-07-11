@@ -192,6 +192,7 @@ var config = 'pack_pallet';
       $("#destare").prop("disabled",true);
       $("#code").val("");
       $("#destare").val("");
+      $('#select_kind').prop("disabled",false);
     } 
     else{
       $("#code").prop("disabled",false);
@@ -199,8 +200,11 @@ var config = 'pack_pallet';
 
       if(!$.isNumeric($('#select_kind').val()))
       {
-        alert("SIIIIIIIIII");
         $('#select_kind').prop("disabled",false);
+        $('#check').attr("checked", false);
+        $("#kind_error").text("Seleccione una Especie antes");
+        $("#code").prop("disabled",true);
+        $("#destare").prop("disabled",true);
       }
       else
       {
@@ -407,6 +411,7 @@ var config = 'pack_pallet';
 <script type="text/javascript">
   function show_variety(s)
   { 
+    $("#kind_error").text("");
     if (s.value != '')
     {
       $.get("/varieties.json", function(data) {         
@@ -815,7 +820,9 @@ var config = 'pack_pallet';
           </div>
           <div class="forme-in">
               <input type="checkbox" id="check" class="check" value="¿Trabajar con Pallet?" onClick="checkedPallet()" />          
+              <label id="kind_error", style="color: red;"></label>
           </div>
+          
         </div>
       <% end %>
       
@@ -827,7 +834,7 @@ var config = 'pack_pallet';
           </div>
           <div class="forme-in">
             <div id="code_div">
-              <%= f.text_field :code, :id=>"code"%>
+              <%= f.text_field :code, :id=>"code", :disabled=>"true"%>
             </div>
           </div>
         </div>
@@ -839,7 +846,7 @@ var config = 'pack_pallet';
           </div>
           <div class="forme-in">
             <div id="tare_div">
-              <%= f.text_field :tare, :id=>"destare"%>
+              <%= f.text_field :tare, :id=>"destare", :disabled=>"true"%>
             </div>
           </div>
         </div>
