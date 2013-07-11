@@ -486,7 +486,7 @@ class ReportsController < ApplicationController
                     :select =>'empty_packs_destination_moves.created_at, 
                                empty_packs_destination_moves.quantity,
                                empty_packs_destination_moves.pack_option',
-                    :conditions => ["empty_packs_destination_moves.producer_id=? and
+                    :conditions => ["empty_packs_destination_moves.destination_id=? and
                         empty_packs_destination_moves.created_at >= ? and
                         empty_packs_destination_moves.created_at <= ? and
                         pack_types.id = ? and
