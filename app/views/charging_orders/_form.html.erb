@@ -1,8 +1,7 @@
-<%= form_for(@charging_order) do |f| %>
+<%= form_for(@charging_order) do |f|%>
   <% if @charging_order.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@charging_order.errors.count, "error") %> prohibited this charging_order from being saved:</h2>
-
       <ul>
       <% @charging_order.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -11,19 +10,38 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :custom_agent_id %><br />
-    <%= f.number_field :custom_agent_id %>
+  <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'agente'%>
+      </div>
+      <% @agents_array = CustomAgent.all.map { |agent| [agent.name, agent.id] } %>
+      <div class="forme-in">
+         <%= select_tag "agent", options_for_select(@agents_array), :prompt => "Seleccione un Agente" %>
+      </div>
   </div>
-  <div class="field">
-    <%= f.label :origin_port_id %><br />
-    <%= f.number_field :origin_port_id %>
+  <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Puerto de Origen'%>
+            <em class="formee-req">*</em>
+      </div>
+      <% @oports_array = OriginPort.all.map { |oport| [oport.name, oport.id] } %>
+      <div class="forme-in">
+         <%= select_tag "Oport", options_for_select(@oports_array), :prompt => "Seleccione un Puerto" %>
+      </div>
   </div>
-  <div class="field">
-    <%= f.label :destination_port_id %><br />
-    <%= f.number_field :destination_port_id %>
+  <div class="line-forme">
+      <div class="forme-lab">
+         <%= label_tag 'Puerto de Destino'%>
+            <em class="formee-req">*</em>
+      </div>
+      <% @dports_array = DestinationPort.all.map { |dport| [dport.name, dport.id] } %>
+      <div class="forme-in">
+         <%= select_tag "Dport", options_for_select(@dports_array), :prompt => "Seleccione un Puerto" %>
+      </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="foot-box">
+  <%= link_to 'Cancelar', charging_orders_path , :class => "button silver alignright" %>
+  <%= f.submit :Guardar , :class => "button green alignright" %>
+</div>
+
 <% end %>

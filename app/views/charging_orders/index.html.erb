@@ -1,27 +1,34 @@
-<h1>Listing charging_orders</h1>
+<div class="headContent">
+    <h1>Órdenes de Carga</h1>
+</div>
+<div class="box">
 
-<table>
-  <tr>
-    <th>Custom agent</th>
-    <th>Origin port</th>
-    <th>Destination port</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @charging_orders.each do |charging_order| %>
-  <tr>
-    <td><%= charging_order.custom_agent_id %></td>
-    <td><%= charging_order.origin_port_id %></td>
-    <td><%= charging_order.destination_port_id %></td>
-    <td><%= link_to 'Show', charging_order %></td>
-    <td><%= link_to 'Edit', edit_charging_order_path(charging_order) %></td>
-    <td><%= link_to 'Destroy', charging_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Charging order', new_charging_order_path %>
+  <div class="newTopBanner">
+    <%= link_to 'Nueva Órden', new_charging_order_path , :class => "button blue alignright" %>
+  </div>
+  <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+    <thead>
+      <tr>
+        <th>Agente de Aduanas</th>
+        <th>Puerto de Origen</th>
+        <th>Puerto de Destino</th>
+        <th colspan="3" style="width:20% !important;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% @charging_orders.each do |charging_order| %>
+        <tr>
+          <% @agent = CustomAgent.find(charging_order.custom_agent_id) %>
+          <% @oport = OriginPort.find(charging_order.origin_port_id) %>
+          <% @dport = DestinationPort.find(charging_order.destination_port_id) %>
+          <td><%= @agent.name %></td>
+          <td><%= @oport.name %></td>
+          <td><%= @dport.name %></td>
+          <td><%= link_to 'Ver', charging_order %>
+          <%= link_to 'Editar', edit_charging_order_path(charging_order) %>
+          <%= link_to 'Eliminar', charging_order, method: :delete, data: { confirm: '¿Está seguro de eliminar esta órden?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
