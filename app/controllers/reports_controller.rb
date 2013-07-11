@@ -305,13 +305,33 @@ class ReportsController < ApplicationController
     	if @pack_type_id ==""
             mtrxx = []
             @pack_types = PackType.all
+            @pack_types.each do |pack_type|
+                temp = []
 
-            #SALIDA DE ENVASES POR PRESTAMOS
-            #
-            # # # # # # # # # # #
+                #SALIDA DE ENVASES POR PRESTAMOS
+                @moves = EmptyPacksProducerMove.find(:all,
+                :from => 'empty_packs_producer_moves, pack_types',
+                :select =>'empty_packs_producer_moves.created_at, 
+                           empty_packs_producer_moves.quantity,
+                           empty_packs_producer_moves.pack_option',
+                :conditions => ["empty_packs_producer_moves.producer_id=? and
+                    empty_packs_producer_moves.created_at >= ? and
+                    empty_packs_producer_moves.created_at <= ? and
+                    pack_types.id = ? and
+                    empty_packs_producer_moves.pack_type_id = pack_types.id",
+                    @producer_id, @fecha_inicio, @fecha_termino, pack_type.id])
+
+                @moves.each do |move|
+                    fecha = move.created_at.strftime("%d/%m/%Y")
+                    if move.pack_option == "despacho"
+                      quantity = move.quantity * -1
+                    else
+                      quantity = move.quantity
+                    end
+                    temp << [[fecha],[quantity]]
+                end
 
             #INGRESO DE ENVASES POR PALLETS
-            @pack_types.each do |pack_type|
                 @datos = Pallet.find(:all,
                     :select => 'receipts.receipt_datetime, pallets.quantity',
                     :from => 'receipts, pallets, producers, pack_types',
@@ -322,7 +342,6 @@ class ReportsController < ApplicationController
                         pack_types.id=? and 
                         pallets.pack_type_id=pack_types.id",
                         @producer_id,@fecha_inicio, @fecha_termino, pack_type.id])
-                temp = []
 
                 @datos.each do |pallet|
                     fecha = "#{pallet.receipt_datetime.to_datetime.year}-#{pallet.receipt_datetime.to_datetime.month}-#{pallet.receipt_datetime.to_datetime.day}"
@@ -353,12 +372,28 @@ class ReportsController < ApplicationController
     	else
     		
     		@pack_type = PackType.find(@pack_type_id)
+            temp = []
+    		@moves = EmptyPacksProducerMove.find(:all,
+                :from => 'empty_packs_producer_moves, pack_types',
+                :select =>'empty_packs_producer_moves.created_at, 
+                           empty_packs_producer_moves.quantity,
+                           empty_packs_producer_moves.pack_option',
+                :conditions => ["empty_packs_producer_moves.producer_id=? and
+                    empty_packs_producer_moves.created_at >= ? and
+                    empty_packs_producer_moves.created_at <= ? and
+                    pack_types.id = ? and
+                    empty_packs_producer_moves.pack_type_id = pack_types.id",
+                    @producer_id, @fecha_inicio, @fecha_termino, @pack_type_id])
 
-    		#SALIDA DE ENVASES POR PRESTAMOS
-    		#
-    		# # # # # # # # # # #
-
-    		#INGRESO DE ENVASES POR PALLETS
+            @moves.each do |move|
+                fecha = move.created_at.strftime("%d/%m/%Y")
+                if move.pack_option == "despacho"
+                  quantity = move.quantity * -1
+                else
+                  quantity = move.quantity
+                end
+                temp << [[fecha],[quantity]]
+            end
     		
     		@datos = Pallet.find(:all,
  				:select => 'receipts.receipt_datetime, pallets.quantity',
@@ -370,7 +405,7 @@ class ReportsController < ApplicationController
 	    			pack_types.id=? and 
 	    			pallets.pack_type_id=pack_types.id",
 	    			@producer_id,@fecha_inicio, @fecha_termino, @pack_type_id])
-            temp = []
+            
             mtrxx = []
     		@datos.each do |pallet|
                 year = pallet.receipt_datetime.to_datetime
@@ -427,13 +462,34 @@ class ReportsController < ApplicationController
         if @pack_type_id ==""
             mtrxx = []
             @pack_types = PackType.all
+            @pack_types.each do |pack_type|
+                temp = []
 
             #INGRESO DE ENVASES POR DEVOLUCIONES DEL DESTINO
-            #
-            # # # # # # # # # # #
+                @moves = EmptyPacksProducerMove.find(:all,
+                    :from => 'empty_packs_destination_moves, pack_types',
+                    :select =>'empty_packs_destination_moves.created_at, 
+                               empty_packs_destination_moves.quantity,
+                               empty_packs_destination_moves.pack_option',
+                    :conditions => ["empty_packs_destination_moves.producer_id=? and
+                        empty_packs_destination_moves.created_at >= ? and
+                        empty_packs_destination_moves.created_at <= ? and
+                        pack_types.id = ? and
+                        empty_packs_destination_moves.pack_type_id = pack_types.id",
+                        @destination_id, @fecha_inicio, @fecha_termino, pack_type.id])
+
+                @moves.each do |move|
+                    fecha = move.created_at.strftime("%d/%m/%Y")
+                    if move.pack_option == "despacho"
+                      quantity = move.quantity * -1
+                    else
+                      quantity = move.quantity
+                    end
+                    temp << [[fecha],[quantity]]
+                end
 
             #INGRESO DE ENVASES POR DESPACHOS DE PALLETS
-            @pack_types.each do |pack_type|
+            
                 @datos = Dispatch.find(:all,
                     :select => 'dispatches.dispatch_datetime, pallets.quantity',
                     :from => 'dispatches, pallets, destinations, pack_types',
@@ -444,7 +500,6 @@ class ReportsController < ApplicationController
                         pack_types.id=? and 
                         pallets.pack_type_id=pack_types.id",
                         @destination_id, @fecha_inicio, @fecha_termino, pack_type.id])
-                temp = []
 
                 @datos.each do |pallet|
                     fecha = "#{pallet.dispatch_datetime.year}-#{pallet.dispatch_datetime.month}-#{pallet.dispatch_datetime.day}"
@@ -475,10 +530,30 @@ class ReportsController < ApplicationController
         else
             mtrxx = []
             @pack_type = PackType.find(@pack_type_id)
+            temp = [] 
 
             #SALIDA DE ENVASES POR PRESTAMOS
-            #
-            # # # # # # # # # # #
+            @moves = EmptyPacksProducerMove.find(:all,
+                :from => 'empty_packs_destination_moves, pack_types',
+                :select =>'empty_packs_destination_moves.created_at, 
+                           empty_packs_destination_moves.quantity,
+                           empty_packs_destination_moves.pack_option',
+                :conditions => ["empty_packs_destination_moves.producer_id=? and
+                    empty_packs_destination_moves.created_at >= ? and
+                    empty_packs_destination_moves.created_at <= ? and
+                    pack_types.id = ? and
+                    empty_packs_destination_moves.pack_type_id = pack_types.id",
+                    @destination_id, @fecha_inicio, @fecha_termino, @pack_type_id])
+
+            @moves.each do |move|
+                fecha = move.created_at.strftime("%d/%m/%Y")
+                if move.pack_option == "despacho"
+                  quantity = move.quantity * -1
+                else
+                  quantity = move.quantity
+                end
+                temp << [[fecha],[quantity]]
+            end
 
             #INGRESO DE ENVASES POR PALLETS
             
@@ -492,7 +567,6 @@ class ReportsController < ApplicationController
                     pack_types.id=? and 
                     pallets.pack_type_id=pack_types.id",
                     @destination_id, @fecha_inicio, @fecha_termino, @pack_type_id])
-            temp = [] 
 
             @datos.each do |pallet|
                 fecha = "#{pallet.dispatch_datetime.year}-#{pallet.dispatch_datetime.month}-#{pallet.dispatch_datetime.day}"
