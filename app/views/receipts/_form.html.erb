@@ -196,8 +196,8 @@ var config = 'pack_pallet';
     else{
       $("#code").prop("disabled",false);
       $("#destare").prop("disabled",false);
-      alert("selected: " +  );
-      if( $('#select_kind').val($('#select_kind').find('option[selected]') ).value )
+
+      if(!$.isNumeric($('#select_kind').val()))
       {
         alert("SIIIIIIIIII");
         $('#select_kind').prop("disabled",false);
