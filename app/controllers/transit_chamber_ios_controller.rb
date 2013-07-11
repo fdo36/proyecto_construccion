@@ -18,7 +18,7 @@ class TransitChamberIosController < ApplicationController
     @transit_chamber_io = TransitChamberIo.find(params[:id])
 
     @transit_chamber_ios.company_id = current_user.company_id
-    @transit_chamber_ios.company_id = current_user.company_id
+    @transit_chamber_ios.system_type = current_user.system_type
 
     respond_to do |format|
       format.html # show.html.erb
