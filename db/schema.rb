@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709212952) do
+ActiveRecord::Schema.define(:version => 20130709235805) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20130709212952) do
     t.integer  "region_id"
     t.string   "rut"
     t.string   "phone"
+    t.boolean  "system_type"
   end
 
   create_table "containers", :force => true do |t|
@@ -604,7 +605,7 @@ ActiveRecord::Schema.define(:version => 20130709212952) do
   create_table "workers", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "phone"
+    t.integer  "phone"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"
