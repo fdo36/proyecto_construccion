@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20130710220308) do
 
+
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
     t.datetime "created_at", :null => false
