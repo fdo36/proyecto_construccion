@@ -71,7 +71,7 @@ class ProducersController < ApplicationController
           end
         end
 
-        format.html { redirect_to "/producers", notice: "El productor #{@producer.name} fue creado exitosamente." }
+        format.html { redirect_to producers_path, notice: "El productor #{@producer.name} fue creado exitosamente." }
         format.json { render json: @producer, status: :created, location: @producer }
 
       else
@@ -106,7 +106,7 @@ class ProducersController < ApplicationController
             gc.save
           end  
         end
-        format.html { redirect_to "/producers", notice: "El productor #{@producer.name} fue editado exitosamente." }
+        format.html { redirect_to producers_path, notice: "El productor #{@producer.name} fue editado exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

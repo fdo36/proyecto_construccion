@@ -48,7 +48,7 @@ class KindsController < ApplicationController
 
     respond_to do |format|
       if @kind.save
-        format.html { redirect_to '/kinds', notice: "#{@kind.name} fue creada exitosamente." }
+        format.html { redirect_to kinds_path, notice: "#{@kind.name} fue creada exitosamente." }
         format.json { render json: @kind, status: :created, location: @kind }
       else
         format.html { render action: "new" }
@@ -64,7 +64,7 @@ class KindsController < ApplicationController
 
     respond_to do |format|
       if @kind.update_attributes(params[:kind])
-        format.html { redirect_to '/kinds', notice: "#{@kind.name} fue editada exitosamente." }
+        format.html { redirect_to kinds_path, notice: "#{@kind.name} fue editada exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
