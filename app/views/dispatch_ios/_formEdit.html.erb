@@ -39,7 +39,7 @@ function update_order(id_orden_carga){
       </label>  
     </div>
     <div class="forme-in">
-      <%= number_field_tag(:number, @total_despachos, :readonly => true)%>
+      <%= f.number_field(:number, :readonly => true)%>
     </div>
   </div>
 

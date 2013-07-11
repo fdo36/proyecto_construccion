@@ -16,17 +16,18 @@
       </tr>
      </thead> 
      <tbody>
-      <% count = 0 %>
-      <% has_price = true %>
       <% @receipts.each do |receipt| %>
+            
           <tr>
             <td><%= receipt.id %></td>
             <td><%= (Producer.all(:select => "name", :conditions => ["id = ?",receipt.producer_id]))[0].name %></td>
             <td><%= receipt.receipt_datetime.strftime('%d/%m/%Y') %></td>
             <td><%= (Kind.all(:select => "name", :conditions => ["id = ?",receipt.kind_id]))[0].name %></td>
             <% total_price = 0 %>
+            <% count = 0 %>
+            <% has_price = true %>
             <% receipt.pallets.each do |pallet| %>
-              <% count += 1%>
+              <% count += 1 %>
               <% if pallet.price_per_unit == nil %>
                 <% has_price = false %>
               <% else %>
