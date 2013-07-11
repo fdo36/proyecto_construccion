@@ -810,10 +810,10 @@ class ReportsController < ApplicationController
 
 	    	@producers.each do |producer|
 	    		@kinds = Kind.find(:all,
-		    		:from => 'kinds, receipts',
+		    		:from => 'kinds, kinds_producers',
 		    		:select => 'kinds.id, kinds.name',
-		    		:conditions => ["kinds.id = receipts.kind_id and
-                                    receipts.producer_id = ?",
+		    		:conditions => ["kinds.id = kinds_producers.kind_id and
+                                    kinds_producers.producer_id = ?",
                                     producer.id])
 	    		ary = [producer, @kinds]
 
@@ -827,10 +827,10 @@ class ReportsController < ApplicationController
 	    	@producers = Producer.find(@producer)
 
     		@kinds = Kind.find(:all,
-	    		:from => 'kinds, receipts',
+	    		:from => 'kinds, kinds_producers',
 	    		:select => 'kinds.id, kinds.name',
-	    		:conditions => ["kinds.id = receipts.kind_id and
-                                 receipts.producer_id = ?",
+	    		:conditions => ["kinds.id = kinds_producers.kind_id and
+                                 kinds_producers.producer_id = ?",
                                  @producer])
 	    	
 	    	mtrxx = [[@producers, @kinds]]
