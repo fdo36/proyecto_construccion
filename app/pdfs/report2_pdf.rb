@@ -10,9 +10,6 @@ class Report2Pdf < Prawn::Document
 				@producer = data[i][0]
 				@todo = data[i][1]
 				report_info()
-				if i <= data.length-2
-					start_new_page
-				end
 			end
 		end
 		report_foot()
@@ -83,6 +80,11 @@ class Report2Pdf < Prawn::Document
 						text_box "Total a Pagar $", :at => [marginx2, y_current], :style => :bold
 						text_box ":", :at => [marginx3, y_current], :style => :bold
 						text_box "#{@tabla2[j][3]}", :at => [marginx3, y_current], :style => :bold, :align => :right #TOTAL A PAGAR AL FINAL
+						move_down 20
+						if cursor < 180
+							start_new_page
+							report_head
+						end
 					end
 				end
 			end
