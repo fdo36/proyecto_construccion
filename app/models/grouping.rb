@@ -1,4 +1,8 @@
+require "general"
+
 class Grouping < ActiveRecord::Base
+  announce_component(:acopio, "Recursos", 2)
+
   attr_accessible :description, :name
 
   validates :description, :name, :presence => true
