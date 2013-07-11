@@ -98,7 +98,7 @@ ProyectoConstruccion::Application.routes.draw do
   resources :receipts do
     resources :pack_group_receipts
   end
- 
+
   resources :pallets
 
   resources :dispatches

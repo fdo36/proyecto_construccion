@@ -199,22 +199,22 @@ function checkBox_click (chkbox) {
     <div class="forme-lab">
       <label> 
         Especies
-      </label>  
+      </label>
+    </div>
+    <div class="forme-in">
+      <% @kinds.each do |kind| %>
+            <%= check_box_tag "kind_ids[]", kind.id, @producer.kinds.member?(kind), :id => "CheckBoxKind_#{kind.id}" -%>
+            <%= h kind.name -%>
+      <% end %>
     </div>
   </div>
 
-    <% @kinds.each do |kind| %>
-      <div class="line-forme" style="margin-left:50px">
-        <div class="forme-lab">
-          <%= check_box_tag "kind_ids[]", kind.id, @producer.kinds.member?(kind), :id => "CheckBoxKind_#{kind.id}" -%>
-          <%= h kind.name -%>
-        </div>
-      </div>  
-    <% end %>
-
-  <label> (
-    <em class="formee-req">*</em>
-  </label> ) Campos obligatorios.
+  <br>
+  <div class="line-forme">
+    <label> (
+      <em class="formee-req">*</em>
+    </label> ) Campos obligatorios.
+  </div>
 </div>
 
 <div class="foot-box">
