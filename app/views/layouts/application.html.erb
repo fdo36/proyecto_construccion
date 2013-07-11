@@ -116,6 +116,7 @@
 					</ul>
 					<%else%>
 						<% categories = get_categories %>
+						
 						<% components = categories['Entradas/Salidas'] %>
 						<% if !components.nil? and !components.empty? %>
 							<p>Entradas/Salidas</p>
@@ -128,7 +129,6 @@
 							</li>
 						<% end %>
 						
-						<% categories = get_categories %>
 						<% components = categories['Recursos'] %>
 						<% if !components.nil? and !components.empty? %>
 							<p>Recursos</p>
@@ -140,8 +140,7 @@
 							<% end %>
 							</li>
 						<% end %>
-						
-						<% categories = get_categories %>
+
 						<% components = categories['Inventario'] %>
 						<% if !components.nil? and !components.empty? %>
 							<p>Inventario</p>
