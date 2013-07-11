@@ -1,4 +1,8 @@
+require "general"
+
 class Quality < ActiveRecord::Base
+  announce_component(:acopiopacking, "Recursos", 6)
+
   attr_accessible :name
 
   validates :name, :presence => true
