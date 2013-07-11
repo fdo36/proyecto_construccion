@@ -1,5 +1,6 @@
 #encoding: utf-8
 class ProducersController < ApplicationController
+  load_and_authorize_resource
 
   # GET /producers
   # GET /producers.json
@@ -48,6 +49,7 @@ class ProducersController < ApplicationController
     @producer = Producer.new(params[:producer])
     @producer.update_attributes(:active => "1", :is_deleted => "0")
 
+
     @groupings = Grouping.all
     grouping_ids = params[:grouping_ids] if params[:grouping_ids] 
     grouping_ids ||= []
@@ -69,7 +71,7 @@ class ProducersController < ApplicationController
           end
         end
 
-        format.html { redirect_to "/producers", notice: "El productor #{@producer.name} fue creado exitosamente." }
+        format.html { redirect_to producers_path, notice: "El productor #{@producer.name} fue creado exitosamente." }
         format.json { render json: @producer, status: :created, location: @producer }
 
       else
@@ -104,7 +106,7 @@ class ProducersController < ApplicationController
             gc.save
           end  
         end
-        format.html { redirect_to "/producers", notice: "El productor #{@producer.name} fue editado exitosamente." }
+        format.html { redirect_to producers_path, notice: "El productor #{@producer.name} fue editado exitosamente." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
