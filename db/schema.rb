@@ -104,11 +104,10 @@ ActiveRecord::Schema.define(:version => 20130711154830) do
     t.string   "phone"
     t.text     "contact"
     t.boolean  "active"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
-    t.boolean  "system_type"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -131,12 +130,6 @@ ActiveRecord::Schema.define(:version => 20130711154830) do
     t.string   "name_driver"
     t.string   "rut_driver"
     t.string   "patent"
-    t.string   "nave"
-    t.string   "reservation"
-    t.string   "stamp_number"
-    t.string   "thermograph"
-    t.string   "dispatch_guide"
-    t.string   "po_number"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
@@ -206,7 +199,6 @@ ActiveRecord::Schema.define(:version => 20130711154830) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "company_id"
-    t.boolean  "system_type"
   end
 
   create_table "groupings_producers", :force => true do |t|
@@ -220,10 +212,9 @@ ActiveRecord::Schema.define(:version => 20130711154830) do
 
   create_table "kinds", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "company_id"
-    t.boolean  "system_type"
   end
 
   create_table "kinds_producers", :id => false, :force => true do |t|
@@ -281,10 +272,9 @@ ActiveRecord::Schema.define(:version => 20130711154830) do
   create_table "pack_types", :force => true do |t|
     t.string   "name"
     t.integer  "company_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.float    "tare"
-    t.boolean  "system_type"
   end
 
   create_table "pack_types_producers", :id => false, :force => true do |t|
@@ -304,6 +294,7 @@ ActiveRecord::Schema.define(:version => 20130711154830) do
     t.float    "tare"
     t.float    "temperature"
     t.string   "pallet_code"
+    t.integer  "pack_type_id"
     t.integer  "producer_id"
     t.integer  "variety_id"
     t.integer  "receipt_packing_io_id"
@@ -360,7 +351,6 @@ ActiveRecord::Schema.define(:version => 20130711154830) do
     t.integer  "locality_id"
     t.integer  "code"
     t.integer  "company_id"
-    t.boolean  "system_type"
   end
 
   create_table "production_process_ios", :force => true do |t|
@@ -385,10 +375,9 @@ ActiveRecord::Schema.define(:version => 20130711154830) do
 
   create_table "qualities", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "company_id"
-    t.boolean  "system_type"
   end
 
   create_table "receipt_containers", :force => true do |t|
@@ -544,7 +533,6 @@ ActiveRecord::Schema.define(:version => 20130711154830) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.integer  "company_id"
-    t.boolean  "system_type"
   end
 
   create_table "tunnels", :force => true do |t|
@@ -587,10 +575,9 @@ ActiveRecord::Schema.define(:version => 20130711154830) do
   create_table "varieties", :force => true do |t|
     t.string   "name"
     t.integer  "kind_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "company_id"
-    t.boolean  "system_type"
   end
 
   create_table "wiki_page_versions", :force => true do |t|

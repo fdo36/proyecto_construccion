@@ -1,4 +1,5 @@
 class WorkersController < ApplicationController
+  load_and_authorize_resource
   # GET /workers
   # GET /workers.json
   def index
