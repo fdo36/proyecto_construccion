@@ -1,6 +1,6 @@
 #encoding: utf-8
 class KindsController < ApplicationController
-
+  load_and_authorize_resource
   # GET /kinds
   # GET /kinds.json
   def index

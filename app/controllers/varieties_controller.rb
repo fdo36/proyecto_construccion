@@ -1,6 +1,6 @@
 #encoding: utf-8
 class VarietiesController < ApplicationController
-  #load_and_authorize_resource
+  load_and_authorize_resource
 
   # GET /varieties
   # GET /varieties.json
@@ -44,6 +44,7 @@ class VarietiesController < ApplicationController
   # POST /varieties.json
   def create
     @variety = Variety.new(params[:variety])
+    @variety.company_id = current_user.company_id
 
     respond_to do |format|
       if @variety.save
