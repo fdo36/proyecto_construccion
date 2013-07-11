@@ -45,6 +45,8 @@ class DestinationsController < ApplicationController
   def create
     @destination = Destination.new(params[:destination])
     @destination.update_attributes(:active => "1", :is_deleted => "0")
+
+    @destination.company_id = current_user.company_id
     
 
     respond_to do |format|
@@ -62,8 +64,6 @@ class DestinationsController < ApplicationController
   # PUT /destinations/1.json
   def update
     @destination = Destination.find(params[:id])
-
-    @destination.company_id = current_user.company_id    
 
     respond_to do |format|
       if @destination.update_attributes(params[:destination])

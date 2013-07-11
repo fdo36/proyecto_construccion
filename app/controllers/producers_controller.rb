@@ -1,5 +1,6 @@
 #encoding: utf-8
 class ProducersController < ApplicationController
+  load_and_authorize_resource
 
   # GET /producers
   # GET /producers.json
@@ -47,6 +48,7 @@ class ProducersController < ApplicationController
 
     @producer = Producer.new(params[:producer])
     @producer.update_attributes(:active => "1", :is_deleted => "0")
+
 
     @groupings = Grouping.all
     grouping_ids = params[:grouping_ids] if params[:grouping_ids] 

@@ -44,6 +44,8 @@ class GroupingsController < ApplicationController
   def create
     @grouping = Grouping.new(params[:grouping])
 
+    @grouping.company_id = current_user.company_id
+
     respond_to do |format|
       if @grouping.save
         format.html { redirect_to '/groupings', notice: "La agrupación #{@grouping.name} fue creada exitosamente." }

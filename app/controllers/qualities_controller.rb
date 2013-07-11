@@ -1,6 +1,6 @@
 #encoding: utf-8
 class QualitiesController < ApplicationController
-  #load_and_authorize_resource
+  load_and_authorize_resource
   # GET /qualities
   # GET /qualities.json
   def index
@@ -43,6 +43,7 @@ class QualitiesController < ApplicationController
   # POST /qualities.json
   def create
     @quality = Quality.new(params[:quality])
+    @quality.company_id = current_user.company_id
 
     respond_to do |format|
       if @quality.save

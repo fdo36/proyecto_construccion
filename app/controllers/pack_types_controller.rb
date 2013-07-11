@@ -1,4 +1,5 @@
 class PackTypesController < ApplicationController
+  load_and_authorize_resource
 
   #load_and_authorize_resource
 
@@ -17,8 +18,6 @@ class PackTypesController < ApplicationController
   # GET /pack_types/1.json
   def show
     @pack_type = PackType.find(params[:id])
-
-    @pack_type.company_id = current_user.company_id
 
     respond_to do |format|
       format.html # show.html.erb
