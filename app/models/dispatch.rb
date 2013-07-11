@@ -1,4 +1,5 @@
 class Dispatch < ActiveRecord::Base
+  announce_component(:acopio, "Entradas/Salidas", 2)
   attr_accessible :company_id, :destination_id, :dispatch_datetime, :kind_id, :user_id
   belongs_to :company
   belongs_to :destination
