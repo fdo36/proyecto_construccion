@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711154830) do
+ActiveRecord::Schema.define(:version => 20130711214143) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20130711154830) do
     t.integer  "region_id"
     t.string   "rut"
     t.string   "phone"
+    t.boolean  "system_type"
   end
 
   create_table "containers", :force => true do |t|
