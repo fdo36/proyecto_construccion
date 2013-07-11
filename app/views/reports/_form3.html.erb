@@ -40,7 +40,6 @@
 
 function show_pack_type(sel) //sel= id del productor seleccionado
    {
-      alert("inicio");
       var selEnv = document.getElementById("Envases3");
       var x = 1;
       var flag3;   
@@ -52,7 +51,6 @@ function show_pack_type(sel) //sel= id del productor seleccionado
       $.get("/pallets.json", function(data3) { 
       $.get("/producers/"+sel+"/empty_packs_producer_moves.json", function(data4) {
       for(i=0;i<data.length;i++){
-            alert("empieza pack types");
             flag3 = true;
             for(j=0;j<data1.length && flag3;j++){
                  if(sel == data1[j].producer_id){ // si productor sel == idProducer de receipts

@@ -13,7 +13,7 @@ function show_pack_type2() //sel= id del productor seleccionado
       $.get("/dispatches.json", function(data1) { 
       $.get("/pack_group_dispatches.json", function(data2) { 
       $.get("/pallets.json", function(data3) { 
-      $.get("/producers/"+idDest+"/empty_packs_destination_moves.json", function(data4) {
+      $.get("/destinations/"+idDest+"/empty_packs_destination_moves.json", function(data4) {
       for(i=0;i<data.length;i++){
             flag4 = true;
             for(j=0;j<data1.length && flag4;j++){
@@ -39,13 +39,13 @@ function show_pack_type2() //sel= id del productor seleccionado
                  }
 
             }
-            if(flag3){
-               for(j=0;j<data4.length && flag3;j++){
+            if(flag4){
+               for(j=0;j<data4.length && flag4;j++){
                   if(data4[j].destination_id == idDest && data4[j].pack_type_id == data[i].id){
                         selEnv.options[x] = new Option(data[i].name,data[i].id,"0");
                         x++;
                         selEnv.selectedIndex=0;                               
-                        flag3 = false;
+                        flag4 = false;
                     }  
                }
             }            
