@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709235805) do
+ActiveRecord::Schema.define(:version => 20130709212952) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
     t.datetime "updated_at", :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
+    t.boolean  "system_type"
   end
 
   create_table "dispatch_containers", :force => true do |t|
@@ -130,6 +131,12 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
     t.string   "name_driver"
     t.string   "rut_driver"
     t.string   "patent"
+    t.string   "nave"
+    t.string   "reservation"
+    t.string   "stamp_number"
+    t.string   "thermograph"
+    t.string   "dispatch_guide"
+    t.string   "po_number"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
@@ -199,6 +206,7 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "company_id"
+    t.boolean  "system_type"
   end
 
   create_table "groupings_producers", :force => true do |t|
@@ -215,6 +223,7 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"
+    t.boolean  "system_type"
   end
 
   create_table "kinds_producers", :id => false, :force => true do |t|
@@ -275,6 +284,7 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.float    "tare"
+    t.boolean  "system_type"
   end
 
   create_table "pack_types_producers", :id => false, :force => true do |t|
@@ -296,6 +306,8 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
     t.string   "pallet_code"
     t.integer  "pack_type_id"
     t.integer  "producer_id"
+    t.integer  "variety_id"
+    t.integer  "receipt_packing_io_id"
   end
 
   create_table "packing_processes", :force => true do |t|
@@ -349,6 +361,7 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
     t.integer  "locality_id"
     t.integer  "code"
     t.integer  "company_id"
+    t.boolean  "system_type"
   end
 
   create_table "production_process_ios", :force => true do |t|
@@ -376,6 +389,7 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"
+    t.boolean  "system_type"
   end
 
   create_table "receipt_containers", :force => true do |t|
@@ -399,6 +413,7 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
     t.string   "comments"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.integer  "kind_id"
   end
 
   create_table "receipts", :force => true do |t|
@@ -441,6 +456,7 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
     t.integer  "is_delete"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "settings", :force => true do |t|
@@ -528,6 +544,8 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
     t.integer  "order_number"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "company_id"
+    t.boolean  "system_type"
   end
 
   create_table "tunnels", :force => true do |t|
@@ -573,6 +591,7 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"
+    t.boolean  "system_type"
   end
 
   create_table "wiki_page_versions", :force => true do |t|
@@ -605,7 +624,7 @@ ActiveRecord::Schema.define(:version => 20130709235805) do
   create_table "workers", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "phone"
+    t.string   "phone"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"

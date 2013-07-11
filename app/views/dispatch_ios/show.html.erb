@@ -1,45 +1,81 @@
 <p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Despacho</h1>
+</div>
+<div class="box">
+<%= link_to 'Volver', dispatch_ios_path , :class => "button blue alignright" %>
 
 <p>
-  <b>Number:</b>
+  <b>Número:</b>
   <%= @dispatch_io.number %>
 </p>
 
 <p>
-  <b>Charging order:</b>
+  <b>Orden de carga:</b>
   <%= @dispatch_io.charging_order_id %>
 </p>
 
 <p>
-  <b>Container code:</b>
+  <b>Código Contenedor:</b>
   <%= @dispatch_io.container_code %>
 </p>
 
 <p>
-  <b>Charging temperature:</b>
+  <b>Temperatura de Carga:</b>
   <%= @dispatch_io.charging_temperature %>
 </p>
 
 <p>
-  <b>Dispatch temperature:</b>
+  <b>Temperatura de Despacho:</b>
   <%= @dispatch_io.dispatch_temperature %>
 </p>
 
 <p>
-  <b>Name driver:</b>
+  <b>Nombre Conductor:</b>
   <%= @dispatch_io.name_driver %>
 </p>
 
 <p>
-  <b>Rut driver:</b>
+  <b>Rut Conductor:</b>
   <%= @dispatch_io.rut_driver %>
 </p>
 
 <p>
-  <b>Patent:</b>
+  <b>Patente:</b>
   <%= @dispatch_io.patent %>
 </p>
 
+<p>
+  <b>Nave:</b>
+  <%= @dispatch_io.nave %>
+</p>
 
-<%= link_to 'Edit', edit_dispatch_io_path(@dispatch_io) %> |
-<%= link_to 'Back', dispatch_ios_path %>
+<p>
+  <b>Reserva:</b>
+  <%= @dispatch_io.reservation %>
+</p>
+
+<p>
+  <b>Número de Sello:</b>
+  <%= @dispatch_io.stamp_number %>
+</p>
+
+<p>
+  <b>Termografo:</b>
+  <%= @dispatch_io.thermograph %>
+</p>
+
+<p>
+  <b>Guía de Despacho:</b>
+  <%= @dispatch_io.dispatch_guide %>
+</p>
+
+<p>
+  <b>Número PO:</b>
+  <%= @dispatch_io.po_number %>
+</p>
+
+</div>
+<div class="foot-box">
+  <%= link_to 'Editar', edit_dispatch_io_path(@dispatch_io) , :class => "button green alignright" %>
+</div>

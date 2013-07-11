@@ -25,6 +25,8 @@ class DispatchIosController < ApplicationController
   # GET /dispatch_ios/new.json
   def new
     @dispatch_io = DispatchIo.new
+    @charging_orders = ChargingOrder.all.map { |co| [co.id, co.id] }
+    @total_despachos = DispatchIo.count(:id)+1
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,6 +36,7 @@ class DispatchIosController < ApplicationController
 
   # GET /dispatch_ios/1/edit
   def edit
+    @charging_orders = ChargingOrder.all.map { |co| [co.id, co.id] }
     @dispatch_io = DispatchIo.find(params[:id])
   end
 
@@ -41,7 +44,8 @@ class DispatchIosController < ApplicationController
   # POST /dispatch_ios.json
   def create
     @dispatch_io = DispatchIo.new(params[:dispatch_io])
-
+    @dispatch_io.charging_order_id = params[:charging_order_id]
+    @dispatch_io.number = params[:number]
     respond_to do |format|
       if @dispatch_io.save
         format.html { redirect_to @dispatch_io, notice: 'Dispatch io was successfully created.' }
@@ -57,6 +61,8 @@ class DispatchIosController < ApplicationController
   # PUT /dispatch_ios/1.json
   def update
     @dispatch_io = DispatchIo.find(params[:id])
+    @dispatch_io.charging_order_id = params[:charging_order_id]
+    @dispatch_io.number = params[:number]
 
     respond_to do |format|
       if @dispatch_io.update_attributes(params[:dispatch_io])

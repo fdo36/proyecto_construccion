@@ -35,6 +35,10 @@ var config = 'pack_pallet';
               if(status == 3)
               	delete registers[name];
               set_modified(true);
+              $("#save").hide();
+              $("#cancel").hide();
+              $("#agregar").show();
+              clean_form();
       }});
 
       $("#tablealone tbody").delegate(".edit", "click", function () {
@@ -124,7 +128,6 @@ var config = 'pack_pallet';
           var tare = $("#destare").val();
         };
 
-
         var pack_type_tare = get_pack_type_tare(pack_type_id);
 
         var net_weight = gross_weight - (pack_type_tare * quantity) - tare;
@@ -137,7 +140,6 @@ var config = 'pack_pallet';
         	s = 3
 
         var new_register = new register(variety_id, quality_id, price_kg, pack_type_id, quantity, gross_weight, code, tare, is_pallet, idReg, s,idbase);
-
 
         registers[idReg] = new_register;
         oTable.fnUpdate( row, posTable );
@@ -262,16 +264,16 @@ var config = 'pack_pallet';
 		$.ajax({
       type: "POST",
 			url: '/receipts/'+receipt_id+'.json',
-			data: { _method:'PUT', receipt : {code: code, kind_id: kind_id, producer_id: producer_id, receipt_datetime: receipt_datetime } },
+			data: { _method:'PUT', receipt : { kind_id: kind_id, producer_id: producer_id, receipt_datetime: receipt_datetime } },
 				dataType: 'json'
 		});
-		add_registers_to(receipt_id);
+		add_registers_to(receipt_id, producer_id);
     }
     else
       alert("Lista de ingresos vacía");
   }
 
-  function add_registers_to (receipt_id) {
+  function add_registers_to (receipt_id, producer_id) {
     for (var key in registers){
       var register = registers[key] ;
       var register_id = register.register_id;
@@ -681,16 +683,18 @@ var config = 'pack_pallet';
   function errors_revision () {
     var variety_id = $("#select_variety").val();   
     var quality_id = $("#pallet_quality_id").val();
-    var price_kg = $("#pallet_price_per_unit").val();
     var pack_type_id = $("#pallet_pack_type_id").val();
     var quantity = $("#pallet_quantity").val();
     var gross_weight = $("#pallet_gross_weight").val();
-    var code = $("#code").val();
-    var tare = $("#destare").val();
+
+    if (config == 'pallet' || config == 'pack_pallet') 
+    {
+      var code = $("#code").val();
+      var tare = $("#destare").val();
+    };
     
     $("#variety_div").removeClass("field_with_errors");
     $("#quality_div").removeClass("field_with_errors");
-    $("#price_per_unit_div").removeClass("field_with_errors");
     $("#pack_type_id_div").removeClass("field_with_errors");
     $("#quantity_div").removeClass("field_with_errors");
     $("#gross_weight_div").removeClass("field_with_errors");
@@ -712,20 +716,6 @@ var config = 'pack_pallet';
     if(quality_id == ""){
       $("#quality_div").addClass("field_with_errors");
       errors = errors + "<li>Calidad no puede estar en blanco</li>";
-      contador_errores += 1;
-      isError = true;
-    }
-
-    if(price_kg == ""){
-      $("#price_per_unit_div").addClass("field_with_errors");
-      errors = errors + "<li>Precio por Kg no puede estar en blanco</li>";
-      contador_errores += 1;
-      isError = true;
-    }
-
-    if(!isInteger(price_kg)){
-      $("#price_per_unit_div").addClass("field_with_errors");
-      errors = errors + "<li>Precio por Kg no es un número</li>";
       contador_errores += 1;
       isError = true;
     }
@@ -976,7 +966,7 @@ var config = 'pack_pallet';
 
       <div class="line-forme">
         <div class="forme-lab">
-          <label>Precio por Kg ($)</label>
+          <label>Precio por Kg. ($)</label>
           <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
@@ -1013,7 +1003,7 @@ var config = 'pack_pallet';
 
       <div class="line-forme">
         <div class="forme-lab">
-          <label>Peso Bruto (Kg)</label>
+          <label>Peso Bruto (Kg.)</label>
           <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
@@ -1098,7 +1088,7 @@ var config = 'pack_pallet';
           <tr>
             <th style="width:20% !important;">Código Pallet</th>
             <th>N° Envases</th>
-            <th>Peso Neto (Kg)</th>
+            <th>Peso Neto (Kg.)</th>
             <th>Variedad</th>
             <th>Calidad</th>
             <th>Precio</th>
