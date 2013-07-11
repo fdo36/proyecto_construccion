@@ -807,9 +807,11 @@ class ReportsController < ApplicationController
 
 	    	@producers.each do |producer|
 	    		@kinds = Kind.find(:all,
-		    		:from => 'kinds, kinds_producers',
-		    		:select => 'id, name',
-		    		:conditions => ["kinds_producers.producer_id = ? and kinds.id=kinds_producers.kind_id",producer.id])
+		    		:from => 'kinds, receipts',
+		    		:select => 'kinds.id, kinds.name',
+		    		:conditions => ["kinds.id = receipts.kind_id and
+                                    receipts.producer_id = ?",
+                                    producer.id])
 	    		ary = [producer, @kinds]
 
 	    		mtrxx<<ary
@@ -822,9 +824,11 @@ class ReportsController < ApplicationController
 	    	@producers = Producer.find(@producer)
 
     		@kinds = Kind.find(:all,
-	    		:from => 'kinds, kinds_producers',
-	    		:select => 'id, name',
-	    		:conditions => ["kinds_producers.producer_id = ? and kinds.id=kinds_producers.kind_id",@producers.id])
+	    		:from => 'kinds, receipts',
+	    		:select => 'kinds.id, kinds.name',
+	    		:conditions => ["kinds.id = receipts.kind_id and
+                                 receipts.producer_id = ?",
+                                 @producer])
 	    	
 	    	mtrxx = [[@producers, @kinds]]
 	    	pdf = Report6Pdf.new(mtrxx, view_context)
