@@ -23,7 +23,7 @@ class FrozenTunnelIosController < ApplicationController
   end
 
   def valid_pallets
-    @previous_subprocess = SubprocessIo.where(:heir_type => "StabilizationChamberIo", :direction => false)
+    @previous_subprocess = SubprocessIo.where(:heir_type => "StabilizationChamberIo", :direction => true)
     @pallets_previous_subprocess = @previous_subprocess.map {|x| PackingPallet.find(x.packing_pallet_id)}
     
     @frozen_tunnel = SubprocessIo.where(:heir_type => "FrozenTunnelIo", :direction => true)
