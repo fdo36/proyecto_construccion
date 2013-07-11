@@ -190,7 +190,7 @@
 						<ul>
 							<p>Cuenta</p>
 							<div class="toolsDisplay">
-								<li><a href="#">Perfil</a></li>
+								<li><%= link_to('Perfil', show_user_profile_path(current_user.company, current_user)) %></li>
 								<li><%= link_to('Cerrar sesión', destroy_user_session_path, :method => :delete) %></li>
 							</div>
 						</ul>
