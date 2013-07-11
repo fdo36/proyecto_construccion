@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-
-
-ActiveRecord::Schema.define(:version => 20130710215444) do
-
+ActiveRecord::Schema.define(:version => 20130711024043) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -134,12 +130,6 @@ ActiveRecord::Schema.define(:version => 20130710215444) do
     t.string   "name_driver"
     t.string   "rut_driver"
     t.string   "patent"
-    t.string   "nave"
-    t.string   "reservation"
-    t.string   "stamp_number"
-    t.string   "thermograph"
-    t.string   "dispatch_guide"
-    t.string   "po_number"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
@@ -409,8 +399,10 @@ ActiveRecord::Schema.define(:version => 20130710215444) do
     t.integer  "trazability_code"
     t.integer  "dispatch_guide_number"
     t.string   "comments"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "kind_id"
+    t.datetime "receipt_packing_io_datetime"
   end
 
   create_table "receipts", :force => true do |t|
