@@ -1,4 +1,1072 @@
 <div class="headContent">
   <h1>Editar Despacho</h1>
 </div>
-<%= render 'form' %>
+<script type="text/javascript">
+var oTable = {}
+var registers = new Array();
+var id_count = 0;
+var modified = false;
+var idReg = 0;
+var posTable = 0;
+var config = 'pack_pallet';
+
+    $(function() {
+    	config = load_config();
+		$("#save").hide();
+      	$("#cancel").hide();
+    	
+      	oTable = $('#tablealone').dataTable({
+	        "sPaginationType": "full_numbers",
+	        "bJQueryUI": true,
+	        "aoColumnDefs": [
+	          { "bSortable": false, "aTargets": [ -1 ] },
+	          { "bSearchable": false, "aTargets": [ -1 ]}
+        ] } );
+
+      	$("#tablealone tbody").delegate(".del", "click", function () {
+          var parent = $(this).parent().parent().get( 0 );
+          var iPos = oTable.fnGetPosition(parent);
+          if (iPos !== null) {
+              oTable.fnDeleteRow(iPos);
+              var name = $(this).attr("name");
+              if(status == 0 || status == 1)
+              	registers[name].status = 2;
+              if(status == 3)
+              	delete registers[name];
+              set_modified(true);
+              $("#save").hide();
+              $("#cancel").hide();
+              $("#agregar").show();
+              clean_form();
+      }});
+
+      $("#tablealone tbody").delegate(".edit", "click", function () {
+          var parent = $(this).parent().parent().get( 0 );
+          var iPos = oTable.fnGetPosition(parent);
+
+          if (iPos !== null) {
+              posTable = iPos
+              var name = $(this).attr("name");
+              idReg = name;
+              var code = registers[name].code;
+              var gross_weight = registers[name].gross_weight;
+              var pack_type_id = registers[name].pack_type_id;
+              var quality_id = registers[name].quality_id;
+              var quantity = registers[name].quantity;
+              var tare = registers[name].tare;
+              var variety_id = registers[name].variety_id;
+              var is_pallet = registers[name].is_pallet;
+
+              clean_form();
+              
+              $("#select_variety").val(variety_id);
+              $("#pallet_variety_id").val(variety_id);
+              $("#pallet_quality_id").val(quality_id);
+              $("#pallet_pack_type_id").val(pack_type_id);
+              $("#pallet_quantity").val(quantity);
+              $("#pallet_gross_weight").val(gross_weight);
+              if (config == 'pack_pallet') 
+              {
+                $('#check').prop('checked', false);
+                
+              }
+              if (config == 'pallet' || config == 'pack_pallet')  
+              {
+                $("#code").prop("disabled",true);
+                $("#destare").prop("disabled",true);
+              }
+
+              if (is_pallet)
+              {
+                if (config == 'pack_pallet') 
+                {
+                  $('#check').prop('checked', true);
+                }
+                if (config == 'pallet' || config == 'pack_pallet') 
+                {
+                  $("#code").prop("disabled",false);
+                  $("#destare").prop("disabled",false);
+                  $("#code").val(code);
+                  $("#destare").val(tare)
+                }
+                
+              }
+              $("#save").show();
+              $("#cancel").show();
+              $("#agregar").hide();
+
+      }});
+      
+      $("#save").click(function() {
+        var variety_id = $("#select_variety").val();
+        var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
+        var quality_id = $("#pallet_quality_id").val();
+        var quality_name = $("#pallet_quality_id option[value='"+quality_id+"']").text();
+        var pack_type_id = $("#pallet_pack_type_id").val();
+        var quantity = $("#pallet_quantity").val();
+        var gross_weight = $("#pallet_gross_weight").val();
+        
+        if (config == 'pack_pallet') 
+        {
+          is_pallet = $("#check").is(':checked'); //true pallet
+          if(is_pallet)
+          {
+            code = $("#code").val();
+            tare = $("#destare").val();
+          }
+          else
+          {
+            code = 'No aplica';
+            tare = 0;
+          }
+        }
+        else if (config == 'pallet') 
+        {
+          is_pallet = true;
+          code = $("#code").val();
+          tare = $("#destare").val();
+        }
+        else
+        {
+          is_pallet = false;
+          code = 'No aplica';
+          tare = 0;
+        }
+
+        var pack_type_tare = get_pack_type_tare(pack_type_id);
+
+        var net_weight = gross_weight - (pack_type_tare * quantity) - tare;
+
+        var row = new Array(code, quantity, net_weight, variety_name, quality_name, "<a class='del' name="+idReg+">Eliminar</a> <a class='edit' name="+idReg+">Editar</a>");
+        var s = 1;
+        var idbase = registers[idReg].register_id;
+
+        if(registers[idReg].status == 3 )
+        	s = 3
+
+        var new_register = new register(variety_id, quality_id, pack_type_id, quantity, gross_weight, code, tare, is_pallet, idReg, s,idbase);
+
+        registers[idReg] = new_register;
+        oTable.fnUpdate( row, posTable );
+        $("#save").hide();
+        $("#cancel").hide();
+        $("#agregar").show();
+        clean_form();
+      });
+      
+      $("#cancel").click(function() {
+        $("#save").hide();
+        $("#cancel").hide();
+        $("#agregar").show();
+        clean_form();
+      });
+
+      $(".chzn-select").chosen().change(function() {
+          var id = $(this).val();
+          document.getElementById('select_destination').value = id;
+          document.getElementById('select_rut').value = id;
+          $('#select_destination').trigger('liszt:updated');
+          $('#select_rut').trigger('liszt:updated');
+      });
+      load_registers();
+    });
+
+    function show_rut(s) {
+	    if(s.value == "")
+	    {      
+	      $('#rut').val(""); 
+	      $('#codigo').val("");
+	    }
+	    else
+	    {
+	      $.get("/producers/"+s.value+".json", function(data) {
+	      $('#rut').val(data.rut); 
+	      $('#codigo').val(data.code);
+	      });
+	    }
+  	}
+
+    function checkedPallet() {
+	    if (check.checked == 0) {
+	      $("#code").prop("disabled",true);
+	      $("#destare").prop("disabled",true);
+	      $("#code").val("");
+	      $("#destare").val("");
+	    } 
+	    else{
+	      $("#code").prop("disabled",false);
+	      $("#destare").prop("disabled",false);
+	    }
+    }
+
+  	function load_config () {
+	    var setting = 'pack_pallet';
+	    $.ajax({
+	      url: "/settings.json",
+	      dataType: 'json',
+	      async: false,
+	      success: function(data){
+	          $.each(data,function(index, value){
+	            setting = value.key;
+	          });
+	      }
+	    });
+	    return setting;
+  	}
+
+  	window.onbeforeunload = function () {    
+	    if (modified) {
+	      return "Los cambios no guardados se perderan";
+	    }
+  	}
+
+  	function set_modified (argument) {
+    	modified = argument;
+  	}
+
+  	function register (variety_id, quality_id, pack_type_id, quantity, gross_weight, code, tare, is_pallet, id, status,register_id) {
+	    this.variety_id = variety_id;
+	    this.quality_id = quality_id;
+	    this.pack_type_id = pack_type_id;
+	    this.quantity = quantity;
+	    this.gross_weight =gross_weight;
+	    this.code = code;
+	    this.tare = tare;
+	    this.is_pallet = is_pallet;
+	    this.id = id;
+	    this.id = id;
+    	this.status = status;
+    	this.register_id = register_id;
+  	}
+
+  	function post () {
+    if(registers.length > 0)
+    {
+    	var pathArray = window.location.pathname.split( '/' );
+  		var dispatch_id = pathArray[2];
+
+  		//obtener datos de despacho
+      	var kind_id = $("#dispatch_kind_id").val();
+      	var destination_id = $("#select_destination").val();
+
+      	//crear datetime
+      	var year = $("#dispatch_dispatch_datetime_1i").val();
+      	var month = $("#dispatch_dispatch_datetime_2i").val();
+      	var day = $("#dispatch_dispatch_datetime_3i").val();
+     	  var hour = $("#dispatch_dispatch_datetime_4i").val();
+     	  var minute = $("#dispatch_dispatch_datetime_5i").val();
+      	var dispatch_datetime = year+"-"+month+"-"+day+" "+hour+":"+minute+":00";
+
+		$.ajax({
+      		type: "POST",
+			url: '/dispatches/'+dispatch_id+'.json',
+			data: { _method:'PUT', dispatch : { kind_id: kind_id, destination_id: destination_id, dispatch_datetime: dispatch_datetime } },
+				dataType: 'json'
+		});
+		add_registers_to(dispatch_id, destination_id);
+    }
+    else
+      alert("Lista de ingresos vacía");
+  }
+
+  function add_registers_to (dispatch_id, destination_id) {
+    for (var key in registers){
+      var register = registers[key] ;
+      var register_id = register.register_id;
+      var code = register.code;
+      var gross_weight = register.gross_weight;
+      var pack_type_id = register.pack_type_id;
+      var quality_id = register.quality_id;
+      var quantity = register.quantity;
+      var tare = register.tare;
+      var variety_id = register.variety_id;
+
+      if(register.is_pallet){
+      	if(register.status == 3)
+      	{
+	        $.ajax({  
+	          url: "/pallets",  
+	          type: "POST", 
+	          dataType: "json",
+	          async: false,
+	          data: { pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, quality_id: quality_id, quantity: quantity, dispatch_id: dispatch_id, tare: tare, variety_id: variety_id} } }); 
+    	}
+    	if(register.status == 2)
+      	{
+      		$.ajax({  
+	          url: "/pallets/"+register_id,  
+	          type: "POST", 
+	          datatype: "json",
+	          data: {"_method":"delete"} }); 
+      	}
+      	if(register.status == 1)
+      	{
+      		$.ajax({
+      			type: "POST",
+				url: '/pallets/'+register_id+'.json',
+				data: { _method:'PUT', pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, quality_id: quality_id, quantity: quantity, dispatch_id: dispatch_id, tare: tare, variety_id: variety_id} },
+				dataType: 'json'
+			});
+      	}
+      }
+      else
+      {
+      	if(register.status == 3)
+      	{
+	        $.ajax({  
+	          url: "/pack_group_dispatches",  
+	          type: "POST", 
+	          dataType: "json",
+	          async: false,
+	          data: { pack_group_dispatch : {gross_weight: gross_weight, pack_type_id: pack_type_id, quality_id: quality_id, quantity: quantity, dispatch_id: dispatch_id, variety_id: variety_id } } }); 
+    	}
+    	if(register.status == 2)
+      	{
+      		$.ajax({  
+	          url: "/pack_group_dispatches/"+register_id,  
+	          type: "POST", 
+	          datatype: "json",
+	          data: {"_method":"delete"} }); 
+      	}
+      	if(register.status == 1)
+      	{
+      		$.ajax({
+      			type: "POST",
+				url: '/pack_group_dispatches/'+register_id+'.json',
+				data: { _method:'PUT', pack_group_dispatch : {gross_weight: gross_weight, pack_type_id: pack_type_id, quality_id: quality_id, quantity: quantity, dispatch_id: dispatch_id, variety_id: variety_id} },
+				dataType: 'json'
+			});
+      	}
+      }
+    };
+    set_modified(false);
+    location.href = "/dispatches";
+  }
+
+  function get_pack_type_tare (pack_type_id) {
+    $.ajax({
+      url: "/pack_types.json",
+      dataType: 'json',
+      async: false,
+      success: function(data){
+          $.each(data,function(index, value){
+            if(value.id == pack_type_id)
+            {
+              tare = value.tare;
+            }
+          });
+      }
+    });
+    return tare;
+  }
+
+  function get_variety_name (variety_id) {
+    $.ajax({
+      url: "/varieties.json",
+      dataType: 'json',
+      async: false,
+      success: function(data){
+          $.each(data,function(index, value){
+            if(value.id == variety_id)
+            {
+              name = value.name;
+            }
+          });
+      }
+    });
+    return name;
+  }
+
+  function get_quality_name (quality_id) {
+    $.ajax({
+      url: "/qualities.json",
+      dataType: 'json',
+      async: false,
+      success: function(data){
+          $.each(data,function(index, value){
+            if(value.id == quality_id)
+            {
+              name = value.name;
+            }
+          });
+      }
+    });
+    return name;
+  }
+
+  function clean_form () {
+    $("#select_variety").val("");
+    $("#pallet_quality_id").val("");
+    $("#pallet_pack_type_id").val("");
+    $("#pallet_quantity").val("");
+    $("#pallet_gross_weight").val("");
+
+    if (config == 'pallet' || config == 'pack_pallet') 
+    {
+      $("#code").val("");
+      $("#destare").val("");
+    };
+  }
+
+  //variety_id, quality_id, price_kg, container_id, quantity, gross_weight, code, tare
+  function add_register()
+  {
+    var variety_id = $("#select_variety").val();
+    var variety_name = $("#select_variety option[value='"+variety_id+"']").text();
+    var quality_id = $("#pallet_quality_id").val();
+    var quality_name = $("#pallet_quality_id option[value='"+quality_id+"']").text();
+    var pack_type_id = $("#pallet_pack_type_id").val();
+    var quantity = $("#pallet_quantity").val();
+    var gross_weight = $("#pallet_gross_weight").val();
+
+    if (config == 'pack_pallet') 
+    {
+      is_pallet = $("#check").is(':checked'); //true pallet
+      if(is_pallet)
+      {
+        code = $("#code").val();
+        tare = $("#destare").val();
+      }
+      else
+      {
+        code = 'No aplica';
+        tare = 0;
+      }
+    }
+    else if (config == 'pallet') 
+    {
+      is_pallet = true;
+      code = $("#code").val();
+      tare = $("#destare").val();
+    }
+    else
+    {
+      is_pallet = false;
+      code = 'No aplica';
+      tare = 0;
+    }
+
+    var pack_type_tare = get_pack_type_tare(pack_type_id);
+
+    var net_weight = gross_weight - (pack_type_tare * quantity) - tare;
+
+    var id = id_count;
+    id_count++;
+
+    var new_register = new register(variety_id, quality_id, pack_type_id, quantity, gross_weight, code, tare, is_pallet, id, 3,"");//3 es crear en bd
+
+    registers[id_count] = new_register;
+
+    var row = new Array(code, quantity, net_weight, variety_name, quality_name, "<a class='del' name="+id_count+">Eliminar</a> <a class='edit' name="+id_count+">Editar</a>");
+    $('#tablealone').dataTable().fnAddData(row);
+    set_modified(true);
+    clean_form();
+  }
+
+  function load_registers () {
+  	var pathArray = window.location.pathname.split( '/' );
+  	var dispatch_id = pathArray[2];
+    console.log(dispatch_id);
+    $.ajax({
+      url: "/pack_group_dispatches.json",
+      dataType: 'json',
+      async: false,
+      success: function(data){
+          $.each(data,function(index, value){
+            if(value.dispatch_id == dispatch_id)
+            {
+              console.log(value.dispatch_id);
+            	var id = id_count;
+            	id_count++;
+            	var new_register = new register(value.variety_id, value.quality_id, value.pack_type_id, value.quantity, value.gross_weight, "No aplica", 0, false, id, 0, value.id);
+            	registers[id_count] = new_register;
+
+            	var pack_type_tare = get_pack_type_tare(value.pack_type_id);
+            	var net_weight = value.gross_weight - (pack_type_tare * value.quantity);
+
+            	var variety_name = get_variety_name(value.variety_id);
+            	var quality_name = get_quality_name(value.quality_id);
+
+            	var row = new Array("No aplica", value.quantity, net_weight, variety_name, quality_name, "<a class='del' name="+id_count+">Eliminar</a> <a class='edit' name="+id_count+">Editar</a>");
+            	$('#tablealone').dataTable().fnAddData(row);
+            }
+          });
+      }
+    });
+    $.ajax({
+      url: "/pallets.json",
+      dataType: 'json',
+      async: false,
+      success: function(data){
+          $.each(data,function(index, value){
+            if(value.dispatch_id == dispatch_id)
+            {
+            	var id = id_count;
+            	id_count++;
+            	var new_register = new register(value.variety_id, value.quality_id, value.pack_type_id, value.quantity, value.gross_weight, value.code, value.tare, true, id, 0, value.id);
+            	registers[id_count] = new_register;
+
+            	var pack_type_tare = get_pack_type_tare(value.pack_type_id);
+            	var net_weight = value.gross_weight - (pack_type_tare * value.quantity) - value.tare;
+
+            	var variety_name = get_variety_name(value.variety_id);
+            	var quality_name = get_quality_name(value.quality_id);
+
+            	var row = new Array(value.code, value.quantity, net_weight, variety_name, quality_name, "<a class='del' name="+id_count+">Eliminar</a> <a class='edit' name="+id_count+">Editar</a>");
+            	$('#tablealone').dataTable().fnAddData(row);
+            }
+          });
+      }
+    });
+  }
+</script>
+
+<script type="text/javascript">
+  function search_rut(s) {   
+      
+    if(s.value=="")
+    {           
+      $('#select_producer').val("");
+      $('#rut').val("-");      
+      $('#codigo').val("-");
+      $('#codigo_sag').val("-");
+    }
+
+    else
+    {      
+      $.get("/producers.json", function(data) {       
+       
+       var encontrado = false;       
+       
+       for (var i = data.length - 1; i >= 0; i--) {
+        if(data[i]["rut"]==s.value){
+          $('#rut').val(s.value); 
+          $('#select_producer').val([data[i]["name"], data[i]["id"]]);
+          $('#codigo').val(data[i]["code"]);
+          $('#codigo_sag').val(data[i]["sag_code"]);  
+          encontrado = true;                  
+        }
+       };
+       if(!encontrado)
+       {
+          $('#select_producer').val("");
+          $('#rut').val("-");      
+          $('#codigo').val("-");
+          $('#codigo_sag').val("-");
+       }
+
+      });      
+  }  
+}
+</script>
+
+<script type="text/javascript">
+  function show_variety(s)
+  { 
+      
+    if (s.value != '')
+    {
+      $.get("/varieties.json", function(data) {         
+        var options = '<option value>- Seleccione variedad -</option>';
+        $.each(data, function(i, item){ 
+          if(item.kind_id == s.value){
+            options += '<option value="' + item.id + '">' + item.name + '</option>';
+          }
+        });
+        $("#select_variety").html(options);
+      });
+    }
+    
+  }
+
+  function show_kind(s)
+  {
+    /*
+       
+    if (s.value != '')
+    {
+      $.get("/kinds.json", function(data) {         
+        var options = '<option value>- Seleccione especie -</option>';
+        $.each(data, function(i, item){ 
+          $.get("/varieties/"+s.value+".json", function(variety)
+            {
+              if(item.id == variety.kind_id){
+                options += '<option value="' + item.id + '" selected>' + item.name + '</option>';
+              }
+              $("#select_kind").html(options);
+            });
+            
+        });
+        
+      });
+    }
+    */
+  }
+
+</script>
+
+<script type="text/javascript">
+  function search_code(s) {   
+      
+    if(s.value=="")
+    {           
+      $('#select_producer').val("");
+      $('#rut').val("-");      
+      $('#codigo').val("-");
+      $('#codigo_sag').val("-");
+    }
+
+    else
+    {      
+      $.get("/producers.json", function(data) {       
+       
+       var encontrado = false;       
+       
+       for (var i = data.length - 1; i >= 0; i--) {
+        if(data[i]["code"]==s.value){
+          $('#rut').val(data[i]["rut"]); 
+          $('#select_producer').val([data[i]["name"], data[i]["id"]]);
+          $('#codigo').val(s.value);
+          $('#codigo_sag').val(data[i]["sag_code"]);  
+          encontrado = true;                  
+        }
+       };
+       if(!encontrado)
+       {
+          $('#select_producer').val("");
+          $('#rut').val("-");      
+          $('#codigo').val("-");
+          $('#codigo_sag').val("-");
+       }
+             
+      });      
+  }  
+}
+</script>
+
+<script type="text/javascript">
+  function search_sag(s) {   
+      
+    if(s.value=="")
+    {           
+      $('#select_producer').val("");
+      $('#rut').val("-");      
+      $('#codigo').val("-");
+      $('#codigo_sag').val("-");
+    }
+
+    else
+    {      
+      $.get("/producers.json", function(data) {       
+       
+       var encontrado = false;       
+       
+       for (var i = data.length - 1; i >= 0; i--) {
+        if(data[i]["sag_code"]==s.value){
+          $('#rut').val(data[i]["rut"]); 
+          $('#select_producer').val([data[i]["name"], data[i]["id"]]);
+          $('#codigo').val(data[i]["code"]);
+          $('#codigo_sag').val(s.value);  
+          encontrado = true;                  
+        }
+       };
+       if(!encontrado)
+       {
+          $('#select_producer').val("");
+          $('#rut').val("-");      
+          $('#codigo').val("-");
+          $('#codigo_sag').val("-");
+       }
+             
+      });      
+  }  
+}
+</script>
+
+<script type="text/javascript">
+  function isInteger(possibleInteger) {
+    return !isNaN(parseInt(possibleInteger));
+  }
+
+  function errors_revision () {
+    var variety_id = $("#select_variety").val();   
+    var quality_id = $("#pallet_quality_id").val();
+    var pack_type_id = $("#pallet_pack_type_id").val();
+    var quantity = $("#pallet_quantity").val();
+    var gross_weight = $("#pallet_gross_weight").val();
+
+    if (config == 'pallet' || config == 'pack_pallet') 
+    {
+      var code = $("#code").val();
+      var tare = $("#destare").val();
+    };
+    
+    $("#variety_div").removeClass("field_with_errors");
+    $("#quality_div").removeClass("field_with_errors");
+    $("#pack_type_id_div").removeClass("field_with_errors");
+    $("#quantity_div").removeClass("field_with_errors");
+    $("#gross_weight_div").removeClass("field_with_errors");
+    $("#code_div").removeClass("field_with_errors");
+    $("#tare_div").removeClass("field_with_errors");
+
+    var errorText = "<div id=error_explanation>";
+    var isError = false;
+    var contador_errores = 0;
+    var errors = "";
+
+    if(variety_id == ""){
+      $("#variety_div").addClass("field_with_errors");
+      errors = errors + "<li>Variedad no puede estar en blanco</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+
+    if(quality_id == ""){
+      $("#quality_div").addClass("field_with_errors");
+      errors = errors + "<li>Calidad no puede estar en blanco</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+
+    if(pack_type_id == ""){
+      $("#pack_type_id_div").addClass("field_with_errors");
+      errors = errors + "<li>Tipo de Envase no puede estar en blanco</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+
+    if(quantity == ""){
+      $("#quantity_div").addClass("field_with_errors");
+      errors = errors + "<li>Cantidad de Envases no puede estar en blanco</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+
+    if(!isInteger(quantity)){
+      $("#quantity_div").addClass("field_with_errors");
+      errors = errors + "<li>Cantidad de Envases no es un número</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+
+    if(gross_weight == ""){
+      $("#gross_weight_div").addClass("field_with_errors");
+      errors = errors + "<li>Peso Bruto no puede estar en blanco</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+
+    if(!isInteger(gross_weight)){
+      $("#gross_weight_div").addClass("field_with_errors");
+      errors = errors + "<li>Peso Bruto no es un número</li>";
+      contador_errores += 1;
+      isError = true;
+    }
+
+    if (config == 'pallet' || config == 'pack_pallet') 
+    {
+      if (check.checked == 1) {
+        if(code == ""){
+          $("#code_div").addClass("field_with_errors");
+          errors = errors + "<li>Código Pallet no puede estar en blanco</li>";
+          contador_errores += 1;
+          isError = true;
+        }
+
+        if(!isInteger(code)){
+          $("#code_div").addClass("field_with_errors");
+          errors = errors + "<li>Código no es un número</li>";
+          contador_errores += 1;
+          isError = true;
+        }
+
+        if(tare == ""){
+          $("#tare_div").addClass("field_with_errors");
+          errors = errors + "<li>Destare Pallet no puede estar en blanco</li>";
+          contador_errores += 1;
+          isError = true;
+        }   
+
+        if(!isInteger(tare)){
+          $("#tare_div").addClass("field_with_errors");
+          errors = errors + "<li>Destare Pallet no es un número</li>";
+          contador_errores += 1;
+          isError = true;
+        }
+      }
+    }
+
+    if(isError){
+      errorText+= "<h2>"+contador_errores+" errores, no se puede guardar el pallet o envase";
+      errorText+= "<ul>";
+      errorText+= errors;
+      errorText+= "</ul>";
+      errorText+= "</div>";  
+      document.getElementById("show_errors").innerHTML = errorText;
+    }
+
+    else{
+      document.getElementById("show_errors").innerHTML = "";
+      add_register();
+    }
+
+  }
+
+  
+</script>
+
+
+
+<div class="box">
+<%= form_for(@dispatch) do |f| %>
+  <% if @dispatch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @dispatch.errors.count > 1 ? "#{@dispatch.errors.count} errores." : "#{@dispatch.errors.count} error." %> No se puede guardar el despacho:</h2>
+      <ul>
+      <% @dispatch.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class = "contentSubPanel">
+    
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Destino </label>
+        <em class="formee-req">*</em>
+      </div>    
+      <div class="forme-in">
+        <% @options = Destination.all.map { |d| [d.name, d.id] } %>
+        <%= f.select(:destination_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione destino - '} , :id => 'select_destination',:onchange => "show_rut(this)", :disabled => true) %>  
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Rut Destino </label>
+        <em class="formee-req">*</em>
+      </div>    
+      <div class="forme-in">
+        <% @options = Destination.all.map { |d| [d.rut, d.id] } %>
+        <%= f.select(:destination_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione Rut de destino - '} , :id => 'select_rut',:onchange => "show_rut(this)", :disabled => true) %>  
+      </div>
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Especie </label>
+        <em class="formee-req">*</em>
+      </div>    
+      <div class="forme-in">
+        <% @options = Kind.all.map { |k| [k.name, k.id] } %>
+        <%= f.select(:kind_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione especie - '}, :disabled => true) %>
+      </div>    
+    </div>
+
+    <div class="line-forme">
+      <div class="forme-lab">
+        <label>Fecha de Despacho </label>
+        <em class="formee-req">*</em>
+      </div>    
+      <div>
+        <%= f.datetime_select :dispatch_datetime %>
+      </div>    
+    </div>
+    <label> (
+      <em class="formee-req">*</em>
+    </label> ) Campos obligatorios.
+
+  </div>  
+
+  <div class = "contentSubPanel">
+    <div class="headContent">
+      <h1>Registrar</h1>
+    </div>
+    <div class="box">
+
+      <div id = "show_errors">
+
+      </div>
+
+
+      <%= form_for([@pallet], :url => pallets_path) do |f| %>
+
+        <% if @pallet.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= @pallet.errors.count > 1 ? "#{@pallet.errors.count} errores." : "#{@pallet.errors.count} error." %> No se puede guardar el pallet:</h2>
+
+            <ul>
+            <% @pallet.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Variedad</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <div id="variety_div">
+              <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
+              <%= f.select(:variety_id, options_for_select(@options_varieties), {:selected => :prompt, :prompt => '- Seleccione variedad - '} , :id => 'select_variety') %> 
+            </div>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Calidad</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <div id="quality_div">
+              <% quality_array = Quality.all.map { |quality| [quality.name, quality.id] } %>
+              <%= f.select(:quality_id, quality_array, :selected => :prompt, :prompt => '- Seleccione calidad -')  %>
+            </div>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Tipo Envase</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <div id="pack_type_id_div">
+              <% pack_type_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+              <%= f.select(:pack_type_id, pack_type_array , :selected => :prompt, :prompt => '- Seleccione envase -')  %>
+            </div>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Cantidad Envases</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <div id="quantity_div">
+              <%= f.text_field :quantity %>
+            </div>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Peso Bruto (Kg)</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <div id="gross_weight_div">
+              <%= f.text_field :gross_weight %>
+            </div>
+          </div>
+        </div>
+
+        <!-- obtener configuracion para modificar formulario -->
+        <% settings_array = Setting.all.map { |setting| [setting.key] }%>
+        <% if (settings_array.size != 0)%>
+          <% config = (settings_array[settings_array.size - 1][0]).to_s %>
+        <% else %>
+          <% config = 'pack_pallet' %>
+        <% end %>
+
+        <% if config == 'pack_pallet'%>
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>¿Trabajar con Pallet?</label>
+          </div>
+          <div class="forme-in">
+              <input type="checkbox" id="check" class="check" value="¿Trabajar con Pallet?" checked onClick="checkedPallet()" />          
+          </div>
+        </div>
+      <% end %>
+      
+      <% if config == 'pack_pallet' || config == 'pallet'%>
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Código Pallet</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <div id="code_div">
+              <%= f.text_field :code, :id=>"code"%>
+            </div>
+          </div>
+        </div>
+
+        <div class="line-forme">
+          <div class="forme-lab">
+            <label>Destare Pallet</label>
+            <em class="formee-req">*</em>
+          </div>
+          <div class="forme-in">
+            <div id="tare_div">
+              <%= f.text_field :tare, :id=>"destare"%>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+        <div class = "newTopBanner">
+        <% if config == 'pack_pallet' %>
+          <input type="button" value="Agregar Registro" id="agregar" name="agregar" class="button blue alignright" language="javascript" onClick='errors_revision()'>
+        <% elsif config == 'pallet' %>
+          <input type="button" value="Agregar Pallet" id="agregar" name="agregar" class="button blue alignright" language="javascript" onClick='errors_revision()'>
+        <% else %>
+          <input type="button" value="Agregar Envase" id="agregar" name="agregar" class="button blue alignright" language="javascript" onClick='errors_revision()'>
+        <% end %>
+          
+        
+        <input type="button" value="Cancelar" id="cancel" name="agregar" class="button red alignright" language="javascript" >
+        <input type="button" value="Guardar" id="save" name="agregar" class="button green alignright" language="javascript" >
+      </div>
+      <label> (
+      <em class="formee-req">*</em>
+      </label> ) Campos obligatorios.
+    </div> 
+  </div>  
+
+
+  <div class = "contentSubPanel">
+    <div class="headContent">
+      <h1>Detalle</h1>
+    </div>
+
+    <div class="box"> 
+      <table cellpadding="0" cellspacing="0" border="0" id="tablealone" class="display">
+        <thead>
+          <tr>
+            <th style="width:20% !important;">Código Pallet</th>
+            <th>N° Envases</th>
+            <th>Peso Neto (Kg)</th>
+            <th>Variedad</th>
+            <th>Calidad</th>
+            <th style="width:20% !important;">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<% end %>
+
+<div class="foot-box">
+  <div class="line-forme">
+        <%= link_to 'Cancelar', dispatches_path , :class => "button silver alignright" %>
+    <%= f.submit :Aceptar, :class => "button green alignright", :onClick => 'post()' %>
+  </div>
+</div>
+
+
+<% end %>

@@ -169,7 +169,8 @@ var config = 'pack_pallet';
       });
     });
 
-    function show_rut(s) {
+  function show_rut(s) {
+    load_kinds(s);
     if(s.value == "")
     {      
       $('#rut').val(""); 
@@ -179,9 +180,9 @@ var config = 'pack_pallet';
     else
     {
       $.get("/producers/"+s.value+".json", function(data) {
-      $('#rut').val(data.rut); 
-      $('#codigo').val(data.code);
-      $('#codigo_sag').val(data.sag_code);
+        $('#rut').val(data.rut); 
+        $('#codigo').val(data.code);
+        $('#codigo_sag').val(data.sag_code);
       });
     }
   }
@@ -681,8 +682,7 @@ var config = 'pack_pallet';
       </div>
       <div id="kind_div">
         <div class="forme-in">
-          <% @options_kinds = Kind.all.map { |kind| [kind.name, kind.id] } %>
-          <%= f.select(:kind_id, options_for_select(@options_kinds), {:selected => :prompt, :prompt => '- Seleccione especie - '} , :id => 'select_kind',:onchange => "show_variety(this)") %>        
+          <%= f.select(:kind_id, "kind" ,:selected => :prompt, :prompt => '- Seleccione especie -', :onchange => "show_variety(this)") %>
         </div>
       </div>
     </div>

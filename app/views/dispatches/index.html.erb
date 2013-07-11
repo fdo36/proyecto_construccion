@@ -11,8 +11,7 @@
         <th style="width:20% !important;">Destino</th>
         <th>Fecha</th>
         <th>Hora</th>
-        <th>Especie</th>
-        <!-- <th>Company</th>-->
+        <th>Producto</th>
         <th style="width:20% !important;">Acciones</th>
       </tr>
      </thead> 
@@ -25,16 +24,21 @@
             <td><%= dispatch.dispatch_datetime.strftime('%d/%m/%Y') %></td>
             <td><%= dispatch.dispatch_datetime.strftime('%H:%M:%S') %></td>
             <td><%= (Kind.all(:select => "name", :conditions => ["id = ?",dispatch.kind_id]))[0].name %></td>
+            <% count = 0 %>
+            <% dispatch.pallets.each do |pallet| %>
+              <% count += 1 %>
+            <% end %>
+            <% dispatch.pack_group_dispatches.each do |pack_group_dispatch| %>
+              <% count += 1 %>
+            <% end %>
             <td>
-            <%= link_to 'Ver', dispatch %>
             <%= link_to 'Editar', edit_dispatch_path(dispatch) %>
-            <%= link_to 'Eliminar', dispatch, method: :delete, data: { confirm: '¿Está seguro de eliminar este despacho?'} %></td>
+            <% if count == 0 %>
+              <%= link_to 'Eliminar', dispatch, method: :delete, data: { confirm: '¿Está seguro de eliminar este despacho?'} %></td>
+              <% end %>
           </tr>   
                            
       <% end %>
       </tbody>
-   
-  
   </table>
-
 </div>

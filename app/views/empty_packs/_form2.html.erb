@@ -1,7 +1,7 @@
 <script type="text/javascript">
-/*Busca el rut del destino seleccionado y calculo de envases*/
-function show_rut_destination(s)
-{
+var pack_type_array_destination = new Array();
+var count=0;
+function show_rut_destination(s){
 	if(s.value == "")
 	{
  		var inputRut = document.getElementById('rut_destination');
@@ -54,141 +54,160 @@ function show_rut_destination(s)
 	});
 	stock_pack_type();
 }
-function displayResultDestination()
-{
-	//Validar las opciones de ingreso de despacho
+function displayResultDestination(pack_add){
+
+	var button = '<a id="'+count+'"align="center" 	onclick="delete_row_destination(this)">Eliminar</a>';	
+		$('#myTableDestination').dataTable().fnAddData(
+		[pack_add.pack_type,pack_add.quantity,pack_add.option,
+ 		button]);
+ 	count++;	 
+}
+function clear_field_destination(){
 	var radio1 =document.getElementById('radioDestination1');
 	var radio2 =document.getElementById('radioDestination2');
+	var select = document.getElementById('mySelectDestination');
+	var quantity =document.getElementById('quantityDestination');
+	radio1.checked=false;
+	radio2.checked=false;
+	select.value="";
+	quantity.value="";
+}
+function pack_destination(pack_type_id,destination_id,pack_type,quantity,option){
+	this.pack_type_id = pack_type_id;
+	this.destination_id = destination_id;
+	this.pack_type = pack_type;
+	this.quantity = quantity;
+	this.option = option;
+}
+function new_pack_destination(){
+	var radio1 =document.getElementById('radioDestination1');
+	var radio2 =document.getElementById('radioDestination2');
+	var quantity =document.getElementById('quantityDestination').value;
 	var selectp = document.getElementById("Destination").value;
-	var stock = document.getElementById("stockDestination").value
-
-	var quantityValidate =document.getElementById('quantityDestination').value;
-	var producerValidate = document.getElementById("mySelectDestination").value;
-
-
-	if(stock=="Sin Stock")
-	{
-		alert("No hay stock disponible");
-	}
-	else if(selectp.length==0)
-	{
-		alert("Debes selecionar un Destino");
-	}
-	else if(!radio1.checked && !radio2.checked)
-	{
-		alert("Debes selecionar una opcion");
-	}
-	else if(quantityValidate.length==0)
-	{
-		alert("Debes ingresar una cantidad");
-	}
-	else if(producerValidate.length==0)
-	{
-		alert("Debes selecionar un tipo de envace");
-
-	}
-	else if(radio2.checked && stock-quantityValidate<0)
-	{
-		alert("Solo puedes despachar: "+(stock));
-	}	
+	var select = document.getElementById("mySelectDestination");
 	
-	else
+	if(validate_radio(radio1,radio2)==true)
 	{
-		if(selectp.length!=0)
-		{
-			var deshabilitarP = document.getElementById("Destination");
-			deshabilitarP.disabled=true;
+		console.log("1");
+		var option;
+		if(radio1.checked){
+			option = radio1.value;
 		}
-		var radio1 = document.getElementById("radioDestination1");
-		var selectp = document.getElementById("Destination");
-		var select = document.getElementById("mySelectDestination");
-		var quantity = document.getElementById("quantityDestination");
-		var button = '<button type="button" id="bDelete" align="center" onclick="borrarFila(this)">Eliminar</button>';
+		else{
+			option = radio2.value;
+		}	
+		if(validate_quantity(quantity)==true){
+			console.log("2");	
+			var stock = document.getElementById('stockDestination').value;		
+			if(validate_stock(quantity,option,stock)==true){
+				console.log("3");
+				if(validate_pack_type(select.value)==true){
+					console.log("4");
+					var pack_add_destination = new pack_destination(select.value,selectp,select.options[select.selectedIndex].text,quantity,option);
+					pack_type_array_destination.push(pack_add_destination);
+					displayResultDestination(pack_add_destination);
+					clear_field_destination();
+				}
 
-		if(radio1.checked)
-		{
-		$('#myTableDestination').dataTable().fnAddData(
-			[select.value,selectp.value,selectp.options[selectp.selectedIndex].text,
-			 select.options[select.selectedIndex].text,
-			 quantity.value,"ingreso",
-			 button
-			]);
-	   }
-	   else
-	   {
-	   	$('#myTableDestination').dataTable().fnAddData(
-			[select.value,selectp.value,selectp.options[selectp.selectedIndex].text,
-			 select.options[select.selectedIndex].text,
-			 quantity.value,"despacho",
-			 button
-			]);
-	   }
-		if(radio2.checked)
-		{
-			addPack_type(parseInt(select.value),parseInt(quantity.value),2);
+			}
 		}
-		
 	}
 }
-/*Borrar la fila selecionada de la tabla*/
-function borrarFila4(b)
-{
-
+function delete_row_destination(b){
 	var table = document.getElementById("myTableDestination");
-	var parent= b.parentNode;
+	var parent= b.parentNode;	
 	while(parent.nodeName.toLowerCase()!='tr'){
 		parent = parent.parentNode;
 	}
 	$('#myTable').dataTable().fnDeleteRow(parent);
+	alert(parent.childNodes[3].id);
+	//pack_type_array.remove[parent.childNodes[0].id];
+	count--;
+	console.log(count);
+	
 }
-function add_dbDestination()
-{
-	var table = document.getElementById('myTableDestination');
-	var rowLength = table.rows.length;
-	for(var i=2; i<rowLength; i+=1){
-	  var row = table.rows[i];
-	  var values=new Array(); 
-	  var cellLength = row.cells.length;
-	  for(var y=0; y<cellLength-1; y+=1){
-	    var cell = row.cells[y];
-	    if(cell.firstChild!=null)
-	    {
-		    var value = cell.firstChild.data
-		    values.push(value);
-	    }
-	  	}
-	  	
- 		$.ajax({
-	   	url: "destinations/"+values[1]+"/empty_packs_destination_moves",
+function add_db_destination(){
+	for(var i=0; i<pack_type_array_destination.length; i+=1){
+	  	$.ajax({
+			url: "destinations/"+pack_type_array_destination[i].destination_id+"/empty_packs_destination_moves",
 	 		type: "POST",
-	    	data: {empty_packs_destination_move :{destination_id: values[1],pack_type_id: values[0],quantity: values[4],pack_option: values[5]}},
+	 	
+	    	data: {empty_packs_destination_move:{destination_id: pack_type_array_destination[i].destination_id,pack_type_id: pack_type_array_destination[i].pack_type_id,quantity: pack_type_array_destination[i].quantity,pack_option: pack_type_array_destination[i].option}},
 	 	}).done(function(data){
 
-             window.location = "/empty_packs_destination_moves";
+             window.location = "/empty_packs"
          });
 		
 	}
 }
-function show_stockDestination(s)
-{
-	for(var i=0;i<pack_types.length;i++)
-	{
-		if(s.value==pack_types[i].pack_id)
-		{	var inputStock = document.getElementById('stockDestination');
-			inputStock.value =pack_types[i].quantity;
+function stock_calculate(){
+	var pack_id = document.getElementById('mySelectDestination');
+	
+	$.get("/destinations.json", function(data){
+		$.each(data, function(index, value){
+			var destination_id= value.id;
+			var quantity=0;
+			$.get("/destinations/"+destination_id+"/empty_packs_destination_moves.json", function(data){
+		  	$.each(data, function(index, value){
+				if(value.pack_type_id==pack_id.value)
+				{	
+					if(value.pack_option=="ingreso")
+						{
+							quantity = quantity + value.quantity;
+						}
+						else
+						{
+							quantity = quantity - value.quantity;
+						}
+		 		}
+
+			});
+			var stock_pack_type = document.getElementById('stock');
+			stock_pack_type.value = quantity;  
+			});
+		});		
+	});
+}
+function delete_row_destination(b){
+	var table = document.getElementById("myTableDestination");
+	var parent= b.parentNode;	
+	while(parent.nodeName.toLowerCase()!='tr'){
+		parent = parent.parentNode;
+	}
+	$('#myTableDestination').dataTable().fnDeleteRow(parent);
+	for(var i=0;i<pack_type_array.length;i++){
+		if(pack_type_array[i].producer_id==parent.childNodes[0].id){
+			pack_type_array.remove[i];
 		}
 	}
 }
-function show_stock2Destination()
-{
-	var selectP = document.getElementById("mySelectDestination").value;
-	for(var i=0;i<pack_types.length;i++)
-	{
-		if(selectP==pack_types[i].pack_id)
-		{	var inputStock = document.getElementById('stockDestination');
-			inputStock.value =pack_types[i].quantity;
-		}
-	}
+function stock_calculate_destination(){
+	var pack_id = document.getElementById('mySelectDestination');
+	
+	$.get("/destinations.json", function(data){
+		$.each(data, function(index, value){
+			var destination_id= value.id;
+			var quantity=0;
+			$.get("/destinations/"+destination_id+"/empty_packs_destination_moves.json", function(data){
+		  	$.each(data, function(index, value){
+				if(value.pack_type_id==pack_id.value)
+				{	
+					if(value.pack_option=="ingreso")
+						{
+							quantity = quantity + value.quantity;
+						}
+						else
+						{
+							quantity = quantity - value.quantity;
+						}
+		 		}
+
+			});
+			var stock_pack_type = document.getElementById('stockDestination');
+			stock_pack_type.value = quantity;  
+			});
+		});		
+	});
 }
 
 </script>
@@ -229,7 +248,7 @@ function show_stock2Destination()
 	</div>
 	<% @pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
 	<div class="forme-in">
-	 <%= select_tag "mySelectDestination", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase",:onchange => "show_stockDestination(this)" %>
+	 <%= select_tag "mySelectDestination", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase",:onchange => "stock_calculate_destination(this)" %>
 	</div>
 </div>
 <!-- Stock de los envases-->
@@ -270,16 +289,17 @@ function show_stock2Destination()
 		<%end%>
   </tbody>
 </table>
+<div class="headContent">
+  <h1>Envases</h1>
+</div>
+<div class="box">
 <!--Boton para agregar datos a la tabla -->
-<button type="button" onclick="displayResultDestination(),show_stock2Destination()" class="button blue alignright">Agregar</button>
+<button type="button" onclick="new_pack_destination()" class="button blue alignright">Agregar</button>
 <!--Tabla que muestra los datos agregados de destino-->
 <table cellpadding="0" cellspacing="0" border="0" class="display datatable" id="myTableDestination">
 	<thead>
     <tr>
-		<th>Envase_id</th>
-    	<th>Productor_id</th>
-    	<th>Productor</th>
-   	<th>Envase</th>
+		<th>Envase</th>
    	<th>Cantidad</th>
    	<th>Opcion</th>
    	<th>Acción</th>
@@ -291,12 +311,13 @@ function show_stock2Destination()
 			<td></td>
 			<td></td>
 			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
 		</tr>
   </tbody>
 </table>
+</div>
+<div class="foot-box">
 <!--Boton que termina el proceso y agrega todos los datos a la base de datos-->
-<a class = "button blue alignright" data-role="button" onclick="add_dbDestination()">Aceptar</a>
+ <%= link_to 'Cancelar', empty_packs_path, :class => "button silver alignright" %>
+<a class = "button green alignright" data-role="button" onclick="add_db_destination()">Guardar</a>
+</div>
 

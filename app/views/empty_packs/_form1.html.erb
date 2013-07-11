@@ -1,7 +1,6 @@
 <script type="text/javascript">
 var pack_type_array = new Array();
-/***Funciones relacionadas con modificar los input del html***************/
-/*Agrega el rut y codigo sag del productor ademas cuenta los tipos de envases que le perteneces y los agrega a la tabla */
+var count=0;
 function show_rut1(s){
 	//Busqueda del codigo sag y rut del productor
 	if(s.value == "")
@@ -56,28 +55,17 @@ function show_rut1(s){
 	});
 	stock_pack_type();
 }
-/*Cuenta la cantidad de envases del tipo especificado de la compañia*/
-function show_stock(s){
-	for(var i=0;i<pack_types.length;i++)
-	{
-		if(s.value==pack_types[i].pack_id)
-		{	var inputStock = document.getElementById('stock');
-			inputStock.value =pack_types[i].quantity;
-		}
-	}
+function clear_field(){
+	var radio1 =document.getElementById('radio1');
+	var radio2 =document.getElementById('radio2');
+	var select = document.getElementById("mySelect");
+	var quantity =document.getElementById('quantity');
+
+	radio1.checked=false;
+	radio2.checked=false;
+	select.value="";
+	quantity.value="";
 }
-/*Modifica el stock cuando es cambiado*/
-function show_stock2(){
-	var selectP = document.getElementById("mySelect").value;
-	for(var i=0;i<pack_types.length;i++)
-	{
-		if(selectP==pack_types[i].pack_id)
-		{	var inputStock = document.getElementById('stock');
-			inputStock.value =pack_types[i].quantity;
-		}
-	}
-}
-/****************************************************************************/
 function pack(pack_type_id,producer_id,pack_type,quantity,option){
 	this.pack_type_id = pack_type_id;
 	this.producer_id = producer_id;
@@ -91,6 +79,7 @@ function listar(){
 		console.log(pack_type_array[i].pack_type_id+","+pack_type_array[i].producer_id+","+pack_type_array[i].pack_type+","+pack_type_array[i].quantity+","+pack_type_array[i].option);
 	}
 }
+//Validadores
 function validate_radio(radio1,radio2){
 	if(!radio1.checked && !radio2.checked)
 	{
@@ -118,6 +107,29 @@ function validate_quantity(q){
 		return true;
 	}
 }
+function validate_stock(q,option,stock){
+	console.log(option);
+	var flag = true;
+
+	if(option=="despacho")
+	{	
+	   if((stock-q)<0){
+	   	alert("No tienes stock");
+	   	flag=false;
+	   }
+	}
+	return flag;
+}
+function validate_pack_type(pack_type){
+	if(pack_type==""){
+		alert("Debes selecionar un tipo de envase");
+		return false;
+	}
+	else{
+		return true;
+	}
+}	
+//
 function new_pack(){
 	var radio1 =document.getElementById('radio1');
 	var radio2 =document.getElementById('radio2');
@@ -125,61 +137,61 @@ function new_pack(){
 	var selectp = document.getElementById("Productores1").value;
 	var select = document.getElementById("mySelect");
 	var quantity =document.getElementById('quantity').value;
-
 	
+
 	if(validate_radio(radio1,radio2)==true)
 	{
-		if(validate_quantity(quantity)==true)
-		{			
-			var pack_add = new pack(select.value,selectp,select.options[select.selectedIndex].text,quantity,"");
-			if(radio1.checked){
-				pack_add.option = radio1.value;
+		console.log("1");
+		var option;
+		if(radio1.checked){
+			option = radio1.value;
+		}
+		else{
+			option = radio2.value;
+		}	
+		if(validate_quantity(quantity)==true){
+			console.log("2");	
+			var stock = document.getElementById('stock').value;		
+			if(validate_stock(quantity,option,stock)==true){
+				console.log("3");
+				if(validate_pack_type(select.value)==true){
+					console.log("4");
+					var pack_add = new pack(select.value,selectp,select.options[select.selectedIndex].text,quantity,option);
+					pack_type_array.push(pack_add);
+					displayResult(pack_add);
+					clear_field();
+				}
+
 			}
-			else{
-				pack_add.option = radio2.value;
-			}
-			pack_type_array.push(pack_add);
-			displayResult(pack_add);
 		}
 	}
 }
-/*************Funciones relacionada con la tabla de ingresos*********************/
-/*Agregar un movimiento de envases a la tabla*/
 function displayResult(pack_add){
-	//Validar las opciones de ingreso de despacho
 	var selectp = document.getElementById("Productores1").value;
-	if(selectp.length!=0)
-		{
-			var deshabilitarP = document.getElementById("Productores1")
-			deshabilitarP.disabled=true;
-		}
-		var button = '<a id="'+pack_add.producer_id+'"align="center" onclick="borrarFila(this)">Eliminar</a>';	
+	if(selectp.length!=0){
+		var deshabilitarP = document.getElementById("Productores1")
+		deshabilitarP.disabled=true;
+	}
+	var button = '<a id="'+count+'" align="center" 	onclick="delete_row(this)">Eliminar</a>';	
 		$('#myTable').dataTable().fnAddData(
-			[pack_add.pack_type,pack_add.quantity,pack_add.option,
-			 button
-			]);  	
+		[pack_add.pack_type,pack_add.quantity,pack_add.option,
+ 		button]);
+ 	count++;
+ 	console.log(count);	  	
 }
-/*Borrar la fila selecionada de la tabla*/
-function borrarFila(b){
+function delete_row(b){
 	var table = document.getElementById("myTable");
-	var parent= b.parentNode;
-	
+	var parent= b.parentNode;	
 	while(parent.nodeName.toLowerCase()!='tr'){
 		parent = parent.parentNode;
 	}
 	$('#myTable').dataTable().fnDeleteRow(parent);
-	for(var i=0;i<pack_type_array.length;i++){
-		if(pack_type_array[i].producer_id==parent.childNodes[0].id){
-			pack_type_array.remove[i];
-		}
-	}
-
-
+	alert(parent.childNodes[3].id);
+	//pack_type_array.remove[parent.childNodes[0].id];
+	count--;
+	console.log(count);
+	
 }
-/*****************************************************************************/
-
-/*****************Funcion relacionada con la base de datos********************/
-/*Agrega los datos de la myTable a la base de datos empty_packs_producer_moves*/
 function add_db(){
 	
 	for(var i=0; i<pack_type_array.length; i+=1){
@@ -195,7 +207,34 @@ function add_db(){
 		
 	}
 }
-/******************************************************************************/
+function stock_calculate(){
+	var pack_id = document.getElementById('mySelect');
+	
+	$.get("/producers.json", function(data){
+		$.each(data, function(index, value){
+			var producer_id= value.id;
+			var quantity=0;
+			$.get("/producers/"+producer_id+"/empty_packs_producer_moves.json", function(data){
+		  	$.each(data, function(index, value){
+				if(value.pack_type_id==pack_id.value)
+				{	
+					if(value.pack_option=="ingreso")
+						{
+							quantity = quantity + value.quantity;
+						}
+						else
+						{
+							quantity = quantity - value.quantity;
+						}
+		 		}
+
+			});
+			var stock_pack_type = document.getElementById('stock');
+			stock_pack_type.value = quantity;  
+			});
+		});		
+	});
+}
 </script>  
 
 <!--Selector de productores-->
@@ -243,7 +282,7 @@ function add_db(){
 	</div>
 	<% @pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
 	<div class="forme-in">
-	 <%= select_tag "mySelect", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" ,:onchange => "show_stock(this)"%>
+	 <%= select_tag "mySelect", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" ,:onchange => "stock_calculate()"%>
 	</div>
 </div>
 <!--Stock del envase selecionado-->

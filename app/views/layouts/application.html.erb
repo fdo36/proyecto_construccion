@@ -115,57 +115,43 @@
 						<li><%= link_to('Compañias', companies_path)%></li>
 					</ul>
 					<%else%>
-					
-						<% namesIO = {'Receipt' => 'Ingresos', 'Season' => 'Temporada', 'Dispatch' => 'Despachos', 'Report' => 'Informes' }%>
-
-						<% namesInventory = {'Supply' => 'Insumos', 'Provider' => 'Proveedores', 'SuppliesProvidersLoan' => 'Ingreso de Insumos', 'SuppliesLoan' => 'Prestamos de Insumos' , 'SuppliesReturn' => 'Devolucion de Insumos'}%>
-
-						<% namesResource = {'Producer' => 'Productor', 'PackType' => 'Envases', 'Destination' => 'Destinos', 'Kind' => 'Especie', 'Quality' => 'Calidades',  'Grouping' => 'Agrupación', 'Custom' => 'Aduana', 'Worker' => 'Trabajador', 'Variety' => 'Variedad' , 'OriginPort' => 'Puertos de Origen',  'DestinationPort' => 'Puertos de destino'} %>
-
-						<% links = {'Receipt' => '/receipts','Season'=>'/seasons', 'Dispatch' => '/dispatches', 'Report' => '/reports', 'Producer'=>'/producers', 'PackType' => '/pack_types', 'Destination' => '/destinations', 'Kind' => '/kinds', 'Quality' => '/qualities',  'Grouping' => '/groupings', 'Dispatch' => '/dispatches', 'Custom' => '/customs', 'Worker' => '/workers', 'Variety' => '/varieties' , 'OriginPort' => '/origin_ports',  'DestinationPort' => '/destination_ports' , 'Supply' => '/supplies' , 'Provider' => '/providers' , 'SuppliesProvidersLoan' => '/supplies_providers_loans' , 'SuppliesLoan' => '/supplies_loans' ,'SuppliesReturn' => '/supplies_returns'  } %>
-
-						
-
-						<% models_name_io = [] %>
-						<% models_name_rsrc = [] %>
-						<% models_name_isrc = [] %>
-						<% for r in current_user.roles %>
-							<% r.access_rights.each do |ar| %> 
-								<% if namesIO.has_key?(ar.model_name) and !models_name_io.include?(ar.model_name)%>
-									<% models_name_io << ar.model_name%>
-								<% elsif namesResource.has_key?(ar.model_name) and !models_name_rsrc.include?(ar.model_name)%>
-									<% models_name_rsrc << ar.model_name%>
-								<% elsif namesInventory.has_key?(ar.model_name) and !models_name_isrc.include?(ar.model_name)%>
-									<% models_name_isrc << ar.model_name%>
-								<%end%>
-							<% end %>
-						<% end %>
-
-						<%if !models_name_io.empty? %>
+						<% categories = get_categories %>
+						<% components = categories['Entradas/Salidas'] %>
+						<% if !components.nil? and !components.empty? %>
 							<p>Entradas/Salidas</p>
-							<ul>
-							<% for m in models_name_io%>
-								<li> <%= link_to namesIO[m], links[m] %></li>
+							<li>
+							<% components.each do |component| %>
+								<ul>
+								<a href="<%= link_for_component(component) %>"><%= component.model_name.human %></a>
+								</ul>
 							<% end %>
-							</ul>
+							</li>
 						<% end %>
-
-						<%if !models_name_rsrc.empty? %>
+						
+						<% categories = get_categories %>
+						<% components = categories['Recursos'] %>
+						<% if !components.nil? and !components.empty? %>
 							<p>Recursos</p>
-							<ul>
-							<% for m in models_name_rsrc%>
-								<li> <%= link_to namesResource[m], links[m] %></li>
+							<li>
+							<% components.each do |component| %>
+								<ul>
+								<a href="<%= link_for_component(component) %>"><%= component.model_name.human %></a>
+								</ul>
 							<% end %>
-							</ul>
+							</li>
 						<% end %>
-
-						<%if !models_name_isrc.empty? %>
+						
+						<% categories = get_categories %>
+						<% components = categories['Inventario'] %>
+						<% if !components.nil? and !components.empty? %>
 							<p>Inventario</p>
-							<ul>
-							<% for m in models_name_isrc%>
-								<li> <%= link_to namesInventory[m], links[m] %></li>
+							<li>
+							<% components.each do |component| %>
+								<ul>
+								<a href="<%= link_for_component(component) %>"><%= component.model_name.human %></a>
+								</ul>
 							<% end %>
-							</ul>
+							</li>
 						<% end %>
 
 					<%end%>

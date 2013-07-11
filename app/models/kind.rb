@@ -1,4 +1,7 @@
+require "general"
+
 class Kind < ActiveRecord::Base
+  announce_component(:acopiopacking, "Recursos", 1)
   attr_accessible :name
 
   validates :name, :presence => true
