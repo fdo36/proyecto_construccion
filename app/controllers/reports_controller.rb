@@ -39,17 +39,36 @@ class ReportsController < ApplicationController
 	    		:conditions => ["kinds.id=kinds_producers.kind_id and 
 	    			kinds_producers.producer_id=?",@producer_id])
 
+            #Solo para pallets
     		@kinds.each do |kind|
     			@ingresos = Receipt.find(:all,
 	    		:from => 'receipts, varieties, qualities, pallets, producers',
-	    		:select => 'receipts.id, receipts.receipt_datetime, varieties.name, qualities.name, pallets.price_per_unit',
+	    		:select => 'receipts.id, receipts.receipt_datetime, varieties.name AS variety_name, qualities.name AS quality_name, pallets.price_per_unit',
 	    		:conditions => ["producers.id=? and producers.id=receipts.producer_id and 
 	    			receipts.receipt_datetime >= ? and receipts.receipt_datetime <= ? and
 	    			receipts.kind_id=? and pallets.receipt_id
 	    			=receipts.id and varieties.id=pallets.variety_id and qualities.id=pallets.quality_id",@producer_id, 
 	    			@fecha_inicio, @fecha_termino, kind.id])
-                mtrxx << [kind, @ingresos]
+                if @ingresos.length==1
+                    mtrxx << [kind, @ingresos]
+                end
     		end
+
+            #Para pack_group_receipt
+            @kinds.each do |kind|
+                @ingresos = Receipt.find(:all,
+                :from => 'receipts, varieties, qualities, pack_group_receipts, producers',
+                :select => 'receipts.id, receipts.receipt_datetime, varieties.name AS variety_name, qualities.name AS quality_name, pack_group_receipts.price_per_unit',
+                :conditions => ["producers.id=? and producers.id=receipts.producer_id and 
+                    receipts.receipt_datetime >= ? and receipts.receipt_datetime <= ? and
+                    receipts.kind_id=? and pack_group_receipts.receipt_id
+                    =receipts.id and varieties.id=pack_group_receipts.variety_id and qualities.id=pack_group_receipts.quality_id",@producer_id, 
+                    @fecha_inicio, @fecha_termino, kind.id])
+                if @ingresos.length==1
+                    mtrxx << [kind, @ingresos]
+                end
+            end
+
     		pdf = Report1Pdf.new(@producer, mtrxx, view_context)
 	    	send_data pdf.render,
 	    	type: "application/pdf",
@@ -57,17 +76,34 @@ class ReportsController < ApplicationController
     	else
     		#especifico
     		@kind = Kind.find(@kind_id)
+            mtrxx = []
 
+            #Solo para pallets
     		@ingresos = Receipt.find(:all,
 	    		:from => 'receipts, varieties, qualities, pallets, producers',
-	    		:select => 'receipts.id, receipts.receipt_datetime, varieties.name, qualities.name, pallets.price_per_unit',
+	    		:select => 'receipts.id, receipts.receipt_datetime, varieties.name AS variety_name, qualities.name AS quality_name, pallets.price_per_unit',
 	    		:conditions => ["producers.id=? and producers.id=receipts.producer_id and 
 	    			receipts.receipt_datetime >= ? and receipts.receipt_datetime <= ? and
 	    			receipts.kind_id=? and pallets.receipt_id
 	    			=receipts.id and varieties.id=pallets.variety_id and qualities.id=pallets.quality_id",@producer_id, 
 	    			@fecha_inicio, @fecha_termino, @kind_id])
+            if @ingresos.length==1
+                mtrxx << [@kind, @ingresos]
+            end
 
-    		mtrxx = [[@kind, @ingresos]]
+            #Para pack_group_receipt
+            @ingresos = Receipt.find(:all,
+                :from => 'receipts, varieties, qualities, pack_group_receipts, producers',
+                :select => 'receipts.id, receipts.receipt_datetime, varieties.name AS variety_name, qualities.name AS quality_name, pack_group_receipts.price_per_unit',
+                :conditions => ["producers.id=? and producers.id=receipts.producer_id and 
+                    receipts.receipt_datetime >= ? and receipts.receipt_datetime <= ? and
+                    receipts.kind_id=? and pack_group_receipts.receipt_id
+                    =receipts.id and varieties.id=pack_group_receipts.variety_id and qualities.id=pack_group_receipts.quality_id",@producer_id, 
+                    @fecha_inicio, @fecha_termino, @kind_id])
+            if @ingresos.length==1
+                mtrxx << [@kind, @ingresos]
+            end
+
     		pdf = Report1Pdf.new(@producer, mtrxx, view_context)
 	    	send_data pdf.render,
 	    	type: "application/pdf",
