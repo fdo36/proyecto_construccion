@@ -134,7 +134,9 @@ ProyectoConstruccion::Application.routes.draw do
   end
 
   match "/companies/:company_id/users/:id/edit_password" => "users#edit_password", :as => "edit_user_password"
-  
+  match "/companies/:company_id/users/:id/show_user" => "users#show_user", :as => "show_user_profile"
+  match "/companies/:company_id/users/:id/edit_user" => "users#edit_user", :as => "edit_user_profile"
+
   resources :companies do
     resources :roles do
       resources :access_rights

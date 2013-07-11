@@ -37,6 +37,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def show_user
+    @company = Company.find(params[:company_id]) 
+    @user = User.find(params[:id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @user }
+    end    
+  end
+
+  def edit_user
+    @company = Company.find(params[:company_id])
+    @user = User.find(params[:id]) 
+  end
+
   # GET /users/new
   # GET /users/new.json
   def new
@@ -109,8 +123,13 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to company_user_path(@company, @user), notice: 'El usuario fue editado exitosamente.' }
-        format.json { head :no_content }
+        if params.has_key?(:password_only)
+          format.html { redirect_to show_user_profile_path(@company, @user), notice: 'El perfil fue editado exitosamente.' }
+          format.json { head :no_content }
+        else          
+          format.html { redirect_to company_user_path(@company, @user), notice: 'El usuario fue editado exitosamente.' }
+          format.json { head :no_content }
+        end
       else
         if !params.has_key?(:password_only)
             format.html { render action: "edit" }
