@@ -6,8 +6,8 @@
 <%= link_to 'Volver', transit_chamber_ios_path , :class => "button blue alignright" %>
 
 <p>
-  <b>Hora:</b>
-  <%= @transit_chamber_io.io_datetime %>
+  <b>Fecha:</b>
+  <%= "#{transit_chamber_io.io_datetime.day} - #{transit_chamber_io.io_datetime.month} - #{transit_chamber_io.io_datetime.year}" %>
 </p>
 
 <p>
