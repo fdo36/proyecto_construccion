@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712063512) do
+ActiveRecord::Schema.define(:version => 20130712142956) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -407,7 +407,6 @@ ActiveRecord::Schema.define(:version => 20130712063512) do
   create_table "receipt_packing_ios", :force => true do |t|
     t.integer  "producer_id"
     t.integer  "code"
-    t.string   "pack_type"
     t.integer  "trazability_code"
     t.integer  "dispatch_guide_number"
     t.string   "comments"
@@ -418,6 +417,7 @@ ActiveRecord::Schema.define(:version => 20130712063512) do
     t.boolean  "paid"
     t.boolean  "editable"
     t.datetime "payment_date"
+    t.integer  "pack_type_id"
   end
 
   create_table "receipts", :force => true do |t|

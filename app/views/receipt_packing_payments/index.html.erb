@@ -34,14 +34,16 @@
 					    <% totalPago = 0 %>
                         <% @packing_pallets.each do |pallet| %>
                           <%if (receipt_packing_io.id == pallet.receipt_packing_io_id) %>
-                              <% @pack_type = PackType.find{ |pt| pt.id == pallet.pack_type_id}%>
+                              <% @pack_type = PackType.find{ |pt| pt.id == receipt_packing_io.pack_type_id}%>
                               <% totalPago += (pallet.gross_weight - pallet.tare - (@pack_type.tare * pallet.quantity)) * pallet.unit_price %>
                           <% end %>
 
                         <% end %>
-					    <td><%= totalPago %></td>
-			            <td><%= link_to 'Pagar', pay_receipt_packing_path(receipt_packing_io), data: { confirm: '¿Confirma el pago de este ingreso?' } %> </td>
+					    <td><%= "$ "+ (totalPago.to_i).to_s %></td>
+			            <td><%= link_to 'Pagar', pay_receipt_packing_path(receipt_packing_io), data: { confirm: '¿Confirma el pago de este ingreso?' } %></td>
 			            </tr>
+			            </tr>
+			            
 			        <% end %>
 			        <% end %>
 			      </tbody>
@@ -83,12 +85,12 @@
 				        <% totalPago = 0 %>
                         <% @packing_pallets.each do |pallet| %>
                           <%if (receipt_packing_io.id == pallet.receipt_packing_io_id) %>
-                              <% @pack_type = PackType.find{ |pt| pt.id == pallet.pack_type_id}%>
+                              <% @pack_type = PackType.find{ |pt| pt.id == receipt_packing_io.pack_type_id}%>
                               <% totalPago += (pallet.gross_weight - pallet.tare - (@pack_type.tare * pallet.quantity)) * pallet.unit_price %>
                           <% end %>
 
                         <% end %>
-					    <td><%= totalPago %></td>
+					    <td><%= "$ "+ (totalPago.to_i).to_s %></td>
 			        <% end %>
 			        <% end %>
 			      </tbody>

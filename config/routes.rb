@@ -191,4 +191,5 @@ ProyectoConstruccion::Application.routes.draw do
   match 'producers/:id/kinds' => 'receipts#valid_kinds'
 
   match 'receipt_packing_payments/:id/pay' => 'receipt_packing_payments#pay', :as => 'pay_receipt_packing'
+  
 end
