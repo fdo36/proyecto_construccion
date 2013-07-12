@@ -51,9 +51,12 @@
             <td>
               <%= link_to 'Editar', edit_receipt_path(receipt) %>
               <% if count == 0 %>
-                <%= link_to 'Eliminar', receipt, method: :delete, data: { confirm: '¿Está seguro de eliminar este ingreso?'} %></td>
+                <%= link_to 'Eliminar', receipt, method: :delete, data: { confirm: '¿Está seguro de eliminar este ingreso?'} %>
+              <% else %>
+                <a href="/receipts/<%= receipt.id %>.pdf">PDF</a>
               <% end %>
-            </tr>   
+            </td>
+            </tr>  
                            
       <% end %>
       </tbody>

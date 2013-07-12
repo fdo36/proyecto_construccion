@@ -1,20 +1,29 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Custom agent:</b>
-  <%= @charging_order.custom_agent_id %>
-</p>
+<div class="headContent">
+  <h1>Ver Órden de Carga</h1>
+</div>
 
-<p>
-  <b>Origin port:</b>
-  <%= @charging_order.origin_port_id %>
-</p>
+	<%= link_to 'Volver', charging_orders_path , :class => "button blue alignright" %>
+	<p>
+ 		<b>Agente de Aduanas:</b>
+  		<% @agent = CustomAgent.find(@charging_order.custom_agent_id) %>
+  		<%= @agent.name %>
+	</p>
 
-<p>
-  <b>Destination port:</b>
-  <%= @charging_order.destination_port_id %>
-</p>
+	<p>
+  		<b>Puerto de Origen:</b>
+  		<% @oport = OriginPort.find(@charging_order.origin_port_id) %>
+  		<%= @oport.name %>
+	</p>
+
+	<p>
+  		<b>Puerto de Destino:</b>
+  		<% @dport = DestinationPort.find(@charging_order.destination_port_id) %>
+  		<%= @dport.name %>
+	</p>
+
+<div class="foot-box">
+  	<%= link_to 'Editar', edit_charging_order_path(@charging_order)  , :class => "button green alignright" %>
+</div>
 
 
-<%= link_to 'Edit', edit_charging_order_path(@charging_order) %> |
-<%= link_to 'Back', charging_orders_path %>

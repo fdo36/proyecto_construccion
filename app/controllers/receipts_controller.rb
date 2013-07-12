@@ -17,12 +17,32 @@ class ReceiptsController < ApplicationController
   # GET /receipts/1.json
   def show
     @receipt = Receipt.find(params[:id])
-    @pallet = Pallet.new
-    @pack_group_receipt = PackGroupReceipt.new
-
+    @producer = Producer.find(@receipt.producer_id)
+    @kind = Kind.find(@receipt.kind_id)
+    
+    @pack = Receipt.find_by_sql "SELECT p.quantity as quantity, p.gross_weight as weight, p.price_per_unit as price,
+          v.name as vName, q.name as qName, pt.tare as tare
+          FROM pack_group_receipts as p, qualities as q, varieties as v , pack_types as pt
+          WHERE p.receipt_id = #{@receipt.id} and
+                p.quality_id = q.id and 
+                p.variety_id = v.id and
+                p.pack_type_id = pt.id"
+    @pallets = Receipt.find_by_sql "
+          SELECT p.quantity as quantity, p.gross_weight as weight, p.price_per_unit as price, p.tare tareP,
+          v.name as vName, q.name as qName , pt.tare as tare
+          FROM pallets as p, qualities as q, varieties as v , pack_types as pt
+          WHERE p.receipt_id = #{@receipt.id} and
+                p.quality_id = q.id and 
+                p.variety_id = v.id and
+                p.pack_type_id = pt.id"
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @receipt }
+      format.pdf { pdf = ReceipsPdf.new(@receipt, @producer, @kind, @pack,@pallets)
+    send_data pdf.render,
+    type: "application/pdf",
+    disposition: "inline"}
     end
   end
 

@@ -34,8 +34,11 @@
             <td>
             <%= link_to 'Editar', edit_dispatch_path(dispatch) %>
             <% if count == 0 %>
-              <%= link_to 'Eliminar', dispatch, method: :delete, data: { confirm: '¿Está seguro de eliminar este despacho?'} %></td>
+              <%= link_to 'Eliminar', dispatch, method: :delete, data: { confirm: '¿Está seguro de eliminar este despacho?'} %>
+              <% else %>
+                <a href="/dispatches/<%= dispatch.id %>.pdf">PDF</a>
               <% end %>
+            </td>
           </tr>   
                            
       <% end %>

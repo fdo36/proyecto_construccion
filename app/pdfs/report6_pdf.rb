@@ -54,11 +54,12 @@ class Report6Pdf < Prawn::Document
 	    		:select => 'regions.id, regions.name',
 	    		:conditions => ["communes.id = ? and communes.region_id=regions.id",@producer.commune_id]).first
 		text_box ": #{@region.name}", :at => [marginx1, y_current]
-		bounding_box([marginx2, y_current], :width => 200, :height => 20) do
-			text "<u>Comuna</u>", :inline_format => true
-		end
+		
+		move_down 7
+		y_current = cursor
+		text "<u>Comuna</u>", :inline_format => true
 		@commune = Commune.find(@producer.commune_id)
-		text_box ": #{@commune.name}", :at => [marginx3, y_current]
+		text_box ": #{@commune.name}", :at => [marginx1, y_current]
 
 		move_down 7
 		y_current = cursor

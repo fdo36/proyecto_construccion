@@ -37,6 +37,12 @@ var config = 'pack_pallet';
               $("#cancel").hide();
               $("#agregar").show();
               clean_form();
+
+              //desbloquear elegir especie
+              var n = oTable.fnGetNodes( );
+              
+              if(n == 0)
+                $("#select_kind").prop("disabled",false);
       }});
 
       $("#tablealone tbody").delegate(".edit", "click", function () {
@@ -357,6 +363,7 @@ var config = 'pack_pallet';
       //agregar a envases prestados
     };
     set_modified(false);
+    window.open("/receipts/"+receipt_id+".pdf");
     location.href = "/receipts";
   }
 
@@ -445,6 +452,7 @@ var config = 'pack_pallet';
     $('#tablealone').dataTable().fnAddData(row);
     set_modified(true);
     clean_form();
+    $("#select_kind").prop("disabled",true);
   }
 </script>
 
@@ -594,13 +602,6 @@ var config = 'pack_pallet';
         if(code == ""){
           $("#code_div").addClass("field_with_errors");
           errors = errors + "<li>Código Pallet no puede estar en blanco</li>";
-          contador_errores += 1;
-          isError = true;
-        }
-
-        if(!isInteger(code)){
-          $("#code_div").addClass("field_with_errors");
-          errors = errors + "<li>Código no es un número</li>";
           contador_errores += 1;
           isError = true;
         }
