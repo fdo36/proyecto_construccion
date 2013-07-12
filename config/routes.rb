@@ -1,5 +1,7 @@
 ProyectoConstruccion::Application.routes.draw do
-  #get "packing_reports/index"
+
+  resources :receipt_packing_payments
+
   resources :packing_reports
 
   resources :dispatch_ios
@@ -187,4 +189,6 @@ ProyectoConstruccion::Application.routes.draw do
   match 'frozen_tunnel_io_pallets_already_added' => 'frozen_tunnel_ios#pallets_already_added'
 
   match 'producers/:id/kinds' => 'receipts#valid_kinds'
+
+  match 'receipt_packing_payments/:id/pay' => 'receipt_packing_payments#pay', :as => 'pay_receipt_packing'
 end
