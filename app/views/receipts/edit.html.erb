@@ -39,6 +39,10 @@ var config = 'pack_pallet';
               $("#cancel").hide();
               $("#agregar").show();
               clean_form();
+
+              var nNodes = oTable.fnGetNodes( );
+              console.log(nNodes);
+} );
       }});
 
       $("#tablealone tbody").delegate(".edit", "click", function () {

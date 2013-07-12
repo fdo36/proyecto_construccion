@@ -31,6 +31,12 @@ var config = 'pack_pallet';
               $("#cancel").hide();
               $("#agregar").show();
               clean_form();
+
+              //desbloquear elegir especie
+              var n = oTable.fnGetNodes( );
+              
+              if(n == 0)
+                $("#select_kind").prop("disabled",false);
       }});
 
       $("#tablealone tbody").delegate(".edit", "click", function () {
@@ -391,6 +397,7 @@ var config = 'pack_pallet';
     $('#tablealone').dataTable().fnAddData(row);
     set_modified(true);
     clean_form();
+    $("#select_kind").prop("disabled",true);
   }
 </script>
 
