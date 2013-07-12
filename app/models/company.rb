@@ -8,7 +8,7 @@ class Company < ActiveRecord::Base
   validates :email, :presence => true
   validates_inclusion_of :system_type, :in => [true, false]
   
-  after_save :create_roles
+  after_create :create_roles
 
   validates :phone, :format => { :with => /^-?((?:\d+|\d*)$)/,
     :message => "debe ingresar un número válido" }
@@ -28,9 +28,11 @@ class Company < ActiveRecord::Base
   has_many :dispatches
   
   def create_roles
+
     models = Astrotils::get_models
-    role = Role.new(:name => "Administador de Acopio", :description => "Usado para administar compañias de acopio")
+    
     if self.system_type == true
+      role = Role.new(:name => "Administador de Acopio", :description => "Usado para administar compañias de acopio")
       models.each { |model|
         membership = model.get_component_info[0] 
         if membership == :acopio or membership == :acopiopacking
@@ -39,6 +41,7 @@ class Company < ActiveRecord::Base
         end
       }
     else
+      role = Role.new(:name => "Administador de Packing", :description => "Usado para administar compañias de acopio")
       models.each { |model|
         membership = model.get_component_info[0] 
         if membership == :packing or membership == :acopiopacking

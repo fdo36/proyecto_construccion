@@ -2,7 +2,11 @@
   <h1>Lista de Despachos</h1>
 </div>
 <div class="box">
-  <%= link_to 'Nuevo despacho', new_dispatch_path , :class => "button blue alignright" %>
+  <% if (Season.all(:select => "id", :conditions => ["is_active= ? and is_delete = ?", 1,0]))[0] != nil %>
+    <%= link_to 'Nuevo despacho', new_dispatch_path , :class => "button blue alignright" %>
+  <% else %>
+    <%= 'No hay temporada activa' %>
+<% end %>
 
   <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
     <thead>

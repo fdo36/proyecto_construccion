@@ -193,6 +193,7 @@
 								<p>Compañía</p>
 								<div class="toolsDisplay">
 									<li><%= link_to('Cuentas', company_users_path(current_user.company)) %></li>
+									<li><%= link_to('Roles', company_roles_path(current_user.company)) %></li>
 									<li><%= link_to('Configuración', new_setting_path) %></li>
 								</div>
 							</ul>
