@@ -51,7 +51,7 @@ class Report10Pdf < Prawn::Document
 			image "#{Prawn::BASEDIR}/data/images/23.png", :at => [-36, 756], :scale => 0.5
 		end
 		move_down 35
-		text "COMPROBANTE DE PAGO DE INGRESO", :align => :center, :size => 15 
+		text "COMPROBANTE PAGO DE INGRESO", :align => :center, :size => 15 
 		text "#{Time.now.strftime("%x")} #{Time.now.strftime("%X")}", :align => :right
 
 		stroke_line [0, 620], [540, 620]
