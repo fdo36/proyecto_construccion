@@ -24,15 +24,15 @@ class ReceiptPackingPaymentsController < ApplicationController
     
     @pallets.each do |pallet|
       row = []
+      #@packType = PackType.find(@receipt_packing_io.pack_type_id)
       @variety = Variety.find(pallet.variety_id)
-      @packtype = PackType.find(pallet.pack_type_id)
-      pesoNeto = pallet.gross_weight - pallet.tare - @packtype.tare * pallet.quantity
+      #pesoNeto = pallet.gross_weight - pallet.tare - @packtype.tare * pallet.quantity
 
       row << pallet.pallet_code
       row << @variety.name
-      row << pesoNeto
+      row << 12321 #pesoNeto
       row << pallet.unit_price
-      row << (pesoNeto * pallet.unit_price).to_i
+      row << 12321 #(pesoNeto * pallet.unit_price).to_i
       mtrxx << row
     end
     puts mtrxx.length

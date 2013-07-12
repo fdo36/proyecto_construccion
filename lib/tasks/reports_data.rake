@@ -19,32 +19,58 @@ namespace :reports_data do
   	Quality.delete_all
   	Producer.destroy_all
   	Destination.delete_all
+    Locality.delete_all
+
+    #Agregar Localidades
+    l1 = Locality.new(:commune_id => 117, :name => "Curico")
+    l1.save(:validate => false)
+
+    l2 = Locality.new(:commune_id => 117, :name => "Romeral")
+    l2.save(:validate => false)
+
+    l3 = Locality.new(:commune_id => 117, :name => "Rauco")
+    l3.save(:validate => false)
+
+    l4 = Locality.new(:commune_id => 117, :name => "La Huerta")
+    l4.save(:validate => false)
+
+    l5 = Locality.new(:commune_id => 117, :name => "Hualane")
+    l5.save(:validate => false)
+
+    l6 = Locality.new(:commune_id => 117, :name => "Licanten")
+    l6.save(:validate => false)
+
   	#Agregar Productores
 
   	p1 = Producer.new(:rut => "12110828-3", :name => "AgriLin", :line_of_business => "Centro de Acopio",
-  		:commune_id => 121, :address => "Valentin Letelier 243", :email => "contaco@agrilin.cl", :phone => "073-2345187",
-  		:contact => "Fax: 073-2435621", :sag_code => "ACT324v3")
+  		:commune_id => 117, :address => "Valentin Letelier 243", :email => "contaco@agrilin.cl", :phone => "075-2345187",
+  		:contact => "Fax: 075-2435621", :sag_code => "ACT324v3", :active => true, :is_delete => false, :locality_id => 1, :code => 1, :company_id => 1)
   	p1.save(:validate => false)
 
   	p2 = Producer.new(:rut => "23829876-8", :name => "AgriCau", :line_of_business => "Centro de Acopio",
-  		:commune_id => 112, :address => "Uno Norte 243", :email => "contaco@agricau.cl", :phone => "074-2345187",
-  		:contact => "Fax: 074-2435621", :sag_code => "ACT123v3")
+  		:commune_id => 117, :address => "O'higgins 243", :email => "contaco@agricau.cl", :phone => "075-2345187",
+  		:contact => "Fax: 075-2435621", :sag_code => "ACT123v3", :active => true, :is_delete => false, :locality_id => 4, :code => 1, :company_id => 1)
   	p2.save(:validate => false)
   	
   	p3= Producer.new(:rut => "10842415-k", :name => "AgriTal", :line_of_business => "Centro de Acopio",
-  		:commune_id => 137, :address => "Parque Industrial 243", :email => "contaco@agrital.cl", :phone => "071-2345187",
-  		:contact => "Fax: 071-2435621", :sag_code => "ACT124v3")
+  		:commune_id => 117, :address => "Parque Industrial 243", :email => "contaco@agrital.cl", :phone => "075-2345187",
+  		:contact => "Fax: 075-2435621", :sag_code => "ACT124v3", :active => true, :is_delete => false, :locality_id => 3, :code => 1, :company_id => 2)
   	p3.save(:validate => false)
 
   	p4 = Producer.new(:rut => "20040603-6", :name => "AgriMau", :line_of_business => "Centro de Acopio",
-  		:commune_id => 123, :address => "Emma Jauch 243", :email => "contaco@agrimau.cl", :phone => "072-2345187",
-  		:contact => "Fax: 072-2435621", :sag_code => "ACT125v3")
+  		:commune_id => 117, :address => "Emma Jauch 243", :email => "contaco@agrimau.cl", :phone => "075-2345187",
+  		:contact => "Fax: 075-2435621", :sag_code => "ACT125v3", :active => true, :is_delete => false, :locality_id => 5, :code => 1, :company_id => 1)
   	p4.save(:validate => false)
 
   	p5 = Producer.new(:rut => "13857191-2", :name => "AgriCur", :line_of_business => "Centro de Acopio",
   		:commune_id => 117, :address => "Camino a Romeral 243", :email => "contaco@agricur.cl", :phone => "075-2345187",
-  		:contact => "Fax: 075-2435621", :sag_code => "ACT126v3")
+  		:contact => "Fax: 075-2435621", :sag_code => "ACT126v3", :active => true, :is_delete => false, :locality_id => 2, :code => 1, :company_id => 2)
   	p5.save(:validate => false)
+
+    p6 = Producer.new(:rut => "11368812-2", :name => "AgriTal", :line_of_business => "Centro de Acopio",
+      :commune_id => 117, :address => "Av. Lautaro 432", :email => "contaco@agrital.cl", :phone => "075-2345187",
+      :contact => "Fax: 075-2435621", :sag_code => "ACT127v3", :active => true, :is_delete => false, :locality_id => 6, :code => 1, :company_id => 2)
+    p6.save(:validate => false)
 
   	#Agregar Destinos
   	
