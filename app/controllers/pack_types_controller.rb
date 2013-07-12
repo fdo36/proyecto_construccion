@@ -1,5 +1,4 @@
 class PackTypesController < ApplicationController
-  load_and_authorize_resource
 
   #load_and_authorize_resource
 
@@ -46,7 +45,7 @@ class PackTypesController < ApplicationController
   def create
     @pack_type = PackType.new(params[:pack_type])
 
-    @pack_type.company_id = current_user.company_id
+    @pack_type.company_id = current_user.company.id
 
     respond_to do |format|
       if @pack_type.save
