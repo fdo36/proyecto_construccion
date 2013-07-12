@@ -41,7 +41,7 @@ class DestinationPackingsController < ApplicationController
   # POST /destination_packings.json
   def create
     @destination_packing = DestinationPacking.new(params[:destination_packing])
-
+    @destination_packing.company_id = current_user.company_id
     respond_to do |format|
       if @destination_packing.save
         format.html { redirect_to @destination_packing, notice: 'El destino se ha creado correctamente.' }

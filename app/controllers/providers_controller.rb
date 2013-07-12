@@ -41,7 +41,7 @@ class ProvidersController < ApplicationController
   # POST /providers.json
   def create
     @provider = Provider.new(params[:provider])
-
+    @provider.company_id = current_user.company_id
     respond_to do |format|
       if @provider.save
         format.html { redirect_to @provider, notice: 'El proveedor se ha creado correctamente.' }

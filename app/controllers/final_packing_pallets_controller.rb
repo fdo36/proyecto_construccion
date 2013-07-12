@@ -41,7 +41,7 @@ class FinalPackingPalletsController < ApplicationController
   # POST /final_packing_pallets.json
   def create
     @final_packing_pallet = FinalPackingPallet.new(params[:final_packing_pallet])
-
+    @final_packing_pallet.company_id = current_user.company_id
     respond_to do |format|
       if @final_packing_pallet.save
         format.html { redirect_to @final_packing_pallet, notice: 'El Packing Pallet Final fue creado exitosamente.' }

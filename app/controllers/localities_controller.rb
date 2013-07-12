@@ -41,7 +41,7 @@ class LocalitiesController < ApplicationController
   # POST /localities.json
   def create
     @locality = Locality.new(params[:locality])
-
+    @locality.company_id = current_user.company_id
     respond_to do |format|
       if @locality.save
         format.html { redirect_to @locality, notice: 'Locality was successfully created.' }

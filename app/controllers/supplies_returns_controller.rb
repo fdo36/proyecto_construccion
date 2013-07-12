@@ -43,7 +43,7 @@ class SuppliesReturnsController < ApplicationController
     @supplies_return = SuppliesReturn.new(params[:supplies_return])
     @supply = Supply.find(@supplies_return.supply_id)
     @supply.stock_ini += @supplies_return.quantity
-
+    @supplies_return.company_id = current_user.company_id
     respond_to do |format|
       if @supplies_return.save
         @supply.save
