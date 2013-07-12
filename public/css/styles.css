@@ -240,6 +240,7 @@ section#content{
 
 .forme-in{
 	float: left;
+	width: 35%;
 }
 
 .forme-in  input[type="text"], .forme-in select, .forme-in .chzn-container{

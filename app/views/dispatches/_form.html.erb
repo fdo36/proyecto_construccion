@@ -31,6 +31,10 @@ var config = 'pack_pallet';
               $("#cancel").hide();
               $("#agregar").show();
               clean_form();
+
+              var n = oTable.fnGetNodes( );
+              if(n.length == 0)
+                $("#dispatch_kind_id").prop("disabled",false);
       }});
 
       $("#tablealone tbody").delegate(".edit", "click", function () {
@@ -160,6 +164,8 @@ var config = 'pack_pallet';
           $('#select_destination').trigger('liszt:updated');
           $('#select_rut').trigger('liszt:updated');
       });
+
+
     });
 
     function show_rut(s) {
@@ -399,6 +405,7 @@ var config = 'pack_pallet';
     $('#tablealone').dataTable().fnAddData(row);
     set_modified(true);
     clean_form();
+    $("#dispatch_kind_id").prop("disabled",true);
   }
 </script>
 
