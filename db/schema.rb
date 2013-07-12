@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712060816) do
+ActiveRecord::Schema.define(:version => 20130712063512) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -52,6 +52,21 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.boolean  "system_type"
   end
 
+  create_table "containers", :force => true do |t|
+    t.string   "name"
+    t.float    "tare"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "containers_producers", :id => false, :force => true do |t|
+    t.integer "container_id"
+    t.integer "producer_id"
+  end
+
+  add_index "containers_producers", ["container_id", "producer_id"], :name => "index_containers_producers_on_container_id_and_producer_id"
+  add_index "containers_producers", ["producer_id", "container_id"], :name => "index_containers_producers_on_producer_id_and_container_id"
+
   create_table "custom_agents", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -89,10 +104,22 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.string   "phone"
     t.text     "contact"
     t.boolean  "active"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.boolean  "is_deleted"
     t.integer  "company_id"
+    t.boolean  "system_type"
+  end
+
+  create_table "dispatch_containers", :force => true do |t|
+    t.integer  "dispatch_id"
+    t.integer  "container_id"
+    t.integer  "quality_id"
+    t.integer  "variety_id"
+    t.integer  "quantity"
+    t.float    "gross_weight"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "dispatch_ios", :force => true do |t|
@@ -179,6 +206,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "company_id"
+    t.boolean  "system_type"
   end
 
   create_table "groupings_producers", :force => true do |t|
@@ -192,9 +220,10 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
 
   create_table "kinds", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "company_id"
+    t.boolean  "system_type"
   end
 
   create_table "kinds_producers", :id => false, :force => true do |t|
@@ -252,9 +281,10 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
   create_table "pack_types", :force => true do |t|
     t.string   "name"
     t.integer  "company_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.float    "tare"
+    t.boolean  "system_type"
   end
 
   create_table "pack_types_producers", :id => false, :force => true do |t|
@@ -331,6 +361,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.integer  "locality_id"
     t.integer  "code"
     t.integer  "company_id"
+    t.boolean  "system_type"
   end
 
   create_table "production_process_ios", :force => true do |t|
@@ -355,9 +386,22 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
 
   create_table "qualities", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "company_id"
+    t.boolean  "system_type"
+  end
+
+  create_table "receipt_containers", :force => true do |t|
+    t.integer  "receipt_id"
+    t.integer  "container_id"
+    t.integer  "quality_id"
+    t.integer  "variety_id"
+    t.float    "price_kg"
+    t.integer  "quantity"
+    t.float    "gross_weight"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "receipt_packing_ios", :force => true do |t|
@@ -502,9 +546,11 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
   create_table "transit_chamber_ios", :force => true do |t|
     t.float    "temperature"
     t.integer  "order_number"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "company_id"
+    t.boolean  "system_type"
+    t.integer  "packing_pallet_id"
   end
 
   create_table "tunnels", :force => true do |t|
@@ -547,9 +593,10 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
   create_table "varieties", :force => true do |t|
     t.string   "name"
     t.integer  "kind_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "company_id"
+    t.boolean  "system_type"
   end
 
   create_table "wiki_page_versions", :force => true do |t|
@@ -582,7 +629,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
   create_table "workers", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "phone"
+    t.integer  "phone"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"
@@ -591,7 +638,15 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
 
   add_foreign_key "communes", "regions", :name => "communes_region_id_fk"
 
+  add_foreign_key "containers_producers", "containers", :name => "containers_producers_container_id_fk"
+  add_foreign_key "containers_producers", "producers", :name => "containers_producers_producer_id_fk"
+
   add_foreign_key "destinations", "communes", :name => "destinations_commune_id_fk"
+
+  add_foreign_key "dispatch_containers", "containers", :name => "dispatch_containers_container_id_fk"
+  add_foreign_key "dispatch_containers", "dispatches", :name => "dispatch_containers_dispatch_id_fk"
+  add_foreign_key "dispatch_containers", "qualities", :name => "dispatch_containers_quality_id_fk"
+  add_foreign_key "dispatch_containers", "varieties", :name => "dispatch_containers_variety_id_fk"
 
   add_foreign_key "dispatches", "destinations", :name => "dispatches_destination_id_fk"
   add_foreign_key "dispatches", "kinds", :name => "dispatches_kind_id_fk"
@@ -618,6 +673,11 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
   add_foreign_key "pallets", "varieties", :name => "pallets_variety_id_fk"
 
   add_foreign_key "producers", "communes", :name => "producers_commune_id_fk"
+
+  add_foreign_key "receipt_containers", "containers", :name => "receipt_containers_container_id_fk"
+  add_foreign_key "receipt_containers", "qualities", :name => "receipt_containers_quality_id_fk"
+  add_foreign_key "receipt_containers", "receipts", :name => "receipt_containers_receipt_id_fk"
+  add_foreign_key "receipt_containers", "varieties", :name => "receipt_containers_variety_id_fk"
 
   add_foreign_key "receipts", "kinds", :name => "receipts_kind_id_fk"
   add_foreign_key "receipts", "producers", :name => "receipts_producer_id_fk"
