@@ -153,7 +153,7 @@ var config = 'pack_pallet';
         clean_form();
       });
 
-      $(".chzn-select").chosen().change(function() {
+      $("#select_destination , #select_rut").chosen().change(function() {
           var id = $(this).val();
           document.getElementById('select_destination').value = id;
           document.getElementById('select_rut').value = id;
@@ -165,14 +165,14 @@ var config = 'pack_pallet';
     function show_rut(s) {
     if(s.value == "")
     {      
-      $('#rut').val(""); 
-      $('#codigo').val("");
+      $('#select_rut').val(""); 
+      $('#select_destination').val("");
     }
     else
     {
-      $.get("/producers/"+s.value+".json", function(data) {
-      $('#rut').val(data.rut); 
-      $('#codigo').val(data.code);
+      $.get("/destinations/"+s.value+".json", function(data) {
+        $('select_rut').val(data.rut); 
+        $('select_destination').val(data.name);
       });
     }
   }
@@ -417,6 +417,23 @@ var config = 'pack_pallet';
       });
     }
   }
+
+  function show_pallets(s)
+  {
+    if (s.value != '')
+    {
+      $.get("/pallets.json", function(data) {         
+        var options = '<option value>- Seleccione codigo de pallet -</option>';
+        $.each(data, function(i, item){ 
+          if(item.variety_id == s.value  && item.receipt_id != null && item.dispatch_id == null){
+            options += '<option value="' + item.id + '">' + item.code + '</option>';
+          }
+        });
+        $("#code").html(options);
+        $('#code').trigger('liszt:updated');
+      });
+    }
+  }
 </script>
 
 <script type="text/javascript">
@@ -627,7 +644,7 @@ var config = 'pack_pallet';
       <div class="forme-in">
         <div id="kind_div">
           <% @options = Kind.all.map { |k| [k.name, k.id] } %>
-          <%= f.select(:kind_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione especie - '} , :onchange => "show_rut(this)") %>
+          <%= f.select(:kind_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione especie - '} , :onchange => "show_variety(this)") %>
         </div>
       </div>    
     </div>
@@ -680,7 +697,7 @@ var config = 'pack_pallet';
           <div class="forme-in">
             <div id="variety_div">
               <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
-              <%= f.select(:variety_id, options_for_select(@options_varieties), {:selected => :prompt, :prompt => '- Seleccione variedad - '} , :id => 'select_variety') %> 
+              <%= f.select(:variety_id, options_for_select(@options_varieties), {:selected => :prompt, :prompt => '- Seleccione variedad - '} , :id => 'select_variety', :onchange => "show_pallets(this)") %> 
             </div>
           </div>
         </div>

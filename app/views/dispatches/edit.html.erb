@@ -11,8 +11,9 @@ var posTable = 0;
 var config = 'pack_pallet';
 
     $(function() {
+
     	config = load_config();
-		$("#save").hide();
+		  $("#save").hide();
       	$("#cancel").hide();
     	
       	oTable = $('#tablealone').dataTable({
@@ -160,28 +161,20 @@ var config = 'pack_pallet';
         $("#agregar").show();
         clean_form();
       });
-
-      $(".chzn-select").chosen().change(function() {
-          var id = $(this).val();
-          document.getElementById('select_destination').value = id;
-          document.getElementById('select_rut').value = id;
-          $('#select_destination').trigger('liszt:updated');
-          $('#select_rut').trigger('liszt:updated');
-      });
       load_registers();
     });
 
     function show_rut(s) {
 	    if(s.value == "")
 	    {      
-	      $('#rut').val(""); 
-	      $('#codigo').val("");
+	      $('#select_rut').val(""); 
+	      $('#select_destination').val("");
 	    }
 	    else
 	    {
-	      $.get("/producers/"+s.value+".json", function(data) {
-	      $('#rut').val(data.rut); 
-	      $('#codigo').val(data.code);
+	      $.get("/destinations/"+s.value+".json", function(data) {
+	       $('#select_rut').val(data.rut); 
+	       $('#select_destination').val(data.code);
 	      });
 	    }
   	}
@@ -293,19 +286,20 @@ var config = 'pack_pallet';
     	}
     	if(register.status == 2)
       	{
-      		$.ajax({  
-	          url: "/pallets/"+register_id,  
-	          type: "POST", 
-	          datatype: "json",
-	          data: {"_method":"delete"} }); 
+      		$.ajax({
+            type: "POST",
+            url: '/pallets/'+register_id+'.json',
+            data: { _method:'PUT', pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, quality_id: quality_id, quantity: quantity, dispatch_id: null, tare: tare, variety_id: variety_id} },
+              dataType: 'json'
+      });
       	}
       	if(register.status == 1)
       	{
       		$.ajax({
       			type: "POST",
-				url: '/pallets/'+register_id+'.json',
-				data: { _method:'PUT', pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, quality_id: quality_id, quantity: quantity, dispatch_id: dispatch_id, tare: tare, variety_id: variety_id} },
-				dataType: 'json'
+				    url: '/pallets/'+register_id+'.json',
+				    data: { _method:'PUT', pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, quality_id: quality_id, quantity: quantity, dispatch_id: dispatch_id, tare: tare, variety_id: variety_id} },
+				      dataType: 'json'
 			});
       	}
       }
@@ -466,7 +460,15 @@ var config = 'pack_pallet';
   function load_registers () {
   	var pathArray = window.location.pathname.split( '/' );
   	var dispatch_id = pathArray[2];
-    console.log(dispatch_id);
+
+    $.get("/dispatches/"+dispatch_id+".json", function(data) {
+      $('#dispatch_kind_id').val(data.kind_id); 
+      $('#select_destination').val(data.destination_id);  
+      $('#select_rut').val(data.destination_id);
+      load_variety($('#dispatch_kind_id').val());
+      load_pallets($('#select_variety').val());
+    });       
+
     $.ajax({
       url: "/pack_group_dispatches.json",
       dataType: 'json',
@@ -475,7 +477,6 @@ var config = 'pack_pallet';
           $.each(data,function(index, value){
             if(value.dispatch_id == dispatch_id)
             {
-              console.log(value.dispatch_id);
             	var id = id_count;
             	id_count++;
             	var new_register = new register(value.variety_id, value.quality_id, value.pack_type_id, value.quantity, value.gross_weight, "No aplica", 0, false, id, 0, value.id);
@@ -522,45 +523,6 @@ var config = 'pack_pallet';
 </script>
 
 <script type="text/javascript">
-  function search_rut(s) {   
-      
-    if(s.value=="")
-    {           
-      $('#select_producer').val("");
-      $('#rut').val("-");      
-      $('#codigo').val("-");
-      $('#codigo_sag').val("-");
-    }
-
-    else
-    {      
-      $.get("/producers.json", function(data) {       
-       
-       var encontrado = false;       
-       
-       for (var i = data.length - 1; i >= 0; i--) {
-        if(data[i]["rut"]==s.value){
-          $('#rut').val(s.value); 
-          $('#select_producer').val([data[i]["name"], data[i]["id"]]);
-          $('#codigo').val(data[i]["code"]);
-          $('#codigo_sag').val(data[i]["sag_code"]);  
-          encontrado = true;                  
-        }
-       };
-       if(!encontrado)
-       {
-          $('#select_producer').val("");
-          $('#rut').val("-");      
-          $('#codigo').val("-");
-          $('#codigo_sag').val("-");
-       }
-
-      });      
-  }  
-}
-</script>
-
-<script type="text/javascript">
   function show_variety(s)
   { 
       
@@ -579,108 +541,64 @@ var config = 'pack_pallet';
     
   }
 
-  function show_kind(s)
-  {
-    /*
-       
-    if (s.value != '')
+  function load_variety(s)
+  { 
+    if (s != '')
     {
-      $.get("/kinds.json", function(data) {         
-        var options = '<option value>- Seleccione especie -</option>';
+      $.get("/varieties.json", function(data) {         
+        var options = '<option value>- Seleccione variedad -</option>';
         $.each(data, function(i, item){ 
-          $.get("/varieties/"+s.value+".json", function(variety)
-            {
-              if(item.id == variety.kind_id){
-                options += '<option value="' + item.id + '" selected>' + item.name + '</option>';
-              }
-              $("#select_kind").html(options);
-            });
-            
+          if(item.kind_id == s){
+            options += '<option value="' + item.id + '">' + item.name + '</option>';
+          }
         });
-        
+        $("#select_variety").html(options);
       });
     }
-    */
+    
   }
 
-</script>
-
-<script type="text/javascript">
-  function search_code(s) {   
-      
-    if(s.value=="")
-    {           
-      $('#select_producer').val("");
-      $('#rut').val("-");      
-      $('#codigo').val("-");
-      $('#codigo_sag').val("-");
+  function show_pallets(s)
+  {
+    if (s.value != '')
+    {
+      $.get("/pallets.json", function(data) {         
+        var options = '<option value>- Seleccione codigo de pallet -</option>';
+        $.each(data, function(i, item){ 
+          if(item.variety_id == s.value  && item.receipt_id != null && item.dispatch_id == null){
+            options += '<option value="' + item.id + '">' + item.code + '</option>';
+          }
+        });
+        $("#code").html(options);
+        $('#code').trigger('liszt:updated');
+      });
     }
+  }
 
-    else
-    {      
-      $.get("/producers.json", function(data) {       
-       
-       var encontrado = false;       
-       
-       for (var i = data.length - 1; i >= 0; i--) {
-        if(data[i]["code"]==s.value){
-          $('#rut').val(data[i]["rut"]); 
-          $('#select_producer').val([data[i]["name"], data[i]["id"]]);
-          $('#codigo').val(s.value);
-          $('#codigo_sag').val(data[i]["sag_code"]);  
-          encontrado = true;                  
-        }
-       };
-       if(!encontrado)
-       {
-          $('#select_producer').val("");
-          $('#rut').val("-");      
-          $('#codigo').val("-");
-          $('#codigo_sag').val("-");
-       }
-             
-      });      
-  }  
-}
-</script>
 
-<script type="text/javascript">
-  function search_sag(s) {   
-      
-    if(s.value=="")
-    {           
-      $('#select_producer').val("");
-      $('#rut').val("-");      
-      $('#codigo').val("-");
-      $('#codigo_sag').val("-");
+  function load_pallets(s)
+  {
+    if (s != '')
+    {
+      $.get("/pallets.json", function(data) {         
+        var options = '<option value>- Seleccione codigo de pallet -</option>';
+        $.each(data, function(i, item){ 
+          if(item.variety_id == s  && item.receipt_id != null && item.dispatch_id == null){
+            options += '<option value="' + item.id + '">' + item.code + '</option>';
+          }
+        });
+        $("#code").html(options);
+        $('#code').trigger('liszt:updated');
+      });
     }
-
+    
     else
-    {      
-      $.get("/producers.json", function(data) {       
-       
-       var encontrado = false;       
-       
-       for (var i = data.length - 1; i >= 0; i--) {
-        if(data[i]["sag_code"]==s.value){
-          $('#rut').val(data[i]["rut"]); 
-          $('#select_producer').val([data[i]["name"], data[i]["id"]]);
-          $('#codigo').val(data[i]["code"]);
-          $('#codigo_sag').val(s.value);  
-          encontrado = true;                  
-        }
-       };
-       if(!encontrado)
-       {
-          $('#select_producer').val("");
-          $('#rut').val("-");      
-          $('#codigo').val("-");
-          $('#codigo_sag').val("-");
-       }
-             
-      });      
-  }  
-}
+    {
+      var options = '<option value>- Seleccione codigo de pallet -</option>';
+      $("#code").html(options);
+      $('#code').trigger('liszt:updated');
+    }
+  }
 </script>
 
 <script type="text/javascript">
@@ -832,7 +750,7 @@ var config = 'pack_pallet';
       </div>    
       <div class="forme-in">
         <% @options = Destination.all.map { |d| [d.name, d.id] } %>
-        <%= f.select(:destination_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione destino - '} , :id => 'select_destination',:onchange => "show_rut(this)", :disabled => true) %>  
+        <%= f.select(:destination_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione destino - '} , :id => 'select_destination', :disabled => true) %>  
       </div>
     </div>
 
@@ -843,7 +761,7 @@ var config = 'pack_pallet';
       </div>    
       <div class="forme-in">
         <% @options = Destination.all.map { |d| [d.rut, d.id] } %>
-        <%= f.select(:destination_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione Rut de destino - '} , :id => 'select_rut',:onchange => "show_rut(this)", :disabled => true) %>  
+        <%= f.select(:destination_id, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione Rut de destino - '} , :id => 'select_rut', :disabled => true) %>  
       </div>
     </div>
 
@@ -906,7 +824,7 @@ var config = 'pack_pallet';
           <div class="forme-in">
             <div id="variety_div">
               <% @options_varieties = Variety.all.map { |variety| [variety.name, variety.id] } %>
-              <%= f.select(:variety_id, options_for_select(@options_varieties), {:selected => :prompt, :prompt => '- Seleccione variedad - '} , :id => 'select_variety') %> 
+              <%= f.select(:variety_id, options_for_select(@options_varieties), {:selected => :prompt, :prompt => '- Seleccione variedad - '} , :id => 'select_variety', :onchange => "show_pallets(this)") %> 
             </div>
           </div>
         </div>
@@ -988,7 +906,10 @@ var config = 'pack_pallet';
           </div>
           <div class="forme-in">
             <div id="code_div">
-              <%= f.text_field :code, :id=>"code"%>
+              <% @op = Pallet.find_by_sql  "SELECT * from pallets where receipt_id is not null and dispatch_id is null"%>
+              <% @options = @op.map { |d| [d.code, d.id] } %>
+
+              <%= f.select(:code, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione codigo de pallet - '} , :id => 'code', :class => 'chzn-select') %>
             </div>
           </div>
         </div>
