@@ -25,36 +25,28 @@ class ReceiptPackingPaymentsController < ApplicationController
     mtrxx = []
 
     # PREPARACION DATOS PARA REPORTE
-    @pallets = PackingPallet.find(:all,
-                  :from => 'packing_pallets',
-                  :select => '*',
-                  :conditions => ['packing_pallets.receipt_packing_io_id=?',
-                  @receipt_packing_io.id])
-    
-    @pallets.each do |pallet|
-      row = []
-      #@packType = PackType.find(@receipt_packing_io.pack_type_id)
-      @variety = Variety.find(pallet.variety_id)
-      #pesoNeto = pallet.gross_weight - pallet.tare - @packtype.tare * pallet.quantity
+    @pallet = PackingPallet.find{|p| p.receipt_packing_io_id == @receipt_packing_io.id}
+    @packType = PackType.find(@receipt_packing_io.pack_type_id)
+    @variety = Variety.find(@pallet.variety_id)  
+    pesoNeto = @pallet.gross_weight - @pallet.tare - @packType.tare * @pallet.quantity
 
-      row << pallet.pallet_code
-      row << @variety.name
-      row << 12321 #pesoNeto
-      row << pallet.unit_price
-      row << 12321 #(pesoNeto * pallet.unit_price).to_i
-      mtrxx << row
-    end
-    puts mtrxx.length
 
+    mtrxx << @pallet.pallet_code
+    mtrxx << @variety.name
+    mtrxx << pesoNeto.to_i
+    mtrxx << @pallet.unit_price
+    mtrxx << (pesoNeto * @pallet.unit_price).to_i
+
+    puts mtrxx
     pdf = Report10Pdf.new(@receipt_packing_io,mtrxx, view_context)
         send_data pdf.render,
         type: "application/pdf",
         disposition: "inline"
 
-    #@receipt_packing_io.update_attribute(:paid, "true")
-    #time2 = DateTime.current()
-    #@receipt_packing_io.update_attribute(:payment_date, time2)
-    #@receipt_packing_io.update_attribute(:editable, "false")
+    @receipt_packing_io.update_attribute(:paid, "true")
+    time2 = DateTime.current()
+    @receipt_packing_io.update_attribute(:payment_date, time2)
+    @receipt_packing_io.update_attribute(:editable, "false")
 
   end  
 end

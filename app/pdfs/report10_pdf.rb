@@ -23,22 +23,17 @@ class Report10Pdf < Prawn::Document
 			stroke_line [marginx1, cursor], [540, cursor]
 
 			move_down 20
-
-			suma= 0
-			bounding_box([225, cursor], :width => 200) do
+			bounding_box([210, cursor], :width => 200) do
 				datos =  [["Pallet", "Variedad", "Peso Neto", "Precio P/Unidad", "Subtotal"]]#dejar como está y llenar las siguientes filas
-				for i in (0 .. (data.length-1))
-					suma = suma + data[i][4]
-					datos <<  data[i]
-				end
-				table(datos , :width =>315)
+				datos <<  data
+				table(datos , :width =>340)
 			end
 		
 			move_down 20
 			y_current = cursor
 			text_box "Total a Pagar", :at => [marginx2, y_current], :style => :bold
 			text_box ":", :at => [marginx3, y_current], :style => :bold
-			text_box "#{suma}", :at => [marginx3, y_current], :style => :bold, :align => :right #SUMA DE LOS EMBASES QUE TIENE/FALTA
+			text_box "#{data[4]}", :at => [marginx3, y_current], :style => :bold, :align => :right #SUMA DE LOS EMBASES QUE TIENE/FALTA
 			
 			move_down 20
 			stroke_line [0, cursor], [540, cursor]
