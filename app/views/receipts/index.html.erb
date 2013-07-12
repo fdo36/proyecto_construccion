@@ -50,6 +50,7 @@
             
             <td>
               <%= link_to 'Editar', edit_receipt_path(receipt) %>
+              <%= link_to 'Eliminar', receipt, method: :delete, data: { confirm: '¿Está seguro de eliminar este ingreso?'} %></td>
             </tr>   
                            
       <% end %>
