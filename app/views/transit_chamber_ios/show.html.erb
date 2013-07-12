@@ -11,6 +11,11 @@
 </p>
 
 <p>
+  <b>Hora:</b>
+  <%= "#{@transit_chamber_io.io_datetime.hour} : #{@transit_chamber_io.io_datetime.minute}" %>
+</p>
+
+<p>
   <b>Tipo:</b>
   <%= @transit_chamber_io.direction == true ? "Entrada" : "Salida" %>
 </p>
