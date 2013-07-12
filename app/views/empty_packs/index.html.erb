@@ -3,6 +3,7 @@
 pack_types = new Array();
 $(document).ready(function() {
   //Accion por defecto
+  
   $(".tab_content").hide(); 
   $("ul.tabs li:first").addClass("active").show(); 
   $(".tab_content:first").show(); 
@@ -93,8 +94,8 @@ function stock_pack_type(){
   <h1>Envases vacios</h1>
 </div>
 <ul class="tabs">
- <li><a href="#tab1">Productor</a></li>
- <li><a href="#tab2">Destino</a></li>
+ <li><a id="producer_id" href="#tab1">Productor</a></li>
+ <li><a id="destination_id" href="#tab2">Destino</a></li>
 </ul>
 <div class="tab_container">
 <!--Precio por Productor-->

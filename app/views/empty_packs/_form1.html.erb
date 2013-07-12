@@ -1,6 +1,9 @@
 <script type="text/javascript">
 var pack_type_array = new Array();
 var count=0;
+var stock=0;
+
+
 function show_rut1(s){
 	if(s.value == ""){
 		var inputRut = document.getElementById('rut1');
@@ -190,10 +193,13 @@ function disabled_producer(){
 	var producer = document.getElementById('Productores1');
 	if(pack_type_array.length==0){
 		producer.disabled=false;
+		$('#destination_id').attr("href","#tab2");
 		
 	}
 	else{	
 		producer.disabled=true;
+
+		$('#destination_id').attr("href","#tab1");
 	}
 }
 function displayResult(pack_add){
@@ -224,12 +230,24 @@ function add_db(){
 	if(pack_type_array.length==0){
 		alert("Debes agregar envases");
 	}
-	else{	
+	else{
+
+		var last = "<%=@code[0]%>";
+		var code_producer;
+		console.log(last);
+		if(last==[])
+		{
+			code_producer=0;
+		}
+		else{
+			code_producer= parseInt(last)+1;
+		}
+
 		for(var i=0; i<pack_type_array.length; i+=1){
 		  	$.ajax({
 				url: "producers/"+pack_type_array[i].producer_id+"/empty_packs_producer_moves",
 		 		type: "POST",
-		    	data: {empty_packs_producer_move:{producer_id: pack_type_array[i].producer_id,pack_type_id: pack_type_array[i].pack_type_id,quantity: pack_type_array[i].quantity,pack_option: pack_type_array[i].option}},
+		    	data: {empty_packs_producer_move:{producer_id: pack_type_array[i].producer_id,pack_type_id: pack_type_array[i].pack_type_id,quantity: pack_type_array[i].quantity,pack_option: pack_type_array[i].option,code: code_producer}},
 		 	}).done(function(data){
 
 	             window.location = "/empty_packs"
@@ -238,7 +256,9 @@ function add_db(){
 	}
 }
 function stock_calculate_producer(){
+	stock=0;
 	var pack_id = document.getElementById('mySelect');
+	
 	$.get("/producers.json", function(data){
 		$.each(data, function(index, value){
 			var producer_id= value.id;
@@ -255,10 +275,34 @@ function stock_calculate_producer(){
 					}
 		 		}
 			});
-			var stock_pack_type = document.getElementById('stock');
-			stock_pack_type.value = quantity;  
+			stock = quantity;  
 			});
 		});		
+	
+	$.get("/destinations.json", function(data){
+		$.each(data, function(index, value){
+			var destination_id= value.id;
+			var quantity2=0;
+			$.get("/destinations/"+destination_id+"/empty_packs_destination_moves.json", function(data){				
+		  	$.each(data, function(index, value){
+				
+				if(value.pack_type_id==pack_id.value){	
+					if(value.pack_option=="ingreso"){
+						quantity2 = quantity2 + value.quantity;
+					}
+					else{
+						quantity2 = quantity2 - value.quantity;
+					}
+		 		}
+			});
+			var stock_pack_type = document.getElementById('stock');
+			stock_pack_type.value = stock+quantity2; 
+		    });
+		});
+	});				
+
+
+
 	});
 }
 </script>

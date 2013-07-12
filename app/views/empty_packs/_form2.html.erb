@@ -1,6 +1,7 @@
 <script type="text/javascript">
 var pack_type_array_destination = new Array();
 var count_destination=0;
+var stock_destination=0;
 function show_rut_destination(s){
 	if(s.value == ""){
  		var inputRut = document.getElementById('rut_destination');
@@ -59,10 +60,12 @@ function show_rut_destination(s){
 function disabled_destination(){
 	var destination = document.getElementById('Destination');
 	if(pack_type_array_destination.length==0){
-		destination.disabled=false;		
+		destination.disabled=false;
+
 	}
 	else{	
 		destination.disabled=true;
+		
 	}
 }
 function displayResultDestination(pack_add){
@@ -113,9 +116,9 @@ function new_pack_destination(){
 				if(validate_stock(quantity,option,stock)==true){
 					console.log(option);
 					if(validate_pack_type(select.value)==true){
-						
+						console.log(selectp);
 						if(validate_register(select.value,option)==true){
-							var pack_add = new pack(select.value,selectp,select.options[select.selectedIndex].text,quantity,option,count_destination);
+							var pack_add = new pack_destination(select.value,selectp,select.options[select.selectedIndex].text,quantity,option,count_destination);
 							pack_type_array_destination.push(pack_add);
 							displayResultDestination(pack_add);
 							clear_field_destination();
@@ -128,17 +131,33 @@ function new_pack_destination(){
 	}
 }
 function add_db_destination(){
-	for(var i=0; i<pack_type_array_destination.length; i+=1){
-	  	$.ajax({
-			url: "destinations/"+pack_type_array_destination[i].destination_id+"/empty_packs_destination_moves",
-	 		type: "POST",
-	 	
-	    	data: {empty_packs_destination_move:{destination_id: pack_type_array_destination[i].destination_id,pack_type_id: pack_type_array_destination[i].pack_type_id,quantity: pack_type_array_destination[i].quantity,pack_option: pack_type_array_destination[i].option}},
-	 	}).done(function(data){
+	if(pack_type_array_destination.length==0){
+		alert("Debes agregar envases");
+	}
+	else{
 
-             window.location = "/empty_packs"
-         });
-		
+		var last = "<%=@code_destination[0]%>";
+		var code_destination;
+		console.log(last);
+		if(last==[])
+		{
+			code_destination=0;
+		}
+		else{
+			code_destination= parseInt(last)+1;
+		}
+		for(var i=0; i<pack_type_array_destination.length; i+=1){
+		  	$.ajax({
+				url: "/destinations/"+pack_type_array_destination[i].destination_id+"/empty_packs_destination_moves",
+		 		type: "POST",
+		 	
+		    	data: {empty_packs_destination_move:{destination_id: pack_type_array_destination[i].destination_id,pack_type_id: pack_type_array_destination[i].pack_type_id,quantity: pack_type_array_destination[i].quantity,pack_option: pack_type_array_destination[i].option, code: code_destination}},
+		 	}).done(function(data){
+
+	             window.location = "/empty_packs"
+	         });
+			
+		}
 	}
 }
 function delete_row_destination(b){
@@ -156,6 +175,7 @@ function delete_row_destination(b){
 	disabled_destination();
 }
 function stock_calculate_destination(){
+	stock_destination=0;
 	var pack_id = document.getElementById('mySelectDestination');
 	
 	$.get("/destinations.json", function(data){
@@ -173,10 +193,31 @@ function stock_calculate_destination(){
 					}
 		 		}	
 			});
-			var stock_pack_type = document.getElementById('stockDestination');
-			stock_pack_type.value = quantity;  
+			
+			stock_destination = quantity;  
 			});
-		});		
+		});
+	$.get("/producers.json", function(data){
+		$.each(data, function(index, value){
+			var producer_id= value.id;
+			var quantity2=0;
+			$.get("/producers/"+producer_id+"/empty_packs_producer_moves.json", function(data){				
+		  	$.each(data, function(index, value){
+				
+				if(value.pack_type_id==pack_id.value){	
+					if(value.pack_option=="ingreso"){
+						quantity2 = quantity2 + value.quantity;
+					}
+					else{
+						quantity2 = quantity2 - value.quantity;
+					}
+		 		}
+			});
+			var stock_pack_type = document.getElementById('stockDestination');
+			stock_pack_type.value = stock_destination+quantity2; 
+		    });
+		});
+	});						
 	});
 }
 
