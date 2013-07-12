@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712060816) do
+ActiveRecord::Schema.define(:version => 20130711214143) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -277,7 +277,6 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.integer  "producer_id"
     t.integer  "variety_id"
     t.integer  "receipt_packing_io_id"
-    t.integer  "pack_type_id"
   end
 
   create_table "packing_processes", :force => true do |t|
