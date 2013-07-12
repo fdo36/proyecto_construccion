@@ -63,8 +63,6 @@ namespace :init_data do
 
   user = User.new(:email => "admin@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => false, :company_id => company.id, :active => true)
   user.save(:validate => false)
-  user.roles << role
-
     c1 = Company.new(:system_type =>true, :rut => "2222222-2", :name => "Frutas Mella", :line_of_business => "Centro de Acopio",
         :commune_id => 121, :address => "San fernando sin numero", :email => "company1@frutas.cl", :active =>true, :phone => "073-2345687",
          )
