@@ -1,0 +1,2 @@
+module ReceiptPackingPaymentsHelper
+end

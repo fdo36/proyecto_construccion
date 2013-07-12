@@ -3,6 +3,7 @@ class ReceiptPackingIosController < ApplicationController
   # GET /receipt_packing_ios.json
   def index
     @receipt_packing_ios = ReceiptPackingIo.all
+    @packing_pallets = PackingPallet.all
 
     respond_to do |format|
       format.html # index.html.erb
