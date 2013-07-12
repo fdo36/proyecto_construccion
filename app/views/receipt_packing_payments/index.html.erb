@@ -1,0 +1,37 @@
+<div class="headContent">
+    <h1>Pagos Recepcion Packing</h1>
+</div>
+<div class="box">
+    <div class="newTopBanner">
+   
+    </div>
+    <p id="notice" class="alignleft"><%= notice %> </p>
+    <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+      <thead>
+          <tr>
+			<th>Código Ingreso</th>
+		    <th>Fecha Ingreso</th>
+			<th>Productor</th>
+		    <th>Especie</th>
+		    <th>Total a pagar</th>
+		    <th>Acción</th>
+          </tr>
+      </thead>
+      <tbody>
+ 		<% @receipt_packing_ios.each do |receipt_packing_io| %>
+ 		<% if (receipt_packing_io.paid == false) %>
+		  <tr>
+		    <td><%= receipt_packing_io.code %></td>
+		    <td><%= receipt_packing_io.receipt_packing_io_datetime %></td>
+		    <td><%= receipt_packing_io.producer_id %></td>
+		    <td><%= receipt_packing_io.kind_id %></td>
+
+		    <td><%= "lala" %></td>
+
+            <td><%= link_to 'Pagar', pay_receipt_packing_path(receipt_packing_io), data: { confirm: '¿Confirma el pago de este ingreso?' } %> </td>
+            </tr>
+        <% end %>
+        <% end %>
+      </tbody>
+    </table>
+</div>
