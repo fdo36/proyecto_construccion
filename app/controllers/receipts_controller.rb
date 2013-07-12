@@ -122,4 +122,17 @@ class ReceiptsController < ApplicationController
     type: "application/pdf",
     disposition: "inline"
   end
+
+  def valid_kinds
+    @producer_kinds = Producer.find(params[:id]).kinds
+    @active_seasons = Season.where(:is_active => 1)
+    @active_kinds = @active_seasons.map {|k| Kind.find(k.kind_id)}
+
+    @valid_kinds = @active_kinds + @producer_kinds
+    @valid_kinds = @valid_kinds.group_by{|vk| vk}.select{|k,v| v.size > 1}.keys
+
+    respond_to do |format|
+      format.json { render json: @valid_kinds}
+    end
+  end
 end

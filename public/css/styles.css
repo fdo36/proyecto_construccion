@@ -244,7 +244,7 @@ section#content{
 }
 
 .forme-in  input[type="text"], .forme-in select, .forme-in .chzn-container{
-	width: 97%!important;
+	width: 100%!important;
 	height: 90%;
 	min-width: 300px;
 }
@@ -546,3 +546,42 @@ table a:hover{
 	color: rgb(154, 189, 247);
 	background: rgba(255, 255, 255, 0)!important;
 }
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  padding-right: 6px;
+}
+
+#show_errors{
+	font-size: 8px!important;
+	font-weight:normal!important;
+}
+
+#error_explanation {
+	width: 97%!important;
+	height: 90%;
+	min-width: 300px;
+	border: 2px solid red;
+	padding: 7px;
+	padding-bottom: 0;
+	margin-bottom: 20px;
+	background-color: #f0f0f0;
+	background-color: #c00;
+	color: #fff;
+}
+
+#error_explanation  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff;
+  }
+#error_explanation ul li {
+    font-size: 12px;
+    list-style: square;
+  }

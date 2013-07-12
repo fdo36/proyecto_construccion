@@ -6,6 +6,12 @@ var modified = false;
 var idReg = 0;
 var posTable = 0;
 var config = 'pack_pallet';
+  
+    $(document).ready(function(){
+      $("#receipt_kind_id").change(function(){
+        show_variety(this);
+      });
+    });
 
     $(function() {
       config = load_config();
@@ -175,8 +181,24 @@ var config = 'pack_pallet';
       });
     });
 
-    function show_rut(s) {
-    if(s.value == "")
+  function load_kinds(producer)
+  {
+    $.get("/producers/"+producer.value+"/kinds.json", function(data) {
+        $('#receipt_kind_id')
+            .find('option')
+            .remove()
+            .end()
+            .append('<option value="prompt">- Seleccione especie -</option>')
+            .val('prompt');
+      $.each(data, function(index, value){
+        $("#receipt_kind_id").append(new Option(value.name, value.id));
+      });
+    });
+  }
+
+  function show_rut(producer) {
+
+    if(producer.value == "")
     {      
       $('#rut').val(""); 
       $('#codigo').val("");
@@ -184,10 +206,11 @@ var config = 'pack_pallet';
     }
     else
     {
-      $.get("/producers/"+s.value+".json", function(data) {
-      $('#rut').val(data.rut); 
-      $('#codigo').val(data.code);
-      $('#codigo_sag').val(data.sag_code);
+      load_kinds(producer);
+      $.get("/producers/"+producer.value+".json", function(data) {
+        $('#rut').val(data.rut); 
+        $('#codigo').val(data.code);
+        $('#codigo_sag').val(data.sag_code);
       });
     }
   }
@@ -198,10 +221,24 @@ var config = 'pack_pallet';
       $("#destare").prop("disabled",true);
       $("#code").val("");
       $("#destare").val("");
+      $('#receipt_kind_id').prop("disabled",false);
     } 
     else{
       $("#code").prop("disabled",false);
       $("#destare").prop("disabled",false);
+
+      if(!$.isNumeric($('#receipt_kind_id').val()))
+      {
+        $('#receipt_kind_id').prop("disabled",false);
+        $('#check').attr("checked", false);
+        $("#kind_error").text("Seleccione una Especie antes");
+        $("#code").prop("disabled",true);
+        $("#destare").prop("disabled",true);
+      }
+      else
+      {
+        $('#receipt_kind_id').prop("disabled",true);
+      }
     }
   }
 
@@ -247,7 +284,7 @@ var config = 'pack_pallet';
     if(registers.length > 0)
     {
       //obtener datos de ingreso
-      var kind_id = $("#select_kind").val();
+      var kind_id = $("#receipt_kind_id").val();
       var producer_id = $("#select_producer").val();
 
       //crear datetime
@@ -321,12 +358,12 @@ var config = 'pack_pallet';
           $.each(data,function(index, value){
             if(value.id == pack_type_id)
             {
-              tare = value.tare;
+              tarep = value.tare;
             }
           });
       }
     });
-    return tare;
+    return tarep;
   }
 
   function clean_form () {
@@ -404,6 +441,7 @@ var config = 'pack_pallet';
 <script type="text/javascript">
   function show_variety(s)
   { 
+    $("#kind_error").text("");
     if (s.value != '')
     {
       $.get("/varieties.json", function(data) {         
@@ -426,7 +464,7 @@ var config = 'pack_pallet';
 
   function validate_receipt () {
     var producer_id = ($("#select_producer").val());
-    var kind_id = ($("#select_kind").val());
+    var kind_id = ($("#receipt_kind_id").val());
 
     $("#producer_div").removeClass("field_with_errors");
     $("#kind_div").removeClass("field_with_errors");
@@ -550,13 +588,6 @@ var config = 'pack_pallet';
           isError = true;
         }
 
-        if(!isInteger(code)){
-          $("#code_div").addClass("field_with_errors");
-          errors = errors + "<li>Código no es un número</li>";
-          contador_errores += 1;
-          isError = true;
-        }
-
         if(tare == ""){
           $("#tare_div").addClass("field_with_errors");
           errors = errors + "<li>Destare Pallet no puede estar en blanco</li>";
@@ -673,8 +704,7 @@ var config = 'pack_pallet';
       </div>
       <div id="kind_div">
         <div class="forme-in">
-          <% @options_kinds = Kind.all.map { |kind| [kind.name, kind.id] } %>
-          <%= f.select(:kind_id, options_for_select(@options_kinds), {:selected => :prompt, :prompt => '- Seleccione especie - '} , :id => 'select_kind',:onchange => "show_variety(this)") %>        
+          <%= f.select(:kind_id, "kind" ,:selected => :prompt, :prompt => '- Seleccione especie -', :onchange => "show_variety(this)") %>
         </div>
       </div>
     </div>
@@ -751,7 +781,7 @@ var config = 'pack_pallet';
 
       <div class="line-forme">
         <div class="forme-lab">
-          <label>Precio por Kg ($)</label>
+          <label>Precio por Kg. ($)</label>
         </div>
         <div class="forme-in">
           <div id="price_per_unit_div">
@@ -787,7 +817,7 @@ var config = 'pack_pallet';
 
       <div class="line-forme">
         <div class="forme-lab">
-          <label>Peso Bruto (Kg)</label>
+          <label>Peso Bruto (Kg.)</label>
           <em class="formee-req">*</em>
         </div>
         <div class="forme-in">
@@ -811,8 +841,10 @@ var config = 'pack_pallet';
             <label>¿Trabajar con Pallet?</label>
           </div>
           <div class="forme-in">
-              <input type="checkbox" id="check" class="check" value="¿Trabajar con Pallet?" checked onClick="checkedPallet()" />          
+              <input type="checkbox" id="check" class="check" value="¿Trabajar con Pallet?" onClick="checkedPallet()" />          
+              <label id="kind_error", style="color: red;"></label>
           </div>
+          
         </div>
       <% end %>
       
@@ -824,19 +856,19 @@ var config = 'pack_pallet';
           </div>
           <div class="forme-in">
             <div id="code_div">
-              <%= f.text_field :code, :id=>"code"%>
+              <%= f.text_field :code, :id=>"code", :disabled=>"true"%>
             </div>
           </div>
         </div>
 
         <div class="line-forme">
           <div class="forme-lab">
-            <label>Destare Pallet</label>
+            <label>Destare Pallet (Kg.)</label>
             <em class="formee-req">*</em>
           </div>
           <div class="forme-in">
             <div id="tare_div">
-              <%= f.text_field :tare, :id=>"destare"%>
+              <%= f.text_field :tare, :id=>"destare", :disabled=>"true"%>
             </div>
           </div>
         </div>
@@ -873,7 +905,7 @@ var config = 'pack_pallet';
           <tr>
             <th style="width:20% !important;">Código Pallet</th>
             <th>N° Envases</th>
-            <th>Peso Neto (Kg)</th>
+            <th>Peso Neto (Kg.)</th>
             <th>Variedad</th>
             <th>Calidad</th>
             <th>Precio</th>

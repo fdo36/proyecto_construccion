@@ -14,7 +14,7 @@ namespace :init_data1 do
   
   user = User.new(:email => "superadmin@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => true, :active => true)
   user.save(:validate => false)
-  company = Company.new(:rut => "1111111-1", :name => "Dope Enterprise", :active => true)
+  company = Company.new(:system_type =>true, :rut => "1111111-1", :name => "Dope Enterprise", :active => true)
   company.save(:validate => false)
   role = Role.new(:name => "Rol de prueba", :description => "Usado para realizar pruebas", :company_id => company.id)
   role.save
@@ -65,30 +65,25 @@ namespace :init_data1 do
   user.save(:validate => false)
   user.roles << role
 
-    c1 = Company.new(:rut => "2222222-2", :name => "Frutas Mella", :line_of_business => "Centro de Acopio",
-        :commune_id => 121, :address => "San fernando sin numero", :email => "company1@frutas.cl", :phone => "073-2345687",
+    c1 = Company.new(:system_type =>true, :rut => "2222222-2", :name => "Frutas Mella", :line_of_business => "Centro de Acopio",
+        :commune_id => 121, :address => "San fernando sin numero", :email => "company1@frutas.cl", :active =>true, :phone => "073-2345687",
          )
     c1.save(:validate => false)
 
-    c2 = Company.new(:rut => "11111111-1", :name => "Frutas Navarro", :line_of_business => "Centro de Acopio",
-        :commune_id => 121, :address => "Santa fe 331", :email => "company2@frutas.cl", :phone => "073-2345687",
+    c2 = Company.new(:system_type =>false, :rut => "11111111-1", :name => "Frutas Navarro", :line_of_business => "Centro de Acopio",
+        :commune_id => 121, :address => "Santa fe 331",:active =>true, :email => "company2@frutas.cl", :phone => "073-2345687",
          )
     c2.save(:validate => false)
 
-    c3 = Company.new(:rut => "33333333-3", :name => "Frutas Silva", :line_of_business => "Centro de Acopio",
-        :commune_id => 120, :address => "Aguas Negras", :email => "company3@frutas.cl", :phone => "075-23345687",
+    c3 = Company.new(:system_type =>true, :rut => "33333333-3", :name => "Frutas Silva", :line_of_business => "Centro de Acopio",
+        :commune_id => 120, :address => "Aguas Negras", :active =>true ,:email => "company3@frutas.cl", :phone => "075-23345687",
          )
     c3.save(:validate => false)
 
-    c4 = Company.new(:rut => "44444444-4", :name => "Frutas Astroza", :line_of_business => "Centro de Acopio",
-        :commune_id => 121, :address => "San fernando sin numero", :email => "company4@frutas.cl", :phone => "072-2345687",
+    c4 = Company.new(:system_type =>true, :rut => "44444444-4", :name => "Frutas Astroza", :line_of_business => "Centro de Acopio",
+        :commune_id => 121, :address => "San fernando sin numero",:active =>true, :email => "company4@frutas.cl", :phone => "072-2345687",
          )
     c4.save(:validate => false)
-
-    c5 = Company.new(:rut => "55555555-5", :name => "Frutas Flores", :line_of_business => "Centro de Acopio",
-        :commune_id => 121, :address => "El boldo 331", :email => "company5@frutas.cl", :phone => "072-2335687",
-         )
-    c5.save(:validate => false)
 
 
     u1 = User.new(:email => "usuari1@acopio.com", :password => "qwertyui", :password_confirmation => "qwertyui", :super_admin => false, :company_id => c1.id, :active => true,
@@ -108,10 +103,6 @@ namespace :init_data1 do
         :name => "Daniel", :lastname => "Mella",  :gender => "Masculino" , :address => "Santa fe 331" , :commune_id => 125)
     u4.save(:validate => false)
     u4.roles << role
-    u5 = User.new(:email => "usuari5@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => false, :company_id => c2.id, :active => true,
-        :name => "Francisco", :lastname => "Flores", :gender => "Masculino" , :address => "EL boldo" , :commune_id => 121)
-    u5.save(:validate => false)
-    u5.roles << role
 
 
 r1 = Role.new(:name => "Administrar Usuarios", :description => "Usado para administras los usuarios de una compañia", :company_id => c1.id)
@@ -128,7 +119,7 @@ r1 = Role.new(:name => "Administrar Usuarios", :description => "Usado para admin
         r1.access_rights << a1
         a1=AccessRight.create(:model_name => "User", :action => "manage")
         r1.access_rights << a1
-        a=AccessRight.create(:model_name => "Role", :action => "manage")
+        a1=AccessRight.create(:model_name => "Role", :action => "manage")
         r1.access_rights << a1
 
 
@@ -163,6 +154,18 @@ r2= Role.new(:name => "Administrar envases", :description => "Usado para realiza
         a2=AccessRight.create(:model_name => "Receipt", :action => "manage")
         r2.access_rights << a2
 
+r3 = Role.new(:name => "Administrar Inventario", :description => "Usado para administras el inventario de una compañia", :company_id => c1.id)
+    r3.save
+    a3=AccessRight.create(:model_name => "Supply", :action => "manage")
+    r3.access_rights << a3
+    a3=AccessRight.create(:model_name => "Provider", :action => "manage")
+    r3.access_rights << a3
+        a3=AccessRight.create(:model_name => "SuppliesProvidersLoan", :action => "manage")
+        r3.access_rights << a3
+        a3=AccessRight.create(:model_name => "SuppliesLoan", :action => "manage")
+        r3.access_rights << a3
+        a3=AccessRight.create(:model_name => "SuppliesReturn", :action => "manage")
+        r3.access_rights << a3
   end
 
 end

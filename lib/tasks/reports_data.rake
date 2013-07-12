@@ -23,27 +23,27 @@ namespace :reports_data do
 
   	p1 = Producer.new(:rut => "12110828-3", :name => "AgriLin", :line_of_business => "Centro de Acopio",
   		:commune_id => 121, :address => "Valentin Letelier 243", :email => "contaco@agrilin.cl", :phone => "073-2345187",
-  		:contact => "Fax: 073-2435621", :sag_code => "ACT324v3", :code => 1)
+  		:contact => "Fax: 073-2435621", :sag_code => "ACT324v3")
   	p1.save(:validate => false)
 
   	p2 = Producer.new(:rut => "23829876-8", :name => "AgriCau", :line_of_business => "Centro de Acopio",
   		:commune_id => 112, :address => "Uno Norte 243", :email => "contaco@agricau.cl", :phone => "074-2345187",
-  		:contact => "Fax: 074-2435621", :sag_code => "ACT123v3", :code => 2)
+  		:contact => "Fax: 074-2435621", :sag_code => "ACT123v3")
   	p2.save(:validate => false)
   	
   	p3= Producer.new(:rut => "10842415-k", :name => "AgriTal", :line_of_business => "Centro de Acopio",
   		:commune_id => 137, :address => "Parque Industrial 243", :email => "contaco@agrital.cl", :phone => "071-2345187",
-  		:contact => "Fax: 071-2435621", :sag_code => "ACT124v3", :code => 3)
+  		:contact => "Fax: 071-2435621", :sag_code => "ACT124v3")
   	p3.save(:validate => false)
 
   	p4 = Producer.new(:rut => "20040603-6", :name => "AgriMau", :line_of_business => "Centro de Acopio",
   		:commune_id => 123, :address => "Emma Jauch 243", :email => "contaco@agrimau.cl", :phone => "072-2345187",
-  		:contact => "Fax: 072-2435621", :sag_code => "ACT125v3", :code => 4)
+  		:contact => "Fax: 072-2435621", :sag_code => "ACT125v3")
   	p4.save(:validate => false)
 
   	p5 = Producer.new(:rut => "13857191-2", :name => "AgriCur", :line_of_business => "Centro de Acopio",
   		:commune_id => 117, :address => "Camino a Romeral 243", :email => "contaco@agricur.cl", :phone => "075-2345187",
-  		:contact => "Fax: 075-2435621", :sag_code => "ACT126v3", :code => 5)
+  		:contact => "Fax: 075-2435621", :sag_code => "ACT126v3")
   	p5.save(:validate => false)
 
   	#Agregar Destinos
@@ -144,7 +144,7 @@ namespace :reports_data do
 
   	#Agregar los Ingresos y los detalles
   	
-  	r1 = Receipt.new(:code => "ING1", :producer_id => p1.id, :kind_id => k1.id,
+  	r1 = Receipt.new(:producer_id => p1.id, :kind_id => k1.id,
   					:receipt_datetime => "2013-04-03 05:13:35.433108")
   	r1.save(:validate => false)
   	r1d1 = PackGroupReceipt.new(:price_per_unit => 550, :quantity => 55, :gross_weight => 110,
@@ -157,7 +157,7 @@ namespace :reports_data do
     p1.kinds << k1
     p1.pack_types << e1
 
-  	r2 = Receipt.new(:code => "ING2", :producer_id => p2.id, :kind_id => k2.id,
+  	r2 = Receipt.new(:producer_id => p2.id, :kind_id => k2.id,
   					:receipt_datetime => "2013-04-23 05:13:35.433108")
   	r2.save(:validate => false)
   	r2d1 = PackGroupReceipt.new(:price_per_unit => 750, :quantity => 88, :gross_weight => 176,
@@ -170,7 +170,7 @@ namespace :reports_data do
     p2.kinds << k2
     p2.pack_types << e2
 
-    r3 = Receipt.new(:code => "ING3", :producer_id => p3.id, :kind_id => k3.id,
+    r3 = Receipt.new(:producer_id => p3.id, :kind_id => k3.id,
   					:receipt_datetime => "2013-04-25 05:13:35.433108")
   	r3.save(:validate => false)
   	r3d1 = PackGroupReceipt.new(:price_per_unit => 370, :quantity => 150, :gross_weight => 750,
@@ -186,7 +186,7 @@ namespace :reports_data do
     p3.kinds << k3
     p3.pack_types << e3
 
-  	r4 = Receipt.new(:code => "ING4", :producer_id => p4.id, :kind_id => k4.id,
+  	r4 = Receipt.new(:producer_id => p4.id, :kind_id => k4.id,
   					:receipt_datetime => "2013-04-25 05:13:35.433108")
   	r4.save(:validate => false)
   	r4d1 = PackGroupReceipt.new(:price_per_unit => 520, :quantity => 150, :gross_weight => 300,
@@ -199,7 +199,7 @@ namespace :reports_data do
     p4.kinds << k4
     p4.pack_types << e4
   	
-  	r5 = Receipt.new(:code => "ING5", :producer_id => p5.id, :kind_id => k5.id,
+  	r5 = Receipt.new(:producer_id => p5.id, :kind_id => k5.id,
   					:receipt_datetime => "2013-04-29 05:13:35.433108")
   	r5.save(:validate => false)
   	r5d1 = PackGroupReceipt.new(:price_per_unit => 580, :quantity => 214, :gross_weight => 321,
@@ -214,7 +214,7 @@ namespace :reports_data do
 
   	#de nuevo lo mismo
 
-  	r1 = Receipt.new(:code => "ING6", :producer_id => p1.id, :kind_id => k2.id,
+  	r1 = Receipt.new(:producer_id => p1.id, :kind_id => k2.id,
   					:receipt_datetime => "2013-05-13 05:13:35.433108")
   	r1.save(:validate => false)
   	r1d1 = PackGroupReceipt.new(:price_per_unit => 415, :quantity => 55, :gross_weight => 110,
@@ -227,7 +227,7 @@ namespace :reports_data do
     p1.kinds << k2
     p1.pack_types << e2
 
-  	r2 = Receipt.new(:code => "ING7", :producer_id => p2.id, :kind_id => k2.id,
+  	r2 = Receipt.new(:producer_id => p2.id, :kind_id => k2.id,
   					:receipt_datetime => "2013-05-23 05:13:35.433108")
   	r2.save(:validate => false)
   	r2d1 = PackGroupReceipt.new(:price_per_unit => 450, :quantity => -88, :gross_weight => 176,
@@ -237,7 +237,7 @@ namespace :reports_data do
   		:pack_type_id => e2.id, :variety_id => v1k2.id, :quality_id => q3.id, :receipt_id => r2.id)
   	r2d2.save(:validate => false)
 
-    r3 = Receipt.new(:code => "ING8", :producer_id => p3.id, :kind_id => k4.id,
+    r3 = Receipt.new(:producer_id => p3.id, :kind_id => k4.id,
   					:receipt_datetime => "2013-05-25 05:13:35.433108")
   	r3.save(:validate => false)
   	r3d1 = PackGroupReceipt.new(:price_per_unit => 620, :quantity => 150, :gross_weight => 300,
@@ -253,7 +253,7 @@ namespace :reports_data do
     p3.kinds << k4
     p3.pack_types << e4
 
-  	r4 = Receipt.new(:code => "ING9", :producer_id => p4.id, :kind_id => k4.id,
+  	r4 = Receipt.new(:producer_id => p4.id, :kind_id => k4.id,
   					:receipt_datetime => "2013-05-26 05:13:35.433108")
   	r4.save(:validate => false)
   	r4d1 = PackGroupReceipt.new(:price_per_unit => 420, :quantity => 150, :gross_weight => 300,
@@ -263,7 +263,7 @@ namespace :reports_data do
   		:pack_type_id => e4.id, :variety_id => v2k4.id, :quality_id => q2.id, :receipt_id => r4.id)
   	r4d2.save(:validate => false)
 
-  	r5 = Receipt.new(:code => "ING10", :producer_id => p5.id, :kind_id => k2.id,
+  	r5 = Receipt.new(:producer_id => p5.id, :kind_id => k2.id,
   					:receipt_datetime => "2013-05-29 05:13:35.433108")
   	r5.save(:validate => false)
   	r5d1 = PackGroupReceipt.new(:price_per_unit => 440, :quantity => 214, :gross_weight => 428,
@@ -278,7 +278,7 @@ namespace :reports_data do
 
   	#y otra vez
 
-  	r1 = Receipt.new(:code => "ING11", :producer_id => p1.id, :kind_id => k1.id,
+  	r1 = Receipt.new(:producer_id => p1.id, :kind_id => k1.id,
   					:receipt_datetime => "2013-05-30 05:13:35.433108")
   	r1.save(:validate => false)
   	r1d1 = PackGroupReceipt.new(:price_per_unit => 530, :quantity => 55, :gross_weight => 110,
@@ -288,7 +288,7 @@ namespace :reports_data do
   		:pack_type_id => e1.id, :variety_id => v2k1.id, :quality_id => q2.id, :receipt_id => r1.id)
   	r1d2.save(:validate => false)
 
-  	r2 = Receipt.new(:code => "ING12", :producer_id => p2.id, :kind_id => k2.id,
+  	r2 = Receipt.new(:producer_id => p2.id, :kind_id => k2.id,
   					:receipt_datetime => "2013-05-31 05:13:35.433108")
   	r2.save(:validate => false)
   	r2d1 = PackGroupReceipt.new(:price_per_unit => 480, :quantity => 90, :gross_weight => 180,
@@ -298,7 +298,7 @@ namespace :reports_data do
   		:pack_type_id => e2.id, :variety_id => v2k2.id, :quality_id => q2.id, :receipt_id => r2.id)
   	r2d2.save(:validate => false)
 
-    r3 = Receipt.new(:code => "ING13", :producer_id => p3.id, :kind_id => k3.id,
+    r3 = Receipt.new(:producer_id => p3.id, :kind_id => k3.id,
   					:receipt_datetime => "2013-06-01 05:13:35.433108")
   	r3.save(:validate => false)
   	r3d1 = PackGroupReceipt.new(:price_per_unit => 370, :quantity => 100, :gross_weight => 300,
@@ -311,7 +311,7 @@ namespace :reports_data do
   		:pack_type_id => e3.id, :variety_id => v3k3.id, :quality_id => q2.id, :receipt_id => r3.id)
   	r3d3.save(:validate => false)
 
-  	r4 = Receipt.new(:code => "ING14", :producer_id => p4.id, :kind_id => k1.id,
+  	r4 = Receipt.new(:producer_id => p4.id, :kind_id => k1.id,
   					:receipt_datetime => "2013-06-02 05:13:35.433108")
   	r4.save(:validate => false)
   	r4d1 = PackGroupReceipt.new(:price_per_unit => 520, :quantity => 150, :gross_weight => 300,
@@ -324,7 +324,7 @@ namespace :reports_data do
     p4.kinds << k1
     p4.pack_types << e1
   	
-  	r5 = Receipt.new(:code => "ING15", :producer_id => p5.id, :kind_id => k5.id,
+  	r5 = Receipt.new(:producer_id => p5.id, :kind_id => k5.id,
   					:receipt_datetime => "2013-06-02 05:13:35.433108")
   	r5.save(:validate => false)
   	r5d1 = PackGroupReceipt.new(:price_per_unit => 380, :quantity => 214, :gross_weight => 321,
@@ -337,30 +337,30 @@ namespace :reports_data do
 
     #ingresos con pallet
 
-    r1 = Receipt.new(:code => "ING16", :producer_id => p1.id, :kind_id => k1.id,
+    r1 = Receipt.new(:producer_id => p1.id, :kind_id => k1.id,
             :receipt_datetime => "2013-05-30 05:13:35.433108")
     r1.save(:validate => false)
 
-    pallet = Pallet.new(:code => 123, :quantity => 80, :price_per_unit => 345, :gross_weight => 160,
+    pallet = Pallet.new(:quantity => 80, :price_per_unit => 345, :gross_weight => 160,
       :tare => 15, :variety_id => v3k1.id, :quality_id => q2.id, :receipt_id => r1.id, :pack_type_id => e1.id)
     pallet.save(:validate => false)
 
-    r2 = Receipt.new(:code => "ING17", :producer_id => p2.id, :kind_id => k2.id,
+    r2 = Receipt.new(:producer_id => p2.id, :kind_id => k2.id,
             :receipt_datetime => "2013-05-31 05:13:35.433108")
     r2.save(:validate => false)
-    pallet = Pallet.new(:code => 124, :quantity => 110, :price_per_unit => 200, :gross_weight => 220,
+    pallet = Pallet.new(:quantity => 110, :price_per_unit => 200, :gross_weight => 220,
       :tare => 15, :variety_id => v2k2.id, :quality_id => q3.id, :receipt_id => r2.id, :pack_type_id => e2.id)
     pallet.save(:validate => false)
     
 
-    r3 = Receipt.new(:code => "ING18", :producer_id => p3.id, :kind_id => k3.id,
+    r3 = Receipt.new(:producer_id => p3.id, :kind_id => k3.id,
             :receipt_datetime => "2013-06-01 05:13:35.433108")
     r3.save(:validate => false)
 
-    pallet = Pallet.new(:code => 125, :quantity => 50, :price_per_unit => 156, :gross_weight => 150,
+    pallet = Pallet.new(:quantity => 50, :price_per_unit => 156, :gross_weight => 150,
       :tare => 15, :variety_id => v2k3.id, :quality_id => q3.id, :receipt_id => r3.id, :pack_type_id => e3.id)
     pallet.save(:validate => false)
-    pallet = Pallet.new(:code => 126, :quantity => 60, :price_per_unit => 250, :gross_weight => 180,
+    pallet = Pallet.new(:quantity => 60, :price_per_unit => 250, :gross_weight => 180,
       :tare => 15, :variety_id => v2k3.id, :quality_id => q2.id, :receipt_id => r3.id, :pack_type_id => e3.id)
     pallet.save(:validate => false)
 
@@ -531,10 +531,10 @@ namespace :reports_data do
       :dispatch_datetime => "2013-05-30 05:13:35.433108")
     dp1.save(:validate => false)
 
-    pallet = Pallet.new(:code => 127, :quantity => 50, :price_per_unit => 156, :gross_weight => 150,
+    pallet = Pallet.new(:quantity => 50, :price_per_unit => 156, :gross_weight => 150,
       :tare => 15, :variety_id => v2k1.id, :quality_id => q3.id, :dispatch_id => dp1.id, :pack_type_id => e1.id)
     pallet.save(:validate => false)
-    pallet = Pallet.new(:code => 128, :quantity => 60, :price_per_unit => 250, :gross_weight => 180,
+    pallet = Pallet.new(:quantity => 60, :price_per_unit => 250, :gross_weight => 180,
       :tare => 15, :variety_id => v2k1.id, :quality_id => q2.id, :dispatch_id => dp1.id, :pack_type_id => e1.id)
     pallet.save(:validate => false)
 
@@ -542,10 +542,10 @@ namespace :reports_data do
       :dispatch_datetime => "2013-05-30 05:13:35.433108")
     dp2.save(:validate => false)
 
-    pallet = Pallet.new(:code => 129, :quantity => 50, :price_per_unit => 156, :gross_weight => 150,
+    pallet = Pallet.new(:quantity => 50, :price_per_unit => 156, :gross_weight => 150,
       :tare => 15, :variety_id => v2k2.id, :quality_id => q3.id, :dispatch_id => dp2.id, :pack_type_id => e2.id)
     pallet.save(:validate => false)
-    pallet = Pallet.new(:code => 120, :quantity => 60, :price_per_unit => 250, :gross_weight => 180,
+    pallet = Pallet.new(:quantity => 60, :price_per_unit => 250, :gross_weight => 180,
       :tare => 15, :variety_id => v2k2.id, :quality_id => q2.id, :dispatch_id => dp2.id, :pack_type_id => e2.id)
     pallet.save(:validate => false)
 

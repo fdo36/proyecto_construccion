@@ -1,1 +1,8 @@
---- {}
+---
+pack_types_001:
+  id: '1'
+  name: Envase 1
+  company_id: '2'
+  created_at: '2013-07-03 17:12:05.153693'
+  updated_at: '2013-07-03 17:12:05.153693'
+  tare: '0.5'

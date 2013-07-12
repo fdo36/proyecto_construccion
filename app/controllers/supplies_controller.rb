@@ -44,7 +44,7 @@ class SuppliesController < ApplicationController
 
     respond_to do |format|
       if @supply.save
-        format.html { redirect_to @supply, notice: 'Supply was successfully created.' }
+        format.html { redirect_to @supply, notice: 'El insumo se ha creado correctamente.' }
         format.json { render json: @supply, status: :created, location: @supply }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class SuppliesController < ApplicationController
 
     respond_to do |format|
       if @supply.update_attributes(params[:supply])
-        format.html { redirect_to @supply, notice: 'Supply was successfully updated.' }
+        format.html { redirect_to @supply, notice: 'El insumo se ha modificado correctamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -1,5 +1,6 @@
 #encoding: utf-8
 class TransitChamberIosController < ApplicationController
+  load_and_authorize_resource
   # GET /transit_chamber_ios
   # GET /transit_chamber_ios.json
   def index
@@ -15,6 +16,9 @@ class TransitChamberIosController < ApplicationController
   # GET /transit_chamber_ios/1.json
   def show
     @transit_chamber_io = TransitChamberIo.find(params[:id])
+
+    @transit_chamber_ios.company_id = current_user.company_id
+    @transit_chamber_ios.system_type = current_user.system_type
 
     respond_to do |format|
       format.html # show.html.erb

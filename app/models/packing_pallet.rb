@@ -1,4 +1,8 @@
+require "general"
+
 class PackingPallet < ActiveRecord::Base
+  announce_component(:packing, "Recursos", 1)
+
   attr_accessible :gross_weight, :pack_type_id, :quantity, :tare, 
   :temperature, :unit_price, :pallet_code, :producer_id, :receipt_packing_io_id, :variety_id
 

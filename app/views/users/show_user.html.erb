@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+<div class="headContent">
+  <h1>Ver Perfil</h1>
+</div>
+<div class="box">
+  <%= link_to 'Volver', request.referer , :class => "button blue alignright" %>
+  <p>
+    <b>Correo electrónico:</b>
+    <%= @user.email %>
+  </p>
+
+  <p>
+    <b>Teléfono:</b>
+    <%= @user.phone %>
+  </p>
+
+  <p>
+    <b>Nombre:</b>
+    <%= @user.name %>
+  </p>
+
+  <p>
+    <b>Apellido:</b>
+    <%= @user.lastname %>
+  </p>
+
+  <p>
+    <b>Género:</b>
+    <%= @user.gender %>
+  </p>
+
+</div>  
+<div class="foot-box">
+
+  <%= link_to 'Editar', edit_user_profile_path(@company, @user) , :class => "button green alignright" %>
+</div>

@@ -1,4 +1,8 @@
+require "general"
+
 class Variety < ActiveRecord::Base
+  announce_component(:acopiopacking, "Recursos", 7)
+
   attr_accessible :kind_id, :name
 
   validates :kind_id, :name, :presence => true
