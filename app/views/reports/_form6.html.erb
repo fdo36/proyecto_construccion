@@ -5,7 +5,7 @@
       <div class="forme-lab">
         <%= label_tag 'Productores' %> 
      </div>
-     <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
+     <% @destinations_array = Destination.where(:company_id => current_user.company_id).map { |destination| [destination.name, destination.id] } %>
      <div class="forme-in">
          <%= select_tag "Productores6", options_for_select(@producers_array), :prompt => "Todos los Productores"  %>
       </div>                        
