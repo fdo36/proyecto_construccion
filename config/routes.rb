@@ -1,8 +1,8 @@
 ProyectoConstruccion::Application.routes.draw do
   resources :destination_packings
 
+  resources :receipt_packing_payments
 
-  #get "packing_reports/index"
   resources :packing_reports
 
   resources :dispatch_ios

@@ -13,12 +13,33 @@ class EmptyPacksProducerMovesController < ApplicationController
 
   # GET /empty_packs_producer_moves/1
   # GET /empty_packs_producer_moves/1.json
+  # GET /empty_packs_producer_moves/1.pdf funciona con cualquier id
   def show
     @empty_packs_producer_move = EmptyPacksProducerMove.find(params[:id])
 
+    highest_id_execution = EmptyPacksProducerMove.order(params[:id]).last
+    @empty_packs_producer = EmptyPacksProducerMove.find(highest_id_execution)
+    @producer = Producer.find(@empty_packs_producer.producer_id)
+
+    @data = EmptyPacksProducerMove.find_by_sql "
+            SELECT ep.pack_option as optionP, ep.created_at as created, ep.quantity quantity,
+            pt.name as nameP 
+            FROM empty_packs_producer_moves as ep, pack_types as pt
+            WHERE ep.producer_id = #{@empty_packs_producer.producer_id} and 
+            ep.pack_type_id = pt.id
+            "
+    # cambiar ep.producer_id = #{@empty_packs_producer.producer_id} por 
+    # ep.code = #{@empty_packs_producer.code}
+
+
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @empty_packs_producer_move }
+      format.json { render json: @data }
+      format.pdf {
+        pdf = EmptyProducerPdf.new(@producer, @data)
+      send_data pdf.render,
+      type: "application/pdf",
+      disposition: "inline"}
     end
   end
 

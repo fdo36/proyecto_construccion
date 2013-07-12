@@ -1,15 +1,20 @@
 <script type="text/javascript">
 var pack_type_array = new Array();
 var count=0;
-function show_rut1(s){
-	//Busqueda del codigo sag y rut del productor
-	if(s.value == "")
-	{
-	 var inputRut = document.getElementById('rut1');
-	 inputRut.value = "-";
+var stock=0;
 
-	 var inputCodigo = document.getElementById('codigo1');
-	 inputCodigo.value = "-";
+
+function show_rut1(s){
+	if(s.value == ""){
+		var inputRut = document.getElementById('rut1');
+	 	inputRut.value = "-";
+	 	var inputCodigo = document.getElementById('codigo1');
+	 	inputCodigo.value = "-";
+		
+		var table2 = document.getElementById('table2');
+		for(var i=1; i<table2.rows.length; i+=1){
+			table2.rows[i].cells[2].innerHTML=0;			
+		}
 	}
 	else
 	{
@@ -66,12 +71,13 @@ function clear_field(){
 	select.value="";
 	quantity.value="";
 }
-function pack(pack_type_id,producer_id,pack_type,quantity,option){
+function pack(pack_type_id,producer_id,pack_type,quantity,option,id){
 	this.pack_type_id = pack_type_id;
 	this.producer_id = producer_id;
 	this.pack_type = pack_type;
 	this.quantity = quantity;
 	this.option = option;
+	this.id = id;
 }
 function listar(){
 	for(i=0; i<pack_type_array.length;i++){
@@ -79,7 +85,6 @@ function listar(){
 		console.log(pack_type_array[i].pack_type_id+","+pack_type_array[i].producer_id+","+pack_type_array[i].pack_type+","+pack_type_array[i].quantity+","+pack_type_array[i].option);
 	}
 }
-//Validadores
 function validate_radio(radio1,radio2){
 	if(!radio1.checked && !radio2.checked)
 	{
@@ -108,7 +113,6 @@ function validate_quantity(q){
 	}
 }
 function validate_stock(q,option,stock){
-	console.log(option);
 	var flag = true;
 
 	if(option=="despacho")
@@ -128,56 +132,84 @@ function validate_pack_type(pack_type){
 	else{
 		return true;
 	}
+}
+function validate_register(pack_id,option){
+	var flag = true;
+	for (var i = 0 ; i<pack_type_array.length;i++){
+		if(pack_type_array[i].pack_type_id==pack_id){
+			flag=false;
+			alert("No puede realizar 2 "+option+"s del mismo tipo de envase");	
+		}
+	}
+	return flag;
+}
+function validate_producer(producer){
+	console.log(producer);
+	if(producer==""){
+		alert("Debes seleccionar un productor");
+		return false;
+	}
+	else{
+	return true;
+	}
 }	
-//
 function new_pack(){
 	var radio1 =document.getElementById('radio1');
 	var radio2 =document.getElementById('radio2');
 	var quantity =document.getElementById('quantity').value;
 	var selectp = document.getElementById("Productores1").value;
 	var select = document.getElementById("mySelect");
-	var quantity =document.getElementById('quantity').value;
-	
 
-	if(validate_radio(radio1,radio2)==true)
-	{
-		console.log("1");
-		var option;
-		if(radio1.checked){
-			option = radio1.value;
-		}
-		else{
-			option = radio2.value;
-		}	
-		if(validate_quantity(quantity)==true){
-			console.log("2");	
-			var stock = document.getElementById('stock').value;		
-			if(validate_stock(quantity,option,stock)==true){
-				console.log("3");
-				if(validate_pack_type(select.value)==true){
-					console.log("4");
-					var pack_add = new pack(select.value,selectp,select.options[select.selectedIndex].text,quantity,option);
-					pack_type_array.push(pack_add);
-					displayResult(pack_add);
-					clear_field();
+	if(validate_producer(selectp)==true){
+		if(validate_radio(radio1,radio2)==true){		
+			var option;
+			if(radio1.checked){
+				option = radio1.value;
+			}
+			else{
+				option = radio2.value;
+			}	
+			if(validate_quantity(quantity)==true){
+				
+				var stock = document.getElementById('stock').value;		
+				if(validate_stock(quantity,option,stock)==true){
+					console.log(option);
+					if(validate_pack_type(select.value)==true){
+						
+						if(validate_register(select.value,option)==true){
+							var pack_add = new pack(select.value,selectp,select.options[select.selectedIndex].text,quantity,option,count);
+							pack_type_array.push(pack_add);
+							displayResult(pack_add);
+							clear_field();
+						}
+					}
+
 				}
-
 			}
 		}
 	}
 }
-function displayResult(pack_add){
-	var selectp = document.getElementById("Productores1").value;
-	if(selectp.length!=0){
-		var deshabilitarP = document.getElementById("Productores1")
-		deshabilitarP.disabled=true;
+function disabled_producer(){
+	var producer = document.getElementById('Productores1');
+	if(pack_type_array.length==0){
+		producer.disabled=false;
+		$('#destination_id').attr("href","#tab2");
+		
 	}
+	else{	
+		producer.disabled=true;
+
+		$('#destination_id').attr("href","#tab1");
+	}
+}
+function displayResult(pack_add){
+	
+	disabled_producer();
 	var button = '<a id="'+count+'" align="center" 	onclick="delete_row(this)">Eliminar</a>';	
 		$('#myTable').dataTable().fnAddData(
 		[pack_add.pack_type,pack_add.quantity,pack_add.option,
  		button]);
- 	count++;
- 	console.log(count);	  	
+ 	count++;		
 }
 function delete_row(b){
 	var table = document.getElementById("myTable");
@@ -186,61 +218,100 @@ function delete_row(b){
 		parent = parent.parentNode;
 	}
 	$('#myTable').dataTable().fnDeleteRow(parent);
-	alert(parent.childNodes[3].id);
-	//pack_type_array.remove[parent.childNodes[0].id];
-	count--;
-	console.log(count);
 	
+	for(i=0; i<pack_type_array.length;i++){
+		if(pack_type_array[i].id==b.id){
+			pack_type_array.splice(i, 1);			
+		}
+	}
+	disabled_producer();	
 }
 function add_db(){
-	
-	for(var i=0; i<pack_type_array.length; i+=1){
-	  
-	  	$.ajax({
-			url: "producers/"+pack_type_array[i].producer_id+"/empty_packs_producer_moves",
-	 		type: "POST",
-	    	data: {empty_packs_producer_move:{producer_id: pack_type_array[i].producer_id,pack_type_id: pack_type_array[i].pack_type_id,quantity: pack_type_array[i].quantity,pack_option: pack_type_array[i].option}},
-	 	}).done(function(data){
+	if(pack_type_array.length==0){
+		alert("Debes agregar envases");
+	}
+	else{
 
-             window.location = "/empty_packs"
-         });
-		
+		var last = "<%=@code[0]%>";
+		var code_producer;
+		console.log(last);
+		if(last==[])
+		{
+			code_producer=0;
+		}
+		else{
+			code_producer= parseInt(last)+1;
+		}
+
+		for(var i=0; i<pack_type_array.length; i+=1){
+		  	$.ajax({
+				url: "/producers/"+pack_type_array[i].producer_id+"/empty_packs_producer_moves",
+		 		type: "POST",
+		    	data: {empty_packs_producer_move:{producer_id: pack_type_array[i].producer_id,pack_type_id: pack_type_array[i].pack_type_id,quantity: pack_type_array[i].quantity,pack_option: pack_type_array[i].option,code: code_producer}},
+		 	}).done(function(data){
+
+	             window.location = "/empty_packs"
+	         });
+		}
 	}
 }
-function stock_calculate(){
+function stock_calculate_producer(){
+	stock=0;
 	var pack_id = document.getElementById('mySelect');
 	
 	$.get("/producers.json", function(data){
 		$.each(data, function(index, value){
 			var producer_id= value.id;
 			var quantity=0;
-			$.get("/producers/"+producer_id+"/empty_packs_producer_moves.json", function(data){
+			$.get("/producers/"+producer_id+"/empty_packs_producer_moves.json", function(data){				
 		  	$.each(data, function(index, value){
-				if(value.pack_type_id==pack_id.value)
-				{	
-					if(value.pack_option=="ingreso")
-						{
-							quantity = quantity + value.quantity;
-						}
-						else
-						{
-							quantity = quantity - value.quantity;
-						}
+				
+				if(value.pack_type_id==pack_id.value){	
+					if(value.pack_option=="ingreso"){
+						quantity = quantity + value.quantity;
+					}
+					else{
+						quantity = quantity - value.quantity;
+					}
 		 		}
-
 			});
-			var stock_pack_type = document.getElementById('stock');
-			stock_pack_type.value = quantity;  
+			stock = quantity;  
 			});
 		});		
+	
+	$.get("/destinations.json", function(data){
+		$.each(data, function(index, value){
+			var destination_id= value.id;
+			var quantity2=0;
+			$.get("/destinations/"+destination_id+"/empty_packs_destination_moves.json", function(data){				
+		  	$.each(data, function(index, value){
+				
+				if(value.pack_type_id==pack_id.value){	
+					if(value.pack_option=="ingreso"){
+						quantity2 = quantity2 + value.quantity;
+					}
+					else{
+						quantity2 = quantity2 - value.quantity;
+					}
+		 		}
+			});
+			var stock_pack_type = document.getElementById('stock');
+			stock_pack_type.value = stock+quantity2; 
+		    });
+		});
+	});				
+
+
+
 	});
 }
-</script>  
+</script>
 
 <!--Selector de productores-->
 <div class="line-forme">
 	<div class="forme-lab">
- 		<%= label_tag 'Productor'%> 
+ 		<%= label_tag 'Productor'%>
+ 		 <em class="formee-req">*</em> 
 	</div>
 	<% @producers_array = Producer.where(:company_id => current_user.company_id).map { |producer| [producer.name, producer.id] } %>
 	<div class="forme-in">
@@ -251,6 +322,7 @@ function stock_calculate(){
 <div class="line-forme">
 	<div class="forme-lab">
 	 <%= label_tag "rut"  %>
+	 	
 	</div>
 	<div class="forme-in ">
 	 <input id="rut1" value="-" disabled="true"></input>
@@ -268,7 +340,8 @@ function stock_calculate(){
 <!--RadioButton ingreso/despacho-->
 <div class="line-forme">
 	<div class="forme-lab">
-		<label>Opcion</label><br />
+		<label>Opcion</label>
+		 <em class="formee-req">*</em><br />
 	</div>
 	<div class="forme-in">
 		<input id="radio1" type="radio" name="option" value="ingreso">Ingreso
@@ -278,26 +351,29 @@ function stock_calculate(){
 <!--Selector de envases-->
 <div class="line-forme">
 	<div class="forme-lab">
-	 <%= label_tag 'Envase'%> 
+	 <%= label_tag 'Envase'%>
+	 <em class="formee-req">*</em> 
 	</div>
-	<% @pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+	<% @pack_types_array = PackType.where(:company_id => current_user.company_id).map { |pack_type| [pack_type.name, pack_type.id] } %>
 	<div class="forme-in">
-	 <%= select_tag "mySelect", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" ,:onchange => "stock_calculate()"%>
+	 <%= select_tag "mySelect", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase" ,:onchange => "stock_calculate_producer()"%>
 	</div>
 </div>
 <!--Stock del envase selecionado-->
 <div class="line-forme">
 	<div class="forme-lab">
-	 <%= label_tag 'Stock'%> 
+	 <%= label_tag 'Stock'%>
+	
 	</div>    
 	<div class="forme-in">
-		<input id="stock" value="-" disabled="true"></input>
+		<input id="stock" value="-" disabled="true"	></input>
 	</div>  
 </div>
 <!--Cantidad del envase selecionado-->
 <div class="line-forme">
 	<div class="forme-lab">
-	 <%= label_tag 'Cantidad'%> 
+	 <%= label_tag 'Cantidad'%>
+	  <em class="formee-req">*</em> 
 	 </div>    
 	<div class="forme-in">
 		<input id="quantity" type="text"><br>
@@ -309,12 +385,12 @@ function stock_calculate(){
 	<thead>
     <tr>
     	<th style="display:none">Id</th>
-    	<th>Envantce</th>
+    	<th>Envanse</th>
       <th>Cantidad</th>
     </tr>
   </thead>
 	<tbody>
-		<% @packtypes = PackType.all%>
+		<% @packtypes = PackType.where(:company_id => current_user.company_id)%>
 		<% @packtypes.each do |packtype| %>
     <tr>
     	<td style="display:none"><%= packtype.id%></td>

@@ -15,10 +15,27 @@ class EmptyPacksDestinationMovesController < ApplicationController
   # GET /empty_packs_destination_moves/1.json
   def show
     @empty_packs_destination_move = EmptyPacksDestinationMove.find(params[:id])
+
+    highest_id_execution = EmptyPacksDestinationMove.order(params[:id]).last
+    @empty_packs_destination = EmptyPacksDestinationMove.find(highest_id_execution)
+    @destiny = Destination.find(@empty_packs_destination.destination_id)
+
+    @data = EmptyPacksDestinationMove.find_by_sql "
+            SELECT ep.pack_option as optionP, ep.created_at as created, ep.quantity quantity,
+            pt.name as nameP 
+            FROM empty_packs_destination_moves as ep, pack_types as pt
+            WHERE ep.destination_id = #{@empty_packs_producer.destination_id} and 
+            ep.pack_type_id = pt.id
+            "
     
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @empty_packs_destination_move }
+      format.pdf {
+        pdf = EmptyDestinationPdf.new(@destiny, @data)
+      send_data pdf.render,
+      type: "application/pdf",
+      disposition: "inline"}
     end
   end
 
