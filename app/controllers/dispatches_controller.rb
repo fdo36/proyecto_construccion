@@ -20,11 +20,19 @@ class DispatchesController < ApplicationController
     @destination = Destination.find(@dispatch.destination_id)
     @kind = Kind.find(@dispatch.kind_id)
 
+    @pack = Receipt.find_by_sql "SELECT p.quantity as quantity, p.gross_weight as weight, p.price_per_unit as price,
+          v.name as vName, q.name as qName, pt.tare as tare
+          FROM pack_group_receipts as p, qualities as q, varieties as v , pack_types as pt
+          WHERE p.receipt_id = #{@receipt.id} and
+                p.quality_id = q.id and 
+                p.variety_id = v.id and
+                p.pack_type_id = pt.id"
+
     @pallets = Receipt.find_by_sql "
-          SELECT p.created_at created, p.code as code, p.quantity as quantity, p.gross_weight as weight, p.price_per_unit as price, p.tare as tareP,
+          SELECT p.created_at created, p.quantity as quantity, p.gross_weight as weight, p.price_per_unit as price,
           pt.tare as tare, pt.name as namePT,
           v.name as vName, q.name as qName 
-          FROM pallets as p, qualities as q, varieties as v , pack_types as pt
+          FROM pack_group_dispatches as p, qualities as q, varieties as v , pack_types as pt
           WHERE p.dispatch_id = #{@dispatch.id} and
                 p.quality_id = q.id and 
                 p.variety_id = v.id and
@@ -35,7 +43,7 @@ class DispatchesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @dispatch }
-      format.pdf { pdf = DispatchPdf.new(@dispatch, @destination, @kind,@pallets)
+      format.pdf { pdf = DispatchPdf.new(@dispatch, @destination, @kind,@pack,@pallets)
     send_data pdf.render,
     type: "application/pdf",
     disposition: "inline"}
