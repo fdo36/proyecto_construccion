@@ -35,6 +35,14 @@ class SuppliesLoansController < ApplicationController
   # GET /supplies_loans/1/edit
   def edit
     @supplies_loan = SuppliesLoan.find(params[:id])
+     p_quantity = @supplies_loan.quantity
+     p_supply_id = @supplies_loan.supply_id
+     Supply.where(:id => p_supply_id).each{ |s|
+        p_stock = s.stock_ini 
+        s.stock_ini = p_stock + p_quantity
+        s.save
+      }
+
   end
 
   # POST /supplies_loans

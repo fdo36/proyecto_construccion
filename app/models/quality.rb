@@ -3,7 +3,7 @@ require "general"
 class Quality < ActiveRecord::Base
   announce_component(:acopiopacking, "Recursos", 6)
 
-  attr_accessible :name
+  attr_accessible :name, :company_id
 
   validates :name, :presence => true
   has_many :pack_group_receipts

@@ -23,6 +23,8 @@ namespace :init_wiki_fernando do
 ** [[Variedades]]
 ** [[Agencias de Aduana]]
 ** [[Packing Pallets]]
+** [[Cámara de Productos en Tránsito]]
+
 
 </div>')
 		WikiPage.create(:creator_id => 2, :updator_id => 2, 
@@ -826,6 +828,166 @@ El Sistema mostrará un diálogo preguntando si deseamos eliminar el packing pal
 !/help/img/packing_pallet/delete_2.png!
 Si marcamos el botón "Aceptar", el packing pallet desaparecerá de la lista de pallets de packing.
 !/help/img/packing_pallet/delete_3.png!
+</div>
+
+h2(#faq). Preguntas Frecuentes
+
+Actualmente no existen preguntas frecuentes.
+</div>')
+		WikiPage.create(:creator_id => 2, :updator_id => 2, 
+    				:path=> 'Camara+de+Producto+en+Tránsito', :title => 'Cámara de Productos en Tránsito', :content => '<div class="textContent">
+Módulo encargado de manejar los productos en la cámara de productos en tránsito. Permite ingresar y despachar pallets de la cámara de productos en tránsito.
+</div>
+
+<div class="indexHelp">
+* "1. Descripción de los Campos":#description
+** "1.1 Temperatura":#f_t
+** "1.2 Encargado":#f_worker
+** "1.3 Pallet":#f_pallet
+* "2. Acciones":#actions
+** "2.1 Agregar registro":#a_add
+** "2.2. Ver registro":#a_show
+** "2.3. Eliminar registro":#a_delete
+* "3. Preguntas Frecuentes":#faq
+</div>
+
+<div class="contentHelp">
+h2(#description). Descripción de los Campos
+
+h3(#f_t). Temperatura:
+
+<div class="contentHelp">
+Temperatura de la cámara de productos en tránsito
+</div>
+
+h3(#f_worker). Encargado:
+
+<div class="contentHelp">
+Encargado de la cámara de productos en tránsito.
+</div>
+
+h3(#f_pallet).Pallet:
+
+<div class="contentHelp">
+Permite ingresar los códigos de pallets de salida en ĺos túneles de congelado para ingresar en la cámara de productos en tránsito.
+</div>
+
+h3(#a_add). Agregar registro:
+
+<div class="textContent">
+Para agregar un registro a la cámara de productos en tránsito, primero debemos seleccionar el módulo "Cámara de Productos en tránsito" en la barra de navegación (a la izquierda), ubicada dentro de "Recursos".
+!/help/img/transit_chamber_io/add_1.png!
+El Sistema mostrará en pantalla una lista de todos los productos en la cámara de productos en tránsito agregadas con anterioridad (Si se ha ingresado por primera vez, no mostrará ninguna).
+Presionamos el botón "Nuevo Registro", en la esquina superior derecha.
+!/help/img/transit_chamber_io/add_2.png!
+Llenamos la información correspondiente (Los campos obligatorios se destacan con un *). Posteriormente guardamos para continuar o simplemente cancelamos.
+!/help/img/transit_chamber_io/add_3.png!
+Finalmente, el sistema volverá a la página principal de cámaras de productos en tránsito y mostrará en la tabla el registro de la cámara de productos en tránsito agregado.
+!/help/img/transit_chamber_io/add_4.png!
+</div>
+
+h3(#a_show). Ver registro existente:
+
+<div class="textContent">
+Para ver los datos de un registro en la cámara de productos en tránsito, en la página principal del módulo "Cámara de Productos en tránsito", seleccionamos "Ver"
+(ubicada al extremo opuesto del registro por ver y dentro de la columna "acciones"). 
+!/help/img/transit_chamber_io/show_1.png!
+El Sistema mostrará los datos del registro en la cámara de productos en tránsito seleccionado, sin opción de modificación. 
+Por lo demás, en este punto, el sistema permite editar los datos o simplemente volver a la página principal del módulo.
+!/help/img/transit_chamber_io/show_2.png!
+Finalmente, el sistema volverá a la página principal de cámara de productoa en tránsito o de edición dependiendo de la acción tomada.!
+</div>
+
+h3(#a_delete). Eliminar registro:
+
+<div class="textContent">
+Para eliminar los datos de un registro en una cámara de producto en tránsito existente, en la página principal del módulo "Cámara de Productos en tránsito", seleccionamos "Eliminar"
+(ubicada al extremo opuesto del registro por eliminar y dentro de la columna "acciones"). 
+!/help/img/transit_chamber_io/delete_1.png!
+El Sistema mostrará un diálogo preguntando si deseamos eliminar el registro.
+!/help/img/transit_chamber_io/delete_2.png!
+Si marcamos el botón "Aceptar", el registro desaparecerá de la lista de cámara de productos en tránsito.
+!/help/img/transit_chamber_io/delete_3.png!
+</div>
+
+h2(#faq). Preguntas Frecuentes
+
+Actualmente no existen preguntas frecuentes.
+</div>')
+		WikiPage.create(:creator_id => 2, :updator_id => 2, 
+    				:path=> 'Cámara+de+Productos+en+Tránsito', :title => 'Cámara de Productos en Tránsito', :content => '<div class="textContent">
+Módulo encargado de manejar los productos en la cámara de productos en tránsito. Permite ingresar y despachar pallets de la cámara de productos en tránsito.
+</div>
+
+<div class="indexHelp">
+* "1. Descripción de los Campos":#description
+** "1.1 Temperatura":#f_t
+** "1.2 Encargado":#f_worker
+** "1.3 Pallet":#f_pallet
+* "2. Acciones":#actions
+** "2.1 Agregar registro":#a_add
+** "2.2. Ver registro":#a_show
+** "2.3. Eliminar registro":#a_delete
+* "3. Preguntas Frecuentes":#faq
+</div>
+
+<div class="contentHelp">
+h2(#description). Descripción de los Campos
+
+h3(#f_t). Temperatura:
+
+<div class="contentHelp">
+Temperatura de la cámara de productos en tránsito
+</div>
+
+h3(#f_worker). Encargado:
+
+<div class="contentHelp">
+Encargado de la cámara de productos en tránsito.
+</div>
+
+h3(#f_pallet). Pallet:
+
+<div class="contentHelp">
+Permite ingresar los códigos de pallets de salida en ĺos túneles de congelado para ingresar en la cámara de productos en tránsito.
+</div>
+
+h3(#a_add). Agregar registro:
+
+<div class="textContent">
+Para agregar un registro a la cámara de productos en tránsito, primero debemos seleccionar el módulo "Cámara de Productos en tránsito" en la barra de navegación (a la izquierda), ubicada dentro de "Recursos".
+!/help/img/transit_chamber_io/add_1.png!
+El Sistema mostrará en pantalla una lista de todos los productos en la cámara de productos en tránsito agregadas con anterioridad (Si se ha ingresado por primera vez, no mostrará ninguna).
+Presionamos el botón "Nuevo Registro", en la esquina superior derecha.
+!/help/img/transit_chamber_io/add_2.png!
+Llenamos la información correspondiente (Los campos obligatorios se destacan con un *). Posteriormente guardamos para continuar o simplemente cancelamos.
+!/help/img/transit_chamber_io/add_3.png!
+Finalmente, el sistema volverá a la página principal de cámaras de productos en tránsito y mostrará en la tabla el registro de la cámara de productos en tránsito agregado.
+!/help/img/transit_chamber_io/add_4.png!
+</div>
+
+h3(#a_show). Ver registro existente:
+
+<div class="textContent">
+Para ver los datos de un registro en la cámara de productos en tránsito, en la página principal del módulo "Cámara de Productos en tránsito", seleccionamos "Ver"
+(ubicada al extremo opuesto del registro por ver y dentro de la columna "acciones"). 
+!/help/img/transit_chamber_io/show_1.png!
+El Sistema mostrará los datos del registro en la cámara de productos en tránsito seleccionado, sin opción de modificación. 
+Por lo demás, en este punto, el sistema permite editar los datos o simplemente volver a la página principal del módulo.
+!/help/img/transit_chamber_io/show_2.png!
+Finalmente, el sistema volverá a la página principal de cámara de productoa en tránsito o de edición dependiendo de la acción tomada.!
+</div>
+
+h3(#a_delete). Eliminar registro:
+
+<div class="textContent">
+Para eliminar los datos de un registro en una cámara de producto en tránsito existente, en la página principal del módulo "Cámara de Productos en tránsito", seleccionamos "Eliminar"
+(ubicada al extremo opuesto del registro por eliminar y dentro de la columna "acciones"). 
+!/help/img/transit_chamber_io/delete_1.png!
+El Sistema mostrará un diálogo preguntando si deseamos eliminar el registro.
+!/help/img/transit_chamber_io/delete_2.png!
+Si marcamos el botón "Aceptar", el registro desaparecerá de la lista de cámara de productos en tránsito.
+!/help/img/transit_chamber_io/delete_3.png!
 </div>
 
 h2(#faq). Preguntas Frecuentes
