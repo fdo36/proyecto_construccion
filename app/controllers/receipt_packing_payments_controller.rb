@@ -11,6 +11,15 @@ class ReceiptPackingPaymentsController < ApplicationController
     end
   end
 
+    def showPay
+    @receipt_packing_io = ReceiptPackingIo.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @receipt_packing_io }
+    end
+  end
+
   def pay
     @receipt_packing_io = ReceiptPackingIo.find(params[:id])
     mtrxx = []
