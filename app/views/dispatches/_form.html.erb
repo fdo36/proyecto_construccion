@@ -260,11 +260,32 @@ var config = 'pack_pallet';
       alert("Lista de ingresos vacía");
   }
 
+  function get_pallet_id (code) {
+    $.ajax({
+      url: "/pallets.json",
+      dataType: 'json',
+      async: false,
+      success: function(data){
+          $.each(data,function(index, value){
+            if(value.code == code)
+            {
+              code = value.code;
+            }
+          });
+      }
+    });
+    return code;
+  }
+
   function add_registers_to (dispatch_id) {
     for (var key in registers) {
       var register = registers[key];
 
+      var pallet_id = get_pallet_id(register.code);
+
       var code = register.code;
+
+      console.log(pallet_id);
       var gross_weight = register.gross_weight;
       var pack_type_id = register.pack_type_id;
       var quality_id = register.quality_id;
@@ -273,12 +294,12 @@ var config = 'pack_pallet';
       var variety_id = register.variety_id;
 
       if(register.is_pallet){
-        $.ajax({  
-          url: "/pallets",  
-          type: "POST", 
-          dataType: "json",
-          async: false,
-          data: { pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, quality_id: quality_id, quantity: quantity, dispatch_id: dispatch_id, tare: tare, variety_id: variety_id} } }); 
+        $.ajax({
+            type: "POST",
+            url: '/pallets/'+pallet_id+'.json',
+            data: { _method:'PUT', pallet : {code: code, gross_weight: gross_weight, pack_type_id: pack_type_id, quality_id: quality_id, quantity: quantity, dispatch_id: dispatch_id, tare: tare, variety_id: variety_id} },
+              dataType: 'json'
+      });
       }
       else
       {
@@ -527,13 +548,6 @@ var config = 'pack_pallet';
         isError = true;
       }
 
-      if(!isInteger(code)){
-        $("#code_div").addClass("field_with_errors");
-        errors = errors + "<li>Código no es un número</li>";
-        contador_errores += 1;
-        isError = true;
-      }
-
       if(tare == ""){
         $("#tare_div").addClass("field_with_errors");
         errors = errors + "<li>Destare Pallet no puede estar en blanco</li>";
@@ -748,7 +762,10 @@ var config = 'pack_pallet';
           </div>
           <div class="forme-in">
             <div id="code_div">
-              <%= f.text_field :code, :id=>"code"%>
+            <% @op = Pallet.find_by_sql  "SELECT * from pallets where receipt_id is not null and dispatch_id is null"%>
+              <% @options = @op.map { |d| [d.code, d.id] } %>
+
+              <%= f.select(:code, options_for_select(@options), {:selected => :prompt, :prompt => '- Seleccione codigo de pallet - '} , :id => 'code', :class => 'chzn-select') %>
             </div>
           </div>
         </div>

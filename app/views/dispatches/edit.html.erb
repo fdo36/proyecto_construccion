@@ -773,13 +773,6 @@ var config = 'pack_pallet';
           isError = true;
         }
 
-        if(!isInteger(code)){
-          $("#code_div").addClass("field_with_errors");
-          errors = errors + "<li>Código no es un número</li>";
-          contador_errores += 1;
-          isError = true;
-        }
-
         if(tare == ""){
           $("#tare_div").addClass("field_with_errors");
           errors = errors + "<li>Destare Pallet no puede estar en blanco</li>";
