@@ -3,7 +3,7 @@ require "general"
 class Variety < ActiveRecord::Base
   announce_component(:acopiopacking, "Recursos", 7)
 
-  attr_accessible :kind_id, :name
+  attr_accessible :kind_id, :name, :company_id
 
   validates :kind_id, :name, :presence => true
 

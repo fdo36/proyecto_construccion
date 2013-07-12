@@ -4,6 +4,6 @@ require "general"
 
 	validates :name, :description, :minimum_stock, :stock_ini, :presence => true
 	  
-	attr_accessible :description, :minimum_stock, :name , :stock_ini
+	attr_accessible :description, :minimum_stock, :name , :stock_ini, :company_id
 
 end

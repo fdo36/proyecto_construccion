@@ -5,7 +5,7 @@ require "general"
 class Producer < ActiveRecord::Base
   announce_component(:acopio, "Recursos", 5)
   
-  attr_accessible :active, :address, :commune_id, :name, :contact, :email, :line_of_business, :phone, :rut, :sag_code, :is_deleted, :code
+  attr_accessible :active, :address, :commune_id, :name, :contact, :email, :line_of_business, :phone, :rut, :sag_code, :is_deleted, :code, :company_id
 
   validates :address, :commune_id, :name, :contact, :line_of_business, :phone, :rut, :sag_code, :code, :presence => true
 
