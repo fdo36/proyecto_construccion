@@ -5,7 +5,7 @@ require "general"
 class Destination < ActiveRecord::Base
   announce_component(:acopio, "Recursos", 1)
 
-  attr_accessible :code, :active, :address, :commune_id, :name, :contact, :email, :phone, :rut, :is_deleted
+  attr_accessible :code, :active, :address, :commune_id, :name, :contact, :email, :phone, :rut, :is_deleted, :company_id
 
   validates :code, :address, :commune_id, :name, :contact, :phone, :rut, :presence => true
 

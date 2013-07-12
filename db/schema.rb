@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712060816) do
+ActiveRecord::Schema.define(:version => 20130712162842) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "customs", :force => true do |t|
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "destinations", :force => true do |t|
@@ -132,6 +134,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.string   "pack_option"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "code"
   end
 
   create_table "empty_packs_producer_moves", :force => true do |t|
@@ -142,6 +145,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.string   "pack_option"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "code"
   end
 
   create_table "final_packing_pallets", :force => true do |t|
@@ -154,6 +158,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.float    "net_weight"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "company_id"
   end
 
   create_table "format_packings", :force => true do |t|
@@ -162,6 +167,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.float    "weight"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "frozen_tunnel_ios", :force => true do |t|
@@ -216,6 +222,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "pack_group_dispatches", :force => true do |t|
@@ -247,6 +254,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "pack_types", :force => true do |t|
@@ -278,12 +286,14 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.integer  "variety_id"
     t.integer  "receipt_packing_io_id"
     t.integer  "pack_type_id"
+    t.integer  "company_id"
   end
 
   create_table "packing_processes", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "pallet_finished_products", :force => true do |t|
@@ -296,6 +306,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.float    "net_weight"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "company_id"
   end
 
   create_table "pallets", :force => true do |t|
@@ -351,6 +362,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.datetime "updated_at", :null => false
     t.integer  "commune_id"
     t.string   "contact"
+    t.integer  "company_id"
   end
 
   create_table "qualities", :force => true do |t|
@@ -363,7 +375,6 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
   create_table "receipt_packing_ios", :force => true do |t|
     t.integer  "producer_id"
     t.integer  "code"
-    t.string   "pack_type"
     t.integer  "trazability_code"
     t.integer  "dispatch_guide_number"
     t.string   "comments"
@@ -374,6 +385,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.boolean  "paid"
     t.boolean  "editable"
     t.datetime "payment_date"
+    t.integer  "pack_type_id"
   end
 
   create_table "receipts", :force => true do |t|
@@ -453,6 +465,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.datetime "updated_at",        :null => false
     t.integer  "heir_id"
     t.string   "heir_type"
+    t.integer  "company_id"
   end
 
   create_table "subprocesses", :force => true do |t|
@@ -512,6 +525,7 @@ ActiveRecord::Schema.define(:version => 20130712060816) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "is_delete"
+    t.integer  "company_id"
   end
 
   create_table "users", :force => true do |t|

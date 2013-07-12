@@ -43,7 +43,7 @@ class SuppliesProvidersLoansController < ApplicationController
    @supplies_providers_loan = SuppliesProvidersLoan.new(params[:supplies_providers_loan])
     @supply = Supply.find(@supplies_providers_loan.supply_id)
     @supply.stock_ini += @supplies_providers_loan.quantity
-
+    @supplies_providers_loan.company_id = current_user.company_id
     respond_to do |format|
       if @supplies_providers_loan.save
         @supply.save

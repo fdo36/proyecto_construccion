@@ -2,7 +2,7 @@ require "general"
 
 class Kind < ActiveRecord::Base
   announce_component(:acopiopacking, "Recursos", 3)
-  attr_accessible :name
+  attr_accessible :name, :company_id
 
   validates :name, :presence => true
 

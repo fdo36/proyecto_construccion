@@ -226,7 +226,7 @@ section#content{
 }
 
 .line-forme{
-	height: 30px;
+	min-height: 30px;
 	margin-bottom: 5px;
 }
 
@@ -243,9 +243,15 @@ section#content{
 	width: 35%;
 }
 
-.forme-in  input[type="text"], .forme-in select, .chzn-container{
+.forme-in  input[type="text"], .forme-in select, .forme-in .chzn-container{
 	width: 100%!important;
 	height: 90%;
+	min-width: 300px;
+}
+
+.forme-in textarea{
+	width: 97%!important;
+	height: 50px;
 	min-width: 300px;
 }
 
@@ -483,7 +489,7 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  {
 }
 #menuTools ul p{
 	margin: 0;
-	padding: 10px 40px 0 40px;
+	padding: 14px 40px 0 40px;
 	height: 35px;
 	color: #fff;
 }
@@ -526,8 +532,8 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  {
 	margin: 10px 0 0 0;
 	color: #fff;
 	font-weight: bold;
-	font-variant: small-caps;
 	font-size: 15px;
+	font-variant: small-caps;
 }
 
 .DataTables_sort_wrapper{
@@ -536,14 +542,11 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  {
 
 table a{
 	color: rgb(98, 143, 218);
+	text-decoration: underline!important;
 }
 table a:hover{
 	color: rgb(154, 189, 247);
 	background: rgba(255, 255, 255, 0)!important;
-}
-
-#notice {
-  color: green;
 }
 
 .field_with_errors {
@@ -558,14 +561,15 @@ table a:hover{
 }
 
 #error_explanation {
-	width: 97%!important;
 	height: 90%;
 	min-width: 300px;
-  border: 2px solid red;
-  padding: 7px;
-  padding-bottom: 0;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
+	border: 2px solid red;
+	padding: 7px;
+	padding-bottom: 0;
+	margin-bottom: 20px;
+	background-color: #f0f0f0;
+	background-color: #c00;
+	color: #fff;
 }
 
 #error_explanation  h2 {

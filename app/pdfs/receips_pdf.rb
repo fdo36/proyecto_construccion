@@ -70,7 +70,7 @@ class ReceipsPdf < Prawn::Document
 			end
 			totalW =  Integer(@pallets[i].weight) - (Integer(@pallets[i].quantity) * Integer(@pallets[i].tare)) - Integer(@pallets[i].tarep)
 			total = ""
-			if @pallets[i].price != ""
+			if @pallets[i].price != nil
 				total = Integer(@pallets[i].quantity)*Integer(@pallets[i].price)
 			end
 			datos[@pallets[i].vname] << [@pallets[i].qname, @pallets[i].quantity,totalW, total]

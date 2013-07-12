@@ -42,7 +42,7 @@ class WorkersController < ApplicationController
   # POST /workers.json
   def create
     @worker = Worker.new(params[:worker])
-
+    @worker.company_id = current_user.company_id
     respond_to do |format|
       if @worker.save
         format.html { redirect_to @worker, notice: 'El trabajador fue creado exitosamente.' }

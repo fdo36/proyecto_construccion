@@ -41,7 +41,7 @@ class OriginPortsController < ApplicationController
   # POST /origin_ports.json
   def create
     @origin_port = OriginPort.new(params[:origin_port])
-
+    @origin_port.company_id = current_user.company_id
     respond_to do |format|
       if @origin_port.save
         format.html { redirect_to @origin_port, notice: 'Origin port was successfully created.' }

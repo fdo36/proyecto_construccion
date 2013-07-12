@@ -43,7 +43,7 @@ class SubprocessIosController < ApplicationController
   # POST /subprocess_ios.json
   def create
     @subprocess_io = SubprocessIo.new(params[:subprocess_io])
-
+    @subprocess_io.company_id = current_user.company_id
     respond_to do |format|
       if @subprocess_io.save
         format.html { redirect_to @subprocess_io, notice: 'Subprocess io was successfully created.' }

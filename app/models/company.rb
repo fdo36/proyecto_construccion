@@ -1,11 +1,14 @@
 #encoding: utf-8
+require 'astrotils'
+
 class Company < ActiveRecord::Base
   
   validates :name, :presence => true
   validates :rut, :presence => true
   validates :email, :presence => true
   validates_inclusion_of :system_type, :in => [true, false]
- 
+  
+  after_create :create_roles
 
   validates :phone, :format => { :with => /^-?((?:\d+|\d*)$)/,
     :message => "debe ingresar un número válido" }
@@ -23,4 +26,31 @@ class Company < ActiveRecord::Base
   belongs_to :region
   has_many :receipts
   has_many :dispatches
+  
+  def create_roles
+
+    models = Astrotils::get_models
+    
+    if self.system_type == true
+      role = Role.new(:name => "Administador de Acopio", :description => "Usado para administar compañias de acopio")
+      models.each { |model|
+        membership = model.get_component_info[0] 
+        if membership == :acopio or membership == :acopiopacking
+          a=AccessRight.create(:model_name => model.model_name, :action => "manage", :company_id => self.id)
+          role.access_rights << a
+        end
+      }
+    else
+      role = Role.new(:name => "Administador de Packing", :description => "Usado para administar compañias de acopio")
+      models.each { |model|
+        membership = model.get_component_info[0] 
+        if membership == :packing or membership == :acopiopacking
+          a=AccessRight.create(:model_name => model.model_name, :action => "manage", :company_id => self.id)
+          role.access_rights << a
+        end
+      }
+    end
+    role.company_id = self.id
+    role.save
+  end
 end
