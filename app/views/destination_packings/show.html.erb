@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @destination_packing.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @destination_packing.email %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @destination_packing.phone %>
+</p>
+
+<p>
+  <b>International:</b>
+  <%= @destination_packing.international %>
+</p>
+
+<p>
+  <b>Company:</b>
+  <%= @destination_packing.company_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_destination_packing_path(@destination_packing) %> |
+<%= link_to 'Back', destination_packings_path %>

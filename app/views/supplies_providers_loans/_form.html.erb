@@ -3,8 +3,6 @@
 var registers = new Array();
 var id_count = 0;
 var modified = false;
-var idReg = 0;
-var posTable = 0;
 
 
   window.onbeforeunload = function () {    
@@ -34,11 +32,27 @@ var posTable = 0;
     var new_register = new register( quantity, supply_id, id);
     registers.push(new_register);
 
-    var row = new Array( supply_name, quantity, "<a href='#' onClick='delete_row(cd)'>eliminar</a>");
+    var row = new Array( supply_name, quantity, '<a id="'+id_count+'" align="center"  onclick="delete_row(this)">Eliminar</a>');
       $('#supply_table').dataTable().fnAddData(row);
       set_modified(true);
       clean_form();
 
+  }
+
+  function delete_row(b){
+    console.log("entro a eliminar row");
+        var table = document.getElementById("supply_table");
+        var parent= b.parentNode;      
+        while(parent.nodeName.toLowerCase()!='tr'){
+                parent = parent.parentNode;
+        }
+        $('#supply_table').dataTable().fnDeleteRow(parent);
+       
+        for(i=0; i<registers.length;i++){
+                if(registers[i].id==b.id){
+                        registers.splice(i, 1);                  
+                }
+        }
   }
 
   function post () 
@@ -76,10 +90,11 @@ var posTable = 0;
       alert("Lista de ingresos vacía");
   }
 
-  function register (  quantity, supply_id  ) 
+  function register (  quantity, supply_id , id ) 
   {
     this.quantity = quantity;
     this.supply_id = supply_id;
+    this.id = id;
     
   }
   function show_rut(s)
@@ -193,6 +208,7 @@ var posTable = 0;
     }
    
     else{
+      contador_errores = 0;
       add_insumo();
     }
   }
