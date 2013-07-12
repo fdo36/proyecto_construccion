@@ -1,4 +1,4 @@
-namespace :reports_data do
+*namespace :reports_data do
   desc "TODO"
   task :load => :environment do
   	

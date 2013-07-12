@@ -166,6 +166,52 @@ r3 = Role.new(:name => "Administrar Inventario", :description => "Usado para adm
         r3.access_rights << a3
         a3=AccessRight.create(:model_name => "SuppliesReturn", :action => "manage")
         r3.access_rights << a3
-  end
 
+
+
+
+
+
+  worker = Worker.create(:first_name => 'Felipe', :last_name => 'Perez', :phone => '223344', :rut => '11.111.111-1', :company_id => company.id)
+  worker.save
+  
+  kind = Kind.create(:name => 'Manzana', :company_id => company.id)
+  kind.save
+  kind2 = Kind.create(:name => 'Pera', :company_id => company.id)
+  kind2.save
+  kind3 = Kind.create(:name => 'Platano', :company_id => company.id)
+  kind3.save
+
+  variety = Variety.create(:name => 'Fuji', :kind_id => kind.id, :company_id => company.id)
+  variety.save
+  variety2 = Variety.create(:name => 'De agua', :kind_id => kind2.id, :company_id => company.id)
+  variety2.save
+  variety3 = Variety.create(:name => 'Verde', :kind_id => kind.id, :company_id => company.id)
+  variety3.save
+
+  packing_pallet = PackingPallet.create(:quantity => 12, :gross_weight => 20, :unit_price => 23, :tare => 1, :temperature => 10, :pallet_code => 'code1', :variety_id => variety.id)
+  packing_pallet.save
+  packing_pallet2 = PackingPallet.create(:quantity => 20, :gross_weight => 25, :unit_price => 40, :tare => 2, :temperature => 5, :pallet_code => 'code2', :variety_id => variet2.id)
+  packing_pallet2.save
+  packing_pallet3 = PackingPallet.create(:quantity => 32, :gross_weight => 60, :unit_price => 50, :tare => 3, :temperature => 7, :pallet_code => 'code3', :variety_id => variet3.id)
+  packing_pallet3.save
+
+  tunnel = Tunnel.create(:name => 'Tunel 1', :is_delete => 0)
+  tunnel.save
+
+  frozen_tunnel_io = FrozenTunnelIo.create(:order_number => 12, :tunnel_id => tunnel.id, :tunnel_temperature => 23, :packing_pallet_temperature => 20)
+  frozen_tunnel_io.save
+  frozen_tunnel_io2 = FrozenTunnelIo.create(:order_number => 13, :tunnel_id => tunnel.id, :tunnel_temperature => 24, :packing_pallet_temperature => 21)
+  frozen_tunnel_io2.save
+  frozen_tunnel_io3 = FrozenTunnelIo.create(:order_number => 14, :tunnel_id => tunnel.id, :tunnel_temperature => 25, :packing_pallet_temperature => 22)
+  frozen_tunnel_io3.save
+
+  subprocess_io = SubprocessIo.create(:packing_pallet_id => packing_pallet.id, :direction => false, :worker_id => worker.id, :heir_id => frozen_tunnel_io.id, :heir_type => 'FrozenTunnelIo')
+  subprocess_io.save
+  subprocess_io2 = SubprocessIo.create(:packing_pallet_id => packing_pallet2.id, :direction => false, :worker_id => worker.id, :heir_id => frozen_tunnel_io2.id, :heir_type => 'FrozenTunnelIo')
+  subprocess_io2.save
+  subprocess_io3 = SubprocessIo.create(:packing_pallet_id => packing_pallet3.id, :direction => false, :worker_id => worker.id, :heir_id => frozen_tunnel_io3.id, :heir_type => 'FrozenTunnelIo')
+  subprocess_io3.save
+  end
 end
+

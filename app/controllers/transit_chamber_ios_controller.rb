@@ -77,6 +77,12 @@ class TransitChamberIosController < ApplicationController
     
     respond_to do |format|
       if @transit_chamber_io.save
+        # transit_chamber_array = TransitChamberIo.all.map { |tc| [tc.order_number] }
+        # if (transit_chamber_array.size == 0)
+        #   @transit_chamber_io.order_number = 1
+        # else
+        #   @transit_chamber_io.order_number = transit_chamber_array[transit_chamber_array.size -1][0]+1
+        # end
         @transit_chamber_io.order_number = @transit_chamber_io.id
         @transit_chamber_io.save
         format.html { redirect_to "/transit_chamber_ios", notice: 'La Cámara de Producto en Tránsito fue creada exitosamente.' }
