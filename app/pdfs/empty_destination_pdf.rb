@@ -76,7 +76,7 @@ class EmptyDestinationPdf < Prawn::Document
 
 		image "#{Prawn::BASEDIR}/data/images/23.png", :at => [-36, 756], :scale => 0.5
 		move_down 35
-		text "Envases Productor", :align => :center, :size => 15
+		text "Envases Destino", :align => :center, :size => 15
 		text "#{Time.now.strftime("%x")}   #{Time.now.strftime("%X")}", :align => :right
 	end
 

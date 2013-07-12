@@ -6,7 +6,9 @@ class ReceiptsController < ApplicationController
   # GET /receipts.json
   def index
     @receipts = Receipt.all
-
+    
+ 
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @receipts }

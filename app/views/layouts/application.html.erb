@@ -126,6 +126,7 @@
 								<a href="<%= link_for_component(component) %>"><%= component.model_name.human %></a>
 								</ul>
 							<% end %>
+								
 							</li>
 						<% end %>
 						
@@ -153,7 +154,18 @@
 							</li>
 						<% end %>
 
+				<%if(can?(:manage, Producer))%>
+						<p>Manejo de envases</p>
+						<li>
+						<ul>
+							<a href="/empty_packs">Envases vacios</a>
+						</ul>
+					</li>
+					<% end %>
+
 					<%end%>
+
+					
 				</ul>
 				</div>
 			</section>

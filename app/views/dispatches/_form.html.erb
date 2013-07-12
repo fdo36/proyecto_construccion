@@ -249,7 +249,7 @@ var config = 'pack_pallet';
         async: false,
         data: { dispatch : { kind_id: kind_id, destination_id: destination_id, dispatch_datetime: dispatch_datetime } },
         success: function(data){ 
-          add_registers_to(data.id);
+          add_registers_to(data.id,destination_id);
         },  
         error: function(){  
           alert("Error al registrar despacho");  
@@ -277,7 +277,7 @@ var config = 'pack_pallet';
     return code;
   }
 
-  function add_registers_to (dispatch_id) {
+  function add_registers_to (dispatch_id,destination_id) {
     for (var key in registers) {
       var register = registers[key];
 
@@ -292,6 +292,18 @@ var config = 'pack_pallet';
       var quantity = register.quantity;
       var tare = register.tare;
       var variety_id = register.variety_id;
+
+      var last = "<%=@code[0]%>";
+      var code_producer;
+      console.log(last);
+
+      if(last==[])
+      {
+        code_producer=0;
+      }
+      else{
+        code_producer= parseInt(last)+1;
+      }
 
       if(register.is_pallet){
         $.ajax({
@@ -310,6 +322,12 @@ var config = 'pack_pallet';
           async: false,
           data: { pack_group_dispatch : {gross_weight: gross_weight, pack_type_id: pack_type_id, quality_id: quality_id, quantity: quantity, dispatch_id: dispatch_id, variety_id: variety_id} } }); 
       }
+      $.ajax({
+        url: "/destinations/"+destination_id+"/empty_packs_destination_moves",
+        type: "POST",
+        dataType: "json",
+        async:false,
+        data: { empty_packs_destination_move : {destination_id: destination_id,pack_type_id: pack_type_id,quantity: quantity,pack_option: "despacho", code: code_producer}}});
     };
     set_modified(false);
     window.open("/dispatches/"+dispatch_id+".pdf");
