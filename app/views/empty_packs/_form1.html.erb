@@ -245,7 +245,7 @@ function add_db(){
 
 		for(var i=0; i<pack_type_array.length; i+=1){
 		  	$.ajax({
-				url: "producers/"+pack_type_array[i].producer_id+"/empty_packs_producer_moves",
+				url: "/producers/"+pack_type_array[i].producer_id+"/empty_packs_producer_moves",
 		 		type: "POST",
 		    	data: {empty_packs_producer_move:{producer_id: pack_type_array[i].producer_id,pack_type_id: pack_type_array[i].pack_type_id,quantity: pack_type_array[i].quantity,pack_option: pack_type_array[i].option,code: code_producer}},
 		 	}).done(function(data){
