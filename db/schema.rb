@@ -277,6 +277,7 @@ ActiveRecord::Schema.define(:version => 20130712142956) do
     t.integer  "producer_id"
     t.integer  "variety_id"
     t.integer  "receipt_packing_io_id"
+    t.integer  "pack_type_id"
   end
 
   create_table "packing_processes", :force => true do |t|
