@@ -16,8 +16,31 @@ var activeTab = $(this).find("a").attr("href");
 $(activeTab).fadeIn(); 
 return false;
 });
+botonesDisabled();
 });
 
+function botonesDisabled(){ //inicializar los botones como deshabilitados
+    //boton1
+    var bt1 = document.getElementById("boton1");
+    var pd1 = document.getElementById("Productores1");
+    var selPd1 = pd1.options[pd1.selectedIndex].value;
+    if(selPd1 == "") {
+     bt1.disabled = true; 
+    }
+    else {
+     bt1.setAttribute('class',"button blue") ;
+    }
+    //boton2
+    var bt2 = document.getElementById("boton2");
+    var pd2 = document.getElementById("Productores2");
+    var selPd2 = pd2.options[pd2.selectedIndex].value;
+    if(selPd2 == "")  { 
+      bt2.disabled = true; 
+    }
+    else { 
+      bt2.setAttribute('class',"button blue") ;
+    }
+  }
 
 </script>
 
