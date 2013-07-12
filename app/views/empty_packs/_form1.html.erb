@@ -250,7 +250,10 @@ function add_db(){
 		    	data: {empty_packs_producer_move:{producer_id: pack_type_array[i].producer_id,pack_type_id: pack_type_array[i].pack_type_id,quantity: pack_type_array[i].quantity,pack_option: pack_type_array[i].option,code: code_producer}},
 		 	}).done(function(data){
 
-	             window.location = "/empty_packs"
+		 		var id_last = "<%=@id[0]%>";
+		 		
+             	window.open("/empty_packs_producer_moves/"+id_last+".pdf");
+			 	location.href = "/empty_packs";
 	         });
 		}
 	}
