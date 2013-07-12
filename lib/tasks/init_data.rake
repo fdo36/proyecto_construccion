@@ -138,7 +138,7 @@ r2= Role.new(:name => "Administrar envases", :description => "Usado para realiza
         r2.access_rights << a2
         
         a2=AccessRight.create(:model_name => "Kind", :action => "manage")
-        role.access_rights << a
+        role.access_rights << a2
 
         a2=AccessRight.create(:model_name => "PackGroupDispatch", :action => "manage")
         r2.access_rights << a2
