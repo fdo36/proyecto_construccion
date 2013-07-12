@@ -192,9 +192,9 @@ r3 = Role.new(:name => "Administrar Inventario", :description => "Usado para adm
 
   packing_pallet = PackingPallet.create(:quantity => 12, :gross_weight => 20, :unit_price => 23, :tare => 1, :temperature => 10, :pallet_code => 'code1', :variety_id => variety.id)
   packing_pallet.save
-  packing_pallet2 = PackingPallet.create(:quantity => 20, :gross_weight => 25, :unit_price => 40, :tare => 2, :temperature => 5, :pallet_code => 'code2', :variety_id => variet2.id)
+  packing_pallet2 = PackingPallet.create(:quantity => 20, :gross_weight => 25, :unit_price => 40, :tare => 2, :temperature => 5, :pallet_code => 'code2', :variety_id => variety2.id)
   packing_pallet2.save
-  packing_pallet3 = PackingPallet.create(:quantity => 32, :gross_weight => 60, :unit_price => 50, :tare => 3, :temperature => 7, :pallet_code => 'code3', :variety_id => variet3.id)
+  packing_pallet3 = PackingPallet.create(:quantity => 32, :gross_weight => 60, :unit_price => 50, :tare => 3, :temperature => 7, :pallet_code => 'code3', :variety_id => variety3.id)
   packing_pallet3.save
 
   tunnel = Tunnel.create(:name => 'Tunel 1', :is_delete => 0)
