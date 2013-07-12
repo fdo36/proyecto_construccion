@@ -2,36 +2,97 @@
     <h1>Pagos Recepcion Packing</h1>
 </div>
 <div class="box">
-    <div class="newTopBanner">
-   
+    
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Ingresos por Pagar</h1>
+        </div>
+        <div class="box">
+
+			    <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+			      <thead>
+			          <tr>
+						<th>Código Ingreso</th>
+					    <th>Fecha Ingreso</th>
+						<th>Productor</th>
+					    <th>Especie</th>
+					    <th>Total a pagar</th>
+					    <th>Acción</th>
+			          </tr>
+			      </thead>
+			      <tbody>
+			 		<% @receipt_packing_ios.each do |receipt_packing_io| %>
+			 		<% if (receipt_packing_io.paid == false) %>
+					  <tr>
+					    <td><%= receipt_packing_io.code %></td>
+			            <% fecha = "#{receipt_packing_io.receipt_packing_io_datetime.day}-" %>
+			            <% fecha = fecha + "#{receipt_packing_io.receipt_packing_io_datetime.month}-"%>
+			            <% fecha = fecha + "#{receipt_packing_io.receipt_packing_io_datetime.year}"%>
+			            <td><%= fecha %></td>					    
+					    <td><%= receipt_packing_io.producer.name %></td>
+					    <td><%= receipt_packing_io.kind.name %></td>
+					    <% totalPago = 0 %>
+                        <% @packing_pallets.each do |pallet| %>
+                          <%if (receipt_packing_io.id == pallet.receipt_packing_io_id) %>
+                              <% @pack_type = PackType.find{ |pt| pt.id == pallet.pack_type_id}%>
+                              <% totalPago += (pallet.gross_weight - pallet.tare - (@pack_type.tare * pallet.quantity)) * pallet.unit_price %>
+                          <% end %>
+
+                        <% end %>
+					    <td><%= totalPago %></td>
+			            <td><%= link_to 'Pagar', pay_receipt_packing_path(receipt_packing_io), data: { confirm: '¿Confirma el pago de este ingreso?' } %> </td>
+			            </tr>
+			        <% end %>
+			        <% end %>
+			      </tbody>
+			    </table>
+        </div>
     </div>
-    <p id="notice" class="alignleft"><%= notice %> </p>
-    <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
-      <thead>
-          <tr>
-			<th>Código Ingreso</th>
-		    <th>Fecha Ingreso</th>
-			<th>Productor</th>
-		    <th>Especie</th>
-		    <th>Total a pagar</th>
-		    <th>Acción</th>
-          </tr>
-      </thead>
-      <tbody>
- 		<% @receipt_packing_ios.each do |receipt_packing_io| %>
- 		<% if (receipt_packing_io.paid == false) %>
-		  <tr>
-		    <td><%= receipt_packing_io.code %></td>
-		    <td><%= receipt_packing_io.receipt_packing_io_datetime %></td>
-		    <td><%= receipt_packing_io.producer_id %></td>
-		    <td><%= receipt_packing_io.kind_id %></td>
 
-		    <td><%= "lala" %></td>
+    <div class="contentSubPanel">
+        <div class="headContent">
+            <h1>Ingresos Pagados</h1>
+        </div>
+        <div class="box">
+			    <table cellpadding="0" cellspacing="0" border="0" class="display datatable">
+			      <thead>
+			          <tr>
+						<th>Código Ingreso</th>
+					    <th>Fecha Ingreso</th>
+					    <th>Fecha Pago</th>
+						<th>Productor</th>
+					    <th>Especie</th>
+					    <th>Total pagado</th>
+			          </tr>
+			      </thead>
+			      <tbody>
+			 		<% @receipt_packing_ios.each do |receipt_packing_io| %>
+			 		<% if (receipt_packing_io.paid == true) %>
+					  <tr>
+					    <td><%= receipt_packing_io.code %></td>
+			            <% fecha = "#{receipt_packing_io.receipt_packing_io_datetime.day}-" %>
+			            <% fecha = fecha + "#{receipt_packing_io.receipt_packing_io_datetime.month}-"%>
+			            <% fecha = fecha + "#{receipt_packing_io.receipt_packing_io_datetime.year}"%>
+			            <td><%= fecha %></td>
+			            <% fecha1 = "#{receipt_packing_io.payment_date.day}-" %>
+			            <% fecha1 = fecha1 + "#{receipt_packing_io.payment_date.month}-"%>
+			            <% fecha1 = fecha1 + "#{receipt_packing_io.payment_date.year}"%>
+			            <td><%= fecha1 %></td>				            	
+					    <td><%= receipt_packing_io.producer.name %></td>
+					    <td><%= receipt_packing_io.kind.name %></td>
+				        <% totalPago = 0 %>
+                        <% @packing_pallets.each do |pallet| %>
+                          <%if (receipt_packing_io.id == pallet.receipt_packing_io_id) %>
+                              <% @pack_type = PackType.find{ |pt| pt.id == pallet.pack_type_id}%>
+                              <% totalPago += (pallet.gross_weight - pallet.tare - (@pack_type.tare * pallet.quantity)) * pallet.unit_price %>
+                          <% end %>
 
-            <td><%= link_to 'Pagar', pay_receipt_packing_path(receipt_packing_io), data: { confirm: '¿Confirma el pago de este ingreso?' } %> </td>
-            </tr>
-        <% end %>
-        <% end %>
-      </tbody>
-    </table>
+                        <% end %>
+					    <td><%= totalPago %></td>
+			        <% end %>
+			        <% end %>
+			      </tbody>
+			    </table>
+        </div>
+    </div>
 </div>
