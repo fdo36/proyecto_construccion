@@ -3,6 +3,7 @@
 pack_types = new Array();
 $(document).ready(function() {
   //Accion por defecto
+  
   $(".tab_content").hide(); 
   $("ul.tabs li:first").addClass("active").show(); 
   $(".tab_content:first").show(); 
@@ -14,16 +15,13 @@ $(document).ready(function() {
     var activeTab = $(this).find("a").attr("href");
     $(activeTab).fadeIn(); 
     return false;
-    
   });
   searchPackType();
 });
-
 /******************************************************************************/
 
 /*Busca los tipos de envases que existen en la compañia*/
-function searchPackType()
-{
+function searchPackType(){
   $.get("/pack_types.json", function(data){
     $.each(data, function(index, value){  
       var packtype = new pack_type(value.id,0)
@@ -31,14 +29,12 @@ function searchPackType()
     });
   });
 }
-function pack_type(id,quantity)
-{
+function pack_type(id,quantity){
   this.pack_id = id;
   this.quantity = quantity;
 }
 /*Modifica el stock*/
-function addPack_type(id,quantity,option)
-{
+function addPack_type(id,quantity,option){
   for(var i=0;i<pack_types.length;i++)
   {
     if(pack_types[i].pack_id==id)
@@ -55,8 +51,7 @@ function addPack_type(id,quantity,option)
   }
 }
 /*Busca stock para los envases*/
-function stock_pack_type()
-{ 
+function stock_pack_type(){ 
   /*Cantidad de envases de productor*/
   $.get("/producers.json", function(data){
     $.each(data, function(index, value){
@@ -99,8 +94,8 @@ function stock_pack_type()
   <h1>Envases vacios</h1>
 </div>
 <ul class="tabs">
- <li><a href="#tab1">Productor</a></li>
- <li><a href="#tab2">Destino</a></li>
+ <li><a id="producer_id" href="#tab1">Productor</a></li>
+ <li><a id="destination_id" href="#tab2">Destino</a></li>
 </ul>
 <div class="tab_container">
 <!--Precio por Productor-->
