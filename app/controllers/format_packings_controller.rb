@@ -41,7 +41,7 @@ class FormatPackingsController < ApplicationController
   # POST /format_packings.json
   def create
     @format_packing = FormatPacking.new(params[:format_packing])
-
+    @format_packing.company_id = current_user.company_id
     respond_to do |format|
       if @format_packing.save
         format.html { redirect_to @format_packing, notice: 'El formato se ha creado correctamente.' }

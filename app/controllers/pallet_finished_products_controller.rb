@@ -41,7 +41,7 @@ class PalletFinishedProductsController < ApplicationController
   # POST /pallet_finished_products.json
   def create
     @pallet_finished_product = PalletFinishedProduct.new(params[:pallet_finished_product])
-
+    @pallet_finished_product.company_id = current_user.company_id
     respond_to do |format|
       if @pallet_finished_product.save
         format.html { redirect_to @pallet_finished_product, notice: 'Pallet finished product was successfully created.' }

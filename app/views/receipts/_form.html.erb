@@ -42,7 +42,7 @@ var config = 'pack_pallet';
               var n = oTable.fnGetNodes( );
               
               if(n == 0)
-                $("#select_kind").prop("disabled",false);
+                $("#receipt_kind_id").prop("disabled",false);
       }});
 
       $("#tablealone tbody").delegate(".edit", "click", function () {
@@ -221,24 +221,11 @@ var config = 'pack_pallet';
       $("#destare").prop("disabled",true);
       $("#code").val("");
       $("#destare").val("");
-      $('#receipt_kind_id').prop("disabled",false);
     } 
     else{
       $("#code").prop("disabled",false);
       $("#destare").prop("disabled",false);
 
-      if(!$.isNumeric($('#receipt_kind_id').val()))
-      {
-        $('#receipt_kind_id').prop("disabled",false);
-        $('#check').attr("checked", false);
-        $("#kind_error").text("Seleccione una Especie antes");
-        $("#code").prop("disabled",true);
-        $("#destare").prop("disabled",true);
-      }
-      else
-      {
-        $('#receipt_kind_id').prop("disabled",true);
-      }
     }
   }
 
@@ -440,7 +427,7 @@ var config = 'pack_pallet';
     $('#tablealone').dataTable().fnAddData(row);
     set_modified(true);
     clean_form();
-    $("#select_kind").prop("disabled",true);
+    $("#receipt_kind_id").prop("disabled",true);
   }
 </script>
 
@@ -470,7 +457,7 @@ var config = 'pack_pallet';
 
   function validate_receipt () {
     var producer_id = ($("#select_producer").val());
-    var kind_id = ($("#receipt_kind_id").val());
+    var kind_id = ($("#select_kind").val());
 
     $("#producer_div").removeClass("field_with_errors");
     $("#kind_div").removeClass("field_with_errors");
@@ -509,7 +496,35 @@ var config = 'pack_pallet';
     }
   }
 
-  function errors_revision () {
+  function isInTable(id_pallet) {
+    var flag = false;
+    $('#tablealone tbody tr').each(function(index){
+      if (id_pallet == $(this).find("td").eq(0).text()) {
+        flag = true;
+      }
+    });
+    return flag;
+  }
+
+  function revisarPallet(){
+    isCodigo = false;
+    $.get("/pallets.json", function(pallets){
+      $.each(pallets, function(index, pallet){
+       
+        if(isInTable($("#code").val())==true || pallet.code == $("#code").val()) {
+          console.log("TE AMO PPINO");
+          isCodigo = true;
+          
+        }
+        return false;
+      });
+      return false;
+    });
+    
+  }
+
+  function errors_revision() {
+
     var variety_id = $("#select_variety").val();   
     var quality_id = $("#pallet_quality_id").val();
     var pack_type_id = $("#pallet_pack_type_id").val();
@@ -520,7 +535,7 @@ var config = 'pack_pallet';
     {
       var code = $("#code").val();
       var tare = $("#destare").val();
-    };
+    }
 
     $("#variety_div").removeClass("field_with_errors");
     $("#quality_div").removeClass("field_with_errors");
@@ -534,6 +549,8 @@ var config = 'pack_pallet';
     var isError = false;
     var contador_errores = 0;
     var errors = "";
+    var isCodigo = false;
+
 
     if(variety_id == ""){
       $("#variety_div").addClass("field_with_errors");
@@ -565,7 +582,7 @@ var config = 'pack_pallet';
 
     if(!isInteger(quantity)){
       $("#quantity_div").addClass("field_with_errors");
-      errors = errors + "<li>Cantidad de Envases no es un número</li>";
+      errors = errors + "<li>Cantidad de Envases no es un nÃºmero</li>";
       contador_errores += 1;
       isError = true;
     }
@@ -579,20 +596,32 @@ var config = 'pack_pallet';
 
     if(!isInteger(gross_weight)){
       $("#gross_weight_div").addClass("field_with_errors");
-      errors = errors + "<li>Peso Bruto no es un número</li>";
+      errors = errors + "<li>Peso Bruto no es un nÃºmero</li>";
       contador_errores += 1;
       isError = true;
     }
 
-    if (config == 'pallet' || config == 'pack_pallet') 
+    console.log(isCodigo);
+    if (config == 'pack_pallet') 
     {
+      
       if (check.checked == 1) {
+        
         if(code == ""){
           $("#code_div").addClass("field_with_errors");
-          errors = errors + "<li>Código Pallet no puede estar en blanco</li>";
+          errors = errors + "<li>CÃ³digo Pallet no puede estar en blanco</li>";
           contador_errores += 1;
           isError = true;
         }
+
+        if(!isInteger(code)){
+          $("#code_div").addClass("field_with_errors");
+          errors = errors + "<li>CÃ³digo no es un nÃºmero</li>";
+          contador_errores += 1;
+          isError = true;
+        }
+
+
 
         if(tare == ""){
           $("#tare_div").addClass("field_with_errors");
@@ -603,28 +632,133 @@ var config = 'pack_pallet';
 
         if(!isInteger(tare)){
           $("#tare_div").addClass("field_with_errors");
-          errors = errors + "<li>Destare Pallet no es un número</li>";
+          errors = errors + "<li>Destare Pallet no es un nÃºmero</li>";
           contador_errores += 1;
           isError = true;
         }
       }
     }
 
-    if(isError){
-      errorText+= "<h2>"+contador_errores+" errores, no se puede guardar el pallet o envase";
-      errorText+= "<ul>";
-      errorText+= errors;
-      errorText+= "</ul>";
-      errorText+= "</div>";  
-      document.getElementById("show_errors").innerHTML = errorText;
+    console.log(isCodigo);
+    if (config == 'pallet')
+    {
+      
+      console.log("ES SOLO PALLET !");
+      if(code == ""){
+        $("#code_div").addClass("field_with_errors");
+        errors = errors + "<li>CÃ³digo Pallet no puede estar en blanco</li>";
+        contador_errores += 1;
+        isError = true;
+      }
+
+      if(!isInteger(code)){
+        $("#code_div").addClass("field_with_errors");
+        errors = errors + "<li>CÃ³digo no es un nÃºmero</li>";
+        contador_errores += 1;
+        isError = true;
+      }
+
+     
+
+
+      if(tare == ""){
+        $("#tare_div").addClass("field_with_errors");
+        errors = errors + "<li>Destare Pallet no puede estar en blanco</li>";
+        contador_errores += 1;
+        isError = true;
+      }   
+
+      if(!isInteger(tare)){
+        $("#tare_div").addClass("field_with_errors");
+        errors = errors + "<li>Destare Pallet no es un nÃºmero</li>";
+        contador_errores += 1;
+        isError = true;
+      }
+    }
+    console.log(isCodigo);
+    
+    if(config == 'pack_pallet'){
+      if (check.checked == 1) {
+        $.get("/pallets.json", function(pallets){        
+          $.each(pallets, function(index, pallet){
+           
+            if((isInTable($("#code").val())==true || pallet.code == $("#code").val()) && pallet.receipt_id != "" ) {
+              $("#code_div").addClass("field_with_errors");
+              errors = errors + "<li>El CÃ³digo es incorrecto</li>";
+              console.log(errors);
+              contador_errores += 1;
+              isError = true;   
+              return false;
+            }
+          });
+
+          if(isError){
+            errorText+= "<h2>"+contador_errores+" errores, no se puede guardar el pallet o envase";
+            errorText+= "<ul>";
+            errorText+= errors;
+            console.log(contador_errores);
+            errorText+= "</ul>";
+            errorText+= "</div>";  
+            document.getElementById("show_errors").innerHTML = errorText;
+          }
+          else{
+            document.getElementById("show_errors").innerHTML = "";
+            add_register();
+          }
+
+        });
+      }
     }
 
-    else{
-      document.getElementById("show_errors").innerHTML = "";
-      add_register();
+    if(config == 'pallet'){
+      $.get("/pallets.json", function(pallets){        
+        $.each(pallets, function(index, pallet){
+         
+          if((isInTable($("#code").val())==true || pallet.code == $("#code").val()) && pallet.receipt_id != "" ) {
+            $("#code_div").addClass("field_with_errors");
+            errors = errors + "<li>El CÃ³digo es incorrecto</li>";
+            console.log(errors);
+            contador_errores += 1;
+            isError = true;   
+            return false;
+          }
+        });
+
+        if(isError){
+          errorText+= "<h2>"+contador_errores+" errores, no se puede guardar el pallet o envase";
+          errorText+= "<ul>";
+          errorText+= errors;
+          console.log(contador_errores);
+          errorText+= "</ul>";
+          errorText+= "</div>";  
+          document.getElementById("show_errors").innerHTML = errorText;
+        }
+        else{
+          document.getElementById("show_errors").innerHTML = "";
+          add_register();
+        }
+
+      });
     }
 
+    if(config == 'pack'){
+      if(isError){
+        errorText+= "<h2>"+contador_errores+" errores, no se puede guardar el pallet o envase";
+        errorText+= "<ul>";
+        errorText+= errors;
+        console.log(contador_errores);
+        errorText+= "</ul>";
+        errorText+= "</div>";  
+        document.getElementById("show_errors").innerHTML = errorText;
+      }
+
+      else{
+        document.getElementById("show_errors").innerHTML = "";
+        add_register();
+      }
+    }  
   }
+  
 </script>
 
 

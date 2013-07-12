@@ -43,7 +43,7 @@ class CustomsController < ApplicationController
   # POST /customs.json
   def create
     @custom = Custom.new(params[:custom])
-
+    @custom.company_id = current_user.company_id
     respond_to do |format|
       if @custom.save
         format.html { redirect_to "/customs", notice: "La agencia de aduana #{@custom.line_of_business} fue creado exitosamente." }

@@ -31,8 +31,23 @@ class Company < ActiveRecord::Base
     models = Astrotils::get_models
     role = Role.new(:name => "Administador de Acopio", :description => "Usado para administar compañias de acopio")
     if self.system_type == true
-    models.each { |model|
-      # if model.get_component_info
-    }
+      models.each { |model|
+        membership = model.get_component_info[0] 
+        if membership == :acopio or membership == :acopiopacking
+          a=AccessRight.create(:model_name => model.model_name, :action => "manage", :company_id => self.id)
+          role.access_rights << a
+        end
+      }
+    else
+      models.each { |model|
+        membership = model.get_component_info[0] 
+        if membership == :packing or membership == :acopiopacking
+          a=AccessRight.create(:model_name => model.model_name, :action => "manage", :company_id => self.id)
+          role.access_rights << a
+        end
+      }
+    end
+    role.company_id = self.id
+    role.save
   end
 end
