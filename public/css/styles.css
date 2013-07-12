@@ -240,7 +240,6 @@ section#content{
 
 .forme-in{
 	float: left;
-	width: 35%;
 }
 
 .forme-in  input[type="text"], .forme-in select, .forme-in .chzn-container{
@@ -489,7 +488,7 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  {
 }
 #menuTools ul p{
 	margin: 0;
-	padding: 10px 40px 0 40px;
+	padding: 14px 40px 0 40px;
 	height: 35px;
 	color: #fff;
 }
@@ -532,6 +531,7 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  {
 	margin: 10px 0 0 0;
 	color: #fff;
 	font-weight: bold;
+	font-size: 15px;
 	font-variant: small-caps;
 }
 
@@ -541,6 +541,7 @@ html ul.tabs li.active, html ul.tabs li.active a:hover  {
 
 table a{
 	color: rgb(98, 143, 218);
+	text-decoration: underline!important;
 }
 table a:hover{
 	color: rgb(154, 189, 247);
@@ -559,7 +560,6 @@ table a:hover{
 }
 
 #error_explanation {
-	width: 97%!important;
 	height: 90%;
 	min-width: 300px;
 	border: 2px solid red;
