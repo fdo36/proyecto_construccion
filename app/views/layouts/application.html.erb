@@ -128,6 +128,20 @@
 							<% end %>
 								
 							</li>
+							<%if(can?(:manage, Producer))%>
+								<li>
+									<ul>
+									<a href="/reports">Informes</a>
+									</ul>
+								</li>
+							<% end %>
+							<%if(can?(:manage, ReceiptPackingIo))%>
+								<li>
+									<ul>
+									<a href="/receipt_packing_payment">Pagos</a>
+									</ul>
+								</li>
+							<% end %>
 						<% end %>
 						
 						<% components = categories['Recursos'] %>
