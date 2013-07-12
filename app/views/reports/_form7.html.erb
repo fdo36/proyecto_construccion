@@ -5,7 +5,7 @@
          <div class="forme-lab">
            <%= label_tag 'Destinos' %> 
         </div>
-        <% @destinations_array = Destination.all.map { |desti| [desti.name, desti.id] } %>
+        <% @destinations_array = Destination.where(:company_id => current_user.company_id).map { |destination| [destination.name, destination.id] } %>
         <div class="forme-in">
             <%= select_tag "Destinos7", options_for_select(@destinations_array), :prompt => "Todos los Destinos" %>
          </div>                        

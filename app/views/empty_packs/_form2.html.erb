@@ -154,7 +154,11 @@ function add_db_destination(){
 		    	data: {empty_packs_destination_move:{destination_id: pack_type_array_destination[i].destination_id,pack_type_id: pack_type_array_destination[i].pack_type_id,quantity: pack_type_array_destination[i].quantity,pack_option: pack_type_array_destination[i].option, code: code_destination}},
 		 	}).done(function(data){
 
-	             window.location = "/empty_packs"
+	             
+		 		var id_last = "<%=@id_destination[0]%>";
+		 		
+             	window.open("/empty_packs_destination_moves/"+id_last+".pdf");
+			 	location.href = "/empty_packs";
 	         });
 			
 		}
@@ -260,7 +264,7 @@ function stock_calculate_destination(){
 		<%= label_tag 'Envase'%>
 		<em class="formee-req">*</em> 
 	</div>
-	<% @pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
+	<% @pack_types_array = PackType.where(:company_id => current_user.company_id).map { |pack_type| [pack_type.name, pack_type.id] } %>
 	<div class="forme-in">
 	 <%= select_tag "mySelectDestination", options_for_select(@pack_types_array), :prompt => "Seleccione un Envase",:onchange => "stock_calculate_destination(this)" %>
 	</div>
@@ -294,7 +298,7 @@ function stock_calculate_destination(){
     </tr>
   </thead>
 	<tbody>
-		<% @packtypes = PackType.all%>
+		<% @packtypes = PackType.where(:company_id => current_user.company_id)%>
 		<% @packtypes.each do |packtype| %>
  		<tr>
 	    	<td style="display:none"><%= packtype.id%></td>

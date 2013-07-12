@@ -77,7 +77,7 @@
             <%= label_tag 'Productor'%> 
                  <em class="formee-req">*</em>
          </div>
-         <% @producers_array = Producer.all.map { |producer| [producer.name, producer.id] } %>
+         <% @producers_array = Producer.where(:company_id => current_user.company_id).map { |producer| [producer.name, producer.id] } %>
          <div class="forme-in">
             <%= select_tag "Productores2", options_for_select(@producers_array), :prompt => "Seleccione un Productor", :onchange => "show_rut2(this)" %>
          </div>

@@ -4,6 +4,7 @@ class DispatchesController < ApplicationController
   # GET /dispatches.json
   def index
     @dispatches = Dispatch.all
+   
 
     respond_to do |format|
       format.html # index.html.erb
@@ -55,7 +56,8 @@ class DispatchesController < ApplicationController
   def new
     @dispatch = Dispatch.new
     @pallet = Pallet.new
-    
+     @last_move=EmptyPacksProducerMove.find(:all, :order => "id desc", :limit => 1).reverse
+    @code = @last_move.map{ |x| x.code }
 
     respond_to do |format|
       format.html # new.html.erb

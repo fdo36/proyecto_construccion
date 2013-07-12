@@ -6,7 +6,9 @@ class ReceiptsController < ApplicationController
   # GET /receipts.json
   def index
     @receipts = Receipt.all
-
+    
+ 
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @receipts }
@@ -51,6 +53,10 @@ class ReceiptsController < ApplicationController
   def new
     @receipt = Receipt.new
     @pallet = Pallet.new
+    @last_move=EmptyPacksProducerMove.find(:all, :order => "id desc", :limit => 1).reverse
+    @code = @last_move.map{ |x| x.code }
+
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @receipt }

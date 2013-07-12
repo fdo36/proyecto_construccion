@@ -17,7 +17,7 @@ class EmptyPacksProducerMovesController < ApplicationController
   def show
     @empty_packs_producer_move = EmptyPacksProducerMove.find(params[:id])
 
-    highest_id_execution = EmptyPacksProducerMove.order(params[:id]).last
+    highest_id_execution = EmptyPacksProducerMove.find(:all, :order => "id desc", :limit => 1).reverse.first
     @empty_packs_producer = EmptyPacksProducerMove.find(highest_id_execution)
     @producer = Producer.find(@empty_packs_producer.producer_id)
 
@@ -25,7 +25,7 @@ class EmptyPacksProducerMovesController < ApplicationController
             SELECT ep.pack_option as optionP, ep.created_at as created, ep.quantity quantity,
             pt.name as nameP 
             FROM empty_packs_producer_moves as ep, pack_types as pt
-            WHERE ep.producer_id = #{@empty_packs_producer.producer_id} and 
+            WHERE ep.code = #{@empty_packs_producer.code} and 
             ep.pack_type_id = pt.id
             "
     # cambiar ep.producer_id = #{@empty_packs_producer.producer_id} por 
