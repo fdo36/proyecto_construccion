@@ -1,12 +1,13 @@
 #<!--Precio por Productor-->
 class DispatchPdf < Prawn::Document
 
-	def initialize(dispatch, destination, kind, pallets)
+	def initialize(dispatch, destination, kind, pack ,pallets)
 		super()
 
 		@dispatch = dispatch
 		@destination = destination
 		@kind = kind
+		@pack = pack
 		@pallets = pallets
 		
 		report_head()
@@ -45,6 +46,16 @@ class DispatchPdf < Prawn::Document
 		####
 	    #tabla = [ ["Precio Unitario","Peso Neto","Variedad","Calidad"]]#dejar como está y llenar las siguientes filas
 	    datos = Hash.new()
+
+	    for i in (0 .. (@pack.length-1))
+			if datos[@pack[i].vname].nil? 
+				datos[@pack[i].vname] = []
+				datos[@pack[i].vname] << ["Codigo", "Fecha","Calidad","Cantidad","Envase", "Peso"]
+			end
+			totalW =  Integer(@pack[i].weight) - (Integer(@pack[i].quantity) * Integer(@pack[i].tare))
+			total = ""	
+			datos[@pack[i].vname] << ["", @pack[i].created, @pack[i].qname, @pack[i].quantity, @pack[i].namept, totalW]
+		end
 
 		for i in (0 .. (@pallets.length-1))
 			if datos[@pallets[i].vname].nil? 

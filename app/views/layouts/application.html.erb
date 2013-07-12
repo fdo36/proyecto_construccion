@@ -126,7 +126,22 @@
 								<a href="<%= link_for_component(component) %>"><%= component.model_name.human %></a>
 								</ul>
 							<% end %>
+								
 							</li>
+							<%if(can?(:manage, Producer))%>
+								<li>
+									<ul>
+									<a href="/reports">Informes</a>
+									</ul>
+								</li>
+							<% end %>
+							<%if(can?(:manage, ReceiptPackingIo))%>
+								<li>
+									<ul>
+									<a href="/receipt_packing_payment">Pagos</a>
+									</ul>
+								</li>
+							<% end %>
 						<% end %>
 						
 						<% components = categories['Recursos'] %>
@@ -153,7 +168,18 @@
 							</li>
 						<% end %>
 
+					<%if(can?(:manage, Producer))%>
+						<p>Manejo de envases</p>
+						<li>
+						<ul>
+							<a href="/empty_packs">Envases vacios</a>
+						</ul>
+					</li>
+					<% end %>
+
 					<%end%>
+
+					
 				</ul>
 				</div>
 			</section>
@@ -166,7 +192,11 @@
 					<% if current_user.super_admin == true %>
 						<h1 id="textLogo">Administración</h1>
 					<%else%>
+						<% if current_user.company.system_type == true %>
 						<h1 id="textLogo">Sistema Centros de Acopio</h1>
+						<% else %>
+						<h1 id="textLogo">Sistema de Packing</h1>
+						<% end %>
 					<%end%>
 				</div>
 
@@ -186,6 +216,7 @@
 								<p>Compañía</p>
 								<div class="toolsDisplay">
 									<li><%= link_to('Cuentas', company_users_path(current_user.company)) %></li>
+									<li><%= link_to('Roles', company_roles_path(current_user.company)) %></li>
 									<li><%= link_to('Configuración', new_setting_path) %></li>
 								</div>
 							</ul>

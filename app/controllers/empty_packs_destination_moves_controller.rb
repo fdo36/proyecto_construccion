@@ -16,7 +16,7 @@ class EmptyPacksDestinationMovesController < ApplicationController
   def show
     @empty_packs_destination_move = EmptyPacksDestinationMove.find(params[:id])
 
-    highest_id_execution = EmptyPacksDestinationMove.order(params[:id]).last
+    highest_id_execution = EmptyPacksDestinationMove.find(:all, :order => "id desc", :limit => 1).reverse.first
     @empty_packs_destination = EmptyPacksDestinationMove.find(highest_id_execution)
     @destiny = Destination.find(@empty_packs_destination.destination_id)
 
@@ -24,7 +24,7 @@ class EmptyPacksDestinationMovesController < ApplicationController
             SELECT ep.pack_option as optionP, ep.created_at as created, ep.quantity quantity,
             pt.name as nameP 
             FROM empty_packs_destination_moves as ep, pack_types as pt
-            WHERE ep.destination_id = #{@empty_packs_producer.destination_id} and 
+            WHERE ep.code = #{@empty_packs_destination.code} and 
             ep.pack_type_id = pt.id
             "
     

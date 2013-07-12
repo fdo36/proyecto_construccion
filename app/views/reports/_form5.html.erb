@@ -62,7 +62,7 @@ function show_pack_type3() //sel= id del productor seleccionado
            <%= label_tag 'Destino' %> 
                 <em class="formee-req">*</em>
         </div>
-        <% @destinations_array = Destination.all.map { |desti| [desti.name, desti.id] } %>
+        <% @destinations_array = Destination.where(:company_id => current_user.company_id).map { |destination| [destination.name, destination.id] } %>
         <div class="forme-in">
             <%= select_tag "Destinos5", options_for_select(@destinations_array), :prompt => "Seleccione un Destino", :onchange => "show_pack_type3()" %>
          </div>                        
