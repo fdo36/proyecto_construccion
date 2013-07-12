@@ -86,26 +86,26 @@ namespace :init_data1 do
     c4.save(:validate => false)
 
 
-    u1 = User.new(:email => "usuari1@acopio.com", :password => "qwertyui", :password_confirmation => "qwertyui", :super_admin => false, :company_id => c1.id, :active => true,
+    u1 = User.new(:email => "usuario1@acopio.com", :password => "12345678", :password_confirmation => "qwertyui", :super_admin => false, :company_id => c1.id, :active => true,
         :name => "Felipe", :lastname => "Navarro",  :gender => "Masculino" , :address => "Santa fe 331" , :commune_id => 122)
     u1.save(:validate => false)
     u1.roles << role
 
-    u2 = User.new(:email => "usuari2@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => false, :company_id => c1.id, :active => true,
+    u2 = User.new(:email => "usuario2@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => false, :company_id => c1.id, :active => true,
         :name => "Felipe", :lastname => "Astroza",  :gender => "Masculino" , :address => "S/n" , :commune_id => 11)
     u2.save(:validate => false)
     u2.roles << role
-    u3 = User.new(:email => "usuari3@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => false, :company_id => c1.id, :active => true,
+    u3 = User.new(:email => "usuario3@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => false, :company_id => c1.id, :active => true,
         :name => "Sergio", :lastname => "Silva",  :gender => "Masculino" , :address => "Aguas Negras #3312" , :commune_id => 111)
     u3.save(:validate => false)
     u3.roles << role
-    u4 = User.new(:email => "usuari4@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => false, :company_id => c2.id, :active => true,
+    u4 = User.new(:email => "usuario4@acopio.com", :password => "12345678", :password_confirmation => "12345678", :super_admin => false, :company_id => c2.id, :active => true,
         :name => "Daniel", :lastname => "Mella",  :gender => "Masculino" , :address => "Santa fe 331" , :commune_id => 125)
     u4.save(:validate => false)
     u4.roles << role
 
 
-r1 = Role.new(:name => "Administrar Usuarios", :description => "Usado para administras los usuarios de una compañia", :company_id => c1.id)
+r1 = Role.new(:name => "Administrar Usuarios", :description => "Usado para administrar los usuarios de una compañia", :company_id => c1.id)
     r1.save
     a1=AccessRight.create(:model_name => "User", :action => "manage")
     r1.access_rights << a1
