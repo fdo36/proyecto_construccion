@@ -3,6 +3,7 @@ class Report10Pdf < Prawn::Document
 	def initialize(receiptPackingPayment, data, view)
 		super()
 		@receiptPackingPayment = receiptPackingPayment
+		@packType = PackType.find(@receiptPackingPayment.pack_type_id)
 		@producer = @receiptPackingPayment.producer
 		report_info(data)
 		report_foot()
@@ -23,22 +24,17 @@ class Report10Pdf < Prawn::Document
 			stroke_line [marginx1, cursor], [540, cursor]
 
 			move_down 20
-
-			suma= 0
-			bounding_box([225, cursor], :width => 200) do
+			bounding_box([210, cursor], :width => 200) do
 				datos =  [["Pallet", "Variedad", "Peso Neto", "Precio P/Unidad", "Subtotal"]]#dejar como está y llenar las siguientes filas
-				for i in (0 .. (data.length-1))
-					suma = suma + data[i][4]
-					datos <<  data[i]
-				end
-				table(datos , :width =>315)
+				datos <<  data
+				table(datos , :width =>340)
 			end
 		
 			move_down 20
 			y_current = cursor
 			text_box "Total a Pagar", :at => [marginx2, y_current], :style => :bold
 			text_box ":", :at => [marginx3, y_current], :style => :bold
-			text_box "#{suma}", :at => [marginx3, y_current], :style => :bold, :align => :right #SUMA DE LOS EMBASES QUE TIENE/FALTA
+			text_box "#{data[4]}", :at => [marginx3, y_current], :style => :bold, :align => :right #SUMA DE LOS EMBASES QUE TIENE/FALTA
 			
 			move_down 20
 			stroke_line [0, cursor], [540, cursor]
@@ -75,6 +71,23 @@ class Report10Pdf < Prawn::Document
 		end
 		text_box ": #{@producer.sag_code}", :at => [marginx3, y_current]#CODIGO SAG
 		stroke_line [0, cursor], [540, cursor]
+
+		move_down 20
+		text "INGRESO", :size => 13
+		move_down 10
+		y_current = cursor
+		text "<u>Codigo Ingreso</u>", :inline_format => true  
+		text_box ": #{@receiptPackingPayment.code}", :at => [marginx1, y_current] #RAZON SOCIAL DEL PRODUCTOR
+		move_down 7
+		y_current = cursor
+		text "<u>Fecha</u>", :inline_format => true
+		text_box ": #{@receiptPackingPayment.receipt_packing_io_datetime.strftime("%d/%m/%Y")}", :at => [marginx1, y_current] #RUT DEL PRODUCTOR	
+		bounding_box([marginx2, y_current], :width => 200, :height => 20) do
+			text "<u>Envase</u>", :inline_format => true
+		end
+		text_box ": #{@packType.name}", :at => [marginx3, y_current]#CODIGO SAG
+		stroke_line [0, cursor], [540, cursor]
+		move_down 40
 	end
 
 	def report_foot()

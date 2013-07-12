@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
 var registers = new Array();
-var id_count = 1;
+var id_count = 0;
 var modified = false;
 
 
@@ -15,25 +15,27 @@ function set_modified (argument) {
   modified = argument;
 }
 
-function del_register () {
-    
-}
 
 function add_supply_return()
 {
+  console.log("entro agregar a la tabla");
+  disabled_worker();
+  console.log("no deshablito el worker");
   var supply_id = $("#supply_id").val();
   var supply_name = $("#supply_id option[value='"+supply_id+"']").text();
   var quantity= $("#quantity").val();
   var id = id_count;
-  id_count++;
+  
 
   var new_register = new register( quantity, supply_id, id);
   registers.push(new_register);
 
-  var row = new Array( supply_name, quantity, "<a href='#' onClick='delete_row(cd)'>eliminar</a>");
+  var row = new Array( supply_name, quantity, '<a id="'+id_count+'" align="center"  onclick="delete_row(this)">Eliminar</a>');
     $('#supply_table').dataTable().fnAddData(row);
     set_modified(true);
+    id_count++;
     clean_form();
+
 }
 
 function add_db () {
@@ -64,6 +66,33 @@ function add_db () {
   else
     alert("Lista de ingresos vacía");
 }
+  function disabled_worker(){
+    console.log("entro a deshabilitar worker");
+        var worker_id = document.getElementById('worker_id');
+        if(registers.length==0){
+                worker_id.disabled=false;
+               
+        }
+        else{  
+                worker_id.disabled=true;
+        }
+  }
+  function delete_row(b){
+    console.log("entro a eliminar row");
+        var table = document.getElementById("supply_table");
+        var parent= b.parentNode;      
+        while(parent.nodeName.toLowerCase()!='tr'){
+                parent = parent.parentNode;
+        }
+        $('#supply_table').dataTable().fnDeleteRow(parent);
+       
+        for(i=0; i<registers.length;i++){
+                if(registers[i].id==b.id){
+                        registers.splice(i, 1);                  
+                }
+        }
+        disabled_worker();
+  }
 
   function register ( quantity, supply_id , id) 
   {
@@ -159,6 +188,7 @@ function add_db () {
     document.getElementById("show_errors").innerHTML = "";
     var quantity = $("#quantity").val();
     var stock =  $("#stock").val();
+    var pending =  $("#pending").val();
 
     $("#quantity").removeClass("field_with_errors");
     $("#dispatch_guide_number").removeClass("field_with_errors");
@@ -175,6 +205,15 @@ function add_db () {
       contador_errores += 1;
       isError = true;
     }   
+
+    if(quantity < pending){
+      console.log("entro a pendiente", quantity,pending);
+
+      $("#quantity").addClass("field_with_errors");
+      errors = errors + "<li>NO puede realizar una devolucion mayor a los insumos prestados</li>";
+      contador_errores += 1;
+      isError = true;
+    }  
 
     if(!isInteger(quantity)){
       $("#quantity").addClass("field_with_errors");
@@ -215,7 +254,7 @@ function add_db () {
 
     }
     else{
-
+      contador_errores = 0;
       add_supply_return();
     }
   }
