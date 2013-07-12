@@ -32,7 +32,6 @@ class ReportsController < ApplicationController
     	if @kind_id==""
     		#todos
     		mtrxx = []
-
     		@kinds = Kind.find(:all,
 	    		:from => 'kinds, kinds_producers',
 	    		:select => 'kinds.id, kinds.name',
@@ -49,7 +48,7 @@ class ReportsController < ApplicationController
 	    			receipts.kind_id=? and pallets.receipt_id
 	    			=receipts.id and varieties.id=pallets.variety_id and qualities.id=pallets.quality_id",@producer_id, 
 	    			@fecha_inicio, @fecha_termino, kind.id])
-                if @ingresos.length==1
+                if @ingresos.length>0
                     mtrxx << [kind, @ingresos]
                 end
     		end
@@ -64,7 +63,7 @@ class ReportsController < ApplicationController
                     receipts.kind_id=? and pack_group_receipts.receipt_id
                     =receipts.id and varieties.id=pack_group_receipts.variety_id and qualities.id=pack_group_receipts.quality_id",@producer_id, 
                     @fecha_inicio, @fecha_termino, kind.id])
-                if @ingresos.length==1
+                if @ingresos.length>0
                     mtrxx << [kind, @ingresos]
                 end
             end
@@ -87,7 +86,7 @@ class ReportsController < ApplicationController
 	    			receipts.kind_id=? and pallets.receipt_id
 	    			=receipts.id and varieties.id=pallets.variety_id and qualities.id=pallets.quality_id",@producer_id, 
 	    			@fecha_inicio, @fecha_termino, @kind_id])
-            if @ingresos.length==1
+            if @ingresos.length>0
                 mtrxx << [@kind, @ingresos]
             end
 
@@ -100,7 +99,7 @@ class ReportsController < ApplicationController
                     receipts.kind_id=? and pack_group_receipts.receipt_id
                     =receipts.id and varieties.id=pack_group_receipts.variety_id and qualities.id=pack_group_receipts.quality_id",@producer_id, 
                     @fecha_inicio, @fecha_termino, @kind_id])
-            if @ingresos.length==1
+            if @ingresos.length>0
                 mtrxx << [@kind, @ingresos]
             end
 

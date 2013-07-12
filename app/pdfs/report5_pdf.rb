@@ -50,13 +50,26 @@ class Report5Pdf < Prawn::Document
 
 				@tabla2 = @todo[i][1]
 				datos = [ ["Nro Despacho", "Nro Pallet", "Variedad","Calidad","Fecha","Envase","Envases","Peso Neto"]]#dejar como está, los siguientes son los campos a llenar
-				for k in (0 .. (@tabla2.length-1))
-					datos << @tabla2[k]
+				if @tabla2.length >=10
+					
+					for k in (0 .. (@tabla2.length-1))
+						if k % 10 == 0
+							table(datos , :width => 540)
+							start_new_page
+							report_head
+							datos = [ ["Nro Despacho", "Nro Pallet", "Variedad","Calidad","Fecha","Envase","Envases","Peso Neto"]]#dejar como está, los siguientes son los campos a llenar
+						end
+						datos << @tabla2[k]
+					end
+					if @tabla2.length % 10 != 0
+						table(datos , :width => 540)
+					end
+				else
+					for k in (0 .. (@tabla2.length-1))
+						datos << @tabla2[k]
+					end
+					table(datos , :width => 540)
 				end
-				table(datos , :width => 540)
-
-				move_down 20
-
 				stroke_line [0, cursor], [540, cursor]
 			end
 		end

@@ -4,13 +4,9 @@ class Report1Pdf < Prawn::Document
 	def initialize(producer, data, view)
 		super()
 		@producer = producer
-		if data.length == 1
-			@kind = data[0][0]
-			@mtrxx = data[0][1]
-			report_info(data)
-		else
-			report_info(data)
-		end
+		
+		report_info(data)
+		
 		report_foot()
 	end
 
@@ -57,13 +53,15 @@ class Report1Pdf < Prawn::Document
 
 					if @mtrxx!= nil and @mtrxx.length>0
 						datos = [["Nro Ingreso","Fecha","Variedad","Calidad","Precio(Kgs.)"]]#dejar como está y llenar las siguientes filas
-						lista = []
-						lista << @mtrxx[0].id
-						lista << @mtrxx[0].receipt_datetime.strftime("%d/%m/%Y")
-						lista << @mtrxx[0].variety_name
-						lista << @mtrxx[0].quality_name
-						lista << @mtrxx[0].price_per_unit
-						datos << lista
+						for j in (0 .. (@mtrxx.length-1))
+							lista = []
+							lista << @mtrxx[j].id
+							lista << @mtrxx[j].receipt_datetime.strftime("%d/%m/%Y")
+							lista << @mtrxx[j].variety_name
+							lista << @mtrxx[j].quality_name
+							lista << @mtrxx[j].price_per_unit
+							datos << lista
+						end
 						table(datos , :width =>540)
 						move_down 20
 					else

@@ -26,6 +26,7 @@ class ChargingOrdersController < ApplicationController
   def new
     @charging_order = ChargingOrder.new
 
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @charging_order }
@@ -41,6 +42,11 @@ class ChargingOrdersController < ApplicationController
   # POST /charging_orders.json
   def create
     @charging_order = ChargingOrder.new(params[:charging_order])
+    
+    puts "ASASASASASASASASASASASASASASASASAS"
+    @charging_order.custom_agent_id=params["agent"]
+    @charging_order.origin_port_id = params["Oport"]
+    @charging_order.destination_port_id = params["Dport"]
 
     respond_to do |format|
       if @charging_order.save
@@ -57,7 +63,9 @@ class ChargingOrdersController < ApplicationController
   # PUT /charging_orders/1.json
   def update
     @charging_order = ChargingOrder.find(params[:id])
-
+    @charging_order.custom_agent_id=params["agent"]
+    @charging_order.origin_port_id = params["Oport"]
+    @charging_order.destination_port_id = params["Dport"]
     respond_to do |format|
       if @charging_order.update_attributes(params[:charging_order])
         format.html { redirect_to @charging_order, notice: 'Charging order was successfully updated.' }
