@@ -41,7 +41,7 @@ class SuppliesController < ApplicationController
   # POST /supplies.json
   def create
     @supply = Supply.new(params[:supply])
-
+    @supplies.company_id = current_user.company_id
     respond_to do |format|
       if @supply.save
         format.html { redirect_to @supply, notice: 'El insumo se ha creado correctamente.' }

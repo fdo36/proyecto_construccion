@@ -41,7 +41,7 @@ class ReceiptContainersController < ApplicationController
   # POST /receipt_containers.json
   def create
     @receipt_container = ReceiptContainer.new(params[:receipt_container])
-
+    @receipt_container.company_id = current_user.company_id
     respond_to do |format|
       if @receipt_container.save
         format.html { redirect_to @receipt_container, notice: 'Receipt container was successfully created.' }

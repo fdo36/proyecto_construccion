@@ -41,7 +41,7 @@ class PackPackingsController < ApplicationController
   # POST /pack_packings.json
   def create
     @pack_packing = PackPacking.new(params[:pack_packing])
-
+    @pack_packing.company_id = current_user.company_id
     respond_to do |format|
       if @pack_packing.save
         format.html { redirect_to @pack_packing, notice: 'Pack packing fue creado exitosamente.' }

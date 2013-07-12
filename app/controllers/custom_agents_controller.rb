@@ -41,7 +41,7 @@ class CustomAgentsController < ApplicationController
   # POST /custom_agents.json
   def create
     @custom_agent = CustomAgent.new(params[:custom_agent])
-
+    @custom_agent.company_id = current_user.company_id
     respond_to do |format|
       if @custom_agent.save
         format.html { redirect_to @custom_agent, notice: 'Custom agent was successfully created.' }

@@ -41,7 +41,7 @@ class DestinationPortsController < ApplicationController
   # POST /destination_ports.json
   def create
     @destination_port = DestinationPort.new(params[:destination_port])
-
+    @destination_port.company_id = current_user.company_id
     respond_to do |format|
       if @destination_port.save
         format.html { redirect_to @destination_port, notice: 'Destination port was successfully created.' }

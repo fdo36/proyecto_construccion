@@ -41,7 +41,7 @@ class DispatchContainersController < ApplicationController
   # POST /dispatch_containers.json
   def create
     @dispatch_container = DispatchContainer.new(params[:dispatch_container])
-
+    @dispatch_container.company_id = current_user.company_id
     respond_to do |format|
       if @dispatch_container.save
         format.html { redirect_to @dispatch_container, notice: 'Dispatch container was successfully created.' }
