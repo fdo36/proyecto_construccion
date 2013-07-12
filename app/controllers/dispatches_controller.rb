@@ -15,11 +15,30 @@ class DispatchesController < ApplicationController
   # GET /dispatches/1.json
   def show
     @dispatch = Dispatch.find(params[:id])
-    @pallet = Pallet.new
+
+    @receipt = Receipt.find(params[:id])
+    @destination = Destination.find(@dispatch.destination_id)
+    @kind = Kind.find(@dispatch.kind_id)
+
+    @pallets = Receipt.find_by_sql "
+          SELECT p.created_at created, p.code as code, p.quantity as quantity, p.gross_weight as weight, p.price_per_unit as price, p.tare as tareP,
+          pt.tare as tare, pt.name as namePT,
+          v.name as vName, q.name as qName 
+          FROM pallets as p, qualities as q, varieties as v , pack_types as pt
+          WHERE p.dispatch_id = #{@dispatch.id} and
+                p.quality_id = q.id and 
+                p.variety_id = v.id and
+                p.pack_type_id = pt.id"
+                
+    
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @dispatch }
+      format.pdf { pdf = DispatchPdf.new(@dispatch, @destination, @kind,@pallets)
+    send_data pdf.render,
+    type: "application/pdf",
+    disposition: "inline"}
     end
   end
 

@@ -1,4 +1,3 @@
-#<!--Precio por Productor-->
 class ReceipsPdf < Prawn::Document
 
 	def initialize(receipt, producer, kind, pack, pallets)
@@ -56,8 +55,12 @@ class ReceipsPdf < Prawn::Document
 				datos[@pack[i].vname] = []
 				datos[@pack[i].vname] << ["Calidad","Cantidad","Peso Neto","Precio(Kg.)"]
 			end
-			total = Integer(@pack[i].quantity)*Integer(@pack[i].price)
-			datos[@pack[i].vname] << [@pack[i].qname, @pack[i].quantity, @pack[i].weight, total]
+			totalW =  Integer(@pack[i].weight) - (Integer(@pack[i].quantity) * Integer(@pack[i].tare))
+			total = ""
+			if @pack[i].price != ""
+				total = Integer(@pack[i].quantity)*Integer(@pack[i].price)
+			end	
+			datos[@pack[i].vname] << [@pack[i].qname, @pack[i].quantity, totalW, total]
 		end
 
 		for i in (0 .. (@pallets.length-1))
@@ -65,8 +68,12 @@ class ReceipsPdf < Prawn::Document
 				datos[@pallets[i].vname] = []
 				datos[@pallets[i].vname] << ["Calidad","Cantidad","Peso Neto","Precio(Kg.)"]
 			end
-			total = Integer(@pallets[i].quantity)*Integer(@pallets[i].price)
-			datos[@pallets[i].vname] << [@pallets[i].qname, @pallets[i].quantity, @pallets[i].weight, total]
+			totalW =  Integer(@pallets[i].weight) - (Integer(@pallets[i].quantity) * Integer(@pallets[i].tare)) - Integer(@pallets[i].tarep)
+			total = ""
+			if @pallets[i].price != ""
+				total = Integer(@pallets[i].quantity)*Integer(@pallets[i].price)
+			end
+			datos[@pallets[i].vname] << [@pallets[i].qname, @pallets[i].quantity,totalW, total]
 		end
 
 
@@ -76,6 +83,7 @@ class ReceipsPdf < Prawn::Document
 			y_current = cursor
 			text "<u>Variedad</u>", :inline_format => true
 			text_box ": #{key}", :at => [marginx1, y_current]
+			move_down 7
 			table(value, :width =>540)
 		 }
 
@@ -88,7 +96,7 @@ class ReceipsPdf < Prawn::Document
 		image "#{Prawn::BASEDIR}/data/images/23.png", :at => [-36, 756], :scale => 0.5
 		move_down 35
 		text "Recepcion de Productos Nro: " + @receipt.id.to_s, :align => :center, :size => 15
-		parsed_time = @receipt.receipt_datetime.strftime('%d/%m/%Y %H:%M:%S')
+		parsed_time = @receipt.receipt_datetime.strftime('%d/%m/%Y   %H:%M:%S')
 
 		text parsed_time.to_s, :align => :right
 	end
