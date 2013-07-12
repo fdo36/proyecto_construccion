@@ -42,10 +42,14 @@ class StabilizationChamberIosController < ApplicationController
   # POST /stabilization_chamber_ios.json
   def create
     @stabilization_chamber_io = StabilizationChamberIo.new(params[:stabilization_chamber_io])
-
+    @stabilization_chamber_io.io_datetime = DateTime.current();
+    @stabilization_chamber_io.direction = true
+    
     respond_to do |format|
       if @stabilization_chamber_io.save
-        format.html { redirect_to "/stabilization_chamber_ios", notice: 'La Cámara de Estabilización fue creada exitosamente.' }
+        @stabilization_chamber_io.order_number = @stabilization_chamber_io.id
+        @stabilization_chamber_io.save
+        format.html { redirect_to "/stabilization_chamber_ios", notice: 'La Cámara de Estabilizacion fue creada exitosamente.' }
         format.json { render json: @stabilization_chamber_io, status: :created, location: @stabilization_chamber_io }
       else
         format.html { render action: "new" }
@@ -54,11 +58,11 @@ class StabilizationChamberIosController < ApplicationController
     end
   end
 
+
   # PUT /stabilization_chamber_ios/1
   # PUT /stabilization_chamber_ios/1.json
   def update
     @stabilization_chamber_io = StabilizationChamberIo.find(params[:id])
-
     respond_to do |format|
       if @stabilization_chamber_io.update_attributes(params[:stabilization_chamber_io])
         format.html { redirect_to "/stabilization_chamber_ios", notice: 'La Cámara de Estabilización fue editada exitosamente.' }
@@ -71,7 +75,7 @@ class StabilizationChamberIosController < ApplicationController
   end
 
   def valid_pallets
-    @previous_subprocess = SubprocessIo.where(:heir_type => "ReceiptsPackingIo", :direction => false)
+    @previous_subprocess = SubprocessIo.where(:heir_type => "ReceiptPackingIo", :direction => false)
     @pallets_previous_subprocess = @previous_subprocess.map {|x| PackingPallet.find(x.packing_pallet_id)}
     
     @stabilization_chamber = SubprocessIo.where(:heir_type => "StabilizationChamberIo", :direction => true)
@@ -83,9 +87,10 @@ class StabilizationChamberIosController < ApplicationController
       format.json {render json: @valid_pallets}
     end
   end
+ 
 
   def pallets_already_added
-    @transit_chamber = SubprocessIo.where(:heir_type => "TransitChamberIo", :direction => true)
+    @stabilization_chamber = SubprocessIo.where(:heir_type => "StabilizationChamberIo", :direction => true)
     @pallets_already_added = @stabilization_chamber.map {|x| PackingPallet.find(x.packing_pallet_id)}    
 
     respond_to do |format|

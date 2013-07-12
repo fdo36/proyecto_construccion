@@ -1,43 +1,45 @@
 <script type="text/javascript">
 
 var registers = new Array();
-var id_count = 1;
+var id_count = 0;
 var modified = false;
+var idReg = 0;
+var posTable = 0;
 
 
-window.onbeforeunload = function () {    
-  if (modified) {
-    return "Los cambios no guardados se perderan";
+  window.onbeforeunload = function () {    
+    if (modified) {
+      return "Los cambios no guardados se perderan";
+    }
   }
-}
 
-function set_modified (argument) {
-  modified = argument;
-}
+  function set_modified (argument) {
+    modified = argument;
+  }
 
-function del_register () {
+  function del_register () {
 
-    
-}
+      
+  }
 
-function add_insumo()
-{
-  var supply_id = $("#supply_id").val();
-  var supply_name = $("#supply_id option[value='"+supply_id+"']").text();
-  var quantity= $("#quantity").val();
-  var id = id_count;
-  id_count++;
+  function add_insumo()
+  {
+    var supply_id = $("#supply_id").val();
+    var supply_name = $("#supply_id option[value='"+supply_id+"']").text();
+    var quantity= $("#quantity").val();
+    var id = id_count;
+    id_count++;
 
 
-  var new_register = new register( quantity, supply_id, id);
-  registers.push(new_register);
+    var new_register = new register( quantity, supply_id, id);
+    registers.push(new_register);
 
-  var row = new Array( supply_name, quantity, "<a href='#' onClick='delete_row(cd)'>eliminar</a>");
-    $('#supply_table').dataTable().fnAddData(row);
-    set_modified(true);
-    clean_form();
+    var row = new Array( supply_name, quantity, "<a href='#' onClick='delete_row(cd)'>eliminar</a>");
+      $('#supply_table').dataTable().fnAddData(row);
+      set_modified(true);
+      clean_form();
 
-}
+  }
 
   function post () 
   {

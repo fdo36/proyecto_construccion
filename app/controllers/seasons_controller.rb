@@ -1,4 +1,5 @@
 class SeasonsController < ApplicationController
+
   load_and_authorize_resource
   # GET /seasons
   # GET /seasons.json
@@ -47,9 +48,11 @@ class SeasonsController < ApplicationController
     @season.update_attributes(:is_active => "1", :is_delete => "0")
     @season.company_id = current_user.company_id
 
+    @season.company_id = current_user.company_id
+
     respond_to do |format|
       if @season.save
-        format.html { redirect_to @season, notice: "La Temporada ha sido creada satisfactoriamente." }
+        format.html { redirect_to seasons_path, notice: "La Temporada ha sido creada satisfactoriamente." }
         format.json { render json: @season, status: :created, location: @season }
       else
         format.html { render action: "new" }
@@ -65,7 +68,7 @@ class SeasonsController < ApplicationController
 
     respond_to do |format|
       if @season.update_attributes(params[:season])
-        format.html { redirect_to @season, notice: "Season was successfully updated." }
+        format.html { redirect_to seasons_path, notice: "Season was successfully updated." }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

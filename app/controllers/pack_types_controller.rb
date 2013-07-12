@@ -1,4 +1,5 @@
 class PackTypesController < ApplicationController
+  load_and_authorize_resource
 
   #load_and_authorize_resource
 
@@ -17,8 +18,6 @@ class PackTypesController < ApplicationController
   # GET /pack_types/1.json
   def show
     @pack_type = PackType.find(params[:id])
-
-    @pack_type.company_id = current_user.company_id
 
     respond_to do |format|
       format.html # show.html.erb
@@ -51,7 +50,7 @@ class PackTypesController < ApplicationController
 
     respond_to do |format|
       if @pack_type.save
-        format.html { redirect_to "/pack_types", notice: 'El envase fue creado exitosamente.' }
+        format.html { redirect_to pack_types_path, notice: 'El envase fue creado exitosamente.' }
         format.json { render json: @pack_type, status: :created, location: @pack_type }
       else
         format.html { render action: "new" }
@@ -67,7 +66,7 @@ class PackTypesController < ApplicationController
 
     respond_to do |format|
       if @pack_type.update_attributes(params[:pack_type])
-        format.html { redirect_to @pack_type, notice: 'El envase fue editado exitosamente.' }
+        format.html { redirect_to pack_types_path, notice: 'El envase fue editado exitosamente.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -1,4 +1,7 @@
+require "general"
+
 class TransitChamberIo < ActiveRecord::Base
+  announce_component(:packing, "Recursos", 3)
   acts_as_heir_of :subprocess_io
   attr_accessible :order_number, :temperature, :direction, :worker_id, :packing_pallet_id, :io_datetime,:heir_id, :heir_type
 

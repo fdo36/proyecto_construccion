@@ -1,4 +1,7 @@
+require "general"
+
 class FinalPackingPallet < ActiveRecord::Base
+  announce_component(:packing, "Recursos", 2)
   attr_accessible :format_id, :kind_id, :net_weight, :pack_packing_id, :quality_id, :quantity, :variety_id
 
   validates :format_id, :kind_id, :net_weight, :pack_packing_id, :quality_id, :quantity, :variety_id, :presence => true

@@ -98,7 +98,7 @@ ProyectoConstruccion::Application.routes.draw do
   resources :receipts do
     resources :pack_group_receipts
   end
- 
+
   resources :pallets
 
   resources :dispatches
@@ -134,7 +134,9 @@ ProyectoConstruccion::Application.routes.draw do
   end
 
   match "/companies/:company_id/users/:id/edit_password" => "users#edit_password", :as => "edit_user_password"
-  
+  match "/companies/:company_id/users/:id/show_user" => "users#show_user", :as => "show_user_profile"
+  match "/companies/:company_id/users/:id/edit_user" => "users#edit_user", :as => "edit_user_profile"
+
   resources :companies do
     resources :roles do
       resources :access_rights
@@ -183,4 +185,6 @@ ProyectoConstruccion::Application.routes.draw do
 
   match 'frozen_tunnel_io_valid_pallets' => 'frozen_tunnel_ios#valid_pallets'
   match 'frozen_tunnel_io_pallets_already_added' => 'frozen_tunnel_ios#pallets_already_added'
+
+  match 'producers/:id/kinds' => 'receipts#valid_kinds'
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712021725) do
+ActiveRecord::Schema.define(:version => 20130711214143) do
 
   create_table "access_rights", :force => true do |t|
     t.string   "model_name"
@@ -158,7 +158,6 @@ ActiveRecord::Schema.define(:version => 20130712021725) do
     t.string   "pack_option"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
-    t.integer  "code"
   end
 
   create_table "empty_packs_producer_moves", :force => true do |t|
@@ -169,7 +168,6 @@ ActiveRecord::Schema.define(:version => 20130712021725) do
     t.string   "pack_option"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.integer  "code"
   end
 
   create_table "final_packing_pallets", :force => true do |t|
@@ -409,6 +407,9 @@ ActiveRecord::Schema.define(:version => 20130712021725) do
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
     t.integer  "kind_id"
+    t.boolean  "paid"
+    t.boolean  "editable"
+    t.datetime "payment_date"
   end
 
   create_table "receipts", :force => true do |t|
@@ -539,6 +540,7 @@ ActiveRecord::Schema.define(:version => 20130712021725) do
     t.integer  "order_number"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "company_id"
   end
 
   create_table "tunnels", :force => true do |t|
@@ -616,7 +618,7 @@ ActiveRecord::Schema.define(:version => 20130712021725) do
   create_table "workers", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.integer  "phone"
+    t.string   "phone"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "company_id"
