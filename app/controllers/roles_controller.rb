@@ -21,7 +21,7 @@ class RolesController < ApplicationController
       @supported_models = Astrotils::get_models_name.map { |model_name|
         begin
           c = Object.const_get(model_name)
-          if c.method_defined?(:get_component_info) and ((c.get_component_info()[0] == :acopio and @company.system_type == false) or (c.get_component_info()[0] == :packing and @company.system_type == true))
+          if c.respond_to?(:get_component_info) and ((c.get_component_info()[0] == :acopio and @company.system_type == false) or (c.get_component_info()[0] == :packing and @company.system_type == true))
             nil
           else
             [c.model_name.human, model_name]
