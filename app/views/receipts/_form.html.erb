@@ -273,7 +273,6 @@ var config = 'pack_pallet';
   function add_registers_to (receipt_id, producer_id) {
     for (var key in registers) {
       var register = registers[key];
-
       var code = register.code;
       var gross_weight = register.gross_weight;
       var pack_type_id = register.pack_type_id;
@@ -300,6 +299,12 @@ var config = 'pack_pallet';
           async: false,
           data: { pack_group_receipt : {gross_weight: gross_weight, pack_type_id: pack_type_id, price_per_unit: price_per_unit, quality_id: quality_id, quantity: quantity, receipt_id: receipt_id, variety_id: variety_id} } }); 
       }
+      $.ajax({
+        url: "/producers/"+producer_id+"/empty_packs_producer_moves",
+        type: "POST",
+        dataType: "json",
+        async:false,
+        data: { empty_packs_producer_move : {producer_id: producer_id,pack_type_id: pack_type_id,quantity: quantity,pack_option: "ingreso"}}});
       //agregar a envases prestados
     };
     set_modified(false);

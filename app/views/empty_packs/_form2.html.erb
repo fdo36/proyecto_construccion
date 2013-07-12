@@ -1,14 +1,16 @@
 <script type="text/javascript">
 var pack_type_array_destination = new Array();
-var count=0;
+var count_destination=0;
 function show_rut_destination(s){
-	if(s.value == "")
-	{
+	if(s.value == ""){
  		var inputRut = document.getElementById('rut_destination');
 		inputRut.value = "-";
+		var table2 = document.getElementById('tableDestination');
+			for(var i=1; i<table2.rows.length; i+=1){
+				table2.rows[i].cells[2].innerHTML=0; 	 				
+			}
 	}
-	else
-	{
+	else{
 	 	$.get("/destinations.json", function(data) {
 			$.each(data, function(index, value){
 				if(s.value==value.id)
@@ -54,13 +56,22 @@ function show_rut_destination(s){
 	});
 	stock_pack_type();
 }
+function disabled_destination(){
+	var destination = document.getElementById('Destination');
+	if(pack_type_array_destination.length==0){
+		destination.disabled=false;		
+	}
+	else{	
+		destination.disabled=true;
+	}
+}
 function displayResultDestination(pack_add){
-
-	var button = '<a id="'+count+'"align="center" 	onclick="delete_row_destination(this)">Eliminar</a>';	
+	disabled_destination();
+	var button = '<a id="'+count_destination+'"align="center" 	onclick="delete_row_destination(this)">Eliminar</a>';	
 		$('#myTableDestination').dataTable().fnAddData(
 		[pack_add.pack_type,pack_add.quantity,pack_add.option,
  		button]);
- 	count++;	 
+ 	count_destination++;	 
 }
 function clear_field_destination(){
 	var radio1 =document.getElementById('radioDestination1');
@@ -72,12 +83,13 @@ function clear_field_destination(){
 	select.value="";
 	quantity.value="";
 }
-function pack_destination(pack_type_id,destination_id,pack_type,quantity,option){
+function pack_destination(pack_type_id,destination_id,pack_type,quantity,option,id){
 	this.pack_type_id = pack_type_id;
 	this.destination_id = destination_id;
 	this.pack_type = pack_type;
 	this.quantity = quantity;
 	this.option = option;
+	this.id = id;
 }
 function new_pack_destination(){
 	var radio1 =document.getElementById('radioDestination1');
@@ -86,45 +98,34 @@ function new_pack_destination(){
 	var selectp = document.getElementById("Destination").value;
 	var select = document.getElementById("mySelectDestination");
 	
-	if(validate_radio(radio1,radio2)==true)
-	{
-		console.log("1");
-		var option;
-		if(radio1.checked){
-			option = radio1.value;
-		}
-		else{
-			option = radio2.value;
-		}	
-		if(validate_quantity(quantity)==true){
-			console.log("2");	
-			var stock = document.getElementById('stockDestination').value;		
-			if(validate_stock(quantity,option,stock)==true){
-				console.log("3");
-				if(validate_pack_type(select.value)==true){
-					console.log("4");
-					var pack_add_destination = new pack_destination(select.value,selectp,select.options[select.selectedIndex].text,quantity,option);
-					pack_type_array_destination.push(pack_add_destination);
-					displayResultDestination(pack_add_destination);
-					clear_field_destination();
-				}
+	if(validate_producer(selectp)==true){
+		if(validate_radio(radio1,radio2)==true){		
+			var option;
+			if(radio1.checked){
+				option = radio1.value;
+			}
+			else{
+				option = radio2.value;
+			}	
+			if(validate_quantity(quantity)==true){
+				
+				var stock = document.getElementById('stockDestination').value;		
+				if(validate_stock(quantity,option,stock)==true){
+					console.log(option);
+					if(validate_pack_type(select.value)==true){
+						
+						if(validate_register(select.value,option)==true){
+							var pack_add = new pack(select.value,selectp,select.options[select.selectedIndex].text,quantity,option,count_destination);
+							pack_type_array_destination.push(pack_add);
+							displayResultDestination(pack_add);
+							clear_field_destination();
+						}
+					}
 
+				}
 			}
 		}
 	}
-}
-function delete_row_destination(b){
-	var table = document.getElementById("myTableDestination");
-	var parent= b.parentNode;	
-	while(parent.nodeName.toLowerCase()!='tr'){
-		parent = parent.parentNode;
-	}
-	$('#myTable').dataTable().fnDeleteRow(parent);
-	alert(parent.childNodes[3].id);
-	//pack_type_array.remove[parent.childNodes[0].id];
-	count--;
-	console.log(count);
-	
 }
 function add_db_destination(){
 	for(var i=0; i<pack_type_array_destination.length; i+=1){
@@ -140,34 +141,6 @@ function add_db_destination(){
 		
 	}
 }
-function stock_calculate(){
-	var pack_id = document.getElementById('mySelectDestination');
-	
-	$.get("/destinations.json", function(data){
-		$.each(data, function(index, value){
-			var destination_id= value.id;
-			var quantity=0;
-			$.get("/destinations/"+destination_id+"/empty_packs_destination_moves.json", function(data){
-		  	$.each(data, function(index, value){
-				if(value.pack_type_id==pack_id.value)
-				{	
-					if(value.pack_option=="ingreso")
-						{
-							quantity = quantity + value.quantity;
-						}
-						else
-						{
-							quantity = quantity - value.quantity;
-						}
-		 		}
-
-			});
-			var stock_pack_type = document.getElementById('stock');
-			stock_pack_type.value = quantity;  
-			});
-		});		
-	});
-}
 function delete_row_destination(b){
 	var table = document.getElementById("myTableDestination");
 	var parent= b.parentNode;	
@@ -175,11 +148,12 @@ function delete_row_destination(b){
 		parent = parent.parentNode;
 	}
 	$('#myTableDestination').dataTable().fnDeleteRow(parent);
-	for(var i=0;i<pack_type_array.length;i++){
-		if(pack_type_array[i].producer_id==parent.childNodes[0].id){
-			pack_type_array.remove[i];
+	for(i=0; i<pack_type_array_destination.length;i++){
+		if(pack_type_array_destination[i].id==b.id){
+			pack_type_array_destination.splice(i, 1);			
 		}
 	}
+	disabled_destination();
 }
 function stock_calculate_destination(){
 	var pack_id = document.getElementById('mySelectDestination');
@@ -190,18 +164,14 @@ function stock_calculate_destination(){
 			var quantity=0;
 			$.get("/destinations/"+destination_id+"/empty_packs_destination_moves.json", function(data){
 		  	$.each(data, function(index, value){
-				if(value.pack_type_id==pack_id.value)
-				{	
-					if(value.pack_option=="ingreso")
-						{
-							quantity = quantity + value.quantity;
-						}
-						else
-						{
-							quantity = quantity - value.quantity;
-						}
-		 		}
-
+				if(value.pack_type_id==pack_id.value){	
+					if(value.pack_option=="ingreso"){
+						quantity = quantity + value.quantity;
+					}
+					else{
+						quantity = quantity - value.quantity;
+					}
+		 		}	
 			});
 			var stock_pack_type = document.getElementById('stockDestination');
 			stock_pack_type.value = quantity;  
@@ -215,7 +185,8 @@ function stock_calculate_destination(){
 <!-- Selector de Destinos -->
 <div class="line-forme">
 	<div class="forme-lab">
-	 <%= label_tag 'Destino'%> 
+	 <%= label_tag 'Destino'%>
+	 <em class="formee-req">*</em> 
 	</div>
 	<% @destinations_array = Destination.where(:company_id => current_user.company_id).map { |destination| [destination.name, destination.id] } %>
 	<div class="forme-in">
@@ -234,7 +205,8 @@ function stock_calculate_destination(){
 <!-- RadioButton ingreso/despacho -->
 <div class="line-forme">
 	<div class="forme-lab">
-		<label>Opcion</label><br />
+		<label>Opcion</label>
+		<em class="formee-req">*</em><br />
 	</div>
 	<div class="forme-in">
 		<input id="radioDestination1"type="radio" name="option" value="ingreso">Ingreso
@@ -244,7 +216,8 @@ function stock_calculate_destination(){
 <!-- Selector de envases -->
 <div class="line-forme">
 	<div class="forme-lab">
-		<%= label_tag 'Envase'%> 
+		<%= label_tag 'Envase'%>
+		<em class="formee-req">*</em> 
 	</div>
 	<% @pack_types_array = PackType.all.map { |pack_type| [pack_type.name, pack_type.id] } %>
 	<div class="forme-in">
@@ -263,7 +236,8 @@ function stock_calculate_destination(){
 <!--Cantidad del envese selectionado-->
 <div class="line-forme">
 	<div class="forme-lab">
-	<%= label_tag 'Cantidad'%> 
+	<%= label_tag 'Cantidad'%>
+	 <em class="formee-req">*</em>
 	</div>    
 	<div class="forme-in">
 		<input id="quantityDestination" type="text"><br>

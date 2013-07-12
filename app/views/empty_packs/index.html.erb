@@ -14,16 +14,13 @@ $(document).ready(function() {
     var activeTab = $(this).find("a").attr("href");
     $(activeTab).fadeIn(); 
     return false;
-    
   });
   searchPackType();
 });
-
 /******************************************************************************/
 
 /*Busca los tipos de envases que existen en la compañia*/
-function searchPackType()
-{
+function searchPackType(){
   $.get("/pack_types.json", function(data){
     $.each(data, function(index, value){  
       var packtype = new pack_type(value.id,0)
@@ -31,14 +28,12 @@ function searchPackType()
     });
   });
 }
-function pack_type(id,quantity)
-{
+function pack_type(id,quantity){
   this.pack_id = id;
   this.quantity = quantity;
 }
 /*Modifica el stock*/
-function addPack_type(id,quantity,option)
-{
+function addPack_type(id,quantity,option){
   for(var i=0;i<pack_types.length;i++)
   {
     if(pack_types[i].pack_id==id)
@@ -55,8 +50,7 @@ function addPack_type(id,quantity,option)
   }
 }
 /*Busca stock para los envases*/
-function stock_pack_type()
-{ 
+function stock_pack_type(){ 
   /*Cantidad de envases de productor*/
   $.get("/producers.json", function(data){
     $.each(data, function(index, value){
