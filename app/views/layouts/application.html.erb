@@ -139,6 +139,13 @@
 								</ul>
 							<% end %>
 							</li>
+							<%if(can?(:manage, Producer))%>
+								<li>
+									<ul>
+									<a href="/reports">Informes</a>
+									</ul>
+								</li>
+							<% end %>
 						<% end %>
 
 						<% components = categories['Inventario'] %>
