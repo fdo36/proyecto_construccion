@@ -4,6 +4,7 @@ class PackingPallet < ActiveRecord::Base
   announce_component(:packing, "Recursos", 1)
 
   attr_accessible :gross_weight, :pack_type_id, :quantity, :tare, 
+
   :temperature, :unit_price, :pallet_code, :producer_id, :receipt_packing_io_id, :variety_id , :company_id
 
   validates :gross_weight, :pack_type_id, :quantity, :tare, :temperature, :unit_price, 
@@ -19,5 +20,5 @@ class PackingPallet < ActiveRecord::Base
   belongs_to :receipt_packing_io
   belongs_to :frozen_tunnel_io
   belongs_to :receipt_packing_io
-  belongs_to :variety_id
+  belongs_to :variety
 end
