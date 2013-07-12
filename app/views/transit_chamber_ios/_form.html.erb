@@ -1,9 +1,8 @@
 <script type="text/javascript">
 
-function add_pallets(){
+function add_pallets(p_company_id){
   var p_temperature = $("#transit_chamber_io_temperature").val();
   var p_worker_id = $("#transit_chamber_io_worker_id").val();
-  
 
   if (validarCampos(p_temperature, p_worker_id)){
 
@@ -18,7 +17,8 @@ function add_pallets(){
                 type: "POST",
                   data: {transit_chamber_io:{ temperature: p_temperature,
                                               worker_id: p_worker_id,
-                                              packing_pallet_id: p_packing_pallet_id}
+                                              packing_pallet_id: p_packing_pallet_id,
+                                              company_id: p_company_id}
                         }                      
               }).done(function(){
                 window.location = "/transit_chamber_ios"
@@ -285,5 +285,6 @@ $(document).ready(function(){
 </div>
 <div class="foot-box">
     <%= link_to 'Cancelar', transit_chamber_ios_path , :class => "button silver alignright" %>
-    <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallets();"%>
+    <% company_id = @current_user.company_id %>
+    <%= button_tag "Agregar" , :class => "button green alignright", :onclick => "add_pallets(#{company_id});"%>
 </div>

@@ -55,6 +55,7 @@ class TransitChamberIosController < ApplicationController
   def new
     @transit_chamber_io = TransitChamberIo.new
     @transit_chamber_io.io_datetime = DateTime.current();
+    @current_user = current_user
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @transit_chamber_io }
